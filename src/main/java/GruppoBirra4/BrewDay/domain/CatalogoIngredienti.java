@@ -4,11 +4,10 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class CatalogoIngredienti {
-	private Set<Ingrediente> ingredienti = new TreeSet<Ingrediente>();
-	private CatalogoIngredienti istanza;
+	private Set<Ingrediente> ingredienti = new TreeSet<>();
+	private static CatalogoIngredienti istanza = null;
 	
 	private CatalogoIngredienti(Set<Ingrediente> ingredienti) {
-		super();
 		this.ingredienti = ingredienti;
 	}
 	

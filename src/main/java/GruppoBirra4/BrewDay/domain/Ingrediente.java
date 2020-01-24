@@ -1,6 +1,6 @@
 package GruppoBirra4.BrewDay.domain;
 
-public abstract class Ingrediente {
+public class Ingrediente {
 	
 	public enum Categoria {
 		MALTO,
