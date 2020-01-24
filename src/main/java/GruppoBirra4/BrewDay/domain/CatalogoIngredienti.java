@@ -4,16 +4,16 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class CatalogoIngredienti {
-	private Set<Ingrediente> ingredienti = new TreeSet<>();
-	private static CatalogoIngredienti istanza = null;
+	private Set<Ingrediente> ingredienti;
+	private static CatalogoIngredienti istanza;
 	
-	private CatalogoIngredienti(Set<Ingrediente> ingredienti) {
-		this.ingredienti = ingredienti;
+	private CatalogoIngredienti() {
+		this.ingredienti = new TreeSet<>();
 	}
 	
-	public CatalogoIngredienti getIstanza() {
+	public static synchronized CatalogoIngredienti getIstanza() {
 		if (istanza == null){
-			istanza = new CatalogoIngredienti(ingredienti);	
+			istanza = new CatalogoIngredienti();	
 		}
 		return istanza;
 	}
