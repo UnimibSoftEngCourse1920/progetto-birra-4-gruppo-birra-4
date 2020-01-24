@@ -15,7 +15,7 @@ public class Ingrediente {
 	private double quantitaDisponibile;
 	
 	
-	public Ingrediente(String nome, Categoria categoria, int quantitaDisponibile) {
+	public Ingrediente(String nome, Categoria categoria, double quantitaDisponibile) {
 		this.nome = nome;
 		this.categoria = categoria;
 		this.quantitaDisponibile = quantitaDisponibile;
@@ -26,6 +26,8 @@ public class Ingrediente {
 	}
 
 	public void setNome(String nome) {
+		if((nome.isEmpty()) || (nome.matches("[ -]_*")))
+			throw new IllegalArgumentException();
 		this.nome = nome;
 	}
 
@@ -34,6 +36,8 @@ public class Ingrediente {
 	}
 
 	public void setQuantitaDisponibile(double quantitaDisponibile) {
+		if(quantitaDisponibile<0)
+			throw new IllegalArgumentException();
 		this.quantitaDisponibile = quantitaDisponibile;
 	}
 
