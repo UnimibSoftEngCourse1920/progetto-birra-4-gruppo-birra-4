@@ -36,7 +36,7 @@ public class Ricetta {
 	public static Ricetta creaRicetta(String nome, String descrizione, Ingrediente[] ingredienti,
 			String passaggi, double quantitaAcqua, double quantitaBirra) {
 		
-		//checkValori(nome, descrizione, ingredienti, passaggi, quantitaAcqua, quantitaBirra);
+		checkValori(nome, descrizione, ingredienti, passaggi, quantitaAcqua, quantitaBirra);
 		return new Ricetta(nome, descrizione, ingredienti, passaggi, quantitaAcqua, quantitaBirra);
 	}
 	
