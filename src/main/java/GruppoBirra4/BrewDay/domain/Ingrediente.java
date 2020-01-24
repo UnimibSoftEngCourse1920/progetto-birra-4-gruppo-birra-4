@@ -1,5 +1,7 @@
 package GruppoBirra4.BrewDay.domain;
 
+import java.util.UUID;
+
 public class Ingrediente {
 	
 	public enum Categoria {
@@ -10,24 +12,28 @@ public class Ingrediente {
 		ADDITIVO
 	}
 	
+	private String id;
 	private String nome;
 	private Categoria categoria;
 	private double quantitaDisponibile;
 	
 	
 	public Ingrediente(String nome, Categoria categoria, double quantitaDisponibile) {
+		this.id = UUID.randomUUID().toString(); 
 		this.nome = nome;
 		this.categoria = categoria;
 		this.quantitaDisponibile = quantitaDisponibile;
 	}
 
+	public  String getId() {
+		return id;
+	}
+	
 	public String getNome() {
 		return nome;
 	}
 
-	public void setNome(String nome) {
-		if((nome.isEmpty()) || (nome.matches("[ -]_*")))
-			throw new IllegalArgumentException();
+	private void setNome(String nome) {
 		this.nome = nome;
 	}
 
@@ -35,9 +41,7 @@ public class Ingrediente {
 		return quantitaDisponibile;
 	}
 
-	public void setQuantitaDisponibile(double quantitaDisponibile) {
-		if(quantitaDisponibile<0)
-			throw new IllegalArgumentException();
+	private void setQuantitaDisponibile(double quantitaDisponibile) {
 		this.quantitaDisponibile = quantitaDisponibile;
 	}
 
@@ -45,8 +49,24 @@ public class Ingrediente {
 		return categoria;
 	}
 
-	public void setCategoria(Categoria categoria) {
+	private void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
+	}
+	
+	public void modificaIngrediente(Ingrediente ingrediente, double nuovaQuantita) {
+		if(quantitaDisponibile<0)
+			throw new IllegalArgumentException();
+		ingrediente.setQuantitaDisponibile(nuovaQuantita);
+	}
+
+	public void modificaIngrediente(Ingrediente ingrediente, String nuovoNome) {
+		if((nuovoNome.isEmpty()) || (nuovoNome.matches("[ -]_*")))
+			throw new IllegalArgumentException();
+		ingrediente.setNome(nuovoNome);
+	}
+	
+	public void modificaIngrediente(Ingrediente ingrediente, Categoria categoria) {
+		ingrediente.setCategoria(categoria);
 	}
 	
 }
