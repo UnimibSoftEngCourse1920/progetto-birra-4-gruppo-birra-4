@@ -1,4 +1,4 @@
-package GruppoBirra4.BrewDay.domain;
+package gruppoBirra4.brewDay.domain;
 
 import java.util.UUID;
 

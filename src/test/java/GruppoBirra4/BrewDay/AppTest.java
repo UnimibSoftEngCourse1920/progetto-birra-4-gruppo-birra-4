@@ -1,4 +1,4 @@
-package GruppoBirra4.BrewDay;
+package gruppoBirra4.brewDay;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
