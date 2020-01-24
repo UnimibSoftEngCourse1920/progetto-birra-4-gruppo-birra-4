@@ -1,4 +1,4 @@
-package gruppoBirra4.brewDay.domain;
+package GruppoBirra4.BrewDay.domain;
 
 import java.util.Map;
 import java.util.TreeMap;

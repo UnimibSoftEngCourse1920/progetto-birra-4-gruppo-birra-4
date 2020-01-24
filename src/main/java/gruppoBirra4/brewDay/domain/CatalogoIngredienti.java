@@ -1,8 +1,8 @@
-package gruppoBirra4.brewDay.domain;
+package GruppoBirra4.BrewDay.domain;
 
 import java.util.TreeMap;
 
-import gruppoBirra4.brewDay.domain.Ingrediente;
+import GruppoBirra4.BrewDay.domain.Ingrediente;
 
 public class CatalogoIngredienti {
 	private TreeMap<String, Ingrediente> ingredienti;

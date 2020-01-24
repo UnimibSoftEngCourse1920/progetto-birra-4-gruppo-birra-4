@@ -1,4 +1,4 @@
-package gruppoBirra4.brewDay.domain;
+package GruppoBirra4.BrewDay.domain;
 
 public class Ricetta {
 	
