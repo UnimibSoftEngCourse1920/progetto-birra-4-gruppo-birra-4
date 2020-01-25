@@ -19,7 +19,7 @@ public class GestoreIngredienti {
 		return istanza;
 	}
 
-	public void creaIngrediente(String nome, Categoria categoria, double quantitaDisponibile) throws Exception {
+	public void creaIngrediente(String nome, Categoria categoria, double quantitaDisponibile) {
 		if(CatalogoIngredienti.getIstanza().checkNome(nome))
 			return;
 		Ingrediente ingrediente = Ingrediente.creaIngrediente(nome, categoria, quantitaDisponibile);
