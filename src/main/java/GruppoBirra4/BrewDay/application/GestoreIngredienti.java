@@ -20,7 +20,7 @@ public class GestoreIngredienti {
 	}
 
 	public void creaIngrediente(String nome, Categoria categoria, double quantitaDisponibile) {
-		if(CatalogoIngredienti.getIstanza().checkNome(nome))
+		if(CatalogoIngredienti.getIstanza().checkCatalogo(nome, categoria))
 			return;
 		Ingrediente ingrediente = Ingrediente.creaIngrediente(nome, categoria, quantitaDisponibile);
 		CatalogoIngredienti.getIstanza().aggiungiIngrediente(ingrediente);

@@ -3,6 +3,7 @@ package GruppoBirra4.BrewDay.domain;
 import java.util.TreeMap;
 
 import GruppoBirra4.BrewDay.domain.Ingrediente;
+import GruppoBirra4.BrewDay.domain.Ingrediente.Categoria;
 
 public class CatalogoIngredienti {
 	private TreeMap<String, Ingrediente> ingredienti;
@@ -26,19 +27,17 @@ public class CatalogoIngredienti {
 	}
 		
 	public void aggiungiIngrediente(Ingrediente nuovoIngrediente) {
-		for (Ingrediente ing : ingredienti.values()) {
-			if((nuovoIngrediente.getNome().equals(ing.getNome())) && ((nuovoIngrediente.getCategoria()).equals(ing.getCategoria())))
-					return; //da modificare
-		}
+		if(checkCatalogo(nuovoIngrediente.getNome(), nuovoIngrediente.getCategoria()))
+			return;
 		ingredienti.put(nuovoIngrediente.getId(), nuovoIngrediente);
 	}
 	
-	public boolean checkNome(String nome) {
+	public boolean checkCatalogo(String nome, Categoria categoria) {
 		for (Ingrediente ing : ingredienti.values()) {
-			if((ing.getNome().equals(nome)))
-				return false;
+			if((ing.getNome().equals(nome)) && ((ing.getCategoria()).equals(categoria)))
+				return true;
 		}
-		return true;
+		return false;
 	}
 	
 }
