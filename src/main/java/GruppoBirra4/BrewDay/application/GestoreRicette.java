@@ -2,8 +2,7 @@ package GruppoBirra4.BrewDay.application;
 
 import java.util.TreeSet;
 
-import GruppoBirra4.BrewDay.domain.Ingrediente;
-import GruppoBirra4.BrewDay.domain.Ricetta;
+import GruppoBirra4.BrewDay.domain.QuantitaIngrediente;
 import GruppoBirra4.BrewDay.domain.Ricettario;
 
 public class GestoreRicette {
@@ -25,10 +24,9 @@ public class GestoreRicette {
 
 	}*/
 	
-	public void creaRicetta(String nome, String descrizione, Ingrediente[] ingredienti, String passaggi, double quantitaAcqua, double quantitaBirra) {
-		Ricetta ricetta = Ricetta.creaRicetta (nome, descrizione, ingredienti, passaggi, quantitaAcqua, quantitaBirra);
-		Ricettario.getIstanza().aggiungiRicetta(ricetta);
-
+	public void creaRicetta(String nome, String descrizione, QuantitaIngrediente[] quantitaIngredienti,
+							double quantitaAcqua, double quantitaBirra) {
+		Ricettario.getIstanza().creaRicetta (nome, descrizione, quantitaIngredienti, quantitaAcqua, quantitaBirra);
 	}
 	
 
