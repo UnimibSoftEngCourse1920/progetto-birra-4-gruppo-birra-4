@@ -20,9 +20,9 @@ public class Ingrediente {
 	
 	public Ingrediente(String nome, Categoria categoria, double quantitaDisponibile) {
 		this.id = UUID.randomUUID().toString(); 
-		this.nome = nome;
-		this.categoria = categoria;
-		this.quantitaDisponibile = quantitaDisponibile;
+		this.setNome(nome);
+		this.setCategoria(categoria);
+		this.setQuantitaDisponibile(quantitaDisponibile);
 	}
 
 	public  String getId() {
@@ -34,6 +34,8 @@ public class Ingrediente {
 	}
 
 	private void setNome(String nome) {
+		if((nome.isEmpty()) || (nome.matches("[ -]_*")))
+			throw new IllegalArgumentException();
 		this.nome = nome;
 	}
 
@@ -42,6 +44,8 @@ public class Ingrediente {
 	}
 
 	private void setQuantitaDisponibile(double quantitaDisponibile) {
+		if(quantitaDisponibile<0)
+			throw new IllegalArgumentException();
 		this.quantitaDisponibile = quantitaDisponibile;
 	}
 
@@ -53,14 +57,16 @@ public class Ingrediente {
 		this.categoria = categoria;
 	}
 	
+	public static Ingrediente creaIngrediente(String nome, Categoria categoria, double quantitaDisponibile) {
+			return new Ingrediente(nome, categoria, quantitaDisponibile);
+	}
+	
 	public void modificaIngrediente(Ingrediente ingrediente, double nuovaQuantita) {
-		if(quantitaDisponibile<0)
-			throw new IllegalArgumentException();
 		ingrediente.setQuantitaDisponibile(nuovaQuantita);
 	}
 
 	public void modificaIngrediente(Ingrediente ingrediente, String nuovoNome) {
-		if((nuovoNome.isEmpty()) || (nuovoNome.matches("[ -]_*")))
+		if((nuovoNome.isEmpty()) || (nuovoNome.matches("[!@#$%&*()_+=|<>?{}\\[\\]~-]")))
 			throw new IllegalArgumentException();
 		ingrediente.setNome(nuovoNome);
 	}

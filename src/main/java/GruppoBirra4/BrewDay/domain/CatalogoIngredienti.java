@@ -32,10 +32,13 @@ public class CatalogoIngredienti {
 		}
 		ingredienti.put(nuovoIngrediente.getId(), nuovoIngrediente);
 	}
-/*
-	public boolean checkNome(Ingrediente) {
-		
-	return false;	
+	
+	public boolean checkNome(String nome) {
+		for (Ingrediente ing : ingredienti.values()) {
+			if((ing.getNome().equals(nome)))
+				return false;
+		}
+		return true;
 	}
-*/	
+	
 }
