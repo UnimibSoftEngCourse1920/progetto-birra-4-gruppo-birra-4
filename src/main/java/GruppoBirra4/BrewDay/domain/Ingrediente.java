@@ -74,8 +74,8 @@ public class Ingrediente {
 		ingrediente.setNome(nuovoNome);
 	}
 	
-	public void modificaIngrediente(Ingrediente ingrediente, Categoria categoria) {
-		ingrediente.setCategoria(categoria);
+	public void modificaIngrediente(Ingrediente ingrediente, Categoria nuovaCategoria) {
+		ingrediente.setCategoria(nuovaCategoria);
 	}
 	
 }

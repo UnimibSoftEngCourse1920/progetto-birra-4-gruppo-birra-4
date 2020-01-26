@@ -30,5 +30,17 @@ public class GestoreIngredienti {
 	public void rimuoviIngrediente(Ingrediente ingrediente) {
 		CatalogoIngredienti.getIstanza().rimuoviIngrediente(ingrediente);
 	}
-		
+	
+	public void modificaIngrediente(Ingrediente ingrediente, double nuovaQuantita) {
+		ingrediente.modificaIngrediente(ingrediente, nuovaQuantita);
+	}
+	
+	public void modificaIngrediente(Ingrediente ingrediente, String nuovoNome) {
+		ingrediente.modificaIngrediente(ingrediente, nuovoNome);
+	}
+	
+	public void modificaIngrediente(Ingrediente ingrediente, Categoria nuovaCategoria) {
+		ingrediente.modificaIngrediente(ingrediente, nuovaCategoria);
+	}
+	
 }
