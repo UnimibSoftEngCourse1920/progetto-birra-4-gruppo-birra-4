@@ -20,10 +20,17 @@ public class Ricettario {
 		return istanza;
 	}
 	
-	public void aggiungiRicetta(Ricetta ricetta) {
+	private void aggiungiRicetta(Ricetta ricetta) {
 		if (ricette.put(ricetta.getNome(), ricetta) != null) {
-			System.out.println("Ricetta gia' presente nel ricettario");
+			//Solleva eccezione
 		}	
 	}
-
+	
+	public void creaRicetta(String nome, String descrizione, QuantitaIngrediente[] quantitaIngredienti,
+			double quantitaAcqua, double quantitaBirra) {
+		
+		Ricetta r = new Ricetta(nome, descrizione, quantitaIngredienti, quantitaAcqua, quantitaBirra); //Solleva eccezione
+		aggiungiRicetta(r); //Solleva eccezione
+	}
+	
 }
