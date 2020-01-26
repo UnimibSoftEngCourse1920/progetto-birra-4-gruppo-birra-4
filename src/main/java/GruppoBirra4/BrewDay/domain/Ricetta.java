@@ -1,16 +1,18 @@
 package GruppoBirra4.BrewDay.domain;
 
+import java.util.Set;
+
 public class Ricetta {
 	
 	private String nome;
 	private String descrizione;
-	private QuantitaIngrediente[] quantitaIngredienti;
+	private Set<QuantitaIngrediente> quantitaIngredienti;
 	//private String passaggi;
 	private double quantitaAcqua;
 	private double quantitaBirra;
 	
 	
-	public Ricetta(String nome, String descrizione, QuantitaIngrediente[] quantitaIngredienti, 
+	public Ricetta(String nome, String descrizione, Set<QuantitaIngrediente> quantitaIngredienti, 
 					double quantitaAcqua, double quantitaBirra) {
 		setNome(nome); //Solleva eccezione
 		setDescrizione(descrizione); 
@@ -25,7 +27,7 @@ public class Ricetta {
 	}
 	
 	private void setNome(String nome) {
-		nome.replaceAll("\\s+", " ").trim(); //sostituisce tutti i whitespaces (spazi + newline + tab +ecc)
+		nome.replaceAll("\\s+", " ").trim().toUpperCase(); //sostituisce tutti i whitespaces (spazi + newline + tab +ecc)
 		if(nome.isEmpty()) {				//con un singolo spazio e rimuove tutti gli spazi iniziali e finali
 			//Solleva eccezione
 		} else if (nome.length() >= 30) {
@@ -42,11 +44,11 @@ public class Ricetta {
 		this.descrizione = descrizione;
 	}
 
-	public QuantitaIngrediente[] getQuantitaIngredienti() {
+	public Set<QuantitaIngrediente> getQuantitaIngredienti() {
 		return quantitaIngredienti;
 	}
 
-	private void setQuantitaIngredienti(QuantitaIngrediente[] quantitaIngredienti) {
+	private void setQuantitaIngredienti(Set<QuantitaIngrediente> quantitaIngredienti) {
 		this.quantitaIngredienti = quantitaIngredienti;
 	}
 
