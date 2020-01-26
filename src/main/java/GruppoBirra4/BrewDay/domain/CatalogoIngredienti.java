@@ -19,11 +19,13 @@ public class CatalogoIngredienti {
 		}
 		return istanza;
 	}
-
-	public void rimuoviIngrediente(Ingrediente ingrediente) {
-		if(ingredienti.containsValue(ingrediente)) {
-			ingredienti.remove(ingrediente.getNome());
+	
+	public void creaIngrediente(String nome, Categoria categoria, double quantitaDisponibile) {
+		if(CatalogoIngredienti.getIstanza().checkCatalogo(nome, categoria)) {
+			//Solleva eccezione;
 		}
+		Ingrediente ingrediente = Ingrediente.creaIngrediente(nome, categoria, quantitaDisponibile);
+		CatalogoIngredienti.getIstanza().aggiungiIngrediente(ingrediente);
 	}
 		
 	public void aggiungiIngrediente(Ingrediente nuovoIngrediente) {
@@ -40,4 +42,16 @@ public class CatalogoIngredienti {
 		return false;
 	}
 	
+	public void rimuoviIngrediente(Ingrediente ingrediente) {
+		if(ingredienti.containsValue(ingrediente)) {
+			ingredienti.remove(ingrediente.getNome());
+		}
+	}
+	
+	/*
+	public Ingrediente[] visualizzaCatalogo() {
+		Ingrediente[] catalogo = ingredienti.values().toArray(new Ingrediente[0]);
+		return catalogo;
+	}
+	*/
 }

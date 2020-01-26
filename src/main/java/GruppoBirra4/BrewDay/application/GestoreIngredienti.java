@@ -18,12 +18,13 @@ public class GestoreIngredienti {
 		}
 		return istanza;
 	}
-
+	/*
+	public Ingrediente[] visualizzaCatalogo() {
+		return CatalogoIngredienti.getIstanza().visualizzaCatalogo();
+	}
+*/
 	public void creaIngrediente(String nome, Categoria categoria, double quantitaDisponibile) {
-		if(CatalogoIngredienti.getIstanza().checkCatalogo(nome, categoria))
-			return;
-		Ingrediente ingrediente = Ingrediente.creaIngrediente(nome, categoria, quantitaDisponibile);
-		CatalogoIngredienti.getIstanza().aggiungiIngrediente(ingrediente);
+		CatalogoIngredienti.getIstanza().creaIngrediente(nome, categoria, quantitaDisponibile);
 	}
 	
 	public void rimuoviIngrediente(Ingrediente ingrediente) {

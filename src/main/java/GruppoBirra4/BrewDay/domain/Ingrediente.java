@@ -19,10 +19,10 @@ public class Ingrediente {
 	
 	
 	public Ingrediente(String nome, Categoria categoria, double quantitaDisponibile) {
-		this.id = UUID.randomUUID().toString(); 
-		this.setNome(nome);
-		this.setCategoria(categoria);
-		this.setQuantitaDisponibile(quantitaDisponibile);
+		id = UUID.randomUUID().toString(); 
+		setNome(nome); //Solleva eccezione
+		setCategoria(categoria); //Solleva eccezione
+		setQuantitaDisponibile(quantitaDisponibile); //solleva eccezione
 	}
 
 	public  String getId() {
@@ -34,9 +34,13 @@ public class Ingrediente {
 	}
 
 	private void setNome(String nome) {
-		if((nome.isEmpty()) || (nome.matches("[ -]_*")))
-			throw new IllegalArgumentException();
-		this.nome = nome;
+		String nomeR = nome.replaceAll("\\s+", " ").trim(); //sostituisce tutti i whitespaces (spazi + newline + tab +ecc)
+		if(nomeR.isEmpty()) {				//con un singolo spazio e rimuove tutti gli spazi iniziali e finali
+			//Solleva eccezione
+		} else if (nomeR.length() >= 30) {
+			//Solleve eccezione
+		}
+		this.nome = nomeR;
 	}
 
 	public double getQuantitaDisponibile() {
@@ -44,8 +48,9 @@ public class Ingrediente {
 	}
 
 	private void setQuantitaDisponibile(double quantitaDisponibile) {
-		if(quantitaDisponibile<0)
-			throw new IllegalArgumentException();
+		if(quantitaDisponibile<0) {
+			//Solleva eccezione
+		}
 		this.quantitaDisponibile = quantitaDisponibile;
 	}
 
@@ -66,8 +71,6 @@ public class Ingrediente {
 	}
 
 	public void modificaIngrediente(Ingrediente ingrediente, String nuovoNome) {
-		if((nuovoNome.isEmpty()) || (nuovoNome.matches("[!@#$%&*()_+=|<>?{}\\[\\]~-]")))
-			throw new IllegalArgumentException();
 		ingrediente.setNome(nuovoNome);
 	}
 	
