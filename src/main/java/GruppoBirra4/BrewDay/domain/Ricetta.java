@@ -2,6 +2,8 @@ package GruppoBirra4.BrewDay.domain;
 
 import java.util.Set;
 
+import GruppoBirra4.BrewDay.errori.Notifica;
+
 public class Ricetta {
 	
 	private String nome;
@@ -12,12 +14,12 @@ public class Ricetta {
 	private double quantitaBirra;
 	
 	
-	private Ricetta(String nome, String descrizione, Set<QuantitaIngrediente> quantitaIngredienti, 
+	protected Ricetta(String nome, String descrizione, Set<QuantitaIngrediente> quantitaIngredienti, 
 					double quantitaAcqua, double quantitaBirra) {
 		if (validation(nome, descrizione, quantitaAcqua, quantitaBirra)) {
 			return;
 		}
-		setNome(nome); //Solleva eccezione
+		setNome(nome);
 		setDescrizione(descrizione); 
 		setQuantitaIngredienti(quantitaIngredienti); //Solleva eccezione
 		//setPassaggi(passaggi);
@@ -25,20 +27,26 @@ public class Ricetta {
 		setQuantitaBirra(quantitaBirra); //Solleva eccezione	
 	}
 	
-	protected static Ricetta creaRicetta(String nome, String descrizione, Set<QuantitaIngrediente> quantitaIngredienti, 
+	/*protected static Ricetta creaRicetta(String nome, String descrizione, Set<QuantitaIngrediente> quantitaIngredienti, 
 					double quantitaAcqua, double quantitaBirra) {
 		//boolean b validation(nome, descrizione, quantitaAcqua, quantitaBirra);
 		return new Ricetta(nome, descrizione, quantitaIngredienti, quantitaAcqua, quantitaBirra);
-	}
+	}*/
 	
 	private boolean validation(String nome, String descrizione, double quantitaAcqua, double quantitaBirra) {
-		validateNome(nome);
-		
+		boolean r = true;
+		r = r && validateNome(nome);
+		r = r && validateDescrizione(descrizione);
+		r = r && validateQuantita(quantita);
+		return r;
 	}
 
-	private void validateNome(String nome2) {
-		// TODO Auto-generated method stub
-		
+	private boolean validateNome(String nome) {
+		String nomeUC = nome.replaceAll("\\s+", " ").trim().toUpperCase(); //sostituisce tutti i whitespaces (spazi + newline + tab +ecc)
+																		//con un singolo spazio e rimuove tutti gli spazi iniziali e finali
+		if(nomeUC.isEmpty() || nomeUC.length() >= 30) {				
+			Notifica.getIstanza().addError("da 1 a max 555000");
+		} 	
 	}
 
 	public String getNome() {
