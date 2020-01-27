@@ -22,12 +22,6 @@ public class Ricettario {
 		return istanza;
 	}
 	
-	private void aggiungiRicetta(Ricetta r) {
-		if (ricette.put(r.getNome(), r) != null) {
-			Notifica.getIstanza().addError("E' gia' stata inserita una ricetta con questo nome");
-		}	
-	}
-	
 	public void creaRicetta(String nome, String descrizione, Set<QuantitaIngrediente> quantitaIngredienti,
 			double quantitaAcqua, double quantitaBirra) {
 		
@@ -36,6 +30,12 @@ public class Ricettario {
 			return;
 		}		
 		aggiungiRicetta(r);
+	}
+	
+	private void aggiungiRicetta(Ricetta r) {
+		if (ricette.put(r.getNome(), r) != null) {
+			Notifica.getIstanza().addError("E' gia' stata inserita una ricetta con questo nome");
+		}	
 	}
 
 	public String visualizzaRicettario() {

@@ -14,6 +14,9 @@ public class Ricetta {
 	
 	private Ricetta(String nome, String descrizione, Set<QuantitaIngrediente> quantitaIngredienti, 
 					double quantitaAcqua, double quantitaBirra) {
+		if (validation(nome, descrizione, quantitaAcqua, quantitaBirra)) {
+			return;
+		}
 		setNome(nome); //Solleva eccezione
 		setDescrizione(descrizione); 
 		setQuantitaIngredienti(quantitaIngredienti); //Solleva eccezione
@@ -24,10 +27,20 @@ public class Ricetta {
 	
 	protected static Ricetta creaRicetta(String nome, String descrizione, Set<QuantitaIngrediente> quantitaIngredienti, 
 					double quantitaAcqua, double quantitaBirra) {
-		//validation(nome, descrizione, quantitaAcqua, quantitaBirra);
+		//boolean b validation(nome, descrizione, quantitaAcqua, quantitaBirra);
 		return new Ricetta(nome, descrizione, quantitaIngredienti, quantitaAcqua, quantitaBirra);
 	}
 	
+	private boolean validation(String nome, String descrizione, double quantitaAcqua, double quantitaBirra) {
+		validateNome(nome);
+		
+	}
+
+	private void validateNome(String nome2) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public String getNome() {
 		return nome;
 	}
