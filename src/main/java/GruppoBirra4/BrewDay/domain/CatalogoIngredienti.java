@@ -21,14 +21,14 @@ public class CatalogoIngredienti {
 	}
 	
 	public void creaIngrediente(String nome, Categoria categoria, double quantitaDisponibile) {
-		if(CatalogoIngredienti.getIstanza().checkCatalogo(nome, categoria)) { 
-			//Solleva eccezione;
-		}
-		Ingrediente ingrediente = Ingrediente.creaIngrediente(nome, categoria, quantitaDisponibile); //Serve davvero un metodo statico per creare un'ingrediente??
+		Ingrediente ingrediente = Ingrediente.creaIngrediente(nome, categoria, quantitaDisponibile); 
 		aggiungiIngrediente(ingrediente);
 	}
 		
 	public void aggiungiIngrediente(Ingrediente nuovoIngrediente) {
+		if(checkCatalogo(nuovoIngrediente.getNome(), nuovoIngrediente.getCategoria())) {	
+			//Solleva eccezione
+		}
 		ingredienti.put(nuovoIngrediente.getId(), nuovoIngrediente);
 	}
 	

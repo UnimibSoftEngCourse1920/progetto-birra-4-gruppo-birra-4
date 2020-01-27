@@ -39,7 +39,7 @@ public class Ingrediente {
 		if(nomeUC.isEmpty()) {				//con un singolo spazio e rimuove tutti gli spazi iniziali e finali
 			//Solleva eccezione
 		} else if (nomeUC.length() >= 30) {
-			//Solleve eccezione
+			//Solleva eccezione
 		}
 		this.nome = nomeUC;
 	}
