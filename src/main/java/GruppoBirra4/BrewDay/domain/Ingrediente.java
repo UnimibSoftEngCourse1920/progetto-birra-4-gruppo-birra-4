@@ -34,13 +34,14 @@ public class Ingrediente {
 	}
 
 	private void setNome(String nome) {
-		String nomeR = nome.replaceAll("\\s+", " ").trim(); //sostituisce tutti i whitespaces (spazi + newline + tab +ecc)
-		if(nomeR.isEmpty()) {				//con un singolo spazio e rimuove tutti gli spazi iniziali e finali
+		String nomeUC = nome.replaceAll("\\s+", " ").trim().toUpperCase();
+				//sostituisce tutti i whitespaces (spazi + newline + tab +ecc)
+		if(nomeUC.isEmpty()) {				//con un singolo spazio e rimuove tutti gli spazi iniziali e finali
 			//Solleva eccezione
-		} else if (nomeR.length() >= 30) {
+		} else if (nomeUC.length() >= 30) {
 			//Solleve eccezione
 		}
-		this.nome = nomeR;
+		this.nome = nomeUC;
 	}
 
 	public double getQuantitaDisponibile() {
