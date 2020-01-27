@@ -2,6 +2,8 @@ package GruppoBirra4.BrewDay.domain;
 
 import java.util.UUID;
 
+import GruppoBirra4.BrewDay.errori.Notifica;
+
 public class Ingrediente {
 	
 	public enum Categoria {
@@ -15,44 +17,57 @@ public class Ingrediente {
 	private String id;
 	private String nome;
 	private Categoria categoria;
-	private double quantitaDisponibile;
+	private double quantita;
 	
 	
-	public Ingrediente(String nome, Categoria categoria, double quantitaDisponibile) {
+	public Ingrediente(String nome, Categoria categoria, double quantita) {
 		id = UUID.randomUUID().toString(); 
 		setNome(nome); //Solleva eccezione
 		setCategoria(categoria); //Solleva eccezione
-		setQuantitaDisponibile(quantitaDisponibile); //solleva eccezione
+		setQuantita(quantita); //solleva eccezione
 	}
 
 	public  String getId() {
 		return id;
 	}
 	
+	private boolean validateNome(String nome) {
+		String nomeUC = nome.replaceAll("\\s+", " ").trim().toUpperCase();
+		if(nomeUC.isEmpty()) {				
+			Notifica.getIstanza().addError("Il nome deve contenere dei caratteri");
+			return false;
+		} else if (nomeUC.length() >= 30) {
+			Notifica.getIstanza().addError("Il nome deve contenere al massimo 30 caratteri");
+			return false;
+		}
+		return true;
+	}
+	
 	public String getNome() {
 		return nome;
 	}
-
+	
 	private void setNome(String nome) {
 		String nomeUC = nome.replaceAll("\\s+", " ").trim().toUpperCase();
 				//sostituisce tutti i whitespaces (spazi + newline + tab +ecc)
-		if(nomeUC.isEmpty()) {				//con un singolo spazio e rimuove tutti gli spazi iniziali e finali
-			//Solleva eccezione
-		} else if (nomeUC.length() >= 30) {
-			//Solleva eccezione
-		}
+				//con un singolo spazio e rimuove tutti gli spazi iniziali e finali
 		this.nome = nomeUC;
 	}
-
-	public double getQuantitaDisponibile() {
-		return quantitaDisponibile;
+	
+	private boolean validateQuantita() {
+		if(quantita<0) {
+			Notifica.getIstanza().addError("La quantità inserita deve essere maggiore o uguale a 0");
+			return false;
+		}
+		return true;
 	}
 
-	private void setQuantitaDisponibile(double quantitaDisponibile) {
-		if(quantitaDisponibile<0) {
-			//Solleva eccezione
-		}
-		this.quantitaDisponibile = quantitaDisponibile;
+	public double getQuantita() {
+		return quantita;
+	}
+
+	private void setQuantita(double quantita) {
+		this.quantita = quantita;
 	}
 
 	public Categoria getCategoria() {
@@ -63,12 +78,8 @@ public class Ingrediente {
 		this.categoria = categoria;
 	}
 	
-	public static Ingrediente creaIngrediente(String nome, Categoria categoria, double quantitaDisponibile) {
-			return new Ingrediente(nome, categoria, quantitaDisponibile);
-	}
-	
 	public void modificaIngrediente(Ingrediente ingrediente, double nuovaQuantita) {
-		ingrediente.setQuantitaDisponibile(nuovaQuantita);
+		ingrediente.setQuantita(nuovaQuantita);
 	}
 
 	public void modificaIngrediente(Ingrediente ingrediente, String nuovoNome) {

@@ -4,6 +4,7 @@ import java.util.TreeMap;
 
 import GruppoBirra4.BrewDay.domain.Ingrediente;
 import GruppoBirra4.BrewDay.domain.Ingrediente.Categoria;
+import GruppoBirra4.BrewDay.errori.Notifica;
 
 public class CatalogoIngredienti {
 	private TreeMap<String, Ingrediente> ingredienti;
@@ -21,13 +22,17 @@ public class CatalogoIngredienti {
 	}
 	
 	public void creaIngrediente(String nome, Categoria categoria, double quantitaDisponibile) {
-		Ingrediente ingrediente = Ingrediente.creaIngrediente(nome, categoria, quantitaDisponibile); 
-		aggiungiIngrediente(ingrediente);
+		Ingrediente ingrediente = new Ingrediente(nome, categoria, quantitaDisponibile);
+		if(ingrediente == null)
+			return;
+		else
+			aggiungiIngrediente(ingrediente);
 	}
 		
 	public void aggiungiIngrediente(Ingrediente nuovoIngrediente) {
 		if(checkCatalogo(nuovoIngrediente.getNome(), nuovoIngrediente.getCategoria())) {	
-			//Solleva eccezione
+			Notifica.getIstanza().addError("L'ingrediente è già presente nel catalogo");
+			return;
 		}
 		ingredienti.put(nuovoIngrediente.getId(), nuovoIngrediente);
 	}
