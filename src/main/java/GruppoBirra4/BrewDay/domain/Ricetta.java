@@ -12,9 +12,8 @@ public class Ricetta {
 	private double quantitaBirra;
 	
 	
-	public Ricetta(String nome, String descrizione, Set<QuantitaIngrediente> quantitaIngredienti, 
+	private Ricetta(String nome, String descrizione, Set<QuantitaIngrediente> quantitaIngredienti, 
 					double quantitaAcqua, double quantitaBirra) {
-		//validation(nome, descrizione, quantitaAcqua, quantitaBirra);
 		setNome(nome); //Solleva eccezione
 		setDescrizione(descrizione); 
 		setQuantitaIngredienti(quantitaIngredienti); //Solleva eccezione
@@ -22,7 +21,13 @@ public class Ricetta {
 		setQuantitaAcqua(quantitaAcqua); //Solleva eccezione
 		setQuantitaBirra(quantitaBirra); //Solleva eccezione	
 	}
-
+	
+	protected static Ricetta creaRicetta(String nome, String descrizione, Set<QuantitaIngrediente> quantitaIngredienti, 
+					double quantitaAcqua, double quantitaBirra) {
+		//validation(nome, descrizione, quantitaAcqua, quantitaBirra);
+		return new Ricetta(nome, descrizione, quantitaIngredienti, quantitaAcqua, quantitaBirra);
+	}
+	
 	public String getNome() {
 		return nome;
 	}

@@ -4,6 +4,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import GruppoBirra4.BrewDay.errori.Notifica;
+
 public class Ricettario {
 	
 	private Map<String, Ricetta> ricette;
@@ -20,17 +22,20 @@ public class Ricettario {
 		return istanza;
 	}
 	
-	private void aggiungiRicetta(Ricetta ricetta) {
-		if (ricette.put(ricetta.getNome(), ricetta) != null) {
-			//Solleva eccezione
+	private void aggiungiRicetta(Ricetta r) {
+		if (ricette.put(r.getNome(), r) != null) {
+			Notifica.getIstanza().addError("E' gia' stata inserita una ricetta con questo nome");
 		}	
 	}
 	
 	public void creaRicetta(String nome, String descrizione, Set<QuantitaIngrediente> quantitaIngredienti,
 			double quantitaAcqua, double quantitaBirra) {
 		
-		Ricetta r = new Ricetta(nome, descrizione, quantitaIngredienti, quantitaAcqua, quantitaBirra); //Solleva eccezione
-		aggiungiRicetta(r); //Solleva eccezione
+		Ricetta r = Ricetta.creaRicetta(nome, descrizione, quantitaIngredienti, quantitaAcqua, quantitaBirra); //Solleva eccezione
+		if (r == null) {
+			return;
+		}		
+		aggiungiRicetta(r);
 	}
 
 	public String visualizzaRicettario() {
