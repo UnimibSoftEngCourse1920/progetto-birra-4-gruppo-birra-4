@@ -33,13 +33,14 @@ public class Ricetta {
 	}
 	
 	private void setNome(String nome) {
-		nome.replaceAll("\\s+", " ").trim().toUpperCase(); //sostituisce tutti i whitespaces (spazi + newline + tab +ecc)
-		if(nome.isEmpty()) {				//con un singolo spazio e rimuove tutti gli spazi iniziali e finali
+		String nomeUC = nome.replaceAll("\\s+", " ").trim().toUpperCase();
+		//sostituisce tutti i whitespaces (spazi + newline + tab +ecc)
+		if(nomeUC.isEmpty()) {				//con un singolo spazio e rimuove tutti gli spazi iniziali e finali
 			//Solleva eccezione
-		} else if (nome.length() >= 30) {
+		} else if (nomeUC.length() >= 30) {
 			//Solleve eccezione
-		}
-		this.nome = nome;
+		}	
+		this.nome = nomeUC;
 	}
 	
 	public String getDescrizione() {
