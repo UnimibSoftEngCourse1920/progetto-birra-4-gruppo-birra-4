@@ -7,7 +7,7 @@ public class QuantitaIngrediente {
 	
 	public QuantitaIngrediente(double quantita, Ingrediente ingrediente) {
 		setQuantita(quantita); //Solleva eccezione
-		this.ingrediente = ingrediente;
+		setIngrediente(ingrediente);
 	}
 
 	public double getQuantita() {

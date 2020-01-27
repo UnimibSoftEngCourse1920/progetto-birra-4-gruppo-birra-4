@@ -14,6 +14,7 @@ public class Ricetta {
 	
 	public Ricetta(String nome, String descrizione, Set<QuantitaIngrediente> quantitaIngredienti, 
 					double quantitaAcqua, double quantitaBirra) {
+		//validation(nome, descrizione, quantitaAcqua, quantitaBirra);
 		setNome(nome); //Solleva eccezione
 		setDescrizione(descrizione); 
 		setQuantitaIngredienti(quantitaIngredienti); //Solleva eccezione

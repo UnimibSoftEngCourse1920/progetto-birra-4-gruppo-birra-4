@@ -21,30 +21,31 @@ public class CatalogoIngredienti {
 	}
 	
 	public void creaIngrediente(String nome, Categoria categoria, double quantitaDisponibile) {
-		if(CatalogoIngredienti.getIstanza().checkCatalogo(nome, categoria)) {
+		if(CatalogoIngredienti.getIstanza().checkCatalogo(nome, categoria)) { //NO, perchè il controllo c'è già in aggiungi catalogo
 			//Solleva eccezione;
 		}
-		Ingrediente ingrediente = Ingrediente.creaIngrediente(nome, categoria, quantitaDisponibile);
-		CatalogoIngredienti.getIstanza().aggiungiIngrediente(ingrediente);
+		Ingrediente ingrediente = Ingrediente.creaIngrediente(nome, categoria, quantitaDisponibile); //Serve davvero un metodo statico per creare un'ingrediente??
+		CatalogoIngredienti.getIstanza().aggiungiIngrediente(ingrediente); //??????????????
 	}
 		
 	public void aggiungiIngrediente(Ingrediente nuovoIngrediente) {
-		if(checkCatalogo(nuovoIngrediente.getNome(), nuovoIngrediente.getCategoria()))
-			return;
+		if(checkCatalogo(nuovoIngrediente.getNome(), nuovoIngrediente.getCategoria())) {	
+			//Solleva eccezione
+		}
 		ingredienti.put(nuovoIngrediente.getId(), nuovoIngrediente);
 	}
 	
 	public boolean checkCatalogo(String nome, Categoria categoria) {
 		for (Ingrediente ing : ingredienti.values()) {
-			if((ing.getNome().equals(nome)) && ((ing.getCategoria()).equals(categoria)))
+			if((ing.getNome().equals(nome)) && (ing.getCategoria().equals(categoria)))
 				return true;
 		}
 		return false;
 	}
 	
 	public void rimuoviIngrediente(Ingrediente ingrediente) {
-		if(ingredienti.containsValue(ingrediente)) {
-			ingredienti.remove(ingrediente.getNome());
+		if(ingredienti.containsValue(ingrediente)) { 
+			ingredienti.remove(ingrediente.getId()); 
 		}
 	}
 	
