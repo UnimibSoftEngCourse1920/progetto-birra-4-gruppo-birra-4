@@ -1,10 +1,10 @@
-package GruppoBirra4.BrewDay.application;
+package gruppoBirra4.brewDay.application.gestori;
 
 import java.util.Set;
 
-import GruppoBirra4.BrewDay.domain.Ingrediente;
-import GruppoBirra4.BrewDay.domain.Ricettario;
-import GruppoBirra4.BrewDay.errori.Notifica;
+import gruppoBirra4.brewDay.domain.ingredienti.Ingrediente;
+import gruppoBirra4.brewDay.domain.ricette.Ricettario;
+import gruppoBirra4.brewDay.errori.Notifica;
 
 public class GestoreRicette {
 

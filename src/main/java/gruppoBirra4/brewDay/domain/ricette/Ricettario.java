@@ -1,10 +1,11 @@
-package GruppoBirra4.BrewDay.domain;
+package gruppoBirra4.brewDay.domain.ricette;
 
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import GruppoBirra4.BrewDay.errori.Notifica;
+import gruppoBirra4.brewDay.domain.ingredienti.Ingrediente;
+import gruppoBirra4.brewDay.errori.Notifica;
 
 public class Ricettario {
 	

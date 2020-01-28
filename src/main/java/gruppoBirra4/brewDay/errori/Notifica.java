@@ -1,4 +1,4 @@
-package GruppoBirra4.BrewDay.errori;
+package gruppoBirra4.brewDay.errori;
 
 import java.util.LinkedList;
 import java.util.List;

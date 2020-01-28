@@ -1,8 +1,8 @@
-package GruppoBirra4.BrewDay.domain;
+package gruppoBirra4.brewDay.domain.ingredienti;
 
 import java.util.UUID;
 
-import GruppoBirra4.BrewDay.errori.Notifica;
+import gruppoBirra4.brewDay.errori.Notifica;
 
 public class Ingrediente {
 	
