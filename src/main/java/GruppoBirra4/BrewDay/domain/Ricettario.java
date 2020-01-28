@@ -25,7 +25,7 @@ public class Ricettario {
 	public void creaRicetta(String nome, String descrizione, Set<QuantitaIngrediente> quantitaIngredienti,
 			double quantitaAcqua, double quantitaBirra) {
 		
-		Ricetta r = Ricetta.creaRicetta(nome, descrizione, quantitaIngredienti, quantitaAcqua, quantitaBirra); //Solleva eccezione
+		Ricetta r = new Ricetta(nome, descrizione, quantitaIngredienti, quantitaAcqua, quantitaBirra); //Solleva eccezione
 		if (r == null) {
 			return;
 		}		
