@@ -3,10 +3,8 @@ package GruppoBirra4.BrewDay.errori;
 import java.util.LinkedList;
 import java.util.List;
 
-import GruppoBirra4.BrewDay.application.GestoreRicette;
-
 public class Notifica {
-
+/*
 	private static class Error {
 		String message;
 		Exception cause;
@@ -21,13 +19,13 @@ public class Notifica {
 			this.cause = null;
 		}
 	}
-	
+*/
 	private static Notifica istanza;
 	private List<Error> errors;
 	private Error exception;
 	
 	private Notifica() {
-		this.errors = new LinkedList<Error>();
+		this.errors = new LinkedList<>();
 	}
 		
 	public static synchronized Notifica getIstanza() {

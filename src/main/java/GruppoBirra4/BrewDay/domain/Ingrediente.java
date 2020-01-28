@@ -22,29 +22,26 @@ public class Ingrediente {
 	
 	public Ingrediente(String nome, Categoria categoria, double quantita) {
 		id = UUID.randomUUID().toString(); 
-		setNome(nome); //Solleva eccezione
-		setCategoria(categoria); //Solleva eccezione
-		setQuantita(quantita); //solleva eccezione
+		setNome(nome);
+		setCategoria(categoria);
+		setQuantita(quantita);
 	}
 
 	public  String getId() {
 		return id;
 	}
 	
-	private boolean validateNome(String nome) {
-		String nomeUC = nome.replaceAll("\\s+", " ").trim().toUpperCase();
-		if(nomeUC.isEmpty()) {				
-			Notifica.getIstanza().addError("Il nome deve contenere dei caratteri");
-			return false;
-		} else if (nomeUC.length() >= 30) {
-			Notifica.getIstanza().addError("Il nome deve contenere al massimo 30 caratteri");
-			return false;
-		}
-		return true;
-	}
-	
 	public String getNome() {
 		return nome;
+	}
+	
+	public static Ingrediente creaIngrediente(String nome, Categoria categoria, double quantita) {
+		boolean valid = validation(nome, categoria, quantita);
+		if (!valid)
+			return null;
+		else
+			return new Ingrediente(nome, categoria, quantita);
+		
 	}
 	
 	private void setNome(String nome) {
@@ -52,14 +49,6 @@ public class Ingrediente {
 				//sostituisce tutti i whitespaces (spazi + newline + tab +ecc)
 				//con un singolo spazio e rimuove tutti gli spazi iniziali e finali
 		this.nome = nomeUC;
-	}
-	
-	private boolean validateQuantita() {
-		if(quantita<0) {
-			Notifica.getIstanza().addError("La quantità inserita deve essere maggiore o uguale a 0");
-			return false;
-		}
-		return true;
 	}
 
 	public double getQuantita() {
@@ -76,6 +65,42 @@ public class Ingrediente {
 
 	private void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
+	}
+	
+	private static boolean validation(String nome, Categoria categoria, double quantita) {
+		return validateNome(nome) &&
+				validateQuantita(quantita) &&
+				validateCategoria(categoria);
+	}
+	
+	private static boolean validateNome(String nome) {
+		String nomeUC = nome.replaceAll("\\s+", " ").trim().toUpperCase();
+		if(nomeUC.isEmpty()) {				
+			Notifica.getIstanza().addError("Il nome deve contenere dei caratteri");
+			return false;
+		} else if (nomeUC.length() >= 30) {
+			Notifica.getIstanza().addError("Il nome deve contenere al massimo 30 caratteri");
+			return false;
+		}
+		return true;
+	}
+	
+	private static boolean validateQuantita(double quantita) {
+		if(quantita<0) {
+			Notifica.getIstanza().addError("La quantità inserita non può essere negativa");
+			return false;
+		}
+		return true;
+	}
+	
+	// sarà necessario???
+	private static boolean validateCategoria(Categoria categoria) {
+		for (Categoria categ : Categoria.values()) {
+				if(categ.equals(categoria))
+						return true;
+		}
+		Notifica.getIstanza().addError("L'ingrediente inserito non fa parte di nessuna categoria ammissibile");
+		return false;
 	}
 	
 	public void modificaIngrediente(Ingrediente ingrediente, double nuovaQuantita) {

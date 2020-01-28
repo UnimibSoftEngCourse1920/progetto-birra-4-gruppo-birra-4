@@ -22,11 +22,11 @@ public class CatalogoIngredienti {
 	}
 	
 	public void creaIngrediente(String nome, Categoria categoria, double quantitaDisponibile) {
-		Ingrediente ingrediente = new Ingrediente(nome, categoria, quantitaDisponibile);
-		if(ingrediente == null)
-			return;
-		else
+		Ingrediente ingrediente = Ingrediente.creaIngrediente(nome, categoria, quantitaDisponibile);
+		if(ingrediente != null)
 			aggiungiIngrediente(ingrediente);
+		else
+			return;
 	}
 		
 	public void aggiungiIngrediente(Ingrediente nuovoIngrediente) {
