@@ -4,28 +4,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Notifica {
-/*
-	private static class Error {
-		String message;
-		Exception cause;
 
-		private Error(String message, Exception cause) {
-			this.message = message;
-			this.cause = cause;
-		}
-
-		private Error(String message) {
-			this.message = message;
-			this.cause = null;
-		}
-	}
-*/
 	private static Notifica istanza;
-	private List<Error> errors;
+	private List<Error> errori;
 	private Error exception;
 	
 	private Notifica() {
-		this.errors = new LinkedList<>();
+		this.errori = new LinkedList<>();
 	}
 		
 	public static synchronized Notifica getIstanza() {
@@ -36,7 +21,7 @@ public class Notifica {
 	}
 	
 	public void addError(String message) {
-		errors.add(new Error(message));
+		errori.add(new Error(message));
 	}
 
 	/*public void addError(String message, Exception e) {
@@ -54,7 +39,7 @@ public class Notifica {
 	}*/
 
 	public boolean hasErrors() {
-		return ! errors.isEmpty();
+		return ! errori.isEmpty();
 	}
 	
 	public boolean hasException() {
@@ -62,7 +47,7 @@ public class Notifica {
 	}
 	
 	public void svuotaNotificheErrori() {
-		errors.clear();
+		errori.clear();
 	}
 
 	public void notificaErrori() {

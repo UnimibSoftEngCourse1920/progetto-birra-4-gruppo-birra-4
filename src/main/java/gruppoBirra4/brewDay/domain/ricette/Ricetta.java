@@ -144,7 +144,4 @@ public class Ricetta {
 				+ ", quantitaAcqua=" + quantitaAcqua + ", quantitaBirra=" + quantitaBirra + "]";
 	}	
 	
-	
-	
-
 }

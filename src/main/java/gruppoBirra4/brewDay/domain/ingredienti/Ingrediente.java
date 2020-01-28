@@ -20,19 +20,11 @@ public class Ingrediente {
 	private double quantita;
 	
 	
-	public Ingrediente(String nome, Categoria categoria, double quantita) {
+	private Ingrediente(String nome, Categoria categoria, double quantita) {
 		id = UUID.randomUUID().toString(); 
 		setNome(nome);
 		setCategoria(categoria);
 		setQuantita(quantita);
-	}
-
-	public  String getId() {
-		return id;
-	}
-	
-	public String getNome() {
-		return nome;
 	}
 	
 	public static Ingrediente creaIngrediente(String nome, Categoria categoria, double quantita) {
@@ -42,29 +34,6 @@ public class Ingrediente {
 		else
 			return new Ingrediente(nome, categoria, quantita);
 		
-	}
-	
-	private void setNome(String nome) {
-		String nomeUC = nome.replaceAll("\\s+", " ").trim().toUpperCase();
-				//sostituisce tutti i whitespaces (spazi + newline + tab +ecc)
-				//con un singolo spazio e rimuove tutti gli spazi iniziali e finali
-		this.nome = nomeUC;
-	}
-
-	public double getQuantita() {
-		return quantita;
-	}
-
-	private void setQuantita(double quantita) {
-		this.quantita = quantita;
-	}
-
-	public Categoria getCategoria() {
-		return categoria;
-	}
-
-	private void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
 	}
 	
 	private static boolean validation(String nome, Categoria categoria, double quantita) {
@@ -102,6 +71,38 @@ public class Ingrediente {
 		Notifica.getIstanza().addError("L'ingrediente inserito non fa parte di nessuna categoria ammissibile");
 		return false;
 	}
+
+	public  String getId() {
+		return id;
+	}
+	
+	public String getNome() {
+		return nome;
+	}
+	
+	private void setNome(String nome) {
+		String nomeUC = nome.replaceAll("\\s+", " ").trim().toUpperCase();
+				//sostituisce tutti i whitespaces (spazi + newline + tab +ecc)
+				//con un singolo spazio e rimuove tutti gli spazi iniziali e finali
+		this.nome = nomeUC;
+	}
+	
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	private void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
+	public double getQuantita() {
+		return quantita;
+	}
+
+	private void setQuantita(double quantita) {
+		this.quantita = quantita;
+	}
+	
 	
 	public void modificaIngrediente(Ingrediente ingrediente, double nuovaQuantita) {
 		ingrediente.setQuantita(nuovaQuantita);

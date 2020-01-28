@@ -25,8 +25,6 @@ public class CatalogoIngredienti {
 		Ingrediente ingrediente = Ingrediente.creaIngrediente(nome, categoria, quantitaDisponibile);
 		if(ingrediente != null)
 			aggiungiIngrediente(ingrediente);
-		else
-			return;
 	}
 		
 	public void aggiungiIngrediente(Ingrediente nuovoIngrediente) {
