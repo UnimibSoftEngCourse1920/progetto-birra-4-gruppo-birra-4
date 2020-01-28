@@ -1,28 +1,30 @@
 package GruppoBirra4.BrewDay.domain;
 
 import java.util.Set;
+import java.util.UUID;
 
 import GruppoBirra4.BrewDay.errori.Notifica;
 
 public class Ricetta {
 	
+	private String id; 
 	private String nome;
 	private String descrizione;
-	private Set<QuantitaIngrediente> quantitaIngredienti;
+	private Set<Ingrediente> ingredienti;
 	//private String passaggi;
 	private double quantitaAcqua;
 	private double quantitaBirra;
 	
 	
-	protected Ricetta(String nome, String descrizione, Set<QuantitaIngrediente> quantitaIngredienti, 
+	protected Ricetta(String nome, String descrizione, Set<Ingrediente> ingredienti, 
 					double quantitaAcqua, double quantitaBirra) {
 		if (validation(nome, descrizione, quantitaAcqua, quantitaBirra)) {
 			return;
 		}
+		this.id = UUID.randomUUID().toString();
 		setNome(nome);
 		setDescrizione(descrizione); 
-		setQuantitaIngredienti(quantitaIngredienti); //Solleva eccezione
-		//setPassaggi(passaggi);
+		setIngredienti(ingredienti); //Solleva eccezione
 		setQuantitaAcqua(quantitaAcqua); //Solleva eccezione
 		setQuantitaBirra(quantitaBirra); //Solleva eccezione	
 	}
@@ -36,8 +38,8 @@ public class Ricetta {
 	private boolean validation(String nome, String descrizione, double quantitaAcqua, double quantitaBirra) {
 		boolean r = true;
 		r = r && validateNome(nome);
-		r = r && validateDescrizione(descrizione);
-		r = r && validateQuantita(quantita);
+		//r = r && validateDescrizione(descrizione);
+		//r = r && validateQuantita(quantita);
 		return r;
 	}
 
@@ -72,21 +74,13 @@ public class Ricetta {
 		this.descrizione = descrizione;
 	}
 
-	public Set<QuantitaIngrediente> getQuantitaIngredienti() {
-		return quantitaIngredienti;
+	public Set<Ingrediente> getIngredienti() {
+		return ingredienti;
 	}
 
-	private void setQuantitaIngredienti(Set<QuantitaIngrediente> quantitaIngredienti) {
-		this.quantitaIngredienti = quantitaIngredienti;
+	private void setIngredienti(Set<Ingrediente> ingredienti) {
+		this.ingredienti = ingredienti;
 	}
-
-	/*public String getPassaggi() {
-		return passaggi;
-	}
-
-	private void setPassaggi(String passaggi) {
-		this.passaggi = passaggi;
-	}*/
 
 	public double getQuantitaAcqua() {
 		return quantitaAcqua;
