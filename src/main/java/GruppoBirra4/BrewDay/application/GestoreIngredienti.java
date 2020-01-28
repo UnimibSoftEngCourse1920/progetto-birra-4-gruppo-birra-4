@@ -25,14 +25,14 @@ public class GestoreIngredienti {
 	}
 */
 	public void creaIngrediente(String nome, Categoria categoria, double quantita) {
-		try {
+		//try {
 			CatalogoIngredienti.getIstanza().creaIngrediente(nome, categoria, quantita);
-		} catch (Exception e) {
-			Notifica.getIstanza().svuotaNotificheErrori();
-			Notifica.getIstanza().notificaEccezione(e);
-		}
+		//} catch (Exception e) {
+		//	Notifica.getIstanza().svuotaNotificheErrori();
+		//	Notifica.getIstanza().notificaEccezione(e);
+		//}
 		if (Notifica.getIstanza().hasErrors()) {
-		Notifica.getIstanza().notificaErrori();
+			Notifica.getIstanza().notificaErrori();
 		}
 	}
 	

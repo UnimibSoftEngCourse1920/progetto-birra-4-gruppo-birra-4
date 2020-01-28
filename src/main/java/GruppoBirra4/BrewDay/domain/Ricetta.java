@@ -16,7 +16,7 @@ public class Ricetta {
 	private double quantitaBirra;
 	
 	
-	protected Ricetta(String nome, String descrizione, Set<Ingrediente> ingredienti, 
+	private Ricetta(String nome, String descrizione, Set<Ingrediente> ingredienti, 
 					double quantitaAcqua, double quantitaBirra) {
 		if (validation(nome, descrizione, quantitaAcqua, quantitaBirra)) {
 			return;
@@ -29,40 +29,78 @@ public class Ricetta {
 		setQuantitaBirra(quantitaBirra); //Solleva eccezione	
 	}
 	
-	/*protected static Ricetta creaRicetta(String nome, String descrizione, Set<QuantitaIngrediente> quantitaIngredienti, 
+	protected static Ricetta creaRicetta(String nome, String descrizione, Set<Ingrediente> ingredienti, 
 					double quantitaAcqua, double quantitaBirra) {
-		//boolean b validation(nome, descrizione, quantitaAcqua, quantitaBirra);
-		return new Ricetta(nome, descrizione, quantitaIngredienti, quantitaAcqua, quantitaBirra);
-	}*/
+		boolean valid = validation(nome, descrizione, quantitaAcqua, quantitaBirra);
+		if (!valid) {
+			return null;
+		}
+		return new Ricetta(nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
+	}
 	
-	private boolean validation(String nome, String descrizione, double quantitaAcqua, double quantitaBirra) {
-		boolean r = true;
-		r = r && validateNome(nome);
-		//r = r && validateDescrizione(descrizione);
-		//r = r && validateQuantita(quantita);
-		return r;
+	private static boolean validation(String nome, String descrizione, double quantitaAcqua, double quantitaBirra) {
+		return validateNome(nome) &&
+				validateDescrizione(descrizione) &&
+				validateQuantitaAcqua(quantitaAcqua) &&
+				validateQuantitaBirra(quantitaBirra) &&
+				validateQuantita(quantitaBirra, quantitaAcqua);
 	}
 
-	private boolean validateNome(String nome) {
-		String nomeUC = nome.replaceAll("\\s+", " ").trim().toUpperCase(); //sostituisce tutti i whitespaces (spazi + newline + tab +ecc)
-																		//con un singolo spazio e rimuove tutti gli spazi iniziali e finali
-		if(nomeUC.isEmpty() || nomeUC.length() >= 30) {				
-			Notifica.getIstanza().addError("da 1 a max 555000");
-		} 	
+	private static boolean validateNome(String nome) {
+		String nomeUC = nome.replaceAll("\\s+", " ").trim().toUpperCase();
+		if(nomeUC.isEmpty()) {				
+			Notifica.getIstanza().addError("Il nome deve contenere dei caratteri");
+			return false;
+		} else if (nomeUC.length() >= 30) {
+			Notifica.getIstanza().addError("Il nome deve contenere al massimo 30 caratteri");
+			return false;
+		}
+		return true; 	
+	}
+	
+	private static boolean validateDescrizione(String descrizione) {
+		String descrizione2 = descrizione.replaceAll("\\s+", " ").trim();
+		if (descrizione2.length() >= 500) {  //Da modificare!!!!!!!!!!!!
+			Notifica.getIstanza().addError("Il nome deve contenere al massimo 500 caratteri"); //Da modificare!!!!!!!!!!!!
+			return false;
+		}
+		return true; 
 	}
 
+	private static boolean validateQuantitaAcqua(double quantitaAcqua) {
+		if (quantitaAcqua <= 0) {
+			Notifica.getIstanza().addError("La quantità inserita deve essere maggiore di zero");
+			return false;
+		}			
+		return true;
+	}
+	
+	private static boolean validateQuantitaBirra(double quantitaBirra) {
+		if (quantitaBirra <= 0) {
+			Notifica.getIstanza().addError("La quantità inserita deve essere maggiore di zero");
+			return false;
+		}	
+		return true;
+	}
+	
+	private static boolean validateQuantita(double quantitaBirra, double quantitaAcqua) {
+		if (quantitaAcqua < quantitaBirra) {
+			Notifica.getIstanza().addError("La quantità di acqua inserita deve essere maggiore della quantita di birra");
+			return false;
+		}
+		return true;
+	}
+	
+	public String getId() {
+		return id;
+	}
+	
 	public String getNome() {
 		return nome;
 	}
 	
 	private void setNome(String nome) {
 		String nomeUC = nome.replaceAll("\\s+", " ").trim().toUpperCase();
-		//sostituisce tutti i whitespaces (spazi + newline + tab +ecc)
-		if(nomeUC.isEmpty()) {				//con un singolo spazio e rimuove tutti gli spazi iniziali e finali
-			//Solleva eccezione
-		} else if (nomeUC.length() >= 30) {
-			//Solleve eccezione
-		}	
 		this.nome = nomeUC;
 	}
 	
@@ -71,7 +109,8 @@ public class Ricetta {
 	}
 
 	private void setDescrizione(String descrizione) {
-		this.descrizione = descrizione;
+		String descrizione2 = descrizione.replaceAll("\\s+", " ").trim();
+		this.descrizione = descrizione2;
 	}
 
 	public Set<Ingrediente> getIngredienti() {
@@ -87,11 +126,6 @@ public class Ricetta {
 	}
 
 	private void setQuantitaAcqua(double quantitaAcqua) {
-		if (quantitaAcqua <= 0) {
-			// Solleva eccezione
-		} else if (quantitaAcqua < quantitaBirra) {
-			//Solleva eccezione
-		}
 		this.quantitaAcqua = quantitaAcqua;
 	}
 
@@ -100,13 +134,16 @@ public class Ricetta {
 	}
 
 	private void setQuantitaBirra(double quantitaBirra) {
-		if (quantitaBirra <= 0) {
-			// Solleva eccezione
-		} else if (quantitaAcqua < quantitaBirra) {
-			//Solleva eccezione
-		}
 		this.quantitaBirra = quantitaBirra;
+	}
+
+	@Override
+	public String toString() {
+		return "Ricetta [nome=" + nome + ", descrizione=" + descrizione + ", ingredienti=" + ingredienti
+				+ ", quantitaAcqua=" + quantitaAcqua + ", quantitaBirra=" + quantitaBirra + "]";
 	}	
+	
+	
 	
 
 }
