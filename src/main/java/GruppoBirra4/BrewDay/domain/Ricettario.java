@@ -22,10 +22,10 @@ public class Ricettario {
 		return istanza;
 	}
 	
-	public void creaRicetta(String nome, String descrizione, Set<QuantitaIngrediente> quantitaIngredienti,
+	public void creaRicetta(String nome, String descrizione, Set<Ingrediente> ingredienti,
 			double quantitaAcqua, double quantitaBirra) {
 		
-		Ricetta r = new Ricetta(nome, descrizione, quantitaIngredienti, quantitaAcqua, quantitaBirra); //Solleva eccezione
+		Ricetta r = new Ricetta(nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra); //Solleva eccezione
 		if (r == null) {
 			return;
 		}		

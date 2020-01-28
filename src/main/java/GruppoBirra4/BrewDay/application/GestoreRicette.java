@@ -1,8 +1,8 @@
 package GruppoBirra4.BrewDay.application;
 
 import java.util.Set;
-import GruppoBirra4.BrewDay.domain.QuantitaIngrediente;
-import GruppoBirra4.BrewDay.domain.Ricetta;
+
+import GruppoBirra4.BrewDay.domain.Ingrediente;
 import GruppoBirra4.BrewDay.domain.Ricettario;
 import GruppoBirra4.BrewDay.errori.Notifica;
 
@@ -30,15 +30,15 @@ public class GestoreRicette {
 		return Ricettario.getIstanza().visualizzaRicetta(nomeRicetta);
 	}
 	
-	public void creaRicetta(String nome, String descrizione, Set<QuantitaIngrediente> quantitaIngredienti,
+	public void creaRicetta(String nome, String descrizione, Set<Ingrediente> ingredienti,
 							double quantitaAcqua, double quantitaBirra) {
 		
-		try {
-		Ricettario.getIstanza().creaRicetta (nome, descrizione, quantitaIngredienti, quantitaAcqua, quantitaBirra);
-		} catch (Exception e) {
-			Notifica.getIstanza().svuotaNotificheErrori();
-			Notifica.getIstanza().notificaEccezione(e);
-		}
+		//try {
+		Ricettario.getIstanza().creaRicetta (nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
+		//} catch (Exception e) {
+			//Notifica.getIstanza().svuotaNotificheErrori();
+			//Notifica.getIstanza().notificaEccezione(e);
+		//}
 		if (Notifica.getIstanza().hasErrors()) {
 			Notifica.getIstanza().notificaErrori();
 		}
