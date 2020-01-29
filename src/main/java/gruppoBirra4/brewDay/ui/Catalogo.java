@@ -143,7 +143,7 @@ public class Catalogo {
 				}*/
 			}
 		});
-		btnAggiungi.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		
 		panel_2.add(btnAggiungi);
 		
 		btnModifica = new JButton("Modifica");

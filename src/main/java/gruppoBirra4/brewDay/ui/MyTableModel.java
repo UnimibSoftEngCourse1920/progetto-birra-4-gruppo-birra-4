@@ -9,7 +9,7 @@ public class MyTableModel extends DefaultTableModel{
 	}
 	
 	@Override
-	public boolean isCellEditable(int row, int col){ //Impedisce di modificare una cella della tabella
+	public boolean isCellEditable(int row, int col){ //Impedisce di modificare una cella dalla tabella
 		return false;
 	}
 
