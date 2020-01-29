@@ -74,7 +74,7 @@ public class Catalogo {
 		scrollPane.setBounds(0, 5, 948, 274);
 		
 		table = new JTable();
-		String header[] = new String[] {"Categoria", "Nome", "Quantita disponibile"};
+		String[] header = new String[] {"Categoria", "Nome", "Quantita disponibile"};
 		DefaultTableModel dtm = new MyTableModel(new Object[][] {}, header);
 		//dtm.setColumnIdentifiers(header);
 		table.setModel(dtm);
@@ -95,38 +95,38 @@ public class Catalogo {
 		panel.setLayout(null);
 		
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(0, 0, 390, 222);
-		panel.add(panel_1);
-		panel_1.setLayout(new GridLayout(3, 2, 10, 20));
+		JPanel panel1 = new JPanel();
+		panel1.setBounds(0, 0, 390, 222);
+		panel.add(panel1);
+		panel1.setLayout(new GridLayout(3, 2, 10, 20));
 		
 		JLabel lblNome = new JLabel("Nome:");
-		panel_1.add(lblNome);
+		panel1.add(lblNome);
 		
 		textFieldNome = new JTextField();
-		panel_1.add(textFieldNome);
+		panel1.add(textFieldNome);
 		textFieldNome.setDocument(new JTextFieldLimit(30));
 		textFieldNome.setColumns(10);
 		
 		JLabel lblCategoria = new JLabel("Categoria:");
-		panel_1.add(lblCategoria);
+		panel1.add(lblCategoria);
 		
 		JComboBox comboBoxCategoria = new JComboBox();
 		comboBoxCategoria.setModel(new DefaultComboBoxModel(new String[] {"Malto", "Luppolo", "Lievito", "Zucchero", "Additivo"}));
-		panel_1.add(comboBoxCategoria);
+		panel1.add(comboBoxCategoria);
 		
 		JLabel lblQuantitaDisponibile = new JLabel("Quantita disponibile:");
-		panel_1.add(lblQuantitaDisponibile);
+		panel1.add(lblQuantitaDisponibile);
 		
 		textFieldQuantita = new JTextField();
-		panel_1.add(textFieldQuantita);
+		panel1.add(textFieldQuantita);
 		textFieldQuantita.setColumns(10);
 		
 		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(543, 13, 171, 166);
-		panel.add(panel_2);
-		panel_2.setLayout(new GridLayout(3, 0, 5, 15));
+		JPanel panel2 = new JPanel();
+		panel2.setBounds(543, 13, 171, 166);
+		panel.add(panel2);
+		panel2.setLayout(new GridLayout(3, 0, 5, 15));
 		
 		//Aggiungi ingrediente
 		JButton btnAggiungi = new JButton("Aggiungi");
@@ -144,13 +144,13 @@ public class Catalogo {
 			}
 		});
 		
-		panel_2.add(btnAggiungi);
+		panel2.add(btnAggiungi);
 		
 		btnModifica = new JButton("Modifica");
-		panel_2.add(btnModifica);
+		panel2.add(btnModifica);
 		
 		JButton btnCancella = new JButton("Cancella");
-		panel_2.add(btnCancella);
+		panel2.add(btnCancella);
 		
 	}
 }
