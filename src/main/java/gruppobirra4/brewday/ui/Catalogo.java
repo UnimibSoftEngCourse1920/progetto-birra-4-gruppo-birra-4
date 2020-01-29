@@ -11,7 +11,6 @@ import javax.swing.table.DefaultTableModel;
 import gruppobirra4.brewday.application.gestori.GestoreIngredienti;
 import gruppobirra4.brewday.application.gestori.GestoreRicette;
 import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
-import gruppobirra4.brewday.domain.ingredienti.Ingrediente.Categoria;
 
 import java.awt.FlowLayout;
 import javax.swing.JPanel;
