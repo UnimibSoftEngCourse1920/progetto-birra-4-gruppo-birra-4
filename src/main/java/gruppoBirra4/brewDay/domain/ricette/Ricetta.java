@@ -19,15 +19,12 @@ public class Ricetta {
 	
 	private Ricetta(String nome, String descrizione, Set<Ingrediente> ingredienti, 
 					double quantitaAcqua, double quantitaBirra) {
-		if (validation(nome, descrizione, quantitaAcqua, quantitaBirra)) {
-			return;
-		}
 		this.id = UUID.randomUUID().toString();
 		setNome(nome);
 		setDescrizione(descrizione); 
-		setIngredienti(ingredienti); //Solleva eccezione
-		setQuantitaAcqua(quantitaAcqua); //Solleva eccezione
-		setQuantitaBirra(quantitaBirra); //Solleva eccezione	
+		setIngredienti(ingredienti);
+		setQuantitaAcqua(quantitaAcqua);
+		setQuantitaBirra(quantitaBirra); 
 	}
 	
 	protected static Ricetta creaRicetta(String nome, String descrizione, Set<Ingrediente> ingredienti, 
@@ -39,7 +36,8 @@ public class Ricetta {
 		return new Ricetta(nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
 	}
 	
-	private static boolean validation(String nome, String descrizione, double quantitaAcqua, double quantitaBirra) {
+	private static boolean validation(String nome, String descrizione, double quantitaAcqua, 
+										double quantitaBirra) {
 		return validateNome(nome) &&
 				validateDescrizione(descrizione) &&
 				validateQuantitaAcqua(quantitaAcqua) &&
