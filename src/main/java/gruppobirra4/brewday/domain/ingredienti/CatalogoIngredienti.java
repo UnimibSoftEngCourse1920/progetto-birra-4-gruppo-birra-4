@@ -3,7 +3,6 @@ package gruppobirra4.brewday.domain.ingredienti;
 import java.util.TreeMap;
 
 import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
-import gruppobirra4.brewday.domain.ingredienti.Ingrediente.Categoria;
 import gruppobirra4.brewday.errori.Notifica;
 
 public class CatalogoIngredienti {
@@ -21,10 +20,13 @@ public class CatalogoIngredienti {
 		return istanza;
 	}
 	
-	public void creaIngrediente(String nome, Categoria categoria, double quantitaDisponibile) {
+	public Ingrediente creaIngrediente(String nome, String categoria, String quantitaDisponibile) {
 		Ingrediente ingrediente = Ingrediente.creaIngrediente(nome, categoria, quantitaDisponibile);
-		if(ingrediente != null)
+		if(ingrediente != null) {
 			aggiungiIngrediente(ingrediente);
+			return ingrediente;
+		}
+		return null;
 	}
 		
 	public void aggiungiIngrediente(Ingrediente nuovoIngrediente) {
@@ -35,7 +37,7 @@ public class CatalogoIngredienti {
 		ingredienti.put(nuovoIngrediente.getId(), nuovoIngrediente);
 	}
 	
-	public boolean checkCatalogo(String nome, Categoria categoria) {
+	public boolean checkCatalogo(String nome, String categoria) {
 		for (Ingrediente ing : ingredienti.values()) {
 			if((ing.getNome().equals(nome)) && (ing.getCategoria().equals(categoria)))
 				return true;

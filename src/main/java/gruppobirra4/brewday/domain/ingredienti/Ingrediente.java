@@ -5,28 +5,20 @@ import gruppobirra4.brewday.errori.Notifica;
 
 public class Ingrediente {
 	
-	public enum Categoria {
-		MALTO,
-		LUPPOLO,
-		LIEVITO,
-		ZUCCHERO,
-		ADDITIVO
-	}
-	
 	private String id;
 	private String nome;
-	private Categoria categoria;
+	private String categoria;
 	private double quantita;
 	
 	
-	private Ingrediente(String nome, Categoria categoria, double quantita) {
+	private Ingrediente(String nome, String categoria, double quantita) {
 		id = UUID.randomUUID().toString(); 
 		setNome(nome);
 		setCategoria(categoria);
 		setQuantita(quantita);
 	}
 	
-	public static Ingrediente creaIngrediente(String nome, Categoria categoria, double quantita) {
+	public static Ingrediente creaIngrediente(String nome, String categoria, String quantita) {
 		boolean valid = validation(nome, categoria, quantita);
 		if (!valid)
 			return null;
@@ -35,10 +27,10 @@ public class Ingrediente {
 		
 	}
 	
-	private static boolean validation(String nome, Categoria categoria, double quantita) {
+	private static boolean validation(String nome, String categoria, String quantita) {
 		return validateNome(nome) &&
-				validateQuantita(quantita) &&
-				validateCategoria(categoria);
+				validateQuantita(quantita);
+				//validateCategoria(categoria);
 	}
 	
 	private static boolean validateNome(String nome) {
@@ -53,22 +45,23 @@ public class Ingrediente {
 		return true;
 	}
 	
-	private static boolean validateQuantita(double quantita) {
+	//Da modificare
+	private static boolean validateQuantita(String quantita) {
+		/*if (strNum == null) {
+	        return false;
+	    }
+	    try {
+	        double d = Double.parseDouble(strNum);
+	    } catch (NumberFormatException nfe) {
+	        return false;
+	    }
+	    return true;*/
+		
 		if(quantita<0) {
 			Notifica.getIstanza().addError("La quantità inserita non può essere negativa");
 			return false;
 		}
 		return true;
-	}
-	
-	// sarà necessario???
-	private static boolean validateCategoria(Categoria categoria) {
-		for (Categoria categ : Categoria.values()) {
-				if(categ.equals(categoria))
-						return true;
-		}
-		Notifica.getIstanza().addError("L'ingrediente inserito non fa parte di nessuna categoria ammissibile");
-		return false;
 	}
 
 	public  String getId() {
@@ -86,11 +79,11 @@ public class Ingrediente {
 		this.nome = nomeUC;
 	}
 	
-	public Categoria getCategoria() {
+	public String getCategoria() {
 		return categoria;
 	}
 
-	private void setCategoria(Categoria categoria) {
+	private void setCategoria(String categoria) {
 		this.categoria = categoria;
 	}
 
@@ -103,7 +96,7 @@ public class Ingrediente {
 	}
 	
 	
-	public void modificaIngrediente(Ingrediente ingrediente, double nuovaQuantita) {
+	/*public void modificaIngrediente(Ingrediente ingrediente, double nuovaQuantita) {
 		ingrediente.setQuantita(nuovaQuantita);
 	}
 
@@ -111,8 +104,8 @@ public class Ingrediente {
 		ingrediente.setNome(nuovoNome);
 	}
 	
-	public void modificaIngrediente(Ingrediente ingrediente, Categoria nuovaCategoria) {
+	public void modificaIngrediente(Ingrediente ingrediente, String nuovaCategoria) {
 		ingrediente.setCategoria(nuovaCategoria);
-	}
+	}*/
 	
 }

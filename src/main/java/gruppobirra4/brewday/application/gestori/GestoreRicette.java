@@ -6,7 +6,7 @@ import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
 import gruppobirra4.brewday.domain.ricette.Ricettario;
 import gruppobirra4.brewday.errori.Notifica;
 
-public class GestoreRicette {
+public class GestoreRicette{
 
 	private static GestoreRicette istanza;
 		

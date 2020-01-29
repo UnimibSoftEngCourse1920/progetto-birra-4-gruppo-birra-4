@@ -2,7 +2,6 @@ package gruppobirra4.brewday.application.gestori;
 
 import gruppobirra4.brewday.domain.ingredienti.CatalogoIngredienti;
 import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
-import gruppobirra4.brewday.domain.ingredienti.Ingrediente.Categoria;
 import gruppobirra4.brewday.errori.Notifica;
 
 public class GestoreIngredienti {
@@ -24,19 +23,21 @@ public class GestoreIngredienti {
 		return CatalogoIngredienti.getIstanza().visualizzaCatalogo();
 	}
 */
-	public void creaIngrediente(String nome, Categoria categoria, double quantita) {
+	public Ingrediente creaIngrediente(String nome, String categoria, String quantita) {
 		//try {
-			CatalogoIngredienti.getIstanza().creaIngrediente(nome, categoria, quantita);
+		Ingrediente nuovoIngrediente = CatalogoIngredienti.getIstanza().creaIngrediente(nome, categoria, quantita);
 		//} catch (Exception e) {
 		//	Notifica.getIstanza().svuotaNotificheErrori();
 		//	Notifica.getIstanza().notificaEccezione(e);
 		//}
 		if (Notifica.getIstanza().hasErrors()) {
 			Notifica.getIstanza().notificaErrori();
+			return null;
 		}
+		return nuovoIngrediente;
 	}
 	
-	public void rimuoviIngrediente(Ingrediente ingrediente) {
+	/*public void rimuoviIngrediente(Ingrediente ingrediente) {
 		CatalogoIngredienti.getIstanza().rimuoviIngrediente(ingrediente);
 	}
 	
@@ -51,5 +52,5 @@ public class GestoreIngredienti {
 	public void modificaIngrediente(Ingrediente ingrediente, Categoria nuovaCategoria) {
 		ingrediente.modificaIngrediente(ingrediente, nuovaCategoria);
 	}
-	
+	*/
 }

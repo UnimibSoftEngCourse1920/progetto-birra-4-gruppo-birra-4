@@ -11,7 +11,6 @@ import javax.swing.table.DefaultTableModel;
 import gruppobirra4.brewday.application.gestori.GestoreIngredienti;
 import gruppobirra4.brewday.application.gestori.GestoreRicette;
 import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
-import gruppobirra4.brewday.domain.ingredienti.Ingrediente.Categoria;
 
 import java.awt.FlowLayout;
 import javax.swing.JPanel;
@@ -28,7 +27,7 @@ import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
-public class Catalogo {
+public class JCatalogo {
 
 	private JFrame frmCatalogoIngredienti;
 	private JTable table;
@@ -44,7 +43,7 @@ public class Catalogo {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Catalogo window = new Catalogo();
+					JCatalogo window = new JCatalogo();
 					window.frmCatalogoIngredienti.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -56,7 +55,7 @@ public class Catalogo {
 	/**
 	 * Create the application.
 	 */
-	public Catalogo() {
+	public JCatalogo() {
 		initialize();
 	}
 
@@ -137,7 +136,8 @@ public class Catalogo {
 				String categoria = (String) comboBoxCategoria.getSelectedItem();
 				String quantita = textFieldQuantita.getText();
 				dtm.addRow(new Object[] {nomeLW, categoria, quantita}); //PROVA
-				/*Ingrediente ingr = GestoreIngredienti.getIstanza().creaIngrediente(nome, Categoria.valueOf(categoria), quantita);
+				/*
+				Ingrediente ingr = GestoreIngredienti.getIstanza().creaIngrediente(nome, Categoria.valueOf(categoria), quantita);
 				if (ingr != null) { //Se non ci sono stati errori
 					dtm.addRow(new Object[] {ingr.getCategoria(), ingr.getNome(), ingr.getQuantita()});
 				}*/
