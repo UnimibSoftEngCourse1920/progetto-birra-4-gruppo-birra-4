@@ -1,9 +1,12 @@
 package gruppobirra4.brewday.domain.ingredienti;
 
+import java.io.Serializable;
 import java.util.UUID;
+
 import gruppobirra4.brewday.errori.Notifica;
 
-public class Ingrediente {
+
+public class Ingrediente implements Serializable {
 	
 	private String id;
 	private String nome;
@@ -11,13 +14,15 @@ public class Ingrediente {
 	private double quantita;
 	
 	
-	private Ingrediente(String nome, String categoria, String quantita) {
+
+	Ingrediente(String nome, String categoria, String quantita) {
 		id = UUID.randomUUID().toString(); 
 		setNome(nome);
 		setCategoria(categoria);
 		setQuantita(quantita);
 	}
 	
+
 	public static Ingrediente creaIngrediente(String nome, String categoria, String quantita) {
 		boolean valid = validation(nome, quantita);
 		if (!valid)
@@ -96,6 +101,7 @@ public class Ingrediente {
 	private void setNome(String nome) {
 		String nomeLW = rimuoviWhiteSpaces(nome);
 		this.nome = nomeLW;
+
 	}
 	
 	public String getCategoria() {
@@ -114,7 +120,6 @@ public class Ingrediente {
 		double quantitaD = convertToNumber(quantita);
 		this.quantita = quantitaD;
 	}
-	
 	
 	/*public void modificaIngrediente(Ingrediente ingrediente, double nuovaQuantita) {
 		ingrediente.setQuantita(nuovaQuantita);

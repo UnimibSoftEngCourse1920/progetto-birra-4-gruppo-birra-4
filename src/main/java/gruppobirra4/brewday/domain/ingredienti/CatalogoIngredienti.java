@@ -4,15 +4,24 @@ import java.util.Collection;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+import org.mapdb.DB;
+import org.mapdb.HTreeMap;
+import org.mapdb.Serializer;
+
+import gruppobirra4.brewday.database.Database;
 import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
 import gruppobirra4.brewday.errori.Notifica;
 
 public class CatalogoIngredienti {
-	private SortedMap<String, Ingrediente> ingredienti;
+	
+	private HTreeMap<String, Ingrediente> ingredienti;
 	private static CatalogoIngredienti istanza;
 	
-	private CatalogoIngredienti() {
-		this.ingredienti = new TreeMap<>();
+private CatalogoIngredienti() {
+		this.ingredienti = (HTreeMap<String, Ingrediente>) Database.getIstanza()
+				.getDb().hashMap("CatalogoIngredienti")
+				.keySerializer(Serializer.STRING)
+				.createOrOpen();
 	}
 	
 	public static synchronized CatalogoIngredienti getIstanza() {
@@ -20,6 +29,9 @@ public class CatalogoIngredienti {
 			istanza = new CatalogoIngredienti();	
 		}
 		return istanza;
+	}
+	private DB getDb() {
+		return Database.getIstanza().getDb();
 	}
 	
 	public Ingrediente creaIngrediente(String nome, String categoria, String quantitaDisponibile) {
@@ -30,13 +42,19 @@ public class CatalogoIngredienti {
 		}
 		return null;
 	}
-		
+	
 	public void aggiungiIngrediente(Ingrediente nuovoIngrediente) {
+		ingredienti = (HTreeMap<String, Ingrediente>) getDb()
+				.hashMap("CatalogoIngredienti").open();
 		if(checkCatalogo(nuovoIngrediente.getNome(), nuovoIngrediente.getCategoria())) {	
 			Notifica.getIstanza().addError("L'ingrediente è già presente nel catalogo");
 			return;
+			
 		}
 		ingredienti.put(nuovoIngrediente.getId(), nuovoIngrediente);
+		getDb().commit();
+		Database.getIstanza().closeDB();
+		
 	}
 	
 	public boolean checkCatalogo(String nome, String categoria) {
@@ -51,29 +69,41 @@ public class CatalogoIngredienti {
 	}
 	
 	public void rimuoviIngrediente(Ingrediente ingrediente) {
+		ingredienti = (HTreeMap<String, Ingrediente>) getDb()
+				.hashMap("CatalogoIngredienti").open();
 		if(ingredienti.containsValue(ingrediente)) { 
 			ingredienti.remove(ingrediente.getId()); 
+			getDb().commit();
 		}
+		Database.getIstanza().closeDB();
 	}
 
+
 	public SortedMap<String, Ingrediente> getIngredienti() {
-		return ingredienti;
+		SortedMap<String, Ingrediente> returnMap = new TreeMap<>();
+		ingredienti = (HTreeMap<String, Ingrediente>) getDb()
+				.hashMap("CatalogoIngredienti").open();
+		for (Ingrediente ing : ingredienti.values()) {
+			returnMap.put(ing.getId(), new Ingrediente(ing.getNome(),
+														ing.getCategoria(),
+														ing.getQuantita()+""));
+		}
+		Database.getIstanza().closeDB();
+		return returnMap;
+		
 	}
-	
+
 	public Collection<Ingrediente> visualizzaCatalogo() {
 		if (ingredienti.isEmpty()) {
 			return null;
 		}
 		return ingredienti.values();
 	}
-	
-	
+
 	/*
 	public Ingrediente[] visualizzaCatalogo() {
 		Ingrediente[] catalogo = ingredienti.values().toArray(new Ingrediente[0]);
 		return catalogo;
 	}
 	*/
-	
-	
 }
