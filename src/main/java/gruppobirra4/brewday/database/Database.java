@@ -9,7 +9,7 @@ public class Database {
 	private static Database istanza;
 	
 	private Database() {
-		db = DBMaker.fileDB("Prova.db")
+		db = DBMaker.fileDB("src\\main\\java\\gruppobirra4\\brewday\\database\\Database.db")
 				.transactionEnable()
 	            .closeOnJvmShutdown()
 	            .fileChannelEnable()
@@ -21,6 +21,11 @@ public class Database {
 			istanza = new Database();	
 		}
 		return istanza;
+	}
+	
+	public void closeDB(){
+		db.close();
+		istanza = null;
 	}
 	
 	public DB getDb() {

@@ -42,12 +42,12 @@ public class CatalogoIngredienti {
 				.hashMap("CatalogoIngredienti").open();
 		if(checkCatalogo(nuovoIngrediente.getNome(), nuovoIngrediente.getCategoria())) {	
 			Notifica.getIstanza().addError("L'ingrediente è già presente nel catalogo");
-			ingredienti.close();
 			return;
+			
 		}
 		ingredienti.put(nuovoIngrediente.getId(), nuovoIngrediente);
 		getDb().commit();
-		getDb().close();
+		Database.getIstanza().closeDB();
 		
 	}
 	
@@ -71,5 +71,13 @@ public class CatalogoIngredienti {
 		return catalogo;
 	}
 	*/
+	
+	public int sizeDB() {
+		ingredienti = (HTreeMap<String, Ingrediente>) getDb()
+				.hashMap("CatalogoIngredienti").open();
+		int size = ingredienti.size();
+		Database.getIstanza().closeDB();
+		return size;
+	}
 
 }
