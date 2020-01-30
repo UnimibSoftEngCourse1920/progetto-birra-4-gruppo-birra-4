@@ -27,7 +27,7 @@ import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
-public class Catalogo {
+public class JCatalogo {
 
 	private JFrame frmCatalogoIngredienti;
 	private JTable table;
@@ -43,7 +43,7 @@ public class Catalogo {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Catalogo window = new Catalogo();
+					JCatalogo window = new JCatalogo();
 					window.frmCatalogoIngredienti.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -55,7 +55,7 @@ public class Catalogo {
 	/**
 	 * Create the application.
 	 */
-	public Catalogo() {
+	public JCatalogo() {
 		initialize();
 	}
 
@@ -135,11 +135,12 @@ public class Catalogo {
 				String nomeLW = nome.replaceAll("\\s+", " ").trim().toLowerCase();
 				String categoria = (String) comboBoxCategoria.getSelectedItem();
 				String quantita = textFieldQuantita.getText();
-				dtm.addRow(new Object[] {nomeLW, categoria, quantita}); //PROVA
-				/*Ingrediente ingr = GestoreIngredienti.getIstanza().creaIngrediente(nome, Categoria.valueOf(categoria), quantita);
+				/*PROVA*/ //dtm.addRow(new Object[] {nomeLW, categoria, quantita});
+				
+				Ingrediente ingr = GestoreIngredienti.getIstanza().creaIngrediente(nome, categoria, quantita);
 				if (ingr != null) { //Se non ci sono stati errori
 					dtm.addRow(new Object[] {ingr.getCategoria(), ingr.getNome(), ingr.getQuantita()});
-				}*/
+				}
 			}
 		});
 		

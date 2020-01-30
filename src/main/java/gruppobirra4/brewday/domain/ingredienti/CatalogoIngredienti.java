@@ -9,10 +9,11 @@ import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
 import gruppobirra4.brewday.errori.Notifica;
 
 public class CatalogoIngredienti {
-	private HTreeMap<String,Ingrediente> ingredienti;
+	
+	private HTreeMap<String, Ingrediente> ingredienti;
 	private static CatalogoIngredienti istanza;
 	
-	private CatalogoIngredienti() {
+private CatalogoIngredienti() {
 		this.ingredienti = (HTreeMap<String, Ingrediente>) Database.getIstanza()
 				.getDb().hashMap("CatalogoIngredienti")
 				.keySerializer(Serializer.STRING)
@@ -25,18 +26,19 @@ public class CatalogoIngredienti {
 		}
 		return istanza;
 	}
-	
 	private DB getDb() {
 		return Database.getIstanza().getDb();
 	}
 	
-	public Ingrediente creaIngrediente(String nome, String categoria, double quantitaDisponibile) {
+	public Ingrediente creaIngrediente(String nome, String categoria, String quantitaDisponibile) {
 		Ingrediente ingrediente = Ingrediente.creaIngrediente(nome, categoria, quantitaDisponibile);
-		if(ingrediente != null)
+		if(ingrediente != null) {
 			aggiungiIngrediente(ingrediente);
-		return ingrediente;
+			return ingrediente;
+		}
+		return null;
 	}
-		
+	
 	public void aggiungiIngrediente(Ingrediente nuovoIngrediente) {
 		ingredienti = (HTreeMap<String, Ingrediente>) getDb()
 				.hashMap("CatalogoIngredienti").open();
@@ -64,20 +66,16 @@ public class CatalogoIngredienti {
 			ingredienti.remove(ingrediente.getId()); 
 		}
 	}
+
+/*
+	public SortedMap<String, Ingrediente> getIngredienti() {
+		return ingredienti;
+	}
 	
-	/*
+
 	public Ingrediente[] visualizzaCatalogo() {
 		Ingrediente[] catalogo = ingredienti.values().toArray(new Ingrediente[0]);
 		return catalogo;
 	}
 	*/
-	
-	public int sizeDB() {
-		ingredienti = (HTreeMap<String, Ingrediente>) getDb()
-				.hashMap("CatalogoIngredienti").open();
-		int size = ingredienti.size();
-		Database.getIstanza().closeDB();
-		return size;
-	}
-
 }

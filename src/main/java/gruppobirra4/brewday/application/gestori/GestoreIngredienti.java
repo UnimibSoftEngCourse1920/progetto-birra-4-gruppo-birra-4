@@ -23,24 +23,25 @@ public class GestoreIngredienti {
 		return CatalogoIngredienti.getIstanza().visualizzaCatalogo();
 	}
 */
-	public Ingrediente creaIngrediente(String nome, String categoria, double quantita) {
+	public Ingrediente creaIngrediente(String nome, String categoria, String quantita) {
 		//try {
-			Ingrediente nuovoIngrediente = CatalogoIngredienti.getIstanza().creaIngrediente(nome, categoria, quantita);
+		Ingrediente nuovoIngrediente = CatalogoIngredienti.getIstanza().creaIngrediente(nome, categoria, quantita);
 		//} catch (Exception e) {
 		//	Notifica.getIstanza().svuotaNotificheErrori();
 		//	Notifica.getIstanza().notificaEccezione(e);
 		//}
 		if (Notifica.getIstanza().hasErrors()) {
 			Notifica.getIstanza().notificaErrori();
+			Notifica.getIstanza().svuotaNotificheErrori();
 			return null;
 		}
 		return nuovoIngrediente;
 	}
 	
-	public void rimuoviIngrediente(Ingrediente ingrediente) {
+	/*public void rimuoviIngrediente(Ingrediente ingrediente) {
 		CatalogoIngredienti.getIstanza().rimuoviIngrediente(ingrediente);
 	}
-	/*
+	
 	public void modificaIngrediente(Ingrediente ingrediente, double nuovaQuantita) {
 		ingrediente.modificaIngrediente(ingrediente, nuovaQuantita);
 	}
