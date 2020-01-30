@@ -92,12 +92,12 @@ public class JCatalogo {
 		*/
 		
 		//Visualizza catalogo
-		Collection<Ingrediente> catalogo = GestoreIngredienti.getIstanza().visualizzaCatalogo();
+		/*Collection<Ingrediente> catalogo = GestoreIngredienti.getIstanza().visualizzaCatalogo();
 		if (catalogo != null) { //Se il catalogo non è vuoto
 			for (Ingrediente ingr: catalogo) {
 				dtm.addRow(new Object[] {ingr.getCategoria(), ingr.getNome(), ingr.getQuantita()});
 			}
-		}
+		}*/
 		
 	//AGGIUNGI, MODIFICA, ELIMINA
 		panel = new JPanel();

@@ -31,8 +31,9 @@ public class CatalogoIngredienti {
 		}
 		return istanza;
 	}
-	private DB getDb() {
-		return Database.getIstanza().getDb();
+	
+	private HTreeMap<String, Ingrediente> openMapDB() {
+		return (HTreeMap<String, Ingrediente>) Database.getIstanza().openMapDB(TABLE_CATALOGO);
 	}
 	
 	public Ingrediente creaIngrediente(String nome, String categoria, String quantitaDisponibile) {
@@ -45,17 +46,15 @@ public class CatalogoIngredienti {
 	}
 	
 	public void aggiungiIngrediente(Ingrediente nuovoIngrediente) {
-		ingredienti = (HTreeMap<String, Ingrediente>) getDb()
-				.hashMap(TABLE_CATALOGO).open();
+		ingredienti = openMapDB();
 		if(checkCatalogo(nuovoIngrediente.getNome(), nuovoIngrediente.getCategoria())) {	
 			Notifica.getIstanza().addError("L'ingrediente è già presente nel catalogo");
 			return;
 			
 		}
 		ingredienti.put(nuovoIngrediente.getId(), nuovoIngrediente);
-		getDb().commit();
+		Database.getIstanza().getDb().commit();
 		Database.getIstanza().closeDB();
-		
 	}
 	
 	public boolean checkCatalogo(String nome, String categoria) {
