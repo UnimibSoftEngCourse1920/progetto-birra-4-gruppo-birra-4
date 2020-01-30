@@ -79,31 +79,29 @@ public class CatalogoIngredienti {
 	}
 
 
-	public SortedMap<String, Ingrediente> getIngredienti() {
+	private SortedMap<String, Ingrediente> getIngredientiHelper() {
 		SortedMap<String, Ingrediente> returnMap = new TreeMap<>();
-		ingredienti = (HTreeMap<String, Ingrediente>) getDb()
-				.hashMap(TABLE_CATALOGO).open();
+		ingredienti = openMapDB();
 		for (Ingrediente ing : ingredienti.values()) {
 			returnMap.put(ing.getId(), new Ingrediente(ing.getNome(),
 														ing.getCategoria(),
 														Double.toString(ing.getQuantita())));
 		}
-		Database.getIstanza().closeDB();
 		return returnMap;
 		
 	}
-
+	
+	private SortedMap<String, Ingrediente> getIngredienti() {
+		SortedMap<String, Ingrediente> returnMap = getIngredientiHelper();
+		Database.getIstanza().closeDB();
+		return returnMap;
+	}
+	
 	public Collection<Ingrediente> visualizzaCatalogo() {
 		if (ingredienti.isEmpty()) {
 			return null;
 		}
-		return ingredienti.values();
+		return getIngredientiHelper().values();
 	}
 
-	/*
-	public Ingrediente[] visualizzaCatalogo() {
-		Ingrediente[] catalogo = ingredienti.values().toArray(new Ingrediente[0]);
-		return catalogo;
-	}
-	*/
 }
