@@ -15,10 +15,11 @@ public class CatalogoIngredienti {
 	
 	private HTreeMap<String, Ingrediente> ingredienti;
 	private static CatalogoIngredienti istanza;
+	private static final String TABLE_CATALOGO = "CatalogoIngredienti";
 	
 private CatalogoIngredienti() {
 		this.ingredienti = (HTreeMap<String, Ingrediente>) Database.getIstanza()
-				.getDb().hashMap("CatalogoIngredienti")
+				.getDb().hashMap(TABLE_CATALOGO)
 				.keySerializer(Serializer.STRING)
 				.createOrOpen();
 	}
@@ -44,7 +45,7 @@ private CatalogoIngredienti() {
 	
 	public void aggiungiIngrediente(Ingrediente nuovoIngrediente) {
 		ingredienti = (HTreeMap<String, Ingrediente>) getDb()
-				.hashMap("CatalogoIngredienti").open();
+				.hashMap(TABLE_CATALOGO).open();
 		if(checkCatalogo(nuovoIngrediente.getNome(), nuovoIngrediente.getCategoria())) {	
 			Notifica.getIstanza().addError("L'ingrediente è già presente nel catalogo");
 			return;
@@ -66,7 +67,7 @@ private CatalogoIngredienti() {
 	
 	public void rimuoviIngrediente(Ingrediente ingrediente) {
 		ingredienti = (HTreeMap<String, Ingrediente>) getDb()
-				.hashMap("CatalogoIngredienti").open();
+				.hashMap(TABLE_CATALOGO).open();
 		if(ingredienti.containsValue(ingrediente)) { 
 			ingredienti.remove(ingrediente.getId()); 
 			getDb().commit();
@@ -78,11 +79,11 @@ private CatalogoIngredienti() {
 	public SortedMap<String, Ingrediente> getIngredienti() {
 		SortedMap<String, Ingrediente> returnMap = new TreeMap<>();
 		ingredienti = (HTreeMap<String, Ingrediente>) getDb()
-				.hashMap("CatalogoIngredienti").open();
+				.hashMap(TABLE_CATALOGO).open();
 		for (Ingrediente ing : ingredienti.values()) {
 			returnMap.put(ing.getId(), new Ingrediente(ing.getNome(),
 														ing.getCategoria(),
-														ing.getQuantita()+""));
+														Double.toString(ing.getQuantita())));
 		}
 		Database.getIstanza().closeDB();
 		return returnMap;

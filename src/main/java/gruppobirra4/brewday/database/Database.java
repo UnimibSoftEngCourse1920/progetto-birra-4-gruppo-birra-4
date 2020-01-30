@@ -25,6 +25,10 @@ public class Database {
 	
 	public void closeDB(){
 		db.close();
+		setDB();
+	}
+	
+	private static void setDB() {
 		istanza = null;
 	}
 	
