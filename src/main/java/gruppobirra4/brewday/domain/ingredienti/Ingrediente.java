@@ -15,7 +15,7 @@ public class Ingrediente implements Serializable {
 	
 	
 
-	private Ingrediente(String nome, String categoria, String quantita) {
+	Ingrediente(String nome, String categoria, String quantita) {
 		id = UUID.randomUUID().toString(); 
 		setNome(nome);
 		setCategoria(categoria);

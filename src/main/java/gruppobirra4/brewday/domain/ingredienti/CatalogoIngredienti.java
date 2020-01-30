@@ -1,5 +1,8 @@
 package gruppobirra4.brewday.domain.ingredienti;
 
+import java.util.SortedMap;
+import java.util.TreeMap;
+
 import org.mapdb.DB;
 import org.mapdb.HTreeMap;
 import org.mapdb.Serializer;
@@ -62,17 +65,31 @@ private CatalogoIngredienti() {
 	}
 	
 	public void rimuoviIngrediente(Ingrediente ingrediente) {
+		ingredienti = (HTreeMap<String, Ingrediente>) getDb()
+				.hashMap("CatalogoIngredienti").open();
 		if(ingredienti.containsValue(ingrediente)) { 
 			ingredienti.remove(ingrediente.getId()); 
+			getDb().commit();
 		}
+		Database.getIstanza().closeDB();
 	}
 
-/*
+
 	public SortedMap<String, Ingrediente> getIngredienti() {
-		return ingredienti;
+		SortedMap<String, Ingrediente> returnMap = new TreeMap<>();
+		ingredienti = (HTreeMap<String, Ingrediente>) getDb()
+				.hashMap("CatalogoIngredienti").open();
+		for (Ingrediente ing : ingredienti.values()) {
+			returnMap.put(ing.getId(), new Ingrediente(ing.getNome(),
+														ing.getCategoria(),
+														ing.getQuantita()+""));
+		}
+		Database.getIstanza().closeDB();
+		return returnMap;
+		
 	}
 	
-
+	/*
 	public Ingrediente[] visualizzaCatalogo() {
 		Ingrediente[] catalogo = ingredienti.values().toArray(new Ingrediente[0]);
 		return catalogo;
