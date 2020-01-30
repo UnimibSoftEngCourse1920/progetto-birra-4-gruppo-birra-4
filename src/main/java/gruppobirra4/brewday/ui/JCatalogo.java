@@ -135,12 +135,12 @@ public class JCatalogo {
 				String nomeLW = nome.replaceAll("\\s+", " ").trim().toLowerCase();
 				String categoria = (String) comboBoxCategoria.getSelectedItem();
 				String quantita = textFieldQuantita.getText();
-				dtm.addRow(new Object[] {nomeLW, categoria, quantita}); //PROVA
-				/*
-				Ingrediente ingr = GestoreIngredienti.getIstanza().creaIngrediente(nome, Categoria.valueOf(categoria), quantita);
+				/*PROVA*/ //dtm.addRow(new Object[] {nomeLW, categoria, quantita});
+				
+				Ingrediente ingr = GestoreIngredienti.getIstanza().creaIngrediente(nome, categoria, quantita);
 				if (ingr != null) { //Se non ci sono stati errori
 					dtm.addRow(new Object[] {ingr.getCategoria(), ingr.getNome(), ingr.getQuantita()});
-				}*/
+				}
 			}
 		});
 		

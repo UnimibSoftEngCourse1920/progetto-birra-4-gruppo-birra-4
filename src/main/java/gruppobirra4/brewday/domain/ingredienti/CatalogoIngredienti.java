@@ -1,12 +1,13 @@
 package gruppobirra4.brewday.domain.ingredienti;
 
+import java.util.SortedMap;
 import java.util.TreeMap;
 
 import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
 import gruppobirra4.brewday.errori.Notifica;
 
 public class CatalogoIngredienti {
-	private TreeMap<String, Ingrediente> ingredienti;
+	private SortedMap<String, Ingrediente> ingredienti;
 	private static CatalogoIngredienti istanza;
 	
 	private CatalogoIngredienti() {
@@ -50,6 +51,11 @@ public class CatalogoIngredienti {
 			ingredienti.remove(ingrediente.getId()); 
 		}
 	}
+
+	public SortedMap<String, Ingrediente> getIngredienti() {
+		return ingredienti;
+	}
+	
 	
 	/*
 	public Ingrediente[] visualizzaCatalogo() {
@@ -57,4 +63,6 @@ public class CatalogoIngredienti {
 		return catalogo;
 	}
 	*/
+	
+	
 }

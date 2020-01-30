@@ -11,7 +11,7 @@ public class Ingrediente {
 	private double quantita;
 	
 	
-	private Ingrediente(String nome, String categoria, double quantita) {
+	private Ingrediente(String nome, String categoria, String quantita) {
 		id = UUID.randomUUID().toString(); 
 		setNome(nome);
 		setCategoria(categoria);
@@ -19,7 +19,7 @@ public class Ingrediente {
 	}
 	
 	public static Ingrediente creaIngrediente(String nome, String categoria, String quantita) {
-		boolean valid = validation(nome, categoria, quantita);
+		boolean valid = validation(nome, quantita);
 		if (!valid)
 			return null;
 		else
@@ -27,41 +27,62 @@ public class Ingrediente {
 		
 	}
 	
-	private static boolean validation(String nome, String categoria, String quantita) {
+	private static boolean validation(String nome, String quantita) {
 		return validateNome(nome) &&
 				validateQuantita(quantita);
-				//validateCategoria(categoria);
 	}
 	
 	private static boolean validateNome(String nome) {
-		String nomeUC = nome.replaceAll("\\s+", " ").trim().toUpperCase();
-		if(nomeUC.isEmpty()) {				
-			Notifica.getIstanza().addError("Il nome deve contenere dei caratteri");
-			return false;
-		} else if (nomeUC.length() >= 30) {
-			Notifica.getIstanza().addError("Il nome deve contenere al massimo 30 caratteri");
-			return false;
-		}
-		return true;
+		return !isStringaVuota(nome, "Nome");
 	}
 	
-	//Da modificare
 	private static boolean validateQuantita(String quantita) {
-		/*if (strNum == null) {
-	        return false;
-	    }
-	    try {
-	        double d = Double.parseDouble(strNum);
-	    } catch (NumberFormatException nfe) {
-	        return false;
-	    }
-	    return true;*/
-		
-		if(quantita<0) {
+		return !isStringaVuota(quantita, "Quantita disponibile") && isNumber(quantita) && isNotPositive(quantita);	
+	}
+	
+	private static boolean isNotPositive(String quantita) {
+		double quantitaDisponibile = convertToNumber(quantita);
+		if(quantitaDisponibile < 0) {
 			Notifica.getIstanza().addError("La quantità inserita non può essere negativa");
 			return false;
 		}
 		return true;
+	}
+
+	private static boolean isNumber(String str) {
+		String strNum = rimuoviWhiteSpaces(str);
+	    try {
+	        double d = Double.parseDouble(strNum);
+	    } catch (NumberFormatException nfe) {
+	    	Notifica.getIstanza().addError("La quantità inserita deve essere un numero");
+	    	return false;
+	    }
+	    return true;
+	}
+	
+	private static boolean isStringaVuota(String str, String field) {
+		String s = str;
+		if (str == null) {
+			s = "";
+		}
+		String strLW = rimuoviWhiteSpaces(s);
+		if (strLW.isEmpty()) {				
+			Notifica.getIstanza().addError("Il campo \"" + field + "\" deve contenere dei caratteri");
+			return true;
+		}
+		return false;
+	}
+	
+	private static String rimuoviWhiteSpaces(String str) {
+		if (str != null) {
+			return str.replaceAll("\\s+", " ").trim().toLowerCase();
+		}
+		return null;
+	}
+	
+	private static double convertToNumber(String str) {
+		String strNum = rimuoviWhiteSpaces(str);
+		return Double.parseDouble(strNum);
 	}
 
 	public  String getId() {
@@ -73,10 +94,8 @@ public class Ingrediente {
 	}
 	
 	private void setNome(String nome) {
-		String nomeUC = nome.replaceAll("\\s+", " ").trim().toUpperCase();
-				//sostituisce tutti i whitespaces (spazi + newline + tab +ecc)
-				//con un singolo spazio e rimuove tutti gli spazi iniziali e finali
-		this.nome = nomeUC;
+		String nomeLW = rimuoviWhiteSpaces(nome);
+		this.nome = nomeLW;
 	}
 	
 	public String getCategoria() {
@@ -91,8 +110,9 @@ public class Ingrediente {
 		return quantita;
 	}
 
-	private void setQuantita(double quantita) {
-		this.quantita = quantita;
+	private void setQuantita(String quantita) {
+		double quantitaD = convertToNumber(quantita);
+		this.quantita = quantitaD;
 	}
 	
 	
