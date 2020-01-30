@@ -31,7 +31,7 @@ public class GestoreRicette {
 	}
 	
 	public void creaRicetta(String nome, String descrizione, Set<Ingrediente> ingredienti,
-							double quantitaAcqua, double quantitaBirra) {
+							String quantitaAcqua, String quantitaBirra) {
 		
 		//try {
 		Ricettario.getIstanza().creaRicetta (nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
