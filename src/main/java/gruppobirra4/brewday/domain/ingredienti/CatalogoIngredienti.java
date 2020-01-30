@@ -17,7 +17,7 @@ public class CatalogoIngredienti {
 	private HTreeMap<String, Ingrediente> ingredienti;
 	private static CatalogoIngredienti istanza;
 	
-private CatalogoIngredienti() {
+	private CatalogoIngredienti() {
 		this.ingredienti = (HTreeMap<String, Ingrediente>) Database.getIstanza()
 				.getDb().hashMap("CatalogoIngredienti")
 				.keySerializer(Serializer.STRING)
