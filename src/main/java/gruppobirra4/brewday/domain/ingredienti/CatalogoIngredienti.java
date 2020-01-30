@@ -91,7 +91,7 @@ public class CatalogoIngredienti {
 		
 	}
 	
-	private SortedMap<String, Ingrediente> getIngredienti() {
+	public SortedMap<String, Ingrediente> getIngredienti() {
 		SortedMap<String, Ingrediente> returnMap = getIngredientiHelper();
 		Database.getIstanza().closeDB();
 		return returnMap;
