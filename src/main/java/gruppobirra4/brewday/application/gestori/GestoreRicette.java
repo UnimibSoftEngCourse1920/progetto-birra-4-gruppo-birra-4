@@ -41,6 +41,7 @@ public class GestoreRicette{
 		//}
 		if (Notifica.getIstanza().hasErrors()) {
 			Notifica.getIstanza().notificaErrori();
+			Notifica.getIstanza().svuotaNotificheErrori();
 		}
 		
 	}

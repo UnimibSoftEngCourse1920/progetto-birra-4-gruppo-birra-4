@@ -32,6 +32,7 @@ public class GestoreIngredienti {
 		//}
 		if (Notifica.getIstanza().hasErrors()) {
 			Notifica.getIstanza().notificaErrori();
+			Notifica.getIstanza().svuotaNotificheErrori();
 			return null;
 		}
 		return nuovoIngrediente;
