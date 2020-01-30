@@ -22,6 +22,9 @@ import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.util.Set;
+import java.util.Collection;
+import java.util.Map.Entry;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
@@ -81,11 +84,20 @@ public class JCatalogo {
 		frmCatalogoIngredienti.getContentPane().setLayout(null);
 		frmCatalogoIngredienti.getContentPane().add(scrollPane);
 		
+		
+		/*PROVA VISUALIZZA CATALOGO
+		GestoreIngredienti.getIstanza().creaIngrediente("Tipo1", "Malto", "500");
+		GestoreIngredienti.getIstanza().creaIngrediente("Tipo2", "Malto", "900");
+		GestoreIngredienti.getIstanza().creaIngrediente("Tipo3", "Malto", "800");
+		*/
+		
 		//Visualizza catalogo
-		/*Set<Ingrediente> catalogo = GestoreIngredienti.getIstanza().visualizzaCatalogo();
-		for (Ingrediente ingr: catalogo) {
-			dtm.addRow(new Object[] {ingr.getCategoria(), ingr.getNome(), ingr.getQuantita()});
-		}*/
+		Collection<Ingrediente> catalogo = GestoreIngredienti.getIstanza().visualizzaCatalogo();
+		if (catalogo != null) { //Se il catalogo non è vuoto
+			for (Ingrediente ingr: catalogo) {
+				dtm.addRow(new Object[] {ingr.getCategoria(), ingr.getNome(), ingr.getQuantita()});
+			}
+		}
 		
 	//AGGIUNGI, MODIFICA, ELIMINA
 		panel = new JPanel();
@@ -132,7 +144,6 @@ public class JCatalogo {
 		btnAggiungi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String nome = textFieldNome.getText();
-				String nomeLW = nome.replaceAll("\\s+", " ").trim().toLowerCase();
 				String categoria = (String) comboBoxCategoria.getSelectedItem();
 				String quantita = textFieldQuantita.getText();
 				/*PROVA*/ //dtm.addRow(new Object[] {nomeLW, categoria, quantita});

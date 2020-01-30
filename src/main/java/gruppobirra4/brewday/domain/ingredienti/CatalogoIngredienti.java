@@ -1,5 +1,6 @@
 package gruppobirra4.brewday.domain.ingredienti;
 
+import java.util.Collection;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -58,6 +59,9 @@ private CatalogoIngredienti() {
 	}
 	
 	public boolean checkCatalogo(String nome, String categoria) {
+		if (ingredienti.isEmpty()) {
+			return false;
+		}
 		for (Ingrediente ing : ingredienti.values()) {
 			if((ing.getNome().equals(nome)) && (ing.getCategoria().equals(categoria)))
 				return true;
@@ -89,7 +93,14 @@ private CatalogoIngredienti() {
 		return returnMap;
 		
 	}
-	
+
+	public Collection<Ingrediente> visualizzaCatalogo() {
+		if (ingredienti.isEmpty()) {
+			return null;
+		}
+		return ingredienti.values();
+	}
+
 	/*
 	public Ingrediente[] visualizzaCatalogo() {
 		Ingrediente[] catalogo = ingredienti.values().toArray(new Ingrediente[0]);
