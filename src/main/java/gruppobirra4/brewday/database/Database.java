@@ -4,7 +4,6 @@ import org.mapdb.DB;
 import org.mapdb.DBMaker;
 import org.mapdb.HTreeMap;
 
-import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
 
 public class Database {
 	
