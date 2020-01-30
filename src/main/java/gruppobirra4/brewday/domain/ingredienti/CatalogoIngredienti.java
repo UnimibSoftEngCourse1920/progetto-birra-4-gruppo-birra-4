@@ -1,16 +1,12 @@
 package gruppobirra4.brewday.domain.ingredienti;
 
-import java.util.TreeMap;
-
 import org.mapdb.DB;
-import org.mapdb.DBMaker;
 import org.mapdb.HTreeMap;
 import org.mapdb.Serializer;
 
-import gruppobirra4.brewday.application.database.Database;
+import gruppobirra4.brewday.database.Database;
 import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
 import gruppobirra4.brewday.errori.Notifica;
-import gruppobirra4.brewday.application.database.Database;
 
 public class CatalogoIngredienti {
 	private HTreeMap<String,Ingrediente> ingredienti;
@@ -19,7 +15,8 @@ public class CatalogoIngredienti {
 	private CatalogoIngredienti() {
 		this.ingredienti = (HTreeMap<String, Ingrediente>) Database.getIstanza()
 				.getDb().hashMap("CatalogoIngredienti")
-				.create();
+				.keySerializer(Serializer.STRING)
+				.createOrOpen();
 	}
 	
 	public static synchronized CatalogoIngredienti getIstanza() {
@@ -27,6 +24,10 @@ public class CatalogoIngredienti {
 			istanza = new CatalogoIngredienti();	
 		}
 		return istanza;
+	}
+	
+	private DB getDb() {
+		return Database.getIstanza().getDb();
 	}
 	
 	public Ingrediente creaIngrediente(String nome, String categoria, double quantitaDisponibile) {
@@ -37,14 +38,16 @@ public class CatalogoIngredienti {
 	}
 		
 	public void aggiungiIngrediente(Ingrediente nuovoIngrediente) {
-		ingredienti = (HTreeMap<String, Ingrediente>) Database.getIstanza().getDb()
-				.hashMap("CatalogoIngredienti").createOrOpen();
+		ingredienti = (HTreeMap<String, Ingrediente>) getDb()
+				.hashMap("CatalogoIngredienti").open();
 		if(checkCatalogo(nuovoIngrediente.getNome(), nuovoIngrediente.getCategoria())) {	
 			Notifica.getIstanza().addError("L'ingrediente è già presente nel catalogo");
+			ingredienti.close();
 			return;
 		}
 		ingredienti.put(nuovoIngrediente.getId(), nuovoIngrediente);
-		ingredienti.close();
+		getDb().commit();
+		getDb().close();
 		
 	}
 	
@@ -68,4 +71,5 @@ public class CatalogoIngredienti {
 		return catalogo;
 	}
 	*/
+
 }

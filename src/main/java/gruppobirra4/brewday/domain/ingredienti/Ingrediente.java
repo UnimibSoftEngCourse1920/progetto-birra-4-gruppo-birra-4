@@ -3,8 +3,6 @@ package gruppobirra4.brewday.domain.ingredienti;
 import java.io.Serializable;
 import java.util.UUID;
 
-import org.mapdb.Serializer;
-
 import gruppobirra4.brewday.errori.Notifica;
 
 public class Ingrediente implements Serializable {
@@ -23,26 +21,25 @@ public class Ingrediente implements Serializable {
 	}
 	
 	public static Ingrediente creaIngrediente(String nome, String categoria, double quantita) {
-		boolean valid = validation(nome, categoria, quantita);
+		String nomeUC = nome.replaceAll("\\s+", " ").trim().toUpperCase();
+		boolean valid = validation(nomeUC, quantita);
 		if (!valid)
 			return null;
 		else
-			return new Ingrediente(nome, categoria, quantita);
+			return new Ingrediente(nomeUC, categoria, quantita);
 		
 	}
 	
-	private static boolean validation(String nome, String categoria, double quantita) {
+	private static boolean validation(String nome, double quantita) {
 		return validateNome(nome) &&
-				validateQuantita(quantita); //&&
-				//validateCategoria(categoria);
+				validateQuantita(quantita);
 	}
 	
 	private static boolean validateNome(String nome) {
-		String nomeUC = nome.replaceAll("\\s+", " ").trim().toUpperCase();
-		if(nomeUC.isEmpty()) {				
+		if(nome.isEmpty()) {				
 			Notifica.getIstanza().addError("Il nome deve contenere dei caratteri");
 			return false;
-		} else if (nomeUC.length() >= 30) {
+		} else if (nome.length() >= 30) {
 			Notifica.getIstanza().addError("Il nome deve contenere al massimo 30 caratteri");
 			return false;
 		}
@@ -57,17 +54,6 @@ public class Ingrediente implements Serializable {
 		return true;
 	}
 	
-	/*
-	// sarà necessario???
-	private static boolean validateCategoria(String categoria) {
-		for (String categ : Categoria.values()) {
-				if(categ.equals(categoria))
-						return true;
-		}
-		Notifica.getIstanza().addError("L'ingrediente inserito non fa parte di nessuna categoria ammissibile");
-		return false;
-	}
-*/
 	public  String getId() {
 		return id;
 	}
@@ -77,10 +63,7 @@ public class Ingrediente implements Serializable {
 	}
 	
 	private void setNome(String nome) {
-		String nomeUC = nome.replaceAll("\\s+", " ").trim().toUpperCase();
-				//sostituisce tutti i whitespaces (spazi + newline + tab +ecc)
-				//con un singolo spazio e rimuove tutti gli spazi iniziali e finali
-		this.nome = nomeUC;
+		this.nome = nome;
 	}
 	
 	public String getCategoria() {
@@ -99,17 +82,4 @@ public class Ingrediente implements Serializable {
 		this.quantita = quantita;
 	}
 	
-	/*
-	public void modificaIngrediente(Ingrediente ingrediente, double nuovaQuantita) {
-		ingrediente.setQuantita(nuovaQuantita);
-	}
-
-	public void modificaIngrediente(Ingrediente ingrediente, String nuovoNome) {
-		ingrediente.setNome(nuovoNome);
-	}
-	
-	public void modificaIngrediente(Ingrediente ingrediente, String nuovaCategoria) {
-		ingrediente.setCategoria(nuovaCategoria);
-	}
-*/	
 }

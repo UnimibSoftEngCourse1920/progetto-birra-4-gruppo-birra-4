@@ -1,9 +1,7 @@
-package gruppobirra4.brewday.application.database;
+package gruppobirra4.brewday.database;
 
 import org.mapdb.DB;
 import org.mapdb.DBMaker;
-
-import gruppobirra4.brewday.domain.ingredienti.CatalogoIngredienti;
 
 public class Database {
 	
