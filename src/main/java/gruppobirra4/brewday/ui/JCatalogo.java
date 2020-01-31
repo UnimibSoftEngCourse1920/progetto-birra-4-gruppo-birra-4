@@ -215,7 +215,6 @@ public class JCatalogo {
 				if (tempId != null && riga != -1) {
 					Ingrediente ingr = GestoreIngredienti.getIstanza().modificaIngrediente(tempId, nome, categoria, quantita);
 					if (ingr != null) { //Se non ci sono stati errori
-						//seleziono la riga in base all'id
 						table.setValueAt(ingr.getCategoria(), riga, 1);
 						table.setValueAt(ingr.getNome(), riga, 2);
 						table.setValueAt(Double.toString(ingr.getQuantita()), riga, 3);
