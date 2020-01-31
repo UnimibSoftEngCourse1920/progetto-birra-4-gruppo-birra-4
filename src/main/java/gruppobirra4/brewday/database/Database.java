@@ -10,8 +10,8 @@ public class Database {
 	private DB db;
 	private static Database istanza;
 	
-	private Database() {
-		db = DBMaker.fileDB("src\\main\\java\\gruppobirra4\\brewday\\database\\Database.db")
+	private Database(String path) {
+		db = DBMaker.fileDB(path)
 				.transactionEnable()
 	            .closeOnJvmShutdown()
 	            .fileChannelEnable()
@@ -20,9 +20,14 @@ public class Database {
 	
 	public static synchronized Database getIstanza() {
 		if (istanza == null){
-			istanza = new Database();	
+			istanza = new Database("src\\main\\java\\gruppobirra4\\brewday\\database\\Database.db");	
 		}
 		return istanza;
+	}
+	
+	//Per test
+	public static synchronized void setIstanzaTest() {
+		istanza = new Database("src\\test\\java\\gruppobirra4\\brewday\\DatabaseTest.db");	
 	}
 	
 	public HTreeMap<?, ?> openMapDB(String nomeMappa) {

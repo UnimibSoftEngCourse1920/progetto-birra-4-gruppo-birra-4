@@ -41,7 +41,7 @@ public class JCatalogo {
 	private JButton btnModifica;
 	private JTextField textFieldNome;
 	private JTextField textFieldQuantita;
-	private String id = "";
+	private String id = null;
 
 	/**
 	 * Launch the application.
@@ -210,7 +210,18 @@ public class JCatalogo {
 				String nome = textFieldNome.getText();
 				String categoria = (String) comboBoxCategoria.getSelectedItem();
 				String quantita = textFieldQuantita.getText();
-				
+				int riga = table.getSelectedRow();
+				String tempId = id;
+				if (tempId != null && riga != -1) {
+					Ingrediente ingr = GestoreIngredienti.getIstanza().modificaIngrediente(tempId, nome, categoria, quantita);
+					if (ingr != null) { //Se non ci sono stati errori
+						//seleziono la riga in base all'id
+						table.setValueAt(ingr.getCategoria(), riga, 1);
+						table.setValueAt(ingr.getNome(), riga, 2);
+						table.setValueAt(Double.toString(ingr.getQuantita()), riga, 3);
+						id = null;
+					}
+				}
 			}
 		});
 		panel2.add(btnModifica);
@@ -219,6 +230,13 @@ public class JCatalogo {
 		JButton btnRimuovi = new JButton("Rimuovi");
 		btnRimuovi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int riga = table.getSelectedRow();
+				String tempId = id;
+				if (tempId != null && riga != -1) {
+					GestoreIngredienti.getIstanza().rimuoviIngrediente(tempId);
+					((DefaultTableModel) table.getModel()).removeRow(riga);
+					id = null;
+				}
 			}
 		});
 		panel2.add(btnRimuovi);
