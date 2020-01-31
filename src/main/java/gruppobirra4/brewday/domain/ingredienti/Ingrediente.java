@@ -13,6 +13,8 @@ public class Ingrediente implements Serializable {
 	private String categoria;
 	private double quantita;
 	
+	private static final String CAMPO_QUANTITA = "Quantita";
+	
 	
 
 	protected Ingrediente(String nome, String categoria, String quantita) {
@@ -32,8 +34,8 @@ public class Ingrediente implements Serializable {
 		
 	}
 	
-	private static boolean validation(String nome, String quantita) {
-		return validateNome(nome) &
+	static boolean validation(String nome, String quantita) {
+		return validateNome(nome) & //NOSONAR
 				validateQuantita(quantita);
 	}
 	
@@ -42,7 +44,9 @@ public class Ingrediente implements Serializable {
 	}
 	
 	private static boolean validateQuantita(String quantita) {
-		return !isStringaVuota(quantita, "Quantita") && isNumber(quantita, "Quantita") && isNotPositive(quantita, "Quantita");	
+		return !isStringaVuota(quantita, CAMPO_QUANTITA) && 
+				isNumber(quantita, CAMPO_QUANTITA) &&
+				isNotPositive(quantita, CAMPO_QUANTITA);	
 	}
 
 	public  String getId() {
@@ -75,17 +79,15 @@ public class Ingrediente implements Serializable {
 		double quantitaD = convertToNumber(quantita);
 		this.quantita = quantitaD;
 	}
-	
-	/*public void modificaIngrediente(Ingrediente ingrediente, double nuovaQuantita) {
-		ingrediente.setQuantita(nuovaQuantita);
-	}
 
-	public void modificaIngrediente(Ingrediente ingrediente, String nuovoNome) {
-		ingrediente.setNome(nuovoNome);
+	static void modificaIngrediente(Ingrediente ingredienteModificato, String nuovoNome, String nuovaCategoria,
+			String nuovaQuantita) {
+		if(validation(nuovoNome, nuovaQuantita)) {
+			ingredienteModificato.setNome(nuovoNome);
+			ingredienteModificato.setCategoria(nuovaCategoria);
+			ingredienteModificato.setQuantita(nuovaQuantita);			
+		}
 	}
 	
-	public void modificaIngrediente(Ingrediente ingrediente, String nuovaCategoria) {
-		ingrediente.setCategoria(nuovaCategoria);
-	}*/
 	
 }

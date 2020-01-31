@@ -48,9 +48,6 @@ public class Ricettario {
 	}
 	
 	private void aggiungiRicetta(Ricetta nuovaRicetta) {
-		/*if (ricette.put(r.getNome(), r) != null) {
-			Notifica.getIstanza().addError("E' gia' stata inserita una ricetta con questo nome");
-		}*/
 		ricette = openMapDB();
 		if(checkRicettario(nuovaRicetta.getNome())) {	
 			Notifica.getIstanza().addError("E' gia' stata inserita una ricetta con questo nome");
@@ -102,15 +99,15 @@ public class Ricettario {
 		Database.getIstanza().closeDB();
 		return returnMap;
 	}
-	
-	public String visualizzaRicetta(String nomeRicetta) {
-		Ricetta r = getRicettaFromRicettario(nomeRicetta);
+	/*
+	public String visualizzaRicetta(String nome) {
+		Ricetta r = getRicettaFromRicettario(nome);
 		if (r == null) {
 			//Prendila dal database
 		}
 		return r.toString();
 	}
-	
+	*/
 	private Ricetta getRicettaFromRicettario(String nomeRicetta) {
 		ricette = openMapDB();
 		for (Ricetta r : ricette.values()) {

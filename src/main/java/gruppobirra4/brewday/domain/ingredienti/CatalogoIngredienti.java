@@ -68,12 +68,10 @@ public class CatalogoIngredienti {
 		return false;
 	}
 	
-	public void rimuoviIngrediente(Ingrediente ingrediente) {
+	public void rimuoviIngrediente(String id) {
 		ingredienti = openMapDB();
-		if(ingredienti.containsValue(ingrediente)) { 
-			ingredienti.remove(ingrediente.getId()); 
-			Database.getIstanza().getDb().commit();
-		}
+		ingredienti.remove(id); 
+		Database.getIstanza().getDb().commit();
 		Database.getIstanza().closeDB();
 	}
 	
@@ -102,6 +100,16 @@ public class CatalogoIngredienti {
 		Collection<Ingrediente> returnMap = getIngredientiHelper().values();
 		Database.getIstanza().closeDB();
 		return returnMap;
+	}
+	
+	public Ingrediente modificaIngrediente(String id, String nome, String categoria, String quantita) {
+			ingredienti = openMapDB();
+			Ingrediente ingredienteModificato = ingredienti.get(id);
+			Ingrediente.modificaIngrediente(ingredienteModificato, nome, categoria, quantita);
+			ingredienti.replace(id, ingredienteModificato);
+			Database.getIstanza().getDb().commit();
+			Database.getIstanza().closeDB();
+			return ingredienteModificato;
 	}
 	
 }

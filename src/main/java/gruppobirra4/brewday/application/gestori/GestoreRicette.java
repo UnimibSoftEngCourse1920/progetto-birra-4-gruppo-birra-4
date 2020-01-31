@@ -36,12 +36,12 @@ public class GestoreRicette {
 	public void creaRicetta(String nome, String descrizione, Set<Ingrediente> ingredienti,
 							String quantitaAcqua, String quantitaBirra) {
 		
-		//try {
+		try {
 		Ricettario.getIstanza().creaRicetta (nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
-		//} catch (Exception e) {
-			//Notifica.getIstanza().svuotaNotificheErrori();
+		} catch (Exception e) {
+			Notifica.getIstanza().svuotaNotificheErrori();
 			//Notifica.getIstanza().notificaEccezione(e);
-		//}
+		}
 		if (Notifica.getIstanza().hasErrors()) {
 			Notifica.getIstanza().notificaErrori();
 		}

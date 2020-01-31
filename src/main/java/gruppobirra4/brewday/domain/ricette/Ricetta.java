@@ -38,9 +38,9 @@ public class Ricetta {
 	
 	private static boolean validation(String nome, String descrizione, String quantitaAcqua, 
 										String quantitaBirra) {
-		return validateNome(nome) &
-				validateDescrizione(descrizione) &
-				validateQuantitaAcqua(quantitaAcqua) &
+		return validateNome(nome) & //NOSONAR
+				validateDescrizione(descrizione) & //NOSONAR
+				validateQuantitaAcqua(quantitaAcqua) & //NOSONAR
 				validateQuantitaBirra(quantitaBirra) &&
 				validateQuantita(quantitaBirra, quantitaAcqua);
 	}
