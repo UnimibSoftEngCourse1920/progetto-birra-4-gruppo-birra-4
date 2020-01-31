@@ -49,6 +49,7 @@ public class CatalogoIngredienti {
 		ingredienti = openMapDB();
 		if(checkCatalogo(nuovoIngrediente.getNome(), nuovoIngrediente.getCategoria())) {	
 			Notifica.getIstanza().addError("L'ingrediente è già presente nel catalogo");
+			Database.getIstanza().closeDB();
 			return;
 			
 		}
@@ -106,11 +107,15 @@ public class CatalogoIngredienti {
 	public Ingrediente modificaIngrediente(String id, String nome, String categoria, String quantita) {
 			ingredienti = openMapDB();
 			Ingrediente ingredienteModificato = ingredienti.get(id);
-			ingredienteModificato.modificaIngrediente(nome, categoria, quantita);
-			ingredienti.replace(id, ingredienteModificato);
-			Database.getIstanza().getDb().commit();
+			if(!(checkCatalogo(nome, categoria))) {
+				ingredienteModificato.modificaIngrediente(nome, categoria, quantita);
+				ingredienti.replace(id, ingredienteModificato);
+				Database.getIstanza().getDb().commit();
+				Database.getIstanza().closeDB();
+				return ingredienteModificato;
+			}
 			Database.getIstanza().closeDB();
-			return ingredienteModificato;
+			return null;
 	}
 	
 }
