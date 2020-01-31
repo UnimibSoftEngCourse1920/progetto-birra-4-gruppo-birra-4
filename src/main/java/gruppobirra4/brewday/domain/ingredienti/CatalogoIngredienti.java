@@ -1,10 +1,10 @@
 package gruppobirra4.brewday.domain.ingredienti;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-import org.mapdb.DB;
 import org.mapdb.HTreeMap;
 import org.mapdb.Serializer;
 
@@ -68,26 +68,21 @@ public class CatalogoIngredienti {
 		return false;
 	}
 	
-	public void rimuoviIngrediente(Ingrediente ingrediente) {
-		ingredienti = (HTreeMap<String, Ingrediente>) getDb()
-				.hashMap(TABLE_CATALOGO).open();
-		if(ingredienti.containsValue(ingrediente)) { 
-			ingredienti.remove(ingrediente.getId()); 
-			getDb().commit();
-		}
+	public void rimuoviIngrediente(String id) {
+		ingredienti = openMapDB();
+		ingredienti.remove(id); 
+		Database.getIstanza().getDb().commit();
 		Database.getIstanza().closeDB();
 	}
-
-
+	
 	private SortedMap<String, Ingrediente> getIngredientiHelper() {
 		SortedMap<String, Ingrediente> returnMap = new TreeMap<>();
-		for (Ingrediente ing : ingredienti.values()) {
-			returnMap.put(ing.getId(), new Ingrediente(ing.getNome(),
-														ing.getCategoria(),
-														Double.toString(ing.getQuantita())));
+		for (Ingrediente i : ingredienti.values()) {
+			returnMap.put(i.getId(), new Ingrediente(i.getNome(),
+														i.getCategoria(),
+														Double.toString(i.getQuantita())));
 		}
 		return returnMap;
-		
 	}
 	
 	public SortedMap<String, Ingrediente> getIngredienti() {
@@ -100,11 +95,20 @@ public class CatalogoIngredienti {
 	public Collection<Ingrediente> visualizzaCatalogo() {
 		ingredienti = openMapDB();
 		if (ingredienti.isEmpty()) {
-			return null;
+			return Collections.emptyList();
 		}
 		Collection<Ingrediente> returnMap = getIngredientiHelper().values();
 		Database.getIstanza().closeDB();
 		return returnMap;
 	}
-
+	
+	public Ingrediente modificaIngrediente(String id, String nome, String categoria, String quantita) {
+			ingredienti = openMapDB();
+			Ingrediente ingredienteModificato = ingredienti.get(id);
+			ingredienteModificato.modificaIngrediente(nome, categoria, quantita);
+			Database.getIstanza().getDb().commit();
+			Database.getIstanza().closeDB();
+			return ingredienteModificato;
+	}
+	
 }

@@ -1,6 +1,7 @@
 package gruppobirra4.brewday.application.gestori;
 
 import java.util.Collection;
+import java.util.Collections;
 
 import gruppobirra4.brewday.domain.ingredienti.CatalogoIngredienti;
 import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
@@ -26,40 +27,45 @@ public class GestoreIngredienti {
 		if (Notifica.getIstanza().hasErrors()) {
 			Notifica.getIstanza().notificaErrori();
 			Notifica.getIstanza().svuotaNotificheErrori();
-			return null;
+			return Collections.emptyList();
 		}
 		return catalogo;
 	}
 	
 	public Ingrediente creaIngrediente(String nome, String categoria, String quantita) {
-		//try {
+		try {
 		Ingrediente nuovoIngrediente = CatalogoIngredienti.getIstanza().creaIngrediente(nome, categoria, quantita);
-		//} catch (Exception e) {
-		//	Notifica.getIstanza().svuotaNotificheErrori();
-		//	Notifica.getIstanza().notificaEccezione(e);
-		//}
 		if (Notifica.getIstanza().hasErrors()) {
 			Notifica.getIstanza().notificaErrori();
 			Notifica.getIstanza().svuotaNotificheErrori();
 			return null;
 		}
 		return nuovoIngrediente;
+		} catch (Exception e) {
+			Notifica.getIstanza().svuotaNotificheErrori();
+		//	Notifica.getIstanza().notificaEccezione(e);
+		}
+		return null;
 	}
 	
-	/*public void rimuoviIngrediente(Ingrediente ingrediente) {
-		CatalogoIngredienti.getIstanza().rimuoviIngrediente(ingrediente);
+	public void rimuoviIngrediente(String id) {
+		CatalogoIngredienti.getIstanza().rimuoviIngrediente(id);
 	}
 	
-	public void modificaIngrediente(Ingrediente ingrediente, double nuovaQuantita) {
-		ingrediente.modificaIngrediente(ingrediente, nuovaQuantita);
+	public Ingrediente modificaIngrediente(String id, String nome, String categoria, String quantita) {
+		try {
+		Ingrediente ingredienteModificato = CatalogoIngredienti.getIstanza().modificaIngrediente(id, nome, categoria, quantita);
+		if (Notifica.getIstanza().hasErrors()) {
+			Notifica.getIstanza().notificaErrori();
+			Notifica.getIstanza().svuotaNotificheErrori();
+			return null;
+		}
+		return ingredienteModificato;
+		} catch (Exception e) {
+			Notifica.getIstanza().svuotaNotificheErrori();
+		//	Notifica.getIstanza().notificaEccezione(e);
+		}
+		return null;
 	}
 	
-	public void modificaIngrediente(Ingrediente ingrediente, String nuovoNome) {
-		ingrediente.modificaIngrediente(ingrediente, nuovoNome);
-	}
-	
-	public void modificaIngrediente(Ingrediente ingrediente, Categoria nuovaCategoria) {
-		ingrediente.modificaIngrediente(ingrediente, nuovaCategoria);
-	}
-	*/
 }
