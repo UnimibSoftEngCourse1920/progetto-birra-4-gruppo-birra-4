@@ -75,6 +75,37 @@ public class Ingrediente implements Serializable {
 		double quantitaD = convertToNumber(quantita);
 		this.quantita = quantitaD;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Ingrediente other = (Ingrediente) obj;
+		if (categoria == null) {
+			if (other.categoria != null)
+				return false;
+		} else if (!categoria.equals(other.categoria))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		if (Double.doubleToLongBits(quantita) != Double.doubleToLongBits(other.quantita))
+			return false;
+		return true;
+	}
+	
+	
 	
 	/*public void modificaIngrediente(Ingrediente ingrediente, double nuovaQuantita) {
 		ingrediente.setQuantita(nuovaQuantita);
