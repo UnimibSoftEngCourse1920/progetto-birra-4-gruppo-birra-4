@@ -77,9 +77,21 @@ public class CatalogoIngredienti {
 		Database.getIstanza().closeDB();
 	}
 	
+	private SortedMap<String, Ingrediente> getIngredientiHelper() {
+		SortedMap<String, Ingrediente> returnMap = new TreeMap<>();
+		for (Ingrediente i : ingredienti.values()) {
+			returnMap.put(i.getId(), new Ingrediente(i.getNome(),
+														i.getCategoria(),
+														Double.toString(i.getQuantita())));
+		}
+		return returnMap;
+	}
+	
 	public SortedMap<String, Ingrediente> getIngredienti() {
 		ingredienti = openMapDB();
-		return getIngredientiHelper();
+		SortedMap<String, Ingrediente> returnMap = getIngredientiHelper();
+		Database.getIstanza().closeDB();
+		return returnMap;
 	}
 	
 	public Collection<Ingrediente> visualizzaCatalogo() {
@@ -92,17 +104,4 @@ public class CatalogoIngredienti {
 		return returnMap;
 	}
 	
-	private SortedMap<String, Ingrediente> getIngredientiHelper() {
-		SortedMap<String, Ingrediente> returnMap = new TreeMap<>();
-		ingredienti = openMapDB();
-		for (Ingrediente i : ingredienti.values()) {
-			returnMap.put(i.getId(), new Ingrediente(i.getNome(),
-														i.getCategoria(),
-														Double.toString(i.getQuantita())));
-		}
-		Database.getIstanza().closeDB();
-		return returnMap;
-		
-	}
-
 }

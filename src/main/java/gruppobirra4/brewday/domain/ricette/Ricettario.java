@@ -34,6 +34,10 @@ public class Ricettario {
 		return istanza;
 	}
 	
+	private HTreeMap<String, Ricetta> openMapDB() {
+		return (HTreeMap<String, Ricetta>) Database.getIstanza().openMapDB(TABLE_RICETTARIO);
+	}
+	
 	public void creaRicetta(String nome, String descrizione, Set<Ingrediente> ingredienti,
 			String quantitaAcqua, String quantitaBirra) {
 		
@@ -41,10 +45,6 @@ public class Ricettario {
 		if (r != null) {
 			aggiungiRicetta(r);
 		}		
-	}
-	
-	private HTreeMap<String, Ricetta> openMapDB() {
-		return (HTreeMap<String, Ricetta>) Database.getIstanza().openMapDB(TABLE_RICETTARIO);
 	}
 	
 	private void aggiungiRicetta(Ricetta nuovaRicetta) {
@@ -80,21 +80,9 @@ public class Ricettario {
 		}
 		Database.getIstanza().closeDB();
 	}
-
-	public Collection<Ricetta> visualizzaRicettario() {
-		if (ricette.isEmpty()) {
-			return Collections.emptyList();
-		}
-		return getRicetteHelper().values();
-	}
-	
-	public SortedMap<String, Ricetta> getIngredienti() {
-		return getRicetteHelper();
-	}
 	
 	private SortedMap<String, Ricetta> getRicetteHelper() {
 		SortedMap<String, Ricetta> returnMap = new TreeMap<>();
-		ricette = openMapDB();
 		for (Ricetta r : ricette.values()) {
 			returnMap.put(r.getId(), new Ricetta(r.getNome(),
 														r.getDescrizione(),
@@ -102,12 +90,27 @@ public class Ricettario {
 														Double.toString(r.getQuantitaAcqua()),
 														Double.toString(r.getQuantitaBirra())));
 		}
+		return returnMap;
+	}
+
+	public Collection<Ricetta> visualizzaRicettario() {
+		ricette = openMapDB();
+		if (ricette.isEmpty()) {
+			return Collections.emptyList();
+		}
+		Collection<Ricetta> returnMap = getRicetteHelper().values();
 		Database.getIstanza().closeDB();
 		return returnMap;
-		
 	}
 	
-	/*
+	public String visualizzaRicetta(String nomeRicetta) {
+		Ricetta r = getRicettaFromRicettario(nomeRicetta);
+		if (r == null) {
+			//Prendila dal database
+		}
+		return r.toString();
+	}
+	
 	private Ricetta getRicettaFromRicettario(String nomeRicetta) {
 		ricette = openMapDB();
 		for (Ricetta r : ricette.values()) {
@@ -119,7 +122,7 @@ public class Ricettario {
 		Database.getIstanza().closeDB();
 		return null;
 	}
-	
+	/*
 	public String toString() {
 		return "Ricettario [ricette=" + ricette.keySet() + "]";
 	}
