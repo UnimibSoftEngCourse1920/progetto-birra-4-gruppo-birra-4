@@ -105,8 +105,7 @@ public class CatalogoIngredienti {
 	public Ingrediente modificaIngrediente(String id, String nome, String categoria, String quantita) {
 			ingredienti = openMapDB();
 			Ingrediente ingredienteModificato = ingredienti.get(id);
-			Ingrediente.modificaIngrediente(ingredienteModificato, nome, categoria, quantita);
-			ingredienti.replace(id, ingredienteModificato);
+			ingredienteModificato.modificaIngrediente(nome, categoria, quantita);
 			Database.getIstanza().getDb().commit();
 			Database.getIstanza().closeDB();
 			return ingredienteModificato;

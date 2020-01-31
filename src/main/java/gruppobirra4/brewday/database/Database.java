@@ -9,6 +9,7 @@ public class Database {
 	
 	private DB db;
 	private static Database istanza;
+
 	
 	private Database(String path) {
 		db = DBMaker.fileDB(path)

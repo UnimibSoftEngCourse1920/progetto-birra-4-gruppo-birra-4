@@ -80,12 +80,11 @@ public class Ingrediente implements Serializable {
 		this.quantita = quantitaD;
 	}
 
-	static void modificaIngrediente(Ingrediente ingredienteModificato, String nuovoNome, String nuovaCategoria,
-			String nuovaQuantita) {
+	protected void modificaIngrediente(String nuovoNome, String nuovaCategoria, String nuovaQuantita) {
 		if(validation(nuovoNome, nuovaQuantita)) {
-			ingredienteModificato.setNome(nuovoNome);
-			ingredienteModificato.setCategoria(nuovaCategoria);
-			ingredienteModificato.setQuantita(nuovaQuantita);			
+			setNome(nuovoNome);
+			setCategoria(nuovaCategoria);
+			setQuantita(nuovaQuantita);			
 		}
 	}
 	

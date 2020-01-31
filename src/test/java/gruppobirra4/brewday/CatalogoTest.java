@@ -75,7 +75,7 @@ public class CatalogoTest {
 		
 		CatalogoIngredienti c = CatalogoIngredienti.getIstanza();
 		Ingrediente ingr = c.creaIngrediente("San Michele", "Luppolo", "500");
-		ingr.rimuoviIngrediente(ingr.getId());
+		c.rimuoviIngrediente(ingr.getId());
 		assertEquals(0, c.getIngredienti().size());
 		
 		File dbFile = new File("src\\test\\java\\gruppobirra4\\brewday\\DatabaseTest.db");
@@ -88,7 +88,7 @@ public class CatalogoTest {
 		
 		CatalogoIngredienti c = CatalogoIngredienti.getIstanza();
 		Ingrediente ingr = c.creaIngrediente("San Michele", "Luppolo", "500");
-		ingr.modificaIngrediente(ingr.getId(), "San Pippo", "ciao", "100");
+		c.modificaIngrediente(ingr.getId(), "San Pippo", "ciao", "100");
 		assertEquals(0, c.getIngredienti().size());
 		
 		File dbFile = new File("src\\test\\java\\gruppobirra4\\brewday\\DatabaseTest.db");
