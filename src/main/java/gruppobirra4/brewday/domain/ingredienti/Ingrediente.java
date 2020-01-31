@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.UUID;
 
 import gruppobirra4.brewday.errori.Notifica;
+import static gruppobirra4.brewday.domain.InputUtente.*;
 
 
 public class Ingrediente implements Serializable {
@@ -15,7 +16,7 @@ public class Ingrediente implements Serializable {
 	
 	
 
-	Ingrediente(String nome, String categoria, String quantita) {
+	protected Ingrediente(String nome, String categoria, String quantita) {
 		id = UUID.randomUUID().toString(); 
 		setNome(nome);
 		setCategoria(categoria);
@@ -38,56 +39,11 @@ public class Ingrediente implements Serializable {
 	}
 	
 	private static boolean validateNome(String nome) {
-		return !isStringaVuota(nome, "Nome");
+		return isStringaVuota(nome, "Nome");
 	}
 	
 	private static boolean validateQuantita(String quantita) {
-		return !isStringaVuota(quantita, "Quantita disponibile") && isNumber(quantita) && isNotPositive(quantita);	
-	}
-	
-	private static boolean isNotPositive(String quantita) {
-		double quantitaDisponibile = convertToNumber(quantita);
-		if(quantitaDisponibile < 0) {
-			Notifica.getIstanza().addError("La quantità inserita non può essere negativa");
-			return false;
-		}
-		return true;
-	}
-
-	private static boolean isNumber(String str) {
-		String strNum = rimuoviWhiteSpaces(str);
-	    try {
-	        double d = Double.parseDouble(strNum);
-	    } catch (NumberFormatException nfe) {
-	    	Notifica.getIstanza().addError("La quantità inserita deve essere un numero");
-	    	return false;
-	    }
-	    return true;
-	}
-	
-	private static boolean isStringaVuota(String str, String field) {
-		String s = str;
-		if (str == null) {
-			s = "";
-		}
-		String strLW = rimuoviWhiteSpaces(s);
-		if (strLW.isEmpty()) {				
-			Notifica.getIstanza().addError("Il campo \"" + field + "\" deve contenere dei caratteri");
-			return true;
-		}
-		return false;
-	}
-	
-	private static String rimuoviWhiteSpaces(String str) {
-		if (str != null) {
-			return str.replaceAll("\\s+", " ").trim().toLowerCase();
-		}
-		return null;
-	}
-	
-	private static double convertToNumber(String str) {
-		String strNum = rimuoviWhiteSpaces(str);
-		return Double.parseDouble(strNum);
+		return !isStringaVuota(quantita, "Quantita") && isNumber(quantita, "Quantita") && isNotPositive(quantita, "Quantita");	
 	}
 
 	public  String getId() {

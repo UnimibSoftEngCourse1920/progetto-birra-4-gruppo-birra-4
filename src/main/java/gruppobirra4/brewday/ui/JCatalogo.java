@@ -97,6 +97,7 @@ public class JCatalogo {
 			for (Ingrediente ingr: catalogo) {
 				dtm.addRow(new Object[] {ingr.getCategoria(), ingr.getNome(), ingr.getQuantita()});
 			}
+			catalogo = null;
 		}
 		
 	//AGGIUNGI, MODIFICA, ELIMINA
