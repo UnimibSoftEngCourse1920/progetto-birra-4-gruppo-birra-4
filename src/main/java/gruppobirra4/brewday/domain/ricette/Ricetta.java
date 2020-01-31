@@ -78,50 +78,6 @@ public class Ricetta {
 		return true;
 	}
 	
-	/*private static boolean isNotPositive(String quantita) {
-		double quantitaDisponibile = convertToNumber(quantita);
-		if(quantitaDisponibile < 0) {
-			Notifica.getIstanza().addError("La quantità inserita non può essere negativa");
-			return false;
-		}
-		return true;
-	}
-
-	private static boolean isNumber(String str) {
-		String strNum = rimuoviWhiteSpaces(str);
-	    try {
-	        double d = Double.parseDouble(strNum);
-	    } catch (NumberFormatException nfe) {
-	    	Notifica.getIstanza().addError("La quantità inserita deve essere un numero");
-	    	return false;
-	    }
-	    return true;
-	}
-	
-	private static boolean isStringaVuota(String str, String field) {
-		String s = str;
-		if (str == null) {
-			s = "";
-		}
-		String strLW = rimuoviWhiteSpaces(s);
-		if (strLW.isEmpty()) {				
-			Notifica.getIstanza().addError("Il campo \"" + field + "\" deve contenere dei caratteri");
-			return true;
-		}
-		return false;
-	}
-	
-	private static String rimuoviWhiteSpaces(String str) {
-		if (str != null) {
-			return str.replaceAll("\\s+", " ").trim().toLowerCase();
-		}
-		return null;
-	}
-	private static double convertToNumber(String str) {
-		String strNum = rimuoviWhiteSpaces(str);
-		return Double.parseDouble(strNum);
-	}*/
-	
 	public String getId() {
 		return id;
 	}
