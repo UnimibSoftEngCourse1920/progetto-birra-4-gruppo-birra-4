@@ -49,6 +49,7 @@ public class CatalogoIngredienti {
 		ingredienti = openMapDB();
 		if(checkCatalogo(nuovoIngrediente.getNome(), nuovoIngrediente.getCategoria())) {	
 			Notifica.getIstanza().addError("L'ingrediente è già presente nel catalogo");
+			Database.getIstanza().closeDB();
 			return;
 			
 		}
