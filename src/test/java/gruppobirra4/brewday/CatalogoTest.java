@@ -67,7 +67,7 @@ public class CatalogoTest {
 		assertEquals(3, c.getIngredienti().size());
 	}
 	
-	@Test
+	/*@Test
 	public void testRimuoviIngrediente() {
 		File dbFile = new File("src\\main\\java\\gruppobirra4\\brewday\\database\\Database.db");
 		dbFile.delete();
@@ -88,7 +88,7 @@ public class CatalogoTest {
 		Ingrediente ingrModificato = c.modificaIngrediente(ingr.getId(), "San Pippo", "ciao", "100");
 		ingrModificato = c.getIngredienti().get(ingr.getId());
 		assertEquals(ingrModificato, c.getIngredienti().get(ingr.getId()));
-	}
+	}*/
 	
 
 }
