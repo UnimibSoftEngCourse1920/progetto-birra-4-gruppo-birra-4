@@ -1,8 +1,10 @@
 package gruppobirra4.brewday.application.gestori;
 
+import java.util.Collection;
 import java.util.Set;
 
 import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
+import gruppobirra4.brewday.domain.ricette.Ricetta;
 import gruppobirra4.brewday.domain.ricette.Ricettario;
 import gruppobirra4.brewday.errori.Notifica;
 
@@ -22,14 +24,15 @@ public class GestoreRicette {
 	}
 	
 	
-	public String visualizzaRicettario() {
+	public Collection<Ricetta> visualizzaRicettario() {
 		return Ricettario.getIstanza().visualizzaRicettario();
 	}
 	
+	/*
 	public String visualizzaRicetta(String nomeRicetta) {
 		return Ricettario.getIstanza().visualizzaRicetta(nomeRicetta);
 	}
-	
+	*/
 	public void creaRicetta(String nome, String descrizione, Set<Ingrediente> ingredienti,
 							String quantitaAcqua, String quantitaBirra) {
 		

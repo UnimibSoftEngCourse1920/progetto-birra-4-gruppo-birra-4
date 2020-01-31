@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-import org.mapdb.DB;
 import org.mapdb.HTreeMap;
 import org.mapdb.Serializer;
 
@@ -69,31 +68,16 @@ public class CatalogoIngredienti {
 	}
 	
 	public void rimuoviIngrediente(Ingrediente ingrediente) {
-		ingredienti = (HTreeMap<String, Ingrediente>) getDb()
-				.hashMap(TABLE_CATALOGO).open();
+		ingredienti = openMapDB();
 		if(ingredienti.containsValue(ingrediente)) { 
 			ingredienti.remove(ingrediente.getId()); 
-			getDb().commit();
+			Database.getIstanza().getDb().commit();
 		}
 		Database.getIstanza().closeDB();
-	}
-
-
-	private SortedMap<String, Ingrediente> getIngredientiHelper() {
-		SortedMap<String, Ingrediente> returnMap = new TreeMap<>();
-		ingredienti = openMapDB();
-		for (Ingrediente ing : ingredienti.values()) {
-			returnMap.put(ing.getId(), new Ingrediente(ing.getNome(),
-														ing.getCategoria(),
-														Double.toString(ing.getQuantita())));
-		}
-		return returnMap;
-		
 	}
 	
 	public SortedMap<String, Ingrediente> getIngredienti() {
 		SortedMap<String, Ingrediente> returnMap = getIngredientiHelper();
-		Database.getIstanza().closeDB();
 		return returnMap;
 	}
 	
@@ -102,6 +86,19 @@ public class CatalogoIngredienti {
 			return null;
 		}
 		return getIngredientiHelper().values();
+	}
+	
+	private SortedMap<String, Ingrediente> getIngredientiHelper() {
+		SortedMap<String, Ingrediente> returnMap = new TreeMap<>();
+		ingredienti = openMapDB();
+		for (Ingrediente i : ingredienti.values()) {
+			returnMap.put(i.getId(), new Ingrediente(i.getNome(),
+														i.getCategoria(),
+														Double.toString(i.getQuantita())));
+		}
+		Database.getIstanza().closeDB();
+		return returnMap;
+		
 	}
 
 }
