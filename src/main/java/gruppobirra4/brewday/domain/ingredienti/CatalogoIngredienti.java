@@ -78,9 +78,10 @@ public class CatalogoIngredienti {
 	private SortedMap<String, Ingrediente> getIngredientiHelper() {
 		SortedMap<String, Ingrediente> returnMap = new TreeMap<>();
 		for (Ingrediente i : ingredienti.values()) {
-			returnMap.put(i.getId(), new Ingrediente(i.getNome(),
-														i.getCategoria(),
-														Double.toString(i.getQuantita())));
+			returnMap.put(i.getId(), new Ingrediente(i.getId(),
+													i.getNome(),
+													i.getCategoria(),
+													Double.toString(i.getQuantita())));
 		}
 		return returnMap;
 	}
@@ -106,6 +107,7 @@ public class CatalogoIngredienti {
 			ingredienti = openMapDB();
 			Ingrediente ingredienteModificato = ingredienti.get(id);
 			ingredienteModificato.modificaIngrediente(nome, categoria, quantita);
+			ingredienti.replace(id, ingredienteModificato);
 			Database.getIstanza().getDb().commit();
 			Database.getIstanza().closeDB();
 			return ingredienteModificato;
