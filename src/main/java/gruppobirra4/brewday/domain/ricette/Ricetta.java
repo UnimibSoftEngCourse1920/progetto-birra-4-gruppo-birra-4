@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
 import gruppobirra4.brewday.errori.Notifica;
+import static gruppobirra4.brewday.domain.InputUtente.*;
 
 public class Ricetta {
 	
@@ -16,7 +17,7 @@ public class Ricetta {
 	private double quantitaBirra;
 	
 	
-	private Ricetta(String nome, String descrizione, Set<Ingrediente> ingredienti, 
+	Ricetta(String nome, String descrizione, Set<Ingrediente> ingredienti, 
 					String quantitaAcqua, String quantitaBirra) {
 		this.id = UUID.randomUUID().toString();
 		setNome(nome);
@@ -37,9 +38,9 @@ public class Ricetta {
 	
 	private static boolean validation(String nome, String descrizione, String quantitaAcqua, 
 										String quantitaBirra) {
-		return validateNome(nome) &&
-				validateDescrizione(descrizione) &&
-				validateQuantitaAcqua(quantitaAcqua) &&
+		return validateNome(nome) &
+				validateDescrizione(descrizione) &
+				validateQuantitaAcqua(quantitaAcqua) &
 				validateQuantitaBirra(quantitaBirra) &&
 				validateQuantita(quantitaBirra, quantitaAcqua);
 	}
@@ -58,15 +59,15 @@ public class Ricetta {
 	}
 
 	private static boolean validateQuantitaAcqua(String quantitaAcqua) {
-		return !isStringaVuota(quantitaAcqua, "Quantita disponibile")
-				&& isNumber(quantitaAcqua) 
-				&& isNotPositive(quantitaAcqua);
+		return !isStringaVuota(quantitaAcqua, "Quantita acqua")
+				&& isNumber(quantitaAcqua, "Quantita' acqua") 
+				&& isNotPositive(quantitaAcqua, "Quantita' acqua");
 	}
 	
 	private static boolean validateQuantitaBirra(String quantitaBirra) {
-		return !isStringaVuota(quantitaBirra, "Quantita disponibile")
-				&& isNumber(quantitaBirra) 
-				&& isNotPositive(quantitaBirra);
+		return !isStringaVuota(quantitaBirra, "Quantita birra")
+				&& isNumber(quantitaBirra, "Quantita' birra") 
+				&& isNotPositive(quantitaBirra, "Quantita' birra");
 	}
 	
 	private static boolean validateQuantita(String quantitaBirra, String quantitaAcqua) {
@@ -77,7 +78,7 @@ public class Ricetta {
 		return true;
 	}
 	
-	private static boolean isNotPositive(String quantita) {
+	/*private static boolean isNotPositive(String quantita) {
 		double quantitaDisponibile = convertToNumber(quantita);
 		if(quantitaDisponibile < 0) {
 			Notifica.getIstanza().addError("La quantità inserita non può essere negativa");
@@ -119,7 +120,7 @@ public class Ricetta {
 	private static double convertToNumber(String str) {
 		String strNum = rimuoviWhiteSpaces(str);
 		return Double.parseDouble(strNum);
-	}
+	}*/
 	
 	public String getId() {
 		return id;

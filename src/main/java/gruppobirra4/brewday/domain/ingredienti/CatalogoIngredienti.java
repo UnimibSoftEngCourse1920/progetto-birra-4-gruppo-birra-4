@@ -78,14 +78,18 @@ public class CatalogoIngredienti {
 	}
 	
 	public SortedMap<String, Ingrediente> getIngredienti() {
+		ingredienti = openMapDB();
 		return getIngredientiHelper();
 	}
 	
 	public Collection<Ingrediente> visualizzaCatalogo() {
+		ingredienti = openMapDB();
 		if (ingredienti.isEmpty()) {
 			return Collections.emptyList();
 		}
-		return getIngredientiHelper().values();
+		Collection<Ingrediente> returnMap = getIngredientiHelper().values();
+		Database.getIstanza().closeDB();
+		return returnMap;
 	}
 	
 	private SortedMap<String, Ingrediente> getIngredientiHelper() {
