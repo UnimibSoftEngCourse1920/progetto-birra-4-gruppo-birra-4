@@ -20,6 +20,9 @@ import java.awt.BorderLayout;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.util.Set;
@@ -38,6 +41,7 @@ public class JCatalogo {
 	private JButton btnModifica;
 	private JTextField textFieldNome;
 	private JTextField textFieldQuantita;
+	private String id = "";
 
 	/**
 	 * Launch the application.
@@ -76,10 +80,30 @@ public class JCatalogo {
 		scrollPane.setBounds(0, 5, 948, 274);
 		
 		table = new JTable();
-		String[] header = new String[] {"Categoria", "Nome", "Quantita disponibile"};
-		DefaultTableModel dtm = new MyTableModel(new Object[][] {}, header);
-		//dtm.setColumnIdentifiers(header);
+		String[] header = new String[] {"id", "Categoria", "Nome", "Quantita disponibile"};
+		DefaultTableModel dtm = new MyTableModel(new Object[][] {}, header)  {
+				boolean[] columnEditables = new boolean[] {
+					true, false, false, false
+				};
+				public boolean isCellEditable(int row, int column) {
+					return columnEditables[column];
+				}
+			};
+		dtm.setColumnIdentifiers(header);
 		table.setModel(dtm);
+		/*table.setModel(dtm
+		table.setModel(new DefaultTableModel(new Object[][] {},	
+											new String[] {"id", "Categoria", "Nome", "Quantita disponibile"}) {
+			boolean[] columnEditables = new boolean[] {
+				true, false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});*/
+		table.getColumnModel().getColumn(0).setPreferredWidth(0);
+		table.getColumnModel().getColumn(0).setMinWidth(0);
+		table.getColumnModel().getColumn(0).setMaxWidth(0);
 		scrollPane.setViewportView(table);
 		frmCatalogoIngredienti.getContentPane().setLayout(null);
 		frmCatalogoIngredienti.getContentPane().add(scrollPane);
@@ -95,10 +119,13 @@ public class JCatalogo {
 		Collection<Ingrediente> catalogo = GestoreIngredienti.getIstanza().visualizzaCatalogo();
 		if (catalogo != null) { //Se il catalogo non è vuoto
 			for (Ingrediente ingr: catalogo) {
-				dtm.addRow(new Object[] {ingr.getCategoria(), ingr.getNome(), ingr.getQuantita()});
+				dtm.addRow(new Object[] {ingr.getId(), ingr.getCategoria(), ingr.getNome(), 
+							Double.toString(ingr.getQuantita())
+							});
 			}
 			catalogo = null;
 		}
+
 		
 	//AGGIUNGI, MODIFICA, ELIMINA
 		panel = new JPanel();
@@ -106,11 +133,22 @@ public class JCatalogo {
 		frmCatalogoIngredienti.getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		
+	//Campi per inserire/modificare/rimuovere ingredienti
 		JPanel panel1 = new JPanel();
 		panel1.setBounds(0, 0, 390, 222);
 		panel.add(panel1);
 		panel1.setLayout(new GridLayout(3, 2, 10, 20));
+		
+		
+		JLabel lblCategoria = new JLabel("Categoria:");
+		panel1.add(lblCategoria);
+		
+		JComboBox comboBoxCategoria = new JComboBox();
+		comboBoxCategoria.setModel(new DefaultComboBoxModel(new String[] {
+					"Malto", "Luppolo", "Lievito", "Zucchero", "Additivo"
+					}));
+		panel1.add(comboBoxCategoria);
+		
 		
 		JLabel lblNome = new JLabel("Nome:");
 		panel1.add(lblNome);
@@ -120,13 +158,6 @@ public class JCatalogo {
 		textFieldNome.setDocument(new JTextFieldLimit(30));
 		textFieldNome.setColumns(10);
 		
-		JLabel lblCategoria = new JLabel("Categoria:");
-		panel1.add(lblCategoria);
-		
-		JComboBox comboBoxCategoria = new JComboBox();
-		comboBoxCategoria.setModel(new DefaultComboBoxModel(new String[] {"Malto", "Luppolo", "Lievito", "Zucchero", "Additivo"}));
-		panel1.add(comboBoxCategoria);
-		
 		JLabel lblQuantitaDisponibile = new JLabel("Quantita disponibile:");
 		panel1.add(lblQuantitaDisponibile);
 		
@@ -134,7 +165,19 @@ public class JCatalogo {
 		panel1.add(textFieldQuantita);
 		textFieldQuantita.setColumns(10);
 		
+		//Evento per mettere nei jtextfield i valori della riga selezionata
+		table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+	        public void valueChanged(ListSelectionEvent event) {
+	            int riga = table.getSelectedRow();
+	            id = (String) table.getValueAt(riga, 0);
+	            comboBoxCategoria.setSelectedItem((String) table.getValueAt(riga, 1));
+	            textFieldNome.setText((String) table.getValueAt(riga, 2));
+	            textFieldQuantita.setText((String) table.getValueAt(riga, 3));
+	        }
+	    });
 		
+		
+	//Bottoni	
 		JPanel panel2 = new JPanel();
 		panel2.setBounds(543, 13, 171, 166);
 		panel.add(panel2);
@@ -151,18 +194,34 @@ public class JCatalogo {
 				
 				Ingrediente ingr = GestoreIngredienti.getIstanza().creaIngrediente(nome, categoria, quantita);
 				if (ingr != null) { //Se non ci sono stati errori
-					dtm.addRow(new Object[] {ingr.getCategoria(), ingr.getNome(), ingr.getQuantita()});
+					dtm.addRow(new Object[] {ingr.getId(), ingr.getCategoria(), ingr.getNome(), 
+								Double.toString(ingr.getQuantita())
+								});	
+					ingr = null;
 				}
 			}
 		});
-		
 		panel2.add(btnAggiungi);
-		
+			
+		//Modifica ingrediente
 		btnModifica = new JButton("Modifica");
+		btnModifica.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String nome = textFieldNome.getText();
+				String categoria = (String) comboBoxCategoria.getSelectedItem();
+				String quantita = textFieldQuantita.getText();
+				
+			}
+		});
 		panel2.add(btnModifica);
 		
-		JButton btnCancella = new JButton("Cancella");
-		panel2.add(btnCancella);
+		//Rimuovi ingrediente
+		JButton btnRimuovi = new JButton("Rimuovi");
+		btnRimuovi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		panel2.add(btnRimuovi);
 		
 	}
 }

@@ -3,7 +3,6 @@ package gruppobirra4.brewday.domain.ingredienti;
 import java.io.Serializable;
 import java.util.UUID;
 
-import gruppobirra4.brewday.errori.Notifica;
 import static gruppobirra4.brewday.domain.InputUtente.*;
 
 
@@ -34,12 +33,12 @@ public class Ingrediente implements Serializable {
 	}
 	
 	private static boolean validation(String nome, String quantita) {
-		return validateNome(nome) &&
+		return validateNome(nome) &
 				validateQuantita(quantita);
 	}
 	
 	private static boolean validateNome(String nome) {
-		return isStringaVuota(nome, "Nome");
+		return !isStringaVuota(nome, "Nome");
 	}
 	
 	private static boolean validateQuantita(String quantita) {

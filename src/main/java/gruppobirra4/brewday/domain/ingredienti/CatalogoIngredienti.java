@@ -81,7 +81,6 @@ public class CatalogoIngredienti {
 
 	private SortedMap<String, Ingrediente> getIngredientiHelper() {
 		SortedMap<String, Ingrediente> returnMap = new TreeMap<>();
-		ingredienti = openMapDB();
 		for (Ingrediente ing : ingredienti.values()) {
 			returnMap.put(ing.getId(), new Ingrediente(ing.getNome(),
 														ing.getCategoria(),
@@ -92,16 +91,20 @@ public class CatalogoIngredienti {
 	}
 	
 	public SortedMap<String, Ingrediente> getIngredienti() {
+		ingredienti = openMapDB();
 		SortedMap<String, Ingrediente> returnMap = getIngredientiHelper();
 		Database.getIstanza().closeDB();
 		return returnMap;
 	}
 	
 	public Collection<Ingrediente> visualizzaCatalogo() {
+		ingredienti = openMapDB();
 		if (ingredienti.isEmpty()) {
 			return null;
 		}
-		return getIngredientiHelper().values();
+		Collection<Ingrediente> returnMap = getIngredientiHelper().values();
+		Database.getIstanza().closeDB();
+		return returnMap;
 	}
 
 }
