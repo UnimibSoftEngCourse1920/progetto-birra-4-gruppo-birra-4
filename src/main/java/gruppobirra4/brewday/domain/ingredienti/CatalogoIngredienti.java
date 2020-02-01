@@ -97,7 +97,6 @@ public class CatalogoIngredienti {
 	public Collection<Ingrediente> visualizzaCatalogo() {
 		ingredienti = openMapDB();
 		if (ingredienti.isEmpty()) {
-			Database.getIstanza().closeDB();
 			return Collections.emptyList();
 		}
 		Collection<Ingrediente> returnMap = getIngredientiHelper().values();
