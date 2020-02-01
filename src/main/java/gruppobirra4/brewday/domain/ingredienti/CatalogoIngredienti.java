@@ -36,7 +36,7 @@ public class CatalogoIngredienti {
 	}
 	
 	public Ingrediente creaIngrediente(String nome, String categoria, String quantitaDisponibile) {
-		Ingrediente ingrediente = Ingrediente.creaIngrediente(nome, categoria, quantitaDisponibile);
+		Ingrediente ingrediente = Ingrediente.creaIngrediente(null, nome, categoria, quantitaDisponibile);
 		if(ingrediente != null && aggiungiIngrediente(ingrediente)) {
 			return ingrediente;
 		}
@@ -106,23 +106,21 @@ public class CatalogoIngredienti {
 	}
 	
 	public Ingrediente modificaIngrediente(String id, String nome, String categoria, String quantita) {
-			ingredienti = openMapDB();
-			Ingrediente ingredienteModificato = ingredienti.get(id);
-			if (!Ingrediente.validation(nome, quantita)) {
-				Database.getIstanza().closeDB();
-				return null;
-			}
-			if(!(checkCatalogo(nome, categoria, id))) {
-				ingredienteModificato.modificaIngrediente(nome, categoria, quantita);
-				ingredienti.replace(id, ingredienteModificato);
-				Database.getIstanza().getDb().commit();
-				Database.getIstanza().closeDB();
-				return ingredienteModificato;
-			}
-			
-			Notifica.getIstanza().addError("E' già presente un ingrediente con lo stesso nome e categoria");
+		ingredienti = openMapDB();	
+		Ingrediente ingrModificato =  Ingrediente.creaIngrediente(id, nome, categoria, quantita);
+		if (ingrModificato == null) {
 			Database.getIstanza().closeDB();
 			return null;
+		}
+		if(!checkCatalogo(ingrModificato.getNome(), ingrModificato.getCategoria(), ingrModificato.getId())) {		
+			ingredienti.replace(id, ingrModificato);
+			Database.getIstanza().getDb().commit();
+			Database.getIstanza().closeDB();
+			return ingrModificato;
+		}	
+		Notifica.getIstanza().addError("E' già presente un ingrediente con lo stesso nome e categoria");
+		Database.getIstanza().closeDB();
+		return null;
 	}
 	
 }

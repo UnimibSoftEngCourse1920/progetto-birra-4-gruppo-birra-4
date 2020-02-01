@@ -139,7 +139,6 @@ public class Ricettario {
 			Database.getIstanza().closeDB();
 			return ricettaModificata;
 		}
-		
 		Notifica.getIstanza().addError("E' già presente un ingrediente con lo stesso nome e categoria");
 		Database.getIstanza().closeDB();
 		return null;
