@@ -1,7 +1,6 @@
-package gruppobirra4.brewday.application.gestori;
+package gruppobirra4.brewday.application.gestori; //NOSONAR
 
 import java.util.Collection;
-import java.util.Collections;
 
 import gruppobirra4.brewday.domain.ingredienti.CatalogoIngredienti;
 import gruppobirra4.brewday.domain.ingredienti.Ingrediente;

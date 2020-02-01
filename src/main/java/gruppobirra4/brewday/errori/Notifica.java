@@ -1,4 +1,4 @@
-package gruppobirra4.brewday.errori;
+package gruppobirra4.brewday.errori; //NOSONAR
 
 import java.util.LinkedList;
 import java.util.List;

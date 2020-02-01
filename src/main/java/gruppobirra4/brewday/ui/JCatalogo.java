@@ -75,6 +75,7 @@ public class JCatalogo {
 				boolean[] columnEditables = new boolean[] {
 					true, false, false, false
 				};
+				@Override
 				public boolean isCellEditable(int row, int column) {
 					return columnEditables[column];
 				}
