@@ -46,7 +46,15 @@ public class Ricetta {
 		return new Ricetta(nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
 	}
 	
-	private static boolean validation(String nome, String descrizione, String quantitaAcqua, 
+	protected void modificaRicetta(String nuovoNome, String nuovaDescrizione, String nuovaQuantitaAcqua,
+			String nuovaQuantitaBirra) {
+		setNome(nuovoNome);
+		setDescrizione(nuovaDescrizione);
+		setQuantitaAcqua(nuovaQuantitaAcqua);
+		setQuantitaBirra(nuovaQuantitaBirra);
+	}
+	
+	protected static boolean validation(String nome, String descrizione, String quantitaAcqua, 
 										String quantitaBirra) {
 		return validateNome(nome) & //NOSONAR
 				validateDescrizione(descrizione) & //NOSONAR
@@ -64,7 +72,7 @@ public class Ricetta {
 			Notifica.getIstanza().addError("Inserire una descrizione della ricetta"); //Da modificare!!!!!!!!!!!!
 			return false;
 		}
-		if (descrizione.length() >= 500) {  //Da modificare!!!!!!!!!!!!
+		if (descrizione.length() >= 500) {  //Da modificare (probabilmente non necessario)!!!!!!!!!!!!
 			Notifica.getIstanza().addError("Il nome deve contenere al massimo 500 caratteri"); //Da modificare!!!!!!!!!!!!
 			return false;
 		}
@@ -136,6 +144,6 @@ public class Ricetta {
 	private void setQuantitaBirra(String quantitaBirra) {
 		double quantitaB = convertToNumber(quantitaBirra);
 		this.quantitaAcqua = quantitaB;
-	}	
-	
+	}
+
 }

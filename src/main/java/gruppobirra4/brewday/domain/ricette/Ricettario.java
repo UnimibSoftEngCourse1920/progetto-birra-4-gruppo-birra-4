@@ -1,7 +1,6 @@
 	package gruppobirra4.brewday.domain.ricette; //NOSONAR
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
@@ -124,5 +123,25 @@ public class Ricettario {
 		return null;
 	}
 	*/
-
+	
+	public Ricetta modificaRicetta(String id, String nome, String descrizione,
+			String quantitaAcqua, String quantitaBirra) {
+		ricette=openMapDB();
+		Ricetta ricettaModificata = ricette.get(id);
+		if (!Ricetta.validation(nome, descrizione, quantitaAcqua, quantitaBirra)) {
+			Database.getIstanza().closeDB();
+			return null;
+		}
+		if(!(checkRicettario(nome, id))) {
+			ricettaModificata.modificaRicetta(nome, descrizione, quantitaAcqua, quantitaBirra);
+			ricette.replace(id, ricettaModificata);
+			Database.getIstanza().getDb().commit();
+			Database.getIstanza().closeDB();
+			return ricettaModificata;
+		}
+		
+		Notifica.getIstanza().addError("E' già presente un ingrediente con lo stesso nome e categoria");
+		Database.getIstanza().closeDB();
+		return null;
+}
 }
