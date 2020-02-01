@@ -3,6 +3,7 @@ package gruppobirra4.brewday.application.gestori; //NOSONAR
 import java.util.Collection;
 import java.util.Set;
 
+import gruppobirra4.brewday.domain.ingredienti.CatalogoIngredienti;
 import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
 import gruppobirra4.brewday.domain.ricette.Ricetta;
 import gruppobirra4.brewday.domain.ricette.Ricettario;
@@ -23,31 +24,41 @@ public class GestoreRicette {
 		return istanza;
 	}
 	
-	
 	public Collection<Ricetta> visualizzaRicettario() {
-		return Ricettario.getIstanza().visualizzaRicettario();
-	}
-	
-	/*
-	public String visualizzaRicetta(String nomeRicetta) {
-		return Ricettario.getIstanza().visualizzaRicetta(nomeRicetta);
-	}
-	*/
-	public void creaRicetta(String nome, String descrizione, Set<Ingrediente> ingredienti,
-							String quantitaAcqua, String quantitaBirra) {
-		
 		try {
-		Ricettario.getIstanza().creaRicetta (nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
+			Collection<Ricetta> ricettario = Ricettario.getIstanza().visualizzaRicettario();
+			if (Notifica.getIstanza().hasErrors()) {
+				Notifica.getIstanza().notificaErrori();
+				Notifica.getIstanza().svuotaNotificheErrori();
+				return null;
+			}
+			return ricettario;
 		} catch (Exception e) {
 			Notifica.getIstanza().svuotaNotificheErrori();
 			//Notifica.getIstanza().notificaEccezione(e);
+			return null;
 		}
-		if (Notifica.getIstanza().hasErrors()) {
-			Notifica.getIstanza().notificaErrori();
+	}
+
+	public Ricetta creaRicetta(String nome, String descrizione, Set<Ingrediente> ingredienti,
+			String quantitaAcqua, String quantitaBirra) {
+		try {
+			Ricetta nuovaRicetta = Ricettario.getIstanza().creaRicetta(nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
+			if (Notifica.getIstanza().hasErrors()) {
+				Notifica.getIstanza().notificaErrori();
+				Notifica.getIstanza().svuotaNotificheErrori();
+				return null;
+			}
+			return nuovaRicetta;
+		} catch (Exception e) {
+			Notifica.getIstanza().svuotaNotificheErrori();
+			//Notifica.getIstanza().notificaEccezione(e);
+			return null;
 		}
-		
 	}
 	
+	public void rimuoviRicetta(String id) {
+		Ricettario.getIstanza().rimuoviRicetta(id);
+	}
 	
-
 }

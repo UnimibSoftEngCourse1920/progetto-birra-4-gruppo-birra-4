@@ -42,8 +42,7 @@ public class Ingrediente implements Serializable {
 	protected void modificaIngrediente(String nuovoNome, String nuovaCategoria, String nuovaQuantita) {
 		setNome(nuovoNome);
 		setCategoria(nuovaCategoria);
-		setQuantita(nuovaQuantita);			
-		
+		setQuantita(nuovaQuantita);	
 	}
 	
 	protected static boolean validation(String nome, String quantita) {
@@ -72,7 +71,6 @@ public class Ingrediente implements Serializable {
 	private void setNome(String nome) {
 		String nomeLW = rimuoviWhiteSpaces(nome);
 		this.nome = nomeLW;
-
 	}
 	
 	public String getCategoria() {
