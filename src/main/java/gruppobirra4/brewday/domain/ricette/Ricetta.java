@@ -37,21 +37,16 @@ public class Ricetta {
 		setQuantitaBirra(quantitaBirra); 
 	}	
 	
-	protected static Ricetta creaRicetta(String nome, String descrizione, Set<Ingrediente> ingredienti, 
+	protected static Ricetta creaRicetta(String id, String nome, String descrizione, Set<Ingrediente> ingredienti, 
 					String quantitaAcqua, String quantitaBirra) {
 		boolean valid = validation(nome, descrizione, quantitaAcqua, quantitaBirra);
 		if (!valid) {
 			return null;
 		}
-		return new Ricetta(nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
-	}
-	
-	protected void modificaRicetta(String nuovoNome, String nuovaDescrizione, String nuovaQuantitaAcqua,
-			String nuovaQuantitaBirra) {
-		setNome(nuovoNome);
-		setDescrizione(nuovaDescrizione);
-		setQuantitaAcqua(nuovaQuantitaAcqua);
-		setQuantitaBirra(nuovaQuantitaBirra);
+		if(id == null)
+			return new Ricetta(nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
+		else
+			return new Ricetta(id, nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
 	}
 	
 	protected static boolean validation(String nome, String descrizione, String quantitaAcqua, 

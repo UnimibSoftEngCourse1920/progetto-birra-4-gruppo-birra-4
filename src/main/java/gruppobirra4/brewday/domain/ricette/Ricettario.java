@@ -39,7 +39,7 @@ public class Ricettario {
 	
 	public Ricetta creaRicetta(String nome, String descrizione, Set<Ingrediente> ingredienti,
 			String quantitaAcqua, String quantitaBirra) {
-		Ricetta ricetta = Ricetta.creaRicetta(nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
+		Ricetta ricetta = Ricetta.creaRicetta(null, nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
 		if(ricetta != null && aggiungiRicetta(ricetta)) {
 			return ricetta;
 		}
@@ -124,23 +124,23 @@ public class Ricettario {
 	}
 	*/
 	
-	public Ricetta modificaRicetta(String id, String nome, String descrizione,
+	public Ricetta modificaRicetta(String id, String nome, String descrizione, Set<Ingrediente> ingredienti,
 			String quantitaAcqua, String quantitaBirra) {
 		ricette=openMapDB();
-		Ricetta ricettaModificata = ricette.get(id);
-		if (!Ricetta.validation(nome, descrizione, quantitaAcqua, quantitaBirra)) {
+		Ricetta ricModificata = Ricetta.creaRicetta(id, nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
+		if (ricModificata == null) {
 			Database.getIstanza().closeDB();
 			return null;
 		}
-		if(!(checkRicettario(nome, id))) {
-			ricettaModificata.modificaRicetta(nome, descrizione, quantitaAcqua, quantitaBirra);
-			ricette.replace(id, ricettaModificata);
+		if(!(checkRicettario(ricModificata.getNome(), ricModificata.getId()))) {
+			ricette.replace(id, ricModificata);
 			Database.getIstanza().getDb().commit();
 			Database.getIstanza().closeDB();
-			return ricettaModificata;
+			return ricModificata;
 		}
 		Notifica.getIstanza().addError("E' già presente un ingrediente con lo stesso nome e categoria");
 		Database.getIstanza().closeDB();
 		return null;
-}
+	}
+	
 }

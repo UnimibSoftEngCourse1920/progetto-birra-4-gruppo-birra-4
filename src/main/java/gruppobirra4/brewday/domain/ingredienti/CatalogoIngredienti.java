@@ -123,4 +123,16 @@ public class CatalogoIngredienti {
 		return null;
 	}
 	
+	/*
+	public Ingrediente aggiungiIngrediente(String idRicetta, String idIngr, String nomeIngr, String categoriaIngr, String quantitaIngr) {
+	ingredienti = openMapDB();
+	Ingrediente ingrModificato
+	}
+	
+	public modificaIngrediente() {
+	}
+	
+	public eliminaIngrediente() {
+	}
+	*/
 }
