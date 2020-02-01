@@ -97,6 +97,7 @@ public class CatalogoIngredienti {
 	public Collection<Ingrediente> visualizzaCatalogo() {
 		ingredienti = openMapDB();
 		if (ingredienti.isEmpty()) {
+			Database.getIstanza().closeDB();
 			return Collections.emptyList();
 		}
 		Collection<Ingrediente> returnMap = getIngredientiHelper().values();
@@ -114,6 +115,8 @@ public class CatalogoIngredienti {
 				Database.getIstanza().closeDB();
 				return ingredienteModificato;
 			}
+			
+			Notifica.getIstanza().addError("E' già presente un ingrediente con lo stesso nome e categoria");
 			Database.getIstanza().closeDB();
 			return null;
 	}

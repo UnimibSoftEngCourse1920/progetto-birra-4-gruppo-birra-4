@@ -64,7 +64,7 @@ public class CatalogoTest {
 		ingr = c.creaIngrediente("   San       Michele     ", "Luppolo", "   500  ");
 		assertNotNull(ingr);
 		assertEquals(3, c.getIngredienti().size());
-	} */
+	}*/ 
 	
 	/*@Test
 	public void testRimuoviIngrediente() {
