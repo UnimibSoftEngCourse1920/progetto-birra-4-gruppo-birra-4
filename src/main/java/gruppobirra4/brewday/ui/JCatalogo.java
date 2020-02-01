@@ -73,7 +73,7 @@ public class JCatalogo {
 		String[] header = new String[] {"id", "Categoria", "Nome", "Quantita disponibile"};
 		DefaultTableModel dtm = new MyTableModel(new Object[][] {}, header)  {
 				boolean[] columnEditables = new boolean[] {
-					true, false, false, false
+					false, false, false, false
 				};
 				@Override
 				public boolean isCellEditable(int row, int column) {
@@ -99,12 +99,6 @@ public class JCatalogo {
 		frmCatalogoIngredienti.getContentPane().setLayout(null);
 		frmCatalogoIngredienti.getContentPane().add(scrollPane);
 		
-		
-		/*PROVA VISUALIZZA CATALOGO
-		GestoreIngredienti.getIstanza().creaIngrediente("Tipo1", "Malto", "500");
-		GestoreIngredienti.getIstanza().creaIngrediente("Tipo2", "Malto", "900");
-		GestoreIngredienti.getIstanza().creaIngrediente("Tipo3", "Malto", "800");
-		*/
 		
 		//Visualizza catalogo
 		Collection<Ingrediente> catalogo = GestoreIngredienti.getIstanza().visualizzaCatalogo();
@@ -157,15 +151,19 @@ public class JCatalogo {
 		textFieldQuantita.setColumns(10);
 		
 		//Evento per mettere nei jtextfield i valori della riga selezionata
-		table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+		ListSelectionListener l = new ListSelectionListener(){
 	        public void valueChanged(ListSelectionEvent event) {
 	            int riga = table.getSelectedRow();
-	            id = (String) table.getValueAt(riga, 0);
-	            comboBoxCategoria.setSelectedItem((String) table.getValueAt(riga, 1));
-	            textFieldNome.setText((String) table.getValueAt(riga, 2));
-	            textFieldQuantita.setText((String) table.getValueAt(riga, 3));
+	            if (riga != -1) {
+	            	id = (String) table.getValueAt(riga, 0);
+	            	comboBoxCategoria.setSelectedItem((String) table.getValueAt(riga, 1));
+	            	textFieldNome.setText((String) table.getValueAt(riga, 2));
+	            	textFieldQuantita.setText((String) table.getValueAt(riga, 3));
+	            }
 	        }
-	    });
+		};
+		table.getSelectionModel().addListSelectionListener(l);
+	
 		
 		
 	//Bottoni	
@@ -189,6 +187,7 @@ public class JCatalogo {
 												Double.toString(ingr.getQuantita())
 											});	
 					ingr = null;
+					table.setRowSelectionInterval(table.getRowCount()-1, table.getRowCount()-1);
 				}
 			}
 		});
@@ -221,10 +220,15 @@ public class JCatalogo {
 			public void actionPerformed(ActionEvent e) {
 				int riga = table.getSelectedRow();
 				String tempId = id;
-				if (tempId != null && riga != -1) {
-					GestoreIngredienti.getIstanza().rimuoviIngrediente(tempId);
+				if (tempId != null && riga != -1 && GestoreIngredienti.getIstanza().rimuoviIngrediente(tempId)) {
+					table.getSelectionModel().removeListSelectionListener(l);
+					if (table.isEditing())
+					    table.getCellEditor().stopCellEditing();
 					((DefaultTableModel) table.getModel()).removeRow(riga);
 					id = null;
+					table.getSelectionModel().addListSelectionListener(l);
+					if (table.getRowCount() != 0)
+						table.setRowSelectionInterval(table.getRowCount()-1, table.getRowCount()-1);
 				}
 			}
 		});
