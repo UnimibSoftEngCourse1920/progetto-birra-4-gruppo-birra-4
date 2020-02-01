@@ -47,7 +47,9 @@ public class Notifica {
 	}
 	
 	public void svuotaNotificheErrori() {
-		errori.clear();
+		if (!errori.isEmpty()) {
+			errori.clear();
+		}
 	}
 
 	public void notificaErrori() {

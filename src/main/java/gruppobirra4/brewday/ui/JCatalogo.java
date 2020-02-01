@@ -195,8 +195,8 @@ public class JCatalogo {
 				Ingrediente ingr = GestoreIngredienti.getIstanza().creaIngrediente(nome, categoria, quantita);
 				if (ingr != null) { //Se non ci sono stati errori
 					dtm.addRow(new Object[] {ingr.getId(), ingr.getCategoria(), ingr.getNome(), 
-								Double.toString(ingr.getQuantita())
-								});	
+												Double.toString(ingr.getQuantita())
+											});	
 					ingr = null;
 				}
 			}
@@ -218,7 +218,6 @@ public class JCatalogo {
 						table.setValueAt(ingr.getCategoria(), riga, 1);
 						table.setValueAt(ingr.getNome(), riga, 2);
 						table.setValueAt(Double.toString(ingr.getQuantita()), riga, 3);
-						id = null;
 					}
 				}
 			}
