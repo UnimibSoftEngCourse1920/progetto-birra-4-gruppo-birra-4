@@ -140,5 +140,28 @@ public class Ricetta {
 		double quantitaB = convertToNumber(quantitaBirra);
 		this.quantitaAcqua = quantitaB;
 	}
+	
+	public boolean checkIngredienti(String nome, String categoria) {
+		if (ingredienti.isEmpty()) {
+			return false;
+		}
+		for (Ingrediente i : ingredienti) {
+			if((i.getNome().equals(nome)) && (i.getCategoria().equals(categoria)))
+				return true;
+		}
+		return false;
+	}
 
+	protected boolean aggiungiIngrediente(String nomeIng, String categoriaIng, String quantitaIng) {
+		Ingrediente nuovoIngrediente = Ingrediente.creaIngrediente(null, nomeIng, categoriaIng, quantitaIng);
+		if(nuovoIngrediente == null) {
+			return false;
+		}
+		if(!(checkIngredienti(nuovoIngrediente.getNome(), nuovoIngrediente.getCategoria()))) {
+			ingredienti.add(nuovoIngrediente);
+			return true;
+		}
+		Notifica.getIstanza().addError("L'ingrediente è già presente nella ricetta");
+		return false;
+	}
 }

@@ -143,4 +143,43 @@ public class Ricettario {
 		return null;
 	}
 	
+	public boolean checkIngredienti(Set<Ingrediente> ingredienti, String nome, String categoria) {
+		if (ingredienti.isEmpty()) {
+			return false;
+		}
+		for (Ingrediente i : ingredienti) {
+			if((i.getNome().equals(nome)) && (i.getCategoria().equals(categoria)))
+				return true;
+		}
+		return false;
+	}
+	
+	public Ricetta aggiungiIngrediente(String idRicetta, String nomeIngr, String categoriaIngr, String quantitaIngr) {
+		ricette = openMapDB();
+		Ricetta ricModificata = ricette.get(idRicetta);
+		if(!(ricModificata.aggiungiIngrediente(nomeIngr, categoriaIngr, quantitaIngr))) {
+			Database.getIstanza().closeDB();	
+			return null;
+		}
+		ricette.replace(idRicetta, ricModificata);
+		Database.getIstanza().getDb().commit();
+		Database.getIstanza().closeDB();
+		return ricModificata;
+	}
+	
+	/*
+	public modificaIngrediente() {
+	}
+	
+	public void eliminaIngrediente(String idRicetta, String idIngr, String nomeIngr, String categoriaIngr, String quantitaIngr) {
+		ricette = openMapDB();
+		Ricetta ricModificata = ricette.get(idRicetta);
+		Ingrediente ingDaEliminare = Ingrediente.creaIngrediente(idIngr, nomeIngr, categoriaIngr, quantitaIngr);
+		Set<Ingrediente> ingredienti = ricModificata.getIngredienti();
+		ingredienti.remove(ingDaEliminare);
+		ricette.replace(idRicetta, ricModificata);
+		Database.getIstanza().getDb().commit();
+		Database.getIstanza().closeDB();
+	}
+	*/
 }
