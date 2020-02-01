@@ -13,8 +13,8 @@ import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
 public class CatalogoTest { 
 	@Test
 	public void testCreaIngrediente() {
-		File dbFile = new File("src\\main\\java\\gruppobirra4\\brewday\\database\\Database.db");
-		dbFile.delete();
+		//File dbFile = new File("src\\main\\java\\gruppobirra4\\brewday\\database\\Database.db");
+		//dbFile.delete();
 		CatalogoIngredienti c = CatalogoIngredienti.getIstanza();
 		Ingrediente ingr = null;
 		
@@ -58,18 +58,18 @@ public class CatalogoTest {
 		
 		//Ingrediente già presente
 		ingr = c.creaIngrediente("San Michele", "Luppolo", "500");
-		assertNotNull(ingr);
+		assertNull(ingr);
 		assertEquals(3, c.getIngredienti().size());
 		
 		ingr = c.creaIngrediente("   San       Michele     ", "Luppolo", "   500  ");
-		assertNotNull(ingr);
+		assertNull(ingr);
 		assertEquals(3, c.getIngredienti().size());
 	}
 	
 	@Test
 	public void testRimuoviIngrediente() {
-		File dbFile = new File("src\\main\\java\\gruppobirra4\\brewday\\database\\Database.db");
-		dbFile.delete();
+		//File dbFile = new File("src\\main\\java\\gruppobirra4\\brewday\\database\\Database.db");
+		//dbFile.delete();
 		
 		CatalogoIngredienti c = CatalogoIngredienti.getIstanza();
 		Ingrediente ingr = c.creaIngrediente("San Michele", "Luppolo", "500");
@@ -79,12 +79,12 @@ public class CatalogoTest {
 
 	@Test
 	public void testModificaIngrediente() {
-		File dbFile = new File("src\\test\\java\\gruppobirra4\\brewday\\DatabaseTest.db");
-		dbFile.delete();
+		//File dbFile = new File("src\\test\\java\\gruppobirra4\\brewday\\DatabaseTest.db");
+		//dbFile.delete();
 		
 		CatalogoIngredienti c = CatalogoIngredienti.getIstanza();
 		Ingrediente ingr = c.creaIngrediente("San Michele", "Luppolo", "500");
-		Ingrediente ingrModificato = c.modificaIngrediente(ingr.getId(), "San Pippo", "ciao", "100");
+		Ingrediente ingrModificato = c.modificaIngrediente(ingr.getId(), "San Pippo", "Malto", "100");
 		Ingrediente ingredienteNellaLista = c.getIngredienti().get(ingr.getId());
 		assertEquals(ingrModificato, ingredienteNellaLista);
 	}

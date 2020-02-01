@@ -1,4 +1,4 @@
-package gruppobirra4.brewday.database;
+package gruppobirra4.brewday.database; //NOSONAR
 
 import org.mapdb.DB;
 import org.mapdb.DBMaker;
@@ -9,7 +9,6 @@ public class Database {
 	
 	private DB db;
 	private static Database istanza;
-
 	
 	private Database(String path) {
 		db = DBMaker.fileDB(path)
@@ -24,6 +23,11 @@ public class Database {
 			istanza = new Database("src\\main\\java\\gruppobirra4\\brewday\\database\\Database.db");	
 		}
 		return istanza;
+	}
+	
+	//Per test
+	public static synchronized void setIstanzaTest() {
+		istanza = new Database("src\\test\\java\\gruppobirra4\\brewday\\DatabaseTest.db");	
 	}
 	
 	public HTreeMap<?, ?> openMapDB(String nomeMappa) {

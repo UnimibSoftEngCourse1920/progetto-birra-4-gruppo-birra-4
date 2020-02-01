@@ -30,7 +30,6 @@ public class Ingrediente implements Serializable {
 		setQuantita(quantita);
 	}
 	
-	
 
 	public static Ingrediente creaIngrediente(String nome, String categoria, String quantita) {
 		boolean valid = validation(nome, quantita);
@@ -38,10 +37,16 @@ public class Ingrediente implements Serializable {
 			return null;
 		else
 			return new Ingrediente(nome, categoria, quantita);
+	}
+	
+	protected void modificaIngrediente(String nuovoNome, String nuovaCategoria, String nuovaQuantita) {
+		setNome(nuovoNome);
+		setCategoria(nuovaCategoria);
+		setQuantita(nuovaQuantita);			
 		
 	}
 	
-	static boolean validation(String nome, String quantita) {
+	protected static boolean validation(String nome, String quantita) {
 		return validateNome(nome) & //NOSONAR
 				validateQuantita(quantita);
 	}
@@ -116,14 +121,5 @@ public class Ingrediente implements Serializable {
 		return true;
 	}
 */
-
-	protected void modificaIngrediente(String nuovoNome, String nuovaCategoria, String nuovaQuantita) {
-		if(validation(nuovoNome, nuovaQuantita)) {
-			setNome(nuovoNome);
-			setCategoria(nuovaCategoria);
-			setQuantita(nuovaQuantita);			
-		}
-	}
-	
 	
 }

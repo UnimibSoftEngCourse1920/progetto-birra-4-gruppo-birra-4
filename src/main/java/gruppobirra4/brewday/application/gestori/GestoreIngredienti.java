@@ -23,29 +23,35 @@ public class GestoreIngredienti {
 	}
 	
 	public Collection<Ingrediente> visualizzaCatalogo() {
-		Collection<Ingrediente> catalogo = CatalogoIngredienti.getIstanza().visualizzaCatalogo();
-		if (Notifica.getIstanza().hasErrors()) {
-			Notifica.getIstanza().notificaErrori();
+		try {
+			Collection<Ingrediente> catalogo = CatalogoIngredienti.getIstanza().visualizzaCatalogo();
+			if (Notifica.getIstanza().hasErrors()) {
+				Notifica.getIstanza().notificaErrori();
+				Notifica.getIstanza().svuotaNotificheErrori();
+				return null;
+			}
+			return catalogo;
+		} catch (Exception e) {
 			Notifica.getIstanza().svuotaNotificheErrori();
-			return Collections.emptyList();
+			//Notifica.getIstanza().notificaEccezione(e);
+			return null;
 		}
-		return catalogo;
 	}
 	
 	public Ingrediente creaIngrediente(String nome, String categoria, String quantita) {
 		try {
-		Ingrediente nuovoIngrediente = CatalogoIngredienti.getIstanza().creaIngrediente(nome, categoria, quantita);
-		if (Notifica.getIstanza().hasErrors()) {
-			Notifica.getIstanza().notificaErrori();
-			Notifica.getIstanza().svuotaNotificheErrori();
-			return null;
-		}
-		return nuovoIngrediente;
+			Ingrediente nuovoIngrediente = CatalogoIngredienti.getIstanza().creaIngrediente(nome, categoria, quantita);
+			if (Notifica.getIstanza().hasErrors()) {
+				Notifica.getIstanza().notificaErrori();
+				Notifica.getIstanza().svuotaNotificheErrori();
+				return null;
+			}
+			return nuovoIngrediente;
 		} catch (Exception e) {
 			Notifica.getIstanza().svuotaNotificheErrori();
-		//	Notifica.getIstanza().notificaEccezione(e);
+			//Notifica.getIstanza().notificaEccezione(e);
+			return null;
 		}
-		return null;
 	}
 	
 	public void rimuoviIngrediente(String id) {
@@ -54,18 +60,18 @@ public class GestoreIngredienti {
 	
 	public Ingrediente modificaIngrediente(String id, String nome, String categoria, String quantita) {
 		try {
-		Ingrediente ingredienteModificato = CatalogoIngredienti.getIstanza().modificaIngrediente(id, nome, categoria, quantita);
-		if (Notifica.getIstanza().hasErrors()) {
-			Notifica.getIstanza().notificaErrori();
-			Notifica.getIstanza().svuotaNotificheErrori();
-			return null;
-		}
-		return ingredienteModificato;
+			Ingrediente ingredienteModificato = CatalogoIngredienti.getIstanza().modificaIngrediente(id, nome, categoria, quantita);
+			if (Notifica.getIstanza().hasErrors()) {
+				Notifica.getIstanza().notificaErrori();
+				Notifica.getIstanza().svuotaNotificheErrori();
+				return null;
+			}
+			return ingredienteModificato;
 		} catch (Exception e) {
 			Notifica.getIstanza().svuotaNotificheErrori();
-		//	Notifica.getIstanza().notificaEccezione(e);
+			//Notifica.getIstanza().notificaEccezione(e);
+			return null;
 		}
-		return null;
 	}
 	
 }

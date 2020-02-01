@@ -38,32 +38,33 @@ public class CatalogoIngredienti {
 	
 	public Ingrediente creaIngrediente(String nome, String categoria, String quantitaDisponibile) {
 		Ingrediente ingrediente = Ingrediente.creaIngrediente(nome, categoria, quantitaDisponibile);
-		if(ingrediente != null) {
-			aggiungiIngrediente(ingrediente);
+		if(ingrediente != null && aggiungiIngrediente(ingrediente)) {
 			return ingrediente;
 		}
 		return null;
 	}
 	
-	public void aggiungiIngrediente(Ingrediente nuovoIngrediente) {
+	public boolean aggiungiIngrediente(Ingrediente nuovoIngrediente) {
 		ingredienti = openMapDB();
-		if(checkCatalogo(nuovoIngrediente.getNome(), nuovoIngrediente.getCategoria())) {	
+		if(checkCatalogo(nuovoIngrediente.getNome(), nuovoIngrediente.getCategoria(), nuovoIngrediente.getId())) {	
 			Notifica.getIstanza().addError("L'ingrediente è già presente nel catalogo");
 			Database.getIstanza().closeDB();
-			return;
+			return false;
 			
 		}
 		ingredienti.put(nuovoIngrediente.getId(), nuovoIngrediente);
 		Database.getIstanza().getDb().commit();
 		Database.getIstanza().closeDB();
+		return true;
 	}
 	
-	public boolean checkCatalogo(String nome, String categoria) {
+	//Controlla se e' presente nel catalogo un ingrediente con lo stesso nome e con la stessa categoria (che non sia se stesso)
+	public boolean checkCatalogo(String nome, String categoria, String id) {
 		if (ingredienti.isEmpty()) {
 			return false;
 		}
 		for (Ingrediente ing : ingredienti.values()) {
-			if((ing.getNome().equals(nome)) && (ing.getCategoria().equals(categoria)))
+			if((ing.getNome().equals(nome)) && (ing.getCategoria().equals(categoria)) && !ing.getId().equals(id))
 				return true;
 		}
 		return false;
@@ -76,6 +77,7 @@ public class CatalogoIngredienti {
 		Database.getIstanza().closeDB();
 	}
 	
+	//Ritorna una mappa di java che contiene tutti gli ingredienti nel catalogo
 	private SortedMap<String, Ingrediente> getIngredientiHelper() {
 		SortedMap<String, Ingrediente> returnMap = new TreeMap<>();
 		for (Ingrediente i : ingredienti.values()) {
@@ -97,7 +99,7 @@ public class CatalogoIngredienti {
 	public Collection<Ingrediente> visualizzaCatalogo() {
 		ingredienti = openMapDB();
 		if (ingredienti.isEmpty()) {
-			return Collections.emptyList();
+			return null;
 		}
 		Collection<Ingrediente> returnMap = getIngredientiHelper().values();
 		Database.getIstanza().closeDB();
@@ -107,7 +109,11 @@ public class CatalogoIngredienti {
 	public Ingrediente modificaIngrediente(String id, String nome, String categoria, String quantita) {
 			ingredienti = openMapDB();
 			Ingrediente ingredienteModificato = ingredienti.get(id);
-			if(!(checkCatalogo(nome, categoria))) {
+			if (!Ingrediente.validation(nome, quantita)) {
+				Database.getIstanza().closeDB();
+				return null;
+			}
+			if(!(checkCatalogo(nome, categoria, id))) {
 				ingredienteModificato.modificaIngrediente(nome, categoria, quantita);
 				ingredienti.replace(id, ingredienteModificato);
 				Database.getIstanza().getDb().commit();
