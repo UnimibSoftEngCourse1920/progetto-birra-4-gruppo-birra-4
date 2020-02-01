@@ -1,4 +1,4 @@
-package gruppobirra4.brewday.domain.ingredienti;
+package gruppobirra4.brewday.domain.ingredienti; //NOSONAR
 
 import java.io.Serializable;
 import java.util.UUID;
@@ -86,7 +86,7 @@ public class Ingrediente implements Serializable {
 		double quantitaD = convertToNumber(quantita);
 		this.quantita = quantitaD;
 	}
-
+/*
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -115,6 +115,7 @@ public class Ingrediente implements Serializable {
 			return false;
 		return true;
 	}
+*/
 
 	protected void modificaIngrediente(String nuovoNome, String nuovaCategoria, String nuovaQuantita) {
 		if(validation(nuovoNome, nuovaQuantita)) {

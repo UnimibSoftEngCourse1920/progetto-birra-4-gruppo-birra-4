@@ -1,33 +1,23 @@
-package gruppobirra4.brewday.ui;
+package gruppobirra4.brewday.ui; //NOSONAR
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import gruppobirra4.brewday.application.gestori.GestoreIngredienti;
-import gruppobirra4.brewday.application.gestori.GestoreRicette;
 import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
 
-import java.awt.FlowLayout;
 import javax.swing.JPanel;
 import java.awt.GridLayout;
-import javax.swing.JSplitPane;
-import java.awt.BorderLayout;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import java.awt.Font;
 import java.awt.event.ActionListener;
-import java.util.Set;
 import java.util.Collection;
-import java.util.Map.Entry;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;

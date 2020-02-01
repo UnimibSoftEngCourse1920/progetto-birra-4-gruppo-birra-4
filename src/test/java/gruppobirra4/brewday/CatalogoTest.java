@@ -1,4 +1,4 @@
-package gruppobirra4.brewday;
+package gruppobirra4.brewday; //NOSONAR
 
 import static org.junit.Assert.*;
 
@@ -11,7 +11,7 @@ import gruppobirra4.brewday.domain.ingredienti.CatalogoIngredienti;
 import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
 
 public class CatalogoTest { 
-	/*@Test
+	@Test
 	public void testCreaIngrediente() {
 		File dbFile = new File("src\\main\\java\\gruppobirra4\\brewday\\database\\Database.db");
 		dbFile.delete();
@@ -64,9 +64,9 @@ public class CatalogoTest {
 		ingr = c.creaIngrediente("   San       Michele     ", "Luppolo", "   500  ");
 		assertNotNull(ingr);
 		assertEquals(3, c.getIngredienti().size());
-	}*/ 
+	}
 	
-	/*@Test
+	@Test
 	public void testRimuoviIngrediente() {
 		File dbFile = new File("src\\main\\java\\gruppobirra4\\brewday\\database\\Database.db");
 		dbFile.delete();
@@ -75,7 +75,7 @@ public class CatalogoTest {
 		Ingrediente ingr = c.creaIngrediente("San Michele", "Luppolo", "500");
 		c.rimuoviIngrediente(ingr.getId());
 		assertEquals(0, c.getIngredienti().size());
-	}*/
+	}
 
 	@Test
 	public void testModificaIngrediente() {
@@ -88,7 +88,6 @@ public class CatalogoTest {
 		Ingrediente ingredienteNellaLista = c.getIngredienti().get(ingr.getId());
 		assertEquals(ingrModificato, ingredienteNellaLista);
 	}
-
 	
 
 }

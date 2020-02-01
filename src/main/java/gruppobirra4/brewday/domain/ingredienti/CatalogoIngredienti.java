@@ -1,4 +1,4 @@
-package gruppobirra4.brewday.domain.ingredienti;
+package gruppobirra4.brewday.domain.ingredienti; //NOSONAR
 
 import java.util.Collection;
 import java.util.Collections;
