@@ -26,13 +26,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import java.awt.Color;
 
-public class JCatalogo {
+public class JCatalogo extends FrameVisibile{
 
 	private JFrame frmCatalogoIngredienti;
-	private JPanel panel;
-	private JButton btnModifica;
-	private JTextField textFieldNome;
-	private JTextField textFieldQuantita;
 	private String id = null;
 
 	/**
@@ -55,22 +51,38 @@ public class JCatalogo {
 	 * Create the application.
 	 */
 	public JCatalogo() {
+		frmCatalogoIngredienti = new JFrame();
+		menu = JMenu.getIstanza();
 		initialize();
+		menu.setFrameVisible(frmCatalogoIngredienti);
+	}
+	
+	
+	public static void esegui() {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					JCatalogo window = new JCatalogo();
+					window.frmCatalogoIngredienti.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
-		frmCatalogoIngredienti = new JFrame();
+	protected void initialize() {
 		frmCatalogoIngredienti.setTitle("Catalogo ingredienti - Brew Day!");
 		frmCatalogoIngredienti.setBounds(100, 100, 968, 611);
 		frmCatalogoIngredienti.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 	//MENU
-		JMenu menu = new JMenu();
 		menu.inserisciMenu();
 		frmCatalogoIngredienti.getContentPane().add(menu.getMenuBar());
+		
 	
 	//TABELLA INGREDIENTI
 		JScrollPane scrollPane = new JScrollPane();
@@ -120,7 +132,7 @@ public class JCatalogo {
 
 		
 	//AGGIUNGI, MODIFICA, ELIMINA
-		panel = new JPanel();
+		JPanel panel = new JPanel();
 		panel.setBounds(10, 326, 858, 222);
 		frmCatalogoIngredienti.getContentPane().add(panel);
 		panel.setLayout(null);
@@ -145,7 +157,7 @@ public class JCatalogo {
 		JLabel lblNome = new JLabel("Nome:");
 		panel1.add(lblNome);
 		
-		textFieldNome = new JTextField();
+		JTextField textFieldNome = new JTextField();
 		panel1.add(textFieldNome);
 		textFieldNome.setDocument(new JTextFieldLimit(30));
 		textFieldNome.setColumns(10);
@@ -153,7 +165,7 @@ public class JCatalogo {
 		JLabel lblQuantitaDisponibile = new JLabel("Quantita disponibile:");
 		panel1.add(lblQuantitaDisponibile);
 		
-		textFieldQuantita = new JTextField();
+		JTextField textFieldQuantita = new JTextField();
 		panel1.add(textFieldQuantita);
 		textFieldQuantita.setColumns(10);
 		
@@ -200,7 +212,7 @@ public class JCatalogo {
 		panel2.add(btnAggiungi);
 			
 		//Modifica ingrediente
-		btnModifica = new JButton("Modifica");
+		JButton btnModifica = new JButton("Modifica");
 		btnModifica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String nome = textFieldNome.getText();
