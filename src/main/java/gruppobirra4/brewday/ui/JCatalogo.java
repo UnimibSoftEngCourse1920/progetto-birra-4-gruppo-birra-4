@@ -22,11 +22,13 @@ import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import java.awt.Color;
 
 public class JCatalogo {
 
 	private JFrame frmCatalogoIngredienti;
-	private JTable table;
 	private JPanel panel;
 	private JButton btnModifica;
 	private JTextField textFieldNome;
@@ -61,15 +63,20 @@ public class JCatalogo {
 	 */
 	private void initialize() {
 		frmCatalogoIngredienti = new JFrame();
-		frmCatalogoIngredienti.setTitle("Catalogo ingredienti - Brew Day");
+		frmCatalogoIngredienti.setTitle("Catalogo ingredienti - Brew Day!");
 		frmCatalogoIngredienti.setBounds(100, 100, 968, 611);
 		frmCatalogoIngredienti.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+	//MENU
+		JMenu menu = new JMenu();
+		menu.inserisciMenu();
+		frmCatalogoIngredienti.getContentPane().add(menu.getMenuBar());
+	
 	//TABELLA INGREDIENTI
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 5, 948, 274);
+		scrollPane.setBounds(10, 36, 932, 274);
 		
-		table = new JTable();
+		JTable table = new JTable();
 		String[] header = new String[] {"id", "Categoria", "Nome", "Quantita disponibile"};
 		DefaultTableModel dtm = new MyTableModel(new Object[][] {}, header)  {
 				boolean[] columnEditables = new boolean[] {
@@ -114,7 +121,7 @@ public class JCatalogo {
 		
 	//AGGIUNGI, MODIFICA, ELIMINA
 		panel = new JPanel();
-		panel.setBounds(10, 292, 858, 222);
+		panel.setBounds(10, 326, 858, 222);
 		frmCatalogoIngredienti.getContentPane().add(panel);
 		panel.setLayout(null);
 		
@@ -179,7 +186,6 @@ public class JCatalogo {
 				String nome = textFieldNome.getText();
 				String categoria = (String) comboBoxCategoria.getSelectedItem();
 				String quantita = textFieldQuantita.getText();
-				/*PROVA*/ //dtm.addRow(new Object[] {nomeLW, categoria, quantita});
 				
 				Ingrediente ingr = GestoreIngredienti.getIstanza().creaIngrediente(nome, categoria, quantita);
 				if (ingr != null) { //Se non ci sono stati errori
@@ -221,18 +227,15 @@ public class JCatalogo {
 				int riga = table.getSelectedRow();
 				String tempId = id;
 				if (tempId != null && riga != -1 && GestoreIngredienti.getIstanza().rimuoviIngrediente(tempId)) {
-					table.getSelectionModel().removeListSelectionListener(l);
-					if (table.isEditing())
-					    table.getCellEditor().stopCellEditing();
 					((DefaultTableModel) table.getModel()).removeRow(riga);
 					id = null;
-					table.getSelectionModel().addListSelectionListener(l);
 					if (table.getRowCount() != 0)
 						table.setRowSelectionInterval(table.getRowCount()-1, table.getRowCount()-1);
 				}
 			}
 		});
 		panel2.add(btnRimuovi);
+		
 		
 	}
 }

@@ -84,9 +84,16 @@ public class CatalogoTest {
 		
 		CatalogoIngredienti c = CatalogoIngredienti.getIstanza();
 		Ingrediente ingr = c.creaIngrediente("San Michele", "Luppolo", "500");
+		//Modifica corretta
 		Ingrediente ingrModificato = c.modificaIngrediente(ingr.getId(), "San Pippo", "Malto", "100");
+		assertNotNull(ingrModificato);
 		Ingrediente ingredienteNellaLista = c.getIngredienti().get(ingr.getId());
 		assertEquals(ingrModificato, ingredienteNellaLista);
+		
+		//Modifica scorretta
+		ingr = ingrModificato;
+		ingrModificato = c.modificaIngrediente(ingr.getId(), "San Pippo", "Malto", "ciao");
+		assertNull(ingrModificato);
 	}
 	
 
