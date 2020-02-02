@@ -143,21 +143,10 @@ public class Ricettario {
 		return null;
 	}
 	
-	public boolean checkIngredienti(Set<Ingrediente> ingredienti, String nome, String categoria) {
-		if (ingredienti.isEmpty()) {
-			return false;
-		}
-		for (Ingrediente i : ingredienti) {
-			if((i.getNome().equals(nome)) && (i.getCategoria().equals(categoria)))
-				return true;
-		}
-		return false;
-	}
-	
-	public Ricetta aggiungiIngrediente(String idRicetta, String nomeIngr, String categoriaIngr, String quantitaIngr) {
+	public Ricetta aggiungiIngrediente(String idRicetta, String nomeIng, String categoriaIng, String quantitaIng) {
 		ricette = openMapDB();
 		Ricetta ricModificata = ricette.get(idRicetta);
-		if(!(ricModificata.aggiungiIngrediente(nomeIngr, categoriaIngr, quantitaIngr))) {
+		if(!(ricModificata.aggiungiIngrediente(nomeIng, categoriaIng, quantitaIng))) {
 			Database.getIstanza().closeDB();	
 			return null;
 		}
@@ -167,19 +156,30 @@ public class Ricettario {
 		return ricModificata;
 	}
 	
-	/*
-	public modificaIngrediente() {
-	}
-	
-	public void eliminaIngrediente(String idRicetta, String idIngr, String nomeIngr, String categoriaIngr, String quantitaIngr) {
+	public Ricetta modificaIngrediente(String idRicetta, String idIng, String nomeIng, String categoriaIng, String quantitaIng) {
 		ricette = openMapDB();
 		Ricetta ricModificata = ricette.get(idRicetta);
-		Ingrediente ingDaEliminare = Ingrediente.creaIngrediente(idIngr, nomeIngr, categoriaIngr, quantitaIngr);
-		Set<Ingrediente> ingredienti = ricModificata.getIngredienti();
-		ingredienti.remove(ingDaEliminare);
+		if(!(ricModificata.modificaIngrediente(idIng, nomeIng, categoriaIng, quantitaIng))) {
+			Database.getIstanza().closeDB();	
+			return null;
+		}
 		ricette.replace(idRicetta, ricModificata);
 		Database.getIstanza().getDb().commit();
 		Database.getIstanza().closeDB();
+		return ricModificata;	
 	}
-	*/
+
+	public Ricetta rimuoviIngrediente(String idRicetta, String idIng) {
+		ricette = openMapDB();
+		Ricetta ricModificata = ricette.get(idRicetta);
+		if(!(ricModificata.rimuoviIngrediente(idIng))) {
+			Database.getIstanza().closeDB();	
+			return null;
+		}
+		ricette.replace(idRicetta, ricModificata);
+		Database.getIstanza().getDb().commit();
+		Database.getIstanza().closeDB();
+		return ricModificata;
+	}
+	
 }

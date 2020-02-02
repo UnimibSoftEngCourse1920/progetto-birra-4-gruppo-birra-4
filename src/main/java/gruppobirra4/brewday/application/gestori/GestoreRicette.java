@@ -3,7 +3,6 @@ package gruppobirra4.brewday.application.gestori; //NOSONAR
 import java.util.Collection;
 import java.util.Set;
 
-import gruppobirra4.brewday.domain.ingredienti.CatalogoIngredienti;
 import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
 import gruppobirra4.brewday.domain.ricette.Ricetta;
 import gruppobirra4.brewday.domain.ricette.Ricettario;
@@ -57,8 +56,80 @@ public class GestoreRicette {
 		}
 	}
 	
-	public void rimuoviRicetta(String id) {
-		Ricettario.getIstanza().rimuoviRicetta(id);
+	public boolean rimuoviRicetta(String id) {
+		try {
+			Ricettario.getIstanza().rimuoviRicetta(id);
+			return true;
+		} catch (Exception e) {
+			Notifica.getIstanza().svuotaNotificheErrori();
+			//Notifica.getIstanza().notificaEccezione(e);
+			return false;
+		}
+	}
+	
+	public Ricetta modificaRicetta(String id, String nome, String descrizione, Set<Ingrediente> ingredienti,
+			String quantitaAcqua, String quantitaBirra) {
+		try {
+			Ricetta ricettaModificata = Ricettario.getIstanza().modificaRicetta(id, nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
+			if (Notifica.getIstanza().hasErrors()) {
+				Notifica.getIstanza().notificaErrori();
+				Notifica.getIstanza().svuotaNotificheErrori();
+				return null;
+			}
+			return ricettaModificata;
+		} catch (Exception e) {
+			Notifica.getIstanza().svuotaNotificheErrori();
+			//Notifica.getIstanza().notificaEccezione(e);
+			return null;
+		}
+	}
+	
+	public Ricetta aggiungiIngrediente(String idRicetta, String nomeIng, String categoriaIng, String quantitaIng) {
+		try {
+			Ricetta ricettaModificata = Ricettario.getIstanza().aggiungiIngrediente(idRicetta, nomeIng, categoriaIng, quantitaIng);
+			if (Notifica.getIstanza().hasErrors()) {
+				Notifica.getIstanza().notificaErrori();
+				Notifica.getIstanza().svuotaNotificheErrori();
+				return null;
+			}
+			return ricettaModificata;
+		} catch (Exception e) {
+			Notifica.getIstanza().svuotaNotificheErrori();
+			//Notifica.getIstanza().notificaEccezione(e);
+			return null;
+		}
+	}
+	
+	public Ricetta modificaIngrediente(String idRicetta, String idIng, String nomeIng, String categoriaIng, String quantitaIng) {
+		try {
+			Ricetta ricettaModificata = Ricettario.getIstanza().modificaIngrediente(idRicetta, idIng, nomeIng, categoriaIng, quantitaIng);
+			if (Notifica.getIstanza().hasErrors()) {
+				Notifica.getIstanza().notificaErrori();
+				Notifica.getIstanza().svuotaNotificheErrori();
+				return null;
+			}
+			return ricettaModificata;
+		} catch (Exception e) {
+			Notifica.getIstanza().svuotaNotificheErrori();
+			//Notifica.getIstanza().notificaEccezione(e);
+			return null;
+		}
+	}
+	
+	public Ricetta rimuoviIngrediente(String idRicetta, String idIng) {
+		try {
+			Ricetta ricettaModificata = Ricettario.getIstanza().rimuoviIngrediente(idRicetta, idIng);
+			if (Notifica.getIstanza().hasErrors()) {
+				Notifica.getIstanza().notificaErrori();
+				Notifica.getIstanza().svuotaNotificheErrori();
+				return null;
+			}
+			return ricettaModificata;
+		} catch (Exception e) {
+			Notifica.getIstanza().svuotaNotificheErrori();
+			//Notifica.getIstanza().notificaEccezione(e);
+			return null;
+		}
 	}
 	
 }

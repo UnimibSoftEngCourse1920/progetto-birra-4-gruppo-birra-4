@@ -141,7 +141,7 @@ public class Ricetta {
 		this.quantitaAcqua = quantitaB;
 	}
 	
-	public boolean checkIngredienti(String nome, String categoria) {
+	private boolean checkIngredienti(String nome, String categoria) {
 		if (ingredienti.isEmpty()) {
 			return false;
 		}
@@ -164,4 +164,36 @@ public class Ricetta {
 		Notifica.getIstanza().addError("L'ingrediente è già presente nella ricetta");
 		return false;
 	}
+	
+	private Ingrediente getIngredienteById(String id) {
+		for (Ingrediente i : ingredienti) {
+			if((i.getId().equals(id)))
+				return i;
+		}
+		return null;
+	}
+
+	protected boolean modificaIngrediente(String idIng, String nomeIng, String categoriaIng, String quantitaIng) {
+		Ingrediente nuovoIngrediente = Ingrediente.creaIngrediente(idIng, nomeIng, categoriaIng, quantitaIng);
+		if(nuovoIngrediente == null)
+			return false;
+		Ingrediente vecchioIngrediente = getIngredienteById(idIng);
+		if(vecchioIngrediente != null) {
+			ingredienti.remove(vecchioIngrediente);
+			ingredienti.add(nuovoIngrediente);
+			return true;
+			}
+		Notifica.getIstanza().addError("L'ingrediente non è presente nella ricetta");
+		return false;
+	}
+
+	public boolean rimuoviIngrediente(String idIng) {
+		Ingrediente ingrediente = getIngredienteById(idIng);
+		if(ingrediente != null) {
+			ingredienti.remove(ingrediente);
+			return true;
+		}
+		return false;
+	}
+	
 }
