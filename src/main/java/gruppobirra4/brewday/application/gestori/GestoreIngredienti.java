@@ -53,8 +53,15 @@ public class GestoreIngredienti {
 		}
 	}
 	
-	public void rimuoviIngrediente(String id) {
-		CatalogoIngredienti.getIstanza().rimuoviIngrediente(id);
+	public boolean rimuoviIngrediente(String id) {
+		try {
+			CatalogoIngredienti.getIstanza().rimuoviIngrediente(id);
+			return true;
+		} catch (Exception e) {
+			Notifica.getIstanza().svuotaNotificheErrori();
+			//Notifica.getIstanza().notificaEccezione(e);
+			return false;
+		}
 	}
 	
 	public Ingrediente modificaIngrediente(String id, String nome, String categoria, String quantita) {
