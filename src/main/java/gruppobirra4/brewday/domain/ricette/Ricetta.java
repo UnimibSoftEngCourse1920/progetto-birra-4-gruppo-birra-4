@@ -1,4 +1,4 @@
-package gruppobirra4.brewday.domain.ricette; //NOSONAR
+	package gruppobirra4.brewday.domain.ricette; //NOSONAR
 
 import java.util.Set;
 import java.util.UUID;

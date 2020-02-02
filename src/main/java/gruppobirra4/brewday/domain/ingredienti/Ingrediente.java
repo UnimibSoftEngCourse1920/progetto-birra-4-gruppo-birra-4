@@ -56,7 +56,7 @@ public class Ingrediente implements Serializable {
 				isNotPositive(quantita, CAMPO_QUANTITA);	
 	}
 
-	public  String getId() {
+	public String getId() {
 		return id;
 	}
 	

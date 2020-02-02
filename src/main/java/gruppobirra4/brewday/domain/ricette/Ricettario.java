@@ -111,10 +111,10 @@ public class Ricettario {
 	}
 	
 	/*
-	private Ricetta getRicettaFromRicettario(String nomeRicetta) {
+	private Ricetta getRicettaFromRicettario(String id) {
 		ricette = openMapDB();
 		for (Ricetta r : ricette.values()) {
-			if((r.getNome().equals(nomeRicetta))) {
+			if((r.getId().equals(id))) {
 			Database.getIstanza().closeDB();
 				return r;
 			}
