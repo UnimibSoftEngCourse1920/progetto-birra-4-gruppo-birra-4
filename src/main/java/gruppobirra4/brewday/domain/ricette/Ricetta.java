@@ -1,4 +1,4 @@
-package gruppobirra4.brewday.domain.ricette; //NOSONAR
+	package gruppobirra4.brewday.domain.ricette; //NOSONAR
 
 import java.util.Set;
 import java.util.UUID;
@@ -17,7 +17,7 @@ public class Ricetta {
 	private double quantitaBirra;
 	
 	
-	Ricetta(String nome, String descrizione, Set<Ingrediente> ingredienti, 
+	private Ricetta(String nome, String descrizione, Set<Ingrediente> ingredienti, 
 					String quantitaAcqua, String quantitaBirra) {
 		this.id = UUID.randomUUID().toString();
 		setNome(nome);
@@ -27,16 +27,29 @@ public class Ricetta {
 		setQuantitaBirra(quantitaBirra); 
 	}
 	
-	protected static Ricetta creaRicetta(String nome, String descrizione, Set<Ingrediente> ingredienti, 
+	protected Ricetta(String id, String nome, String descrizione, Set<Ingrediente> ingredienti, 
+			String quantitaAcqua, String quantitaBirra) {
+		this.id = id;
+		setNome(nome);
+		setDescrizione(descrizione); 
+		setIngredienti(ingredienti);
+		setQuantitaAcqua(quantitaAcqua);
+		setQuantitaBirra(quantitaBirra); 
+	}	
+	
+	protected static Ricetta creaRicetta(String id, String nome, String descrizione, Set<Ingrediente> ingredienti, 
 					String quantitaAcqua, String quantitaBirra) {
 		boolean valid = validation(nome, descrizione, quantitaAcqua, quantitaBirra);
 		if (!valid) {
 			return null;
 		}
-		return new Ricetta(nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
+		if(id == null)
+			return new Ricetta(nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
+		else
+			return new Ricetta(id, nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
 	}
 	
-	private static boolean validation(String nome, String descrizione, String quantitaAcqua, 
+	protected static boolean validation(String nome, String descrizione, String quantitaAcqua, 
 										String quantitaBirra) {
 		return validateNome(nome) & //NOSONAR
 				validateDescrizione(descrizione) & //NOSONAR
@@ -50,8 +63,11 @@ public class Ricetta {
 	}
 	
 	private static boolean validateDescrizione(String descrizione) {
-		String descrizione2 = descrizione.replaceAll("\\s+", " ").trim();
-		if (descrizione2.length() >= 500) {  //Da modificare!!!!!!!!!!!!
+		if(isStringaVuota(descrizione, "Descrizione")) {
+			Notifica.getIstanza().addError("Inserire una descrizione della ricetta"); //Da modificare!!!!!!!!!!!!
+			return false;
+		}
+		if (descrizione.length() >= 500) {  //Da modificare (probabilmente non necessario)!!!!!!!!!!!!
 			Notifica.getIstanza().addError("Il nome deve contenere al massimo 500 caratteri"); //Da modificare!!!!!!!!!!!!
 			return false;
 		}
@@ -87,8 +103,8 @@ public class Ricetta {
 	}
 	
 	private void setNome(String nome) {
-		String nomeUC = nome.replaceAll("\\s+", " ").trim().toUpperCase();
-		this.nome = nomeUC;
+		String nomeLW = rimuoviWhiteSpaces(nome);
+		this.nome = nomeLW;
 	}
 	
 	public String getDescrizione() {
@@ -96,8 +112,7 @@ public class Ricetta {
 	}
 
 	private void setDescrizione(String descrizione) {
-		String descrizione2 = descrizione.replaceAll("\\s+", " ").trim();
-		this.descrizione = descrizione2;
+		this.descrizione = descrizione;
 	}
 
 	public Set<Ingrediente> getIngredienti() {
@@ -126,10 +141,59 @@ public class Ricetta {
 		this.quantitaAcqua = quantitaB;
 	}
 	
-	@Override
-	public String toString() {
-		return "Ricetta [nome=" + nome + ", descrizione=" + descrizione + ", ingredienti=" + ingredienti
-				+ ", quantitaAcqua=" + quantitaAcqua + ", quantitaBirra=" + quantitaBirra + "]";
-	}	
+	private boolean checkIngredienti(String nome, String categoria) {
+		if (ingredienti.isEmpty()) {
+			return false;
+		}
+		for (Ingrediente i : ingredienti) {
+			if((i.getNome().equals(nome)) && (i.getCategoria().equals(categoria)))
+				return true;
+		}
+		return false;
+	}
+
+	protected boolean aggiungiIngrediente(String nomeIng, String categoriaIng, String quantitaIng) {
+		Ingrediente nuovoIngrediente = Ingrediente.creaIngrediente(null, nomeIng, categoriaIng, quantitaIng);
+		if(nuovoIngrediente == null) {
+			return false;
+		}
+		if(!(checkIngredienti(nuovoIngrediente.getNome(), nuovoIngrediente.getCategoria()))) {
+			ingredienti.add(nuovoIngrediente);
+			return true;
+		}
+		Notifica.getIstanza().addError("L'ingrediente è già presente nella ricetta");
+		return false;
+	}
+	
+	private Ingrediente getIngredienteById(String id) {
+		for (Ingrediente i : ingredienti) {
+			if((i.getId().equals(id)))
+				return i;
+		}
+		return null;
+	}
+
+	protected boolean modificaIngrediente(String idIng, String nomeIng, String categoriaIng, String quantitaIng) {
+		Ingrediente nuovoIngrediente = Ingrediente.creaIngrediente(idIng, nomeIng, categoriaIng, quantitaIng);
+		if(nuovoIngrediente == null)
+			return false;
+		Ingrediente vecchioIngrediente = getIngredienteById(idIng);
+		if(vecchioIngrediente != null) {
+			ingredienti.remove(vecchioIngrediente);
+			ingredienti.add(nuovoIngrediente);
+			return true;
+			}
+		Notifica.getIstanza().addError("L'ingrediente non è presente nella ricetta");
+		return false;
+	}
+
+	public boolean rimuoviIngrediente(String idIng) {
+		Ingrediente ingrediente = getIngredienteById(idIng);
+		if(ingrediente != null) {
+			ingredienti.remove(ingrediente);
+			return true;
+		}
+		return false;
+	}
 	
 }

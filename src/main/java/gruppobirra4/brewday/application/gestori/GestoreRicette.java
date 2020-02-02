@@ -23,31 +23,113 @@ public class GestoreRicette {
 		return istanza;
 	}
 	
-	
 	public Collection<Ricetta> visualizzaRicettario() {
-		return Ricettario.getIstanza().visualizzaRicettario();
-	}
-	
-	/*
-	public String visualizzaRicetta(String nomeRicetta) {
-		return Ricettario.getIstanza().visualizzaRicetta(nomeRicetta);
-	}
-	*/
-	public void creaRicetta(String nome, String descrizione, Set<Ingrediente> ingredienti,
-							String quantitaAcqua, String quantitaBirra) {
-		
 		try {
-		Ricettario.getIstanza().creaRicetta (nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
+			Collection<Ricetta> ricettario = Ricettario.getIstanza().visualizzaRicettario();
+			if (Notifica.getIstanza().hasErrors()) {
+				Notifica.getIstanza().notificaErrori();
+				Notifica.getIstanza().svuotaNotificheErrori();
+				return null;
+			}
+			return ricettario;
 		} catch (Exception e) {
 			Notifica.getIstanza().svuotaNotificheErrori();
 			//Notifica.getIstanza().notificaEccezione(e);
+			return null;
 		}
-		if (Notifica.getIstanza().hasErrors()) {
-			Notifica.getIstanza().notificaErrori();
+	}
+
+	public Ricetta creaRicetta(String nome, String descrizione, Set<Ingrediente> ingredienti,
+			String quantitaAcqua, String quantitaBirra) {
+		try {
+			Ricetta nuovaRicetta = Ricettario.getIstanza().creaRicetta(nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
+			if (Notifica.getIstanza().hasErrors()) {
+				Notifica.getIstanza().notificaErrori();
+				Notifica.getIstanza().svuotaNotificheErrori();
+				return null;
+			}
+			return nuovaRicetta;
+		} catch (Exception e) {
+			Notifica.getIstanza().svuotaNotificheErrori();
+			//Notifica.getIstanza().notificaEccezione(e);
+			return null;
 		}
-		
 	}
 	
+	public boolean rimuoviRicetta(String id) {
+		try {
+			Ricettario.getIstanza().rimuoviRicetta(id);
+			return true;
+		} catch (Exception e) {
+			Notifica.getIstanza().svuotaNotificheErrori();
+			//Notifica.getIstanza().notificaEccezione(e);
+			return false;
+		}
+	}
 	
-
+	public Ricetta modificaRicetta(String id, String nome, String descrizione, Set<Ingrediente> ingredienti,
+			String quantitaAcqua, String quantitaBirra) {
+		try {
+			Ricetta ricettaModificata = Ricettario.getIstanza().modificaRicetta(id, nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
+			if (Notifica.getIstanza().hasErrors()) {
+				Notifica.getIstanza().notificaErrori();
+				Notifica.getIstanza().svuotaNotificheErrori();
+				return null;
+			}
+			return ricettaModificata;
+		} catch (Exception e) {
+			Notifica.getIstanza().svuotaNotificheErrori();
+			//Notifica.getIstanza().notificaEccezione(e);
+			return null;
+		}
+	}
+	
+	public Ricetta aggiungiIngrediente(String idRicetta, String nomeIng, String categoriaIng, String quantitaIng) {
+		try {
+			Ricetta ricettaModificata = Ricettario.getIstanza().aggiungiIngrediente(idRicetta, nomeIng, categoriaIng, quantitaIng);
+			if (Notifica.getIstanza().hasErrors()) {
+				Notifica.getIstanza().notificaErrori();
+				Notifica.getIstanza().svuotaNotificheErrori();
+				return null;
+			}
+			return ricettaModificata;
+		} catch (Exception e) {
+			Notifica.getIstanza().svuotaNotificheErrori();
+			//Notifica.getIstanza().notificaEccezione(e);
+			return null;
+		}
+	}
+	
+	public Ricetta modificaIngrediente(String idRicetta, String idIng, String nomeIng, String categoriaIng, String quantitaIng) {
+		try {
+			Ricetta ricettaModificata = Ricettario.getIstanza().modificaIngrediente(idRicetta, idIng, nomeIng, categoriaIng, quantitaIng);
+			if (Notifica.getIstanza().hasErrors()) {
+				Notifica.getIstanza().notificaErrori();
+				Notifica.getIstanza().svuotaNotificheErrori();
+				return null;
+			}
+			return ricettaModificata;
+		} catch (Exception e) {
+			Notifica.getIstanza().svuotaNotificheErrori();
+			//Notifica.getIstanza().notificaEccezione(e);
+			return null;
+		}
+	}
+	
+	public Ricetta rimuoviIngrediente(String idRicetta, String idIng) {
+		try {
+			Ricetta ricettaModificata = Ricettario.getIstanza().rimuoviIngrediente(idRicetta, idIng);
+			if (Notifica.getIstanza().hasErrors()) {
+				Notifica.getIstanza().notificaErrori();
+				Notifica.getIstanza().svuotaNotificheErrori();
+				return null;
+			}
+			return ricettaModificata;
+		} catch (Exception e) {
+			Notifica.getIstanza().svuotaNotificheErrori();
+			//Notifica.getIstanza().notificaEccezione(e);
+			return null;
+		}
+	}
+	
 }

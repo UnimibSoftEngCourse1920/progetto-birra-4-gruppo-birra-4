@@ -56,7 +56,7 @@ public class Ingrediente implements Serializable {
 				isNotPositive(quantita, CAMPO_QUANTITA);	
 	}
 
-	public  String getId() {
+	public String getId() {
 		return id;
 	}
 	
@@ -67,7 +67,6 @@ public class Ingrediente implements Serializable {
 	private void setNome(String nome) {
 		String nomeLW = rimuoviWhiteSpaces(nome);
 		this.nome = nomeLW;
-
 	}
 	
 	public String getCategoria() {
@@ -86,7 +85,7 @@ public class Ingrediente implements Serializable {
 		double quantitaD = convertToNumber(quantita);
 		this.quantita = quantitaD;
 	}
-
+/*
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -115,6 +114,6 @@ public class Ingrediente implements Serializable {
 			return false;
 		return true;
 	}
-
+*/
 	
 }

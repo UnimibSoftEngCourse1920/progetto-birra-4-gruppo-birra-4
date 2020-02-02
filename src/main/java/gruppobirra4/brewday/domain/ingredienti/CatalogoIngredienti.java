@@ -62,8 +62,8 @@ public class CatalogoIngredienti {
 		if (ingredienti.isEmpty()) {
 			return false;
 		}
-		for (Ingrediente ing : ingredienti.values()) {
-			if((ing.getNome().equals(nome)) && (ing.getCategoria().equals(categoria)) && !ing.getId().equals(id))
+		for (Ingrediente i : ingredienti.values()) {
+			if((i.getNome().equals(nome)) && (i.getCategoria().equals(categoria)) && (!(i.getId().equals(id))))
 				return true;
 		}
 		return false;
@@ -117,8 +117,7 @@ public class CatalogoIngredienti {
 			Database.getIstanza().getDb().commit();
 			Database.getIstanza().closeDB();
 			return ingrModificato;
-		}
-			
+		}	
 		Notifica.getIstanza().addError("E' già presente un ingrediente con lo stesso nome e categoria");
 		Database.getIstanza().closeDB();
 		return null;
