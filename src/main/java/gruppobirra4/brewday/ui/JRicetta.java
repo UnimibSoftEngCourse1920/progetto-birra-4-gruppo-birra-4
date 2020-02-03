@@ -249,23 +249,23 @@ public class JRicetta extends FrameVisibile{
 		panel2.add(btnRimuoviIngr);
 		
 	//QUANTITA 		
-		JPanel panel21 = new JPanel();
-		panel21.setBounds(23, 413, 241, 148);
-		frmRicetta.getContentPane().add(panel21);
-		panel21.setLayout(new GridLayout(2, 2, 10, 20));
+		JPanel panel5 = new JPanel();
+		panel5.setBounds(23, 413, 241, 148);
+		frmRicetta.getContentPane().add(panel5);
+		panel5.setLayout(new GridLayout(2, 2, 10, 20));
 		
 		JLabel lblQuantitaDiAcqua = new JLabel("Quantità di acqua");
-		panel21.add(lblQuantitaDiAcqua);
+		panel5.add(lblQuantitaDiAcqua);
 		
 		textQuantitaAcqua = new JTextField();
-		panel21.add(textQuantitaAcqua);
+		panel5.add(textQuantitaAcqua);
 		textQuantitaAcqua.setColumns(10);
 		
 		JLabel lblQuantitaDiBirra = new JLabel("Quantità di birra");
-		panel21.add(lblQuantitaDiBirra);
+		panel5.add(lblQuantitaDiBirra);
 		
 		textQuantitaBirra = new JTextField();
-		panel21.add(textQuantitaBirra);
+		panel5.add(textQuantitaBirra);
 		textQuantitaBirra.setColumns(10);
 		
 	//DESCRIZIONE
