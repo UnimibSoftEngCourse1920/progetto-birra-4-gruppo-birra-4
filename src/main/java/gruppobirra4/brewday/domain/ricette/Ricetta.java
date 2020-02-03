@@ -1,13 +1,16 @@
 	package gruppobirra4.brewday.domain.ricette; //NOSONAR
 
+import java.io.Serializable;
 import java.util.Set;
 import java.util.UUID;
+
+import org.mapdb.Serializer;
 
 import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
 import gruppobirra4.brewday.errori.Notifica;
 import static gruppobirra4.brewday.domain.InputUtente.*;
 
-public class Ricetta {
+public class Ricetta implements Serializable{
 	
 	private String id; 
 	private String nome;
@@ -52,7 +55,6 @@ public class Ricetta {
 	protected static boolean validation(String nome, String descrizione, String quantitaAcqua, 
 										String quantitaBirra) {
 		return validateNome(nome) & //NOSONAR
-				validateDescrizione(descrizione) & //NOSONAR
 				validateQuantitaAcqua(quantitaAcqua) & //NOSONAR
 				validateQuantitaBirra(quantitaBirra) &&
 				validateQuantita(quantitaBirra, quantitaAcqua);
@@ -60,18 +62,6 @@ public class Ricetta {
 
 	private static boolean validateNome(String nome) {
 		return !isStringaVuota(nome, "Nome");
-	}
-	
-	private static boolean validateDescrizione(String descrizione) {
-		if(isStringaVuota(descrizione, "Descrizione")) {
-			Notifica.getIstanza().addError("Inserire una descrizione della ricetta"); //Da modificare!!!!!!!!!!!!
-			return false;
-		}
-		if (descrizione.length() >= 500) {  //Da modificare (probabilmente non necessario)!!!!!!!!!!!!
-			Notifica.getIstanza().addError("Il nome deve contenere al massimo 500 caratteri"); //Da modificare!!!!!!!!!!!!
-			return false;
-		}
-		return true; 
 	}
 
 	private static boolean validateQuantitaAcqua(String quantitaAcqua) {
@@ -87,7 +77,7 @@ public class Ricetta {
 	}
 	
 	private static boolean validateQuantita(String quantitaBirra, String quantitaAcqua) {
-		if (convertToNumber(quantitaAcqua) < convertToNumber(quantitaBirra)) {
+		if (convertToNumber(quantitaAcqua) >= convertToNumber(quantitaBirra)) {
 			Notifica.getIstanza().addError("La quantità di acqua inserita deve essere maggiore della quantita di birra");
 			return false;
 		}
@@ -178,22 +168,15 @@ public class Ricetta {
 		if(nuovoIngrediente == null)
 			return false;
 		Ingrediente vecchioIngrediente = getIngredienteById(idIng);
-		if(vecchioIngrediente != null) {
-			ingredienti.remove(vecchioIngrediente);
-			ingredienti.add(nuovoIngrediente);
-			return true;
-			}
-		Notifica.getIstanza().addError("L'ingrediente non è presente nella ricetta");
-		return false;
+		ingredienti.remove(vecchioIngrediente);
+		ingredienti.add(nuovoIngrediente);
+		return true;
 	}
 
 	public boolean rimuoviIngrediente(String idIng) {
 		Ingrediente ingrediente = getIngredienteById(idIng);
-		if(ingrediente != null) {
-			ingredienti.remove(ingrediente);
-			return true;
-		}
-		return false;
+		ingredienti.remove(ingrediente);
+		return true;
 	}
 	
 }
