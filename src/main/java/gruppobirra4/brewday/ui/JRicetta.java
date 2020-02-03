@@ -5,9 +5,12 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collection;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -35,7 +38,7 @@ public class JRicetta extends FrameVisibile{
 	private String idIngrediente = null;
 	private String idRicetta;
 	private String nomeRicetta;
-	private JTextField textField;
+	private JTextField textFieldNomeRicetta;
 	private JTextField textQuantitaAcqua;
 	private JTextField textQuantitaBirra;
 	
@@ -84,28 +87,33 @@ public class JRicetta extends FrameVisibile{
 		
 	//NOME RICETTA
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(10, 34, 186, 38);
+		panel_1.setBounds(10, 34, 311, 38);
 		frmRicetta.getContentPane().add(panel_1);
 		panel_1.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		JLabel lblNomeRicetta = new JLabel("Nome ricetta");
 		panel_1.add(lblNomeRicetta);
 		
+		textFieldNomeRicetta = new JTextField();
+		panel_1.add(textFieldNomeRicetta);
+		textFieldNomeRicetta.setDocument(new JTextFieldLimit(30));
+		textFieldNomeRicetta.setColumns(10);
+		
 		
 	//INGREDIENTI
 		JLabel lblInserimentoIngredienti = new JLabel("Inserimento ingredienti");
-		lblInserimentoIngredienti.setBounds(10, 83, 144, 14);
+		lblInserimentoIngredienti.setBounds(10, 77, 144, 14);
 		frmRicetta.getContentPane().add(lblInserimentoIngredienti);
 		
 		JPanel panelIngr = new JPanel();
 		panelIngr.setBorder(new LineBorder(new Color(192, 192, 192)));
-		panelIngr.setBounds(10, 96, 932, 292);
+		panelIngr.setBounds(10, 96, 932, 281);
 		frmRicetta.getContentPane().add(panelIngr);
 		panelIngr.setLayout(null);
 		
 	//Tabella ingredienti
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 11, 561, 281);
+		scrollPane.setBounds(0, 0, 561, 281);
 		
 		JTable table = new JTable();
 		String[] header = new String[] {"id", "Categoria", "Nome", "Quantita disponibile"};
@@ -194,14 +202,14 @@ public class JRicetta extends FrameVisibile{
 				String categoria = (String) comboBoxCategoria.getSelectedItem();
 				String quantita = textFieldQuantita.getText();
 				
-				/*Ingrediente ingr = GestoreRicette.getIstanza().inserisciIngrediente(nome, categoria, quantita);
+				Ingrediente ingr = GestoreRicette.getIstanza().inserisciIngrediente(null, nome, categoria, quantita);
 				if (ingr != null) { //Se non ci sono stati errori
 					dtm.addRow(new Object[] {ingr.getId(), ingr.getCategoria(), ingr.getNome(), 
 												Double.toString(ingr.getQuantita())
 											});	
 					ingr = null;
 					table.setRowSelectionInterval(table.getRowCount()-1, table.getRowCount()-1);
-				}*/
+				}
 			}
 		});
 		panel2.add(btnInserisciIngr);
@@ -217,12 +225,12 @@ public class JRicetta extends FrameVisibile{
 				String tempId = idIngrediente;
 				
 				if (tempId != null && riga != -1) {
-					/*Ingrediente ingr = GestoreRicette.getIstanza().inserisciIngrediente(tempId, nome, categoria, quantita);
+					Ingrediente ingr = GestoreRicette.getIstanza().inserisciIngrediente(tempId, nome, categoria, quantita);
 					if (ingr != null) { //Se non ci sono stati errori
 						table.setValueAt(ingr.getCategoria(), riga, 1);
 						table.setValueAt(ingr.getNome(), riga, 2);
 						table.setValueAt(Double.toString(ingr.getQuantita()), riga, 3);
-					}*/
+					}
 				}
 			}
 		});
@@ -244,11 +252,7 @@ public class JRicetta extends FrameVisibile{
 		});
 		panel2.add(btnRimuoviIngr);
 		
-	//QUANTITA 
-		textField = new JTextField();
-		panel_1.add(textField);
-		textField.setColumns(10);
-		
+	//QUANTITA 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(23, 413, 241, 148);
 		frmRicetta.getContentPane().add(panel_2);
@@ -288,14 +292,38 @@ public class JRicetta extends FrameVisibile{
 		JPanel panel_4 = new JPanel();
 		panel_4.setBounds(758, 510, 184, 51);
 		frmRicetta.getContentPane().add(panel_4);
-		panel_4.setLayout(new GridLayout(0, 2, 0, 0));
+		panel_4.setLayout(new GridLayout(0, 1, 0, 0));
 		
 	//MODIFICA E CREA
-		JButton btnModifica = new JButton("Modifica");
-		panel_4.add(btnModifica);
-		
-		JButton btnCrea = new JButton("Crea");
-		panel_4.add(btnCrea);
+		JButton btn = new JButton();
+		if (idRicetta == null) {
+			btn.setText("Crea");
+		} else {
+			btn.setText("Modifica");
+		}
+		btn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String nome = textFieldNomeRicetta.getText();
+				String quantitaAcqua = textQuantitaAcqua.getText();
+				String quantitaBirra = textQuantitaBirra.getText();
+				String descrizione = textAreaDescrizione.getText();
+				String categoria = (String) comboBoxCategoria.getSelectedItem();
+				String quantita = textFieldQuantita.getText();
+				Set<Ingrediente> ingredienti = new TreeSet<>();
+				for(int i=0; i < table.getRowCount(); i++) {
+					ingredienti.add(new Ingrediente((String) table.getValueAt(i, 0),
+													(String) table.getValueAt(i, 1),
+													(String) table.getValueAt(i, 2),
+													(String) table.getValueAt(i, 3)));
+				}				
+				Ricetta r = GestoreRicette.getIstanza().creaRicetta(nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
+				if (r != null) {
+					frmRicetta.dispose();
+					JRicettario.esegui();
+				}
+			}
+		});
+		panel_4.add(btn);
 		
 	
 	//Visualizza ricetta

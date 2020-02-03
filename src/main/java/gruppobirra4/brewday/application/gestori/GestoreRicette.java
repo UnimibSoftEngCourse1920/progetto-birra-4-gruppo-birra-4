@@ -38,7 +38,24 @@ public class GestoreRicette {
 			return null;
 		}
 	}
-
+	
+	public Ingrediente inserisciIngrediente(String id, String nome, String categoria, String quantita) {
+		try {
+			Ingrediente ingr = Ingrediente.creaIngrediente(id, nome, categoria, quantita);
+			if (Notifica.getIstanza().hasErrors()) {
+				Notifica.getIstanza().notificaErrori();
+				Notifica.getIstanza().svuotaNotificheErrori();
+				return null;
+			}
+			return ingr;
+		} catch (Exception e) {
+			Notifica.getIstanza().svuotaNotificheErrori();
+			Notifica.getIstanza().notificaEccezione(e);
+			return null;
+		}
+	}
+	
+	
 	public Ricetta creaRicetta(String nome, String descrizione, Set<Ingrediente> ingredienti,
 			String quantitaAcqua, String quantitaBirra) {
 		try {
