@@ -1,6 +1,7 @@
 package gruppobirra4.brewday.ui;
 
 import java.awt.EventQueue;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -12,6 +13,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import gruppobirra4.brewday.application.gestori.GestoreRicette;
+import gruppobirra4.brewday.domain.ricette.Ricetta;
+
 import javax.swing.JPanel;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -85,20 +88,25 @@ public class JRicettario extends FrameVisibile {
 		
 		frmRicettario.getContentPane().add(scrollPane);
 		
-		/*PROVA*/ dtm.addRow(new Object[] {"un numero", "Ricetta A"});
-		
 		//Visualizza ricettario
-			/*SortedMap<String, String> ricettario = GestoreRicette.getIstanza().visualizzaRicettario();
-			if (ricettario != null) { //Se il ricettario non è vuoto
-				Iterator <Entry<String, String>> it = ricettario.entrySet().iterator();
-				while (it.hasNext()) {
-					Map.Entry entry = it.next();
-					dtm.addRow(new Object[] {entry.getKey().toString(), entry.getValue().toString()});
-					//Aggiungere listener a ogni riga
-				}
+		Collection<Ricetta> ricettario = GestoreRicette.getIstanza().visualizzaRicettario();
+		if (ricettario != null) { //Se ricettario non è vuoto
+			for (Ricetta r: ricettario) {
+				dtm.addRow(new Object[] {r.getId(), r.getNome()});
+			}
+			ricettario = null;
+		}
+		/*SortedMap<String, String> ricettario = GestoreRicette.getIstanza().visualizzaRicettario();
+		if (ricettario != null) { //Se il ricettario non è vuoto
+			Iterator <Entry<String, String>> it = ricettario.entrySet().iterator();
+			while (it.hasNext()) {
+				Map.Entry entry = it.next();
+				dtm.addRow(new Object[] {entry.getKey().toString(), entry.getValue().toString()});
+				//Aggiungere listener a ogni riga
+			}
 
-				ricettario = null;
-			}*/
+			ricettario = null;
+		}*/
 		
 	//AGGIUNGI E RIMUOVI
 		JPanel panel = new JPanel();

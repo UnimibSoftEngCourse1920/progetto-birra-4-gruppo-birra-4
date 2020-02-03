@@ -110,6 +110,16 @@ public class Ricettario {
 		return returnMap;
 	}
 	
+	public Ricetta visualizzaRicetta(String id) {
+		ricette = openMapDB();
+		if (ricette.isEmpty()) {
+			return null;
+		}
+		Ricetta r = ricette.get(id);
+		Database.getIstanza().closeDB();
+		return r;
+	}
+	
 	/*
 	private Ricetta getRicettaFromRicettario(String id) {
 		ricette = openMapDB();

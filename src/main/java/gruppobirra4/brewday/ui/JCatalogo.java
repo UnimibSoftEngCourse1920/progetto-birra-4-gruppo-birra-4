@@ -80,7 +80,7 @@ public class JCatalogo extends FrameVisibile{
 		scrollPane.setBounds(10, 36, 932, 274);
 		
 		JTable table = new JTable();
-		String[] header = new String[] {"id", "Categoria", "Nome", "Quantita disponibile"};
+		String[] header = new String[] {"id", "Categoria", "Nome", "Quantità disponibile"};
 		DefaultTableModel dtm = new MyTableModel(new Object[][] {}, header)  {
 				boolean[] columnEditables = new boolean[] {
 					false, false, false, false

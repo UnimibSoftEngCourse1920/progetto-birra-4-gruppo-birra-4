@@ -5,8 +5,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeSet;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -116,7 +116,7 @@ public class JRicetta extends FrameVisibile{
 		scrollPane.setBounds(0, 0, 561, 281);
 		
 		JTable table = new JTable();
-		String[] header = new String[] {"id", "Categoria", "Nome", "Quantita disponibile"};
+		String[] header = new String[] {"id", "Categoria", "Nome", "Quantità disponibile"};
 		DefaultTableModel dtm = new MyTableModel(new Object[][] {}, header)  {
 				boolean[] columnEditables = new boolean[] {
 					false, false, false, false
@@ -202,7 +202,7 @@ public class JRicetta extends FrameVisibile{
 				String categoria = (String) comboBoxCategoria.getSelectedItem();
 				String quantita = textFieldQuantita.getText();
 				
-				Ingrediente ingr = GestoreRicette.getIstanza().inserisciIngrediente(null, nome, categoria, quantita);
+				Ingrediente ingr = GestoreRicette.getIstanza().inserisciIngrediente("", nome, categoria, quantita);
 				if (ingr != null) { //Se non ci sono stati errori
 					dtm.addRow(new Object[] {ingr.getId(), ingr.getCategoria(), ingr.getNome(), 
 												Double.toString(ingr.getQuantita())
@@ -258,15 +258,15 @@ public class JRicetta extends FrameVisibile{
 		frmRicetta.getContentPane().add(panel_2);
 		panel_2.setLayout(new GridLayout(2, 2, 10, 20));
 		
-		JLabel lblQuantitaDiAcqua = new JLabel("Quantita di acqua");
+		JLabel lblQuantitaDiAcqua = new JLabel("Quantità di acqua");
 		panel_2.add(lblQuantitaDiAcqua);
 		
 		textQuantitaAcqua = new JTextField();
 		panel_2.add(textQuantitaAcqua);
 		textQuantitaAcqua.setColumns(10);
 		
-		JLabel lblQuantotaDiBirra = new JLabel("Quantota di birra");
-		panel_2.add(lblQuantotaDiBirra);
+		JLabel lblQuantitaDiBirra = new JLabel("Quantità di birra");
+		panel_2.add(lblQuantitaDiBirra);
 		
 		textQuantitaBirra = new JTextField();
 		panel_2.add(textQuantitaBirra);
@@ -299,7 +299,7 @@ public class JRicetta extends FrameVisibile{
 		if (idRicetta == null) {
 			btn.setText("Crea");
 		} else {
-			btn.setText("Modifica");
+			btn.setText("Salva modifiche");
 		}
 		btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -307,16 +307,20 @@ public class JRicetta extends FrameVisibile{
 				String quantitaAcqua = textQuantitaAcqua.getText();
 				String quantitaBirra = textQuantitaBirra.getText();
 				String descrizione = textAreaDescrizione.getText();
-				String categoria = (String) comboBoxCategoria.getSelectedItem();
-				String quantita = textFieldQuantita.getText();
-				Set<Ingrediente> ingredienti = new TreeSet<>();
+				
+				Set<Ingrediente> ingredienti = new HashSet<>();
 				for(int i=0; i < table.getRowCount(); i++) {
 					ingredienti.add(new Ingrediente((String) table.getValueAt(i, 0),
-													(String) table.getValueAt(i, 1),
 													(String) table.getValueAt(i, 2),
+													(String) table.getValueAt(i, 3),
 													(String) table.getValueAt(i, 3)));
 				}				
-				Ricetta r = GestoreRicette.getIstanza().creaRicetta(nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
+				Ricetta r = null;
+				if (idRicetta == null) {
+					r = GestoreRicette.getIstanza().creaRicetta(nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
+				} else {
+					r = GestoreRicette.getIstanza().modificaRicetta(idRicetta, nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
+				}
 				if (r != null) {
 					frmRicetta.dispose();
 					JRicettario.esegui();
@@ -328,15 +332,22 @@ public class JRicetta extends FrameVisibile{
 	
 	//Visualizza ricetta
 		if (idRicetta != null) {
-			/*Ricetta ricetta = GestoreRicette.getIstanza().visualizzaRicetta(idRicetta);
+			Ricetta ricetta= GestoreRicette.getIstanza().visualizzaRicetta(idRicetta);
 			if (ricetta != null) { //Se il catalogo non è vuoto
-				for (Ingrediente ingr: catalogo) {
+				textFieldNomeRicetta.setText(ricetta.getNome());
+				textQuantitaAcqua.setText(Double.toString(ricetta.getQuantitaAcqua()));
+				textQuantitaBirra.setText(Double.toString(ricetta.getQuantitaBirra()));
+				textAreaDescrizione.setText(ricetta.getDescrizione());
+				
+				Set<Ingrediente> ingredienti = ricetta.getIngredienti();
+				for(Ingrediente ingr: ingredienti) {
 					dtm.addRow(new Object[] {ingr.getId(), ingr.getCategoria(), ingr.getNome(), 
-								Double.toString(ingr.getQuantita())
-								});
+											Double.toString(ingr.getQuantita())
+											});
 				}
-				catalogo = null;
-			}*/
+			}
 		}
+		
+		
 	}
 }

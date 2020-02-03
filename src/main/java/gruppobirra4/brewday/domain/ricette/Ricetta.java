@@ -128,7 +128,7 @@ public class Ricetta implements Serializable{
 
 	private void setQuantitaBirra(String quantitaBirra) {
 		double quantitaB = convertToNumber(quantitaBirra);
-		this.quantitaAcqua = quantitaB;
+		this.quantitaBirra = quantitaB;
 	}
 	
 	private boolean checkIngredienti(String nome, String categoria) {
