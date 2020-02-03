@@ -22,9 +22,6 @@ import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import java.awt.Color;
 
 public class JCatalogo extends FrameVisibile{
 

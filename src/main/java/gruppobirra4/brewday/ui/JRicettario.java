@@ -1,11 +1,7 @@
-package gruppobirra4.brewday.ui;
+package gruppobirra4.brewday.ui; //NOSONAR
 
 import java.awt.EventQueue;
 import java.util.Collection;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.SortedMap;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;

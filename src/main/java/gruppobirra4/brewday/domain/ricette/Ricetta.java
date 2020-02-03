@@ -142,17 +142,17 @@ public class Ricetta implements Serializable {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
+		final int PRIME = 31;
 		int result = 1;
-		result = prime * result + ((descrizione == null) ? 0 : descrizione.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((ingredienti == null) ? 0 : ingredienti.hashCode());
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = PRIME * result + ((descrizione == null) ? 0 : descrizione.hashCode());
+		result = PRIME * result + ((id == null) ? 0 : id.hashCode());
+		result = PRIME * result + ((ingredienti == null) ? 0 : ingredienti.hashCode());
+		result = PRIME * result + ((nome == null) ? 0 : nome.hashCode());
 		long temp;
 		temp = Double.doubleToLongBits(quantitaAcqua);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = PRIME * result + (int) (temp ^ (temp >>> 32));
 		temp = Double.doubleToLongBits(quantitaBirra);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = PRIME * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
 

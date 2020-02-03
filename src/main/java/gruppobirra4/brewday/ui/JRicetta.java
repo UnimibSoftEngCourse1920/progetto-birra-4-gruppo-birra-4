@@ -1,21 +1,17 @@
-package gruppobirra4.brewday.ui;
+package gruppobirra4.brewday.ui; //NOSONAR
 
 import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -86,16 +82,16 @@ public class JRicetta extends FrameVisibile{
 		frmRicetta.getContentPane().add(menu.getMenuBar());
 		
 	//NOME RICETTA
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(10, 34, 311, 38);
-		frmRicetta.getContentPane().add(panel_1);
-		panel_1.setLayout(new GridLayout(0, 2, 0, 0));
+		JPanel pane1 = new JPanel();
+		pane1.setBounds(10, 34, 311, 38);
+		frmRicetta.getContentPane().add(pane1);
+		pane1.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		JLabel lblNomeRicetta = new JLabel("Nome ricetta");
-		panel_1.add(lblNomeRicetta);
+		pane1.add(lblNomeRicetta);
 		
 		textFieldNomeRicetta = new JTextField();
-		panel_1.add(textFieldNomeRicetta);
+		pane1.add(textFieldNomeRicetta);
 		textFieldNomeRicetta.setDocument(new JTextFieldLimit(30));
 		textFieldNomeRicetta.setColumns(10);
 		
@@ -253,46 +249,46 @@ public class JRicetta extends FrameVisibile{
 		panel2.add(btnRimuoviIngr);
 		
 	//QUANTITA 		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(23, 413, 241, 148);
-		frmRicetta.getContentPane().add(panel_2);
-		panel_2.setLayout(new GridLayout(2, 2, 10, 20));
+		JPanel panel21 = new JPanel();
+		panel21.setBounds(23, 413, 241, 148);
+		frmRicetta.getContentPane().add(panel21);
+		panel21.setLayout(new GridLayout(2, 2, 10, 20));
 		
 		JLabel lblQuantitaDiAcqua = new JLabel("Quantità di acqua");
-		panel_2.add(lblQuantitaDiAcqua);
+		panel21.add(lblQuantitaDiAcqua);
 		
 		textQuantitaAcqua = new JTextField();
-		panel_2.add(textQuantitaAcqua);
+		panel21.add(textQuantitaAcqua);
 		textQuantitaAcqua.setColumns(10);
 		
 		JLabel lblQuantitaDiBirra = new JLabel("Quantità di birra");
-		panel_2.add(lblQuantitaDiBirra);
+		panel21.add(lblQuantitaDiBirra);
 		
 		textQuantitaBirra = new JTextField();
-		panel_2.add(textQuantitaBirra);
+		panel21.add(textQuantitaBirra);
 		textQuantitaBirra.setColumns(10);
 		
 	//DESCRIZIONE
-		JPanel panel_3 = new JPanel();
-		panel_3.setBounds(325, 399, 382, 207);
-		frmRicetta.getContentPane().add(panel_3);
-		panel_3.setLayout(null);
+		JPanel panel3 = new JPanel();
+		panel3.setBounds(325, 399, 382, 207);
+		frmRicetta.getContentPane().add(panel3);
+		panel3.setLayout(null);
 		
 		JLabel lblDescrizione = new JLabel("Descrizione");
 		lblDescrizione.setBounds(0, 0, 88, 14);
-		panel_3.add(lblDescrizione);
+		panel3.add(lblDescrizione);
 		
-		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(0, 21, 382, 186);
-		panel_3.add(scrollPane_1);
+		JScrollPane scrollPane1 = new JScrollPane();
+		scrollPane1.setBounds(0, 21, 382, 186);
+		panel3.add(scrollPane1);
 		
 		JTextArea textAreaDescrizione = new JTextArea();
-		scrollPane_1.setViewportView(textAreaDescrizione);
+		scrollPane1.setViewportView(textAreaDescrizione);
 		
-		JPanel panel_4 = new JPanel();
-		panel_4.setBounds(758, 510, 184, 51);
-		frmRicetta.getContentPane().add(panel_4);
-		panel_4.setLayout(new GridLayout(0, 1, 0, 0));
+		JPanel panel4 = new JPanel();
+		panel4.setBounds(758, 510, 184, 51);
+		frmRicetta.getContentPane().add(panel4);
+		panel4.setLayout(new GridLayout(0, 1, 0, 0));
 		
 	//MODIFICA E CREA
 		JButton btn = new JButton();
@@ -327,7 +323,7 @@ public class JRicetta extends FrameVisibile{
 				}
 			}
 		});
-		panel_4.add(btn);
+		panel4.add(btn);
 		
 	
 	//Visualizza ricetta
