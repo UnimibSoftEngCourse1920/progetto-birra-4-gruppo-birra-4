@@ -21,8 +21,6 @@ public class RicettarioTest {
 
 	@Test
 	public void testCreaRicetta() {
-		//File dbFile = new File("src\\main\\java\\gruppobirra4\\brewday\\database\\Database.db");
-		//dbFile.delete();
 		Ricettario r = Ricettario.getIstanza();
 		Ricetta ric = null;
 		
@@ -41,21 +39,59 @@ public class RicettarioTest {
 		assertNull(ric);
 		assertEquals(1, r.getRicette().size());
 		
+		//Input sbagliato
 		ric = r.creaRicetta("", "E Giacomino si sposa", ingredienti,"13", "11");
 		assertNull(ric);
 		assertEquals(1, r.getRicette().size());
 		
-		ric = r.creaRicetta("Huber Beer", "", ingredienti, "13", "11");
-		assertNull(ric);
-		assertEquals(1, r.getRicette().size());
-		
-		
-		
-		/*
-		Ingrediente ing3 = Ingrediente.creaIngrediente(null, "Hallertau Hersbucker", "LUPPOLO", "85");
-		ingredienti.add(ing3);
-		*/
+		ric = r.creaRicetta("Duff Beer", "", ingredienti, "13", "23");
+		assertNotNull(ric);
+		assertEquals(2, r.getRicette().size());
 	}
 	
+	@Test
+	public void testModificaRicetta() {
+		Ricettario r = Ricettario.getIstanza();
+		Ricetta ric = null;
+		
+		Set<Ingrediente> ingredienti = new HashSet<>();
+		Ingrediente ing1 = Ingrediente.creaIngrediente(null, "Pilsner Malz", "MALTO", "2200");
+		ingredienti.add(ing1);
+		Ingrediente ing2 = Ingrediente.creaIngrediente(null, "Munich Crisp", "MALTO", "2000");
+		ingredienti.add(ing2);
+		assertNotEquals(0, ingredienti.size());
+		ric = r.creaRicetta("Pdor", "Colui che era colui che è, e colui che sempre sara'", ingredienti, "5", "23");
+		assertNotNull(ric);
+		
+		//Modifica corretta
+		Ricetta ricettaModificata = r.modificaRicetta(ric.getId(), ric.getNome(), "Ciucia chi e ciucia la", ric.getIngredienti(), "13", "23");
+		assertNotNull(ricettaModificata);
+		Ricetta ricettaNellaLista = r.getRicette().get(ric.getId());
+		assertNotNull(ricettaNellaLista);
+		assertEquals(ricettaModificata, ricettaNellaLista); //da risolvere
+		
+		//Modifica scorretta
+		ric = ricettaModificata;
+		ricettaModificata = r.modificaRicetta(ric.getId(), ric.getNome(), ric.getDescrizione(), ric.getIngredienti(), "33", "20");
+		assertNull(ricettaModificata);
+	}
+	
+	@Test
+	public void testRimuoviRicetta() {
+		Ricettario r = Ricettario.getIstanza();
+		Ricetta ric = null;
+		
+		Set<Ingrediente> ingredienti = new HashSet<>();
+		Ingrediente ing1 = Ingrediente.creaIngrediente(null, "Pilsner Malz", "MALTO", "2200");
+		ingredienti.add(ing1);
+		Ingrediente ing2 = Ingrediente.creaIngrediente(null, "Munich Crisp", "MALTO", "2000");
+		ingredienti.add(ing2);
+		assertNotEquals(0, ingredienti.size());
+		ric = r.creaRicetta("Giacomino's Beer", "E cosi' domani ti sposi", ingredienti, "5", "23");
+		assertNotNull(ric);
+		assertEquals(1, r.getRicette().size());
+		r.rimuoviRicetta(ric.getId());
+		assertEquals(0, r.getRicette().size());
+	}
 
 }

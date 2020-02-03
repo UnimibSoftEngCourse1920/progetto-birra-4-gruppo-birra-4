@@ -32,7 +32,7 @@ public class GestoreIngredienti {
 			return catalogo;
 		} catch (Exception e) {
 			Notifica.getIstanza().svuotaNotificheErrori();
-			//Notifica.getIstanza().notificaEccezione(e);
+			Notifica.getIstanza().notificaEccezione(e);
 			return null;
 		}
 	}
@@ -48,7 +48,7 @@ public class GestoreIngredienti {
 			return nuovoIngrediente;
 		} catch (Exception e) {
 			Notifica.getIstanza().svuotaNotificheErrori();
-			//Notifica.getIstanza().notificaEccezione(e);
+			Notifica.getIstanza().notificaEccezione(e);
 			return null;
 		}
 	}
@@ -59,7 +59,7 @@ public class GestoreIngredienti {
 			return true;
 		} catch (Exception e) {
 			Notifica.getIstanza().svuotaNotificheErrori();
-			//Notifica.getIstanza().notificaEccezione(e);
+			Notifica.getIstanza().notificaEccezione(e);
 			return false;
 		}
 	}
@@ -75,7 +75,7 @@ public class GestoreIngredienti {
 			return ingredienteModificato;
 		} catch (Exception e) {
 			Notifica.getIstanza().svuotaNotificheErrori();
-			//Notifica.getIstanza().notificaEccezione(e);
+			Notifica.getIstanza().notificaEccezione(e);
 			return null;
 		}
 	}

@@ -51,7 +51,7 @@ public class GestoreRicette {
 			return nuovaRicetta;
 		} catch (Exception e) {
 			Notifica.getIstanza().svuotaNotificheErrori();
-			//Notifica.getIstanza().notificaEccezione(e);
+			Notifica.getIstanza().notificaEccezione(e);
 			return null;
 		}
 	}
@@ -62,7 +62,7 @@ public class GestoreRicette {
 			return true;
 		} catch (Exception e) {
 			Notifica.getIstanza().svuotaNotificheErrori();
-			//Notifica.getIstanza().notificaEccezione(e);
+			Notifica.getIstanza().notificaEccezione(e);
 			return false;
 		}
 	}
@@ -79,7 +79,7 @@ public class GestoreRicette {
 			return ricettaModificata;
 		} catch (Exception e) {
 			Notifica.getIstanza().svuotaNotificheErrori();
-			//Notifica.getIstanza().notificaEccezione(e);
+			Notifica.getIstanza().notificaEccezione(e);
 			return null;
 		}
 	}
@@ -95,7 +95,7 @@ public class GestoreRicette {
 			return ricettaModificata;
 		} catch (Exception e) {
 			Notifica.getIstanza().svuotaNotificheErrori();
-			//Notifica.getIstanza().notificaEccezione(e);
+			Notifica.getIstanza().notificaEccezione(e);
 			return null;
 		}
 	}
@@ -111,7 +111,7 @@ public class GestoreRicette {
 			return ricettaModificata;
 		} catch (Exception e) {
 			Notifica.getIstanza().svuotaNotificheErrori();
-			//Notifica.getIstanza().notificaEccezione(e);
+			Notifica.getIstanza().notificaEccezione(e);
 			return null;
 		}
 	}
@@ -127,7 +127,7 @@ public class GestoreRicette {
 			return ricettaModificata;
 		} catch (Exception e) {
 			Notifica.getIstanza().svuotaNotificheErrori();
-			//Notifica.getIstanza().notificaEccezione(e);
+			Notifica.getIstanza().notificaEccezione(e);
 			return null;
 		}
 	}

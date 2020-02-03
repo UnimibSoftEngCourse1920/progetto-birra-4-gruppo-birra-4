@@ -11,10 +11,9 @@ import gruppobirra4.brewday.domain.ingredienti.CatalogoIngredienti;
 import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
 
 public class CatalogoTest { 
+	/*
 	@Test
 	public void testCreaIngrediente() {
-		//File dbFile = new File("src\\main\\java\\gruppobirra4\\brewday\\database\\Database.db");
-		//dbFile.delete();
 		CatalogoIngredienti c = CatalogoIngredienti.getIstanza();
 		Ingrediente ingr = null;
 		
@@ -68,22 +67,17 @@ public class CatalogoTest {
 	
 	@Test
 	public void testRimuoviIngrediente() {
-		//File dbFile = new File("src\\main\\java\\gruppobirra4\\brewday\\database\\Database.db");
-		//dbFile.delete();
-		
 		CatalogoIngredienti c = CatalogoIngredienti.getIstanza();
 		Ingrediente ingr = c.creaIngrediente("San Michele", "Luppolo", "500");
 		c.rimuoviIngrediente(ingr.getId());
 		assertEquals(0, c.getIngredienti().size());
 	}
-
+	*/
 	@Test
 	public void testModificaIngrediente() {
-		//File dbFile = new File("src\\test\\java\\gruppobirra4\\brewday\\DatabaseTest.db");
-		//dbFile.delete();
-		
 		CatalogoIngredienti c = CatalogoIngredienti.getIstanza();
 		Ingrediente ingr = c.creaIngrediente("San Michele", "Luppolo", "500");
+		
 		//Modifica corretta
 		Ingrediente ingrModificato = c.modificaIngrediente(ingr.getId(), "San Pippo", "Malto", "100");
 		assertNotNull(ingrModificato);

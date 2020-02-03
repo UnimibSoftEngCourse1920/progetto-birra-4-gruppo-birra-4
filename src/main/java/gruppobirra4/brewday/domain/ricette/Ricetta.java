@@ -10,7 +10,7 @@ import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
 import gruppobirra4.brewday.errori.Notifica;
 import static gruppobirra4.brewday.domain.InputUtente.*;
 
-public class Ricetta implements Serializable{
+public class Ricetta implements Serializable {
 	
 	private String id; 
 	private String nome;
@@ -128,7 +128,7 @@ public class Ricetta implements Serializable{
 
 	private void setQuantitaBirra(String quantitaBirra) {
 		double quantitaB = convertToNumber(quantitaBirra);
-		this.quantitaAcqua = quantitaB;
+		this.quantitaBirra = quantitaB;
 	}
 	
 	private boolean checkIngredienti(String nome, String categoria) {
@@ -141,41 +141,40 @@ public class Ricetta implements Serializable{
 		}
 		return false;
 	}
-
-	protected boolean aggiungiIngrediente(String nomeIng, String categoriaIng, String quantitaIng) {
-		Ingrediente nuovoIngrediente = Ingrediente.creaIngrediente(null, nomeIng, categoriaIng, quantitaIng);
-		if(nuovoIngrediente == null) {
-			return false;
-		}
-		if(!(checkIngredienti(nuovoIngrediente.getNome(), nuovoIngrediente.getCategoria()))) {
-			ingredienti.add(nuovoIngrediente);
-			return true;
-		}
-		Notifica.getIstanza().addError("L'ingrediente è già presente nella ricetta");
-		return false;
-	}
 	
-	private Ingrediente getIngredienteById(String id) {
-		for (Ingrediente i : ingredienti) {
-			if((i.getId().equals(id)))
-				return i;
-		}
-		return null;
-	}
-
-	protected boolean modificaIngrediente(String idIng, String nomeIng, String categoriaIng, String quantitaIng) {
-		Ingrediente nuovoIngrediente = Ingrediente.creaIngrediente(idIng, nomeIng, categoriaIng, quantitaIng);
-		if(nuovoIngrediente == null)
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
 			return false;
-		Ingrediente vecchioIngrediente = getIngredienteById(idIng);
-		ingredienti.remove(vecchioIngrediente);
-		ingredienti.add(nuovoIngrediente);
-		return true;
-	}
-
-	public boolean rimuoviIngrediente(String idIng) {
-		Ingrediente ingrediente = getIngredienteById(idIng);
-		ingredienti.remove(ingrediente);
+		if (getClass() != obj.getClass())
+			return false;
+		Ricetta other = (Ricetta) obj;
+		if (descrizione == null) {
+			if (other.descrizione != null)
+				return false;
+		} else if (!descrizione.equals(other.descrizione))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (ingredienti == null) {
+			if (other.ingredienti != null)
+				return false;
+		} else if (!ingredienti.equals(other.ingredienti))
+			return false;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		if (Double.doubleToLongBits(quantitaAcqua) != Double.doubleToLongBits(other.quantitaAcqua))
+			return false;
+		if (Double.doubleToLongBits(quantitaBirra) != Double.doubleToLongBits(other.quantitaBirra))
+			return false;
 		return true;
 	}
 	

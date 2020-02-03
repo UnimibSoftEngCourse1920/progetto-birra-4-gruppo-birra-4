@@ -142,44 +142,5 @@ public class Ricettario {
 		Database.getIstanza().closeDB();
 		return null;
 	}
-	
-	public Ricetta aggiungiIngrediente(String idRicetta, String nomeIng, String categoriaIng, String quantitaIng) {
-		ricette = openMapDB();
-		Ricetta ricModificata = ricette.get(idRicetta);
-		if(!(ricModificata.aggiungiIngrediente(nomeIng, categoriaIng, quantitaIng))) {
-			Database.getIstanza().closeDB();	
-			return null;
-		}
-		ricette.replace(idRicetta, ricModificata);
-		Database.getIstanza().getDb().commit();
-		Database.getIstanza().closeDB();
-		return ricModificata;
-	}
-	
-	public Ricetta modificaIngrediente(String idRicetta, String idIng, String nomeIng, String categoriaIng, String quantitaIng) {
-		ricette = openMapDB();
-		Ricetta ricModificata = ricette.get(idRicetta);
-		if(!(ricModificata.modificaIngrediente(idIng, nomeIng, categoriaIng, quantitaIng))) {
-			Database.getIstanza().closeDB();	
-			return null;
-		}
-		ricette.replace(idRicetta, ricModificata);
-		Database.getIstanza().getDb().commit();
-		Database.getIstanza().closeDB();
-		return ricModificata;	
-	}
 
-	public Ricetta rimuoviIngrediente(String idRicetta, String idIng) {
-		ricette = openMapDB();
-		Ricetta ricModificata = ricette.get(idRicetta);
-		if(!(ricModificata.rimuoviIngrediente(idIng))) {
-			Database.getIstanza().closeDB();	
-			return null;
-		}
-		ricette.replace(idRicetta, ricModificata);
-		Database.getIstanza().getDb().commit();
-		Database.getIstanza().closeDB();
-		return ricModificata;
-	}
-	
 }
