@@ -1,6 +1,5 @@
-package gruppobirra4.brewday.ui;
+package gruppobirra4.brewday.ui; //NOSONAR
 
-import javax.swing.JFrame;
 
 public abstract class FrameVisibile {
 

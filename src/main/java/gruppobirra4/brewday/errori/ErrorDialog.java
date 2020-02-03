@@ -1,4 +1,4 @@
-package gruppobirra4.brewday.errori;
+package gruppobirra4.brewday.errori; //NOSONAR
 
 import java.util.List;
 
@@ -31,11 +31,11 @@ public class ErrorDialog {
 	}
 	
 	private String toStringError(List<Error> errori) {
-		String e = "";
+		StringBuilder e = new StringBuilder();
 		for (Error err: errori) {
-			e = e + "- " + err.getMessage() + "\n";
+			e.append("- " + err.getMessage() + "\n");
 		}
-		return (String) e;
+		return e.toString();
 	}
 
 }

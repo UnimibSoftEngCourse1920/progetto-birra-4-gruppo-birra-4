@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Set;
 import java.util.UUID;
 
-import org.mapdb.Serializer;
 
 import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
 import gruppobirra4.brewday.errori.Notifica;
@@ -42,7 +41,7 @@ public class Ricetta implements Serializable {
 	
 	protected static Ricetta creaRicetta(String id, String nome, String descrizione, Set<Ingrediente> ingredienti, 
 					String quantitaAcqua, String quantitaBirra) {
-		boolean valid = validation(nome, descrizione, quantitaAcqua, quantitaBirra);
+		boolean valid = validation(nome, quantitaAcqua, quantitaBirra);
 		if (!valid) {
 			return null;
 		}
@@ -52,8 +51,7 @@ public class Ricetta implements Serializable {
 			return new Ricetta(id, nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
 	}
 	
-	protected static boolean validation(String nome, String descrizione, String quantitaAcqua, 
-										String quantitaBirra) {
+	protected static boolean validation(String nome, String quantitaAcqua, String quantitaBirra) {
 		return validateNome(nome) & //NOSONAR
 				validateQuantitaAcqua(quantitaAcqua) & //NOSONAR
 				validateQuantitaBirra(quantitaBirra) &&
@@ -141,7 +139,23 @@ public class Ricetta implements Serializable {
 		}
 		return false;
 	}
-	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((descrizione == null) ? 0 : descrizione.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((ingredienti == null) ? 0 : ingredienti.hashCode());
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(quantitaAcqua);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(quantitaBirra);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		return result;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
