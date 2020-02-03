@@ -23,7 +23,7 @@ public class Ingrediente implements Serializable {
 		setQuantita(quantita);
 	}
 	
-	protected Ingrediente(String id, String nome, String categoria, String quantita) {
+	public Ingrediente(String id, String nome, String categoria, String quantita) {
 		this.id = id;
 		setNome(nome);
 		setCategoria(categoria);
@@ -40,6 +40,7 @@ public class Ingrediente implements Serializable {
 		else
 			return new Ingrediente(id, nome, categoria, quantita);
 	}
+	
 	
 	protected static boolean validation(String nome, String quantita) {
 		return validateNome(nome) & //NOSONAR
