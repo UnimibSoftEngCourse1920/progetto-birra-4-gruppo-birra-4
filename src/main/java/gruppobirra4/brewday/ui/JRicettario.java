@@ -15,14 +15,22 @@ import gruppobirra4.brewday.application.gestori.GestoreIngredienti;
 import gruppobirra4.brewday.application.gestori.GestoreRicette;
 import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
 
-public class JRicettario {
+public class JRicettario extends FrameVisibile {
 
 	private JFrame frmRicettario;
+	private String id = null;
 
 	/**
-	 * Launch the application.
+	 * Create the application.
 	 */
-	public static void main(String[] args) {
+	public JRicettario() {
+		frmRicettario = new JFrame();
+		menu = JMenu.getIstanza();
+		initialize();
+		menu.setFrameVisible(frmRicettario);
+	}
+	
+	public static void esegui() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -36,27 +44,18 @@ public class JRicettario {
 	}
 
 	/**
-	 * Create the application.
-	 */
-	public JRicettario() {
-		initialize();
-	}
-
-	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
-		frmRicettario = new JFrame();
+	protected void initialize() {
 		frmRicettario.setTitle("Ricettario - Brew Day!");
 		frmRicettario.setBounds(100, 100, 968, 611);
 		frmRicettario.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 	//MENU
-		JMenu menu = new JMenu();
 		menu.inserisciMenu();
 		frmRicettario.getContentPane().add(menu.getMenuBar());
 
-	//TABELLA INGREDIENTI
+	//TABELLA RICETTE
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 36, 932, 488);
 
@@ -73,16 +72,7 @@ public class JRicettario {
 		};
 		dtm.setColumnIdentifiers(header);
 		table.setModel(dtm);
-		/*table.setModel(dtm
-				table.setModel(new DefaultTableModel(new Object[][] {},	
-													new String[] {"id", "Categoria", "Nome", "Quantita disponibile"}) {
-					boolean[] columnEditables = new boolean[] {
-						true, false, false, false
-					};
-					public boolean isCellEditable(int row, int column) {
-						return columnEditables[column];
-					}
-				});*/
+		
 		table.getColumnModel().getColumn(0).setPreferredWidth(0);
 		table.getColumnModel().getColumn(0).setMinWidth(0);
 		table.getColumnModel().getColumn(0).setMaxWidth(0);
@@ -94,7 +84,7 @@ public class JRicettario {
 		/*PROVA*/ //dtm.addRow(new Object[] {"un numero", "Ricetta A"});
 		
 	//Visualizza ricettario
-		SortedMap<String, String> ricettario = GestoreRicette.getIstanza().visualizzaRicettario();
+		/*SortedMap<String, String> ricettario = GestoreRicette.getIstanza().visualizzaRicettario();
 		if (ricettario != null) { //Se il ricettario non è vuoto
 			Iterator <Entry<String, String>> it = ricettario.entrySet().iterator();
 			while (it.hasNext()) {
@@ -104,7 +94,7 @@ public class JRicettario {
 			}
 
 			ricettario = null;
-		}
+		}*/
 	}
 
 }
