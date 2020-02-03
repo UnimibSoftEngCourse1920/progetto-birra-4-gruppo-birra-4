@@ -35,16 +35,7 @@ public class JCatalogo extends FrameVisibile{
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					JCatalogo window = new JCatalogo();
-					window.frmCatalogoIngredienti.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		esegui();
 	}
 
 	/**
