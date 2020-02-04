@@ -18,7 +18,7 @@ import gruppobirra4.brewday.domain.ricette.Ricettario;
 import kotlin.collections.EmptySet;
 
 public class RicettarioTest {
-
+/*
 	@Test
 	public void testCreaRicetta() {
 		Ricettario r = Ricettario.getIstanza();
@@ -48,7 +48,7 @@ public class RicettarioTest {
 		assertNotNull(ric);
 		assertEquals(2, r.getRicette().size());
 	}
-	
+	*/
 	@Test
 	public void testModificaRicetta() {
 		Ricettario r = Ricettario.getIstanza();
@@ -75,7 +75,7 @@ public class RicettarioTest {
 		ricettaModificata = r.modificaRicetta(ric.getId(), ric.getNome(), ric.getDescrizione(), ric.getIngredienti(), "33", "20");
 		assertNull(ricettaModificata);
 	}
-	
+	/*
 	@Test
 	public void testRimuoviRicetta() {
 		Ricettario r = Ricettario.getIstanza();
@@ -93,5 +93,5 @@ public class RicettarioTest {
 		r.rimuoviRicetta(ric.getId());
 		assertEquals(0, r.getRicette().size());
 	}
-
+*/
 }
