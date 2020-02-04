@@ -50,7 +50,7 @@ public class Ingrediente implements Serializable {
 		return !isStringaVuota(nome, "Nome");
 	}
 	
-	private static boolean validateQuantita(String quantita) {
+	static boolean validateQuantita(String quantita) {
 		return !isStringaVuota(quantita, CAMPO_QUANTITA) && 
 				isNumber(quantita, CAMPO_QUANTITA) &&
 				isNotPositive(quantita, CAMPO_QUANTITA);	
@@ -105,18 +105,20 @@ public class Ingrediente implements Serializable {
 			return true;
 		if (obj == null)
 			return false;
+		if (getClass() != obj.getClass())
+			return false;
 		Ingrediente other = (Ingrediente) obj;
-		if ((categoria == null) && (other.categoria != null)) {
+		if ((categoria == null) && (other.categoria != null)) { //NOSONAR
 				return false;
-		} else if (!categoria.equals(other.categoria))
+		} else if (!categoria.equals(other.categoria)) //NOSONAR
 			return false;
 		/*if ((id == null) && (other.id != null)) {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;*/
-		if ((nome == null) && (other.nome != null)) {
+		if ((nome == null) && (other.nome != null)) { //NOSONAR
 				return false;
-		} else if (!nome.equals(other.nome))
+		} else if (!nome.equals(other.nome)) //NOSONAR
 			return false;
 		//return (Double.doubleToLongBits(quantita) == Double.doubleToLongBits(other.quantita));
 		return true;

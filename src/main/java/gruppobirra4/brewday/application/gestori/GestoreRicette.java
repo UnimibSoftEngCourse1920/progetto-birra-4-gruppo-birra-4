@@ -84,8 +84,8 @@ public class GestoreRicette {
 			return nuovaRicetta;
 		} catch (Exception e) {
 			e.printStackTrace();
-			//Notifica.getIstanza().svuotaNotificheErrori();
-			//Notifica.getIstanza().notificaEccezione(e);
+			Notifica.getIstanza().svuotaNotificheErrori();
+			Notifica.getIstanza().notificaEccezione(e);
 			return null;
 		}
 	}

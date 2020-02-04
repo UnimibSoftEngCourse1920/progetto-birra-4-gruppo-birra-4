@@ -45,7 +45,7 @@ public class CatalogoIngredienti {
 	
 	public boolean aggiungiIngrediente(Ingrediente nuovoIngrediente) {
 		ingredienti = openMapDB();
-		if(checkCatalogo(nuovoIngrediente.getNome(), nuovoIngrediente.getCategoria(), nuovoIngrediente.getId())) {	
+		if(checkCatalogo(nuovoIngrediente.getNome(), nuovoIngrediente.getCategoria(), nuovoIngrediente.getId()) != null) {	
 			Notifica.getIstanza().addError("L'ingrediente è già presente nel catalogo");
 			Database.getIstanza().closeDB();
 			return false;
@@ -57,15 +57,15 @@ public class CatalogoIngredienti {
 	}
 	
 	//Controlla se e' presente nel catalogo un ingrediente con lo stesso nome e con la stessa categoria (che non sia se stesso)
-	public boolean checkCatalogo(String nome, String categoria, String id) {
+	public String checkCatalogo(String nome, String categoria, String id) {
 		if (ingredienti.isEmpty()) {
-			return false;
+			return null;
 		}
 		for (Ingrediente i : ingredienti.values()) {
 			if((i.getNome().equals(nome)) && (i.getCategoria().equals(categoria)) && (!(i.getId().equals(id))))
-				return true;
+				return i.getId();
 		}
-		return false;
+		return null;
 	}
 	
 	public void rimuoviIngrediente(String id) {
@@ -111,7 +111,7 @@ public class CatalogoIngredienti {
 			Database.getIstanza().closeDB();
 			return null;
 		}
-		if(!checkCatalogo(ingrModificato.getNome(), ingrModificato.getCategoria(), ingrModificato.getId())) {		
+		if(checkCatalogo(ingrModificato.getNome(), ingrModificato.getCategoria(), ingrModificato.getId()) == null) {		
 			ingredienti.replace(id, ingrModificato);
 			Database.getIstanza().closeDB();
 			return ingrModificato;
@@ -121,4 +121,8 @@ public class CatalogoIngredienti {
 		return null;
 	}
 	
+	protected Ingrediente getIngredienteById(String id) {
+		ingredienti = openMapDB();	
+		return ingredienti.get(id);
+	}
 }
