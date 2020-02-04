@@ -174,27 +174,29 @@ public class Ricetta implements Serializable {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj) { //NOSONAR
 		if (this == obj)
 			return true;
 		if (obj == null)
 			return false;
+		if (getClass() != obj.getClass())
+			return false;
 		Ricetta other = (Ricetta) obj;
-		if ((descrizione == null) && (other.descrizione != null)) {
+		if ((descrizione == null) && (other.descrizione != null)) { //NOSONAR
 				return false;
-		} else if (!descrizione.equals(other.descrizione))
+		} else if (!descrizione.equals(other.descrizione)) //NOSONAR
 			return false;
 		if ((id == null) && (other.id != null)){
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!id.equals(other.id)) //NOSONAR
 			return false;
-		if ((ingredienti == null) && (other.ingredienti != null)) {
+		if ((ingredienti == null) && (other.ingredienti != null)) { //NOSONAR
 				return false;
-		} else if (!ingredienti.equals(other.ingredienti))
+		} else if (!ingredienti.equals(other.ingredienti)) //NOSONAR
 			return false;
-		if ((nome == null) && (other.nome != null)) {
+		if ((nome == null) && (other.nome != null)) { //NOSONAR
 				return false;
-		} else if (!nome.equals(other.nome))
+		} else if (!nome.equals(other.nome)) //NOSONAR
 			return false;
 		return (Double.doubleToLongBits(quantitaAcqua) == Double.doubleToLongBits(other.quantitaAcqua))
 		&& (Double.doubleToLongBits(quantitaBirra) == Double.doubleToLongBits(other.quantitaBirra));
