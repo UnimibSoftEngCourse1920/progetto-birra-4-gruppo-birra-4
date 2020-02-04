@@ -62,6 +62,7 @@ public class ListaSpesa {
 			return null;
 		}
 		Ingrediente ingrediente = Ingrediente.creaIngrediente(null, nome, categoria, "0");
+		Database.getIstanza().closeDB();
 		String id = CatalogoIngredienti.getIstanza().checkCatalogo(nome, categoria, ingrediente.getId());
 		if(id != null) {
 			lista = openMapDB();
