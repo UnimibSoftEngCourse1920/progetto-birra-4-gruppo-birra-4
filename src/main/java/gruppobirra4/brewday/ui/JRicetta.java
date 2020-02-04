@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 import gruppobirra4.brewday.application.gestori.GestoreRicette;
 import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
 import gruppobirra4.brewday.domain.ricette.Ricetta;
+import gruppobirra4.brewday.errori.Notifica;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -34,14 +35,15 @@ public class JRicetta extends FrameVisibile{
 	private String idIngrediente = null;
 	private String idRicetta;
 	private String nomeRicetta;
+	private JPanel panelInserimentoIngr;
+	private JTable table;
+	private DefaultTableModel dtm;
+	
 	private JTextField textFieldNomeRicetta;
 	private JTextField textQuantitaAcqua;
 	private JTextField textQuantitaBirra;
 	
 
-	/**
-	 * Create the application.
-	 */
 	public JRicetta(String idRicetta, String nomeRicetta) {
 		frmRicetta = new JFrame();
 		menu = JMenu.getIstanza();
@@ -52,68 +54,73 @@ public class JRicetta extends FrameVisibile{
 	}
 	
 	public static void esegui(String idRicetta, String nomeRicetta) {
+		/*EventQueue.invokeLater(() -> {
+			try {
+				JRicetta window = new JRicetta(idRicetta, nomeRicetta);
+				window.frmRicetta.setVisible(true);
+			} catch (Exception e) {
+				Notifica.getIstanza().svuotaNotificheErrori();
+				Notifica.getIstanza().notificaEccezione(e);
+			}
+		});*/
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					JRicetta window = new JRicetta(idRicetta, nomeRicetta);
 					window.frmRicetta.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					Notifica.getIstanza().svuotaNotificheErrori();
+					Notifica.getIstanza().notificaEccezione(e);
 				}
 			}
 		});
 	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	protected void initialize() {
-		if (idRicetta == null) {
-			frmRicetta.setTitle("Creazione nuova ricetta - Brew Day!");
-		} else {
-			frmRicetta.setTitle("Ricetta: " + nomeRicetta + " - Brew Day!");
-		}
-		frmRicetta.setBounds(100, 100, 968, 656);
-		frmRicetta.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmRicetta.getContentPane().setLayout(null);
-		
-	//MENU
+	
+	private void inserisciMenu() {
 		menu.inserisciMenu();
 		frmRicetta.getContentPane().add(menu.getMenuBar());
-		
-	//NOME RICETTA
-		JPanel pane1 = new JPanel();
-		pane1.setBounds(10, 34, 311, 38);
-		frmRicetta.getContentPane().add(pane1);
-		pane1.setLayout(new GridLayout(0, 2, 0, 0));
+	}
+	
+	private void inserisciNomeRicetta() {
+		JPanel paneNomeRicetta = new JPanel();
+		paneNomeRicetta.setBounds(10, 34, 311, 38);
+		frmRicetta.getContentPane().add(paneNomeRicetta);
+		paneNomeRicetta.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		JLabel lblNomeRicetta = new JLabel("Nome ricetta");
-		pane1.add(lblNomeRicetta);
+		paneNomeRicetta.add(lblNomeRicetta);
 		
 		textFieldNomeRicetta = new JTextField();
-		pane1.add(textFieldNomeRicetta);
+		paneNomeRicetta.add(textFieldNomeRicetta);
 		textFieldNomeRicetta.setDocument(new JTextFieldLimit(30));
 		textFieldNomeRicetta.setColumns(10);
-		
-		
-	//INGREDIENTI
+	}
+	
+	private void inserisciPannelloIngredienti() {
 		JLabel lblInserimentoIngredienti = new JLabel("Inserimento ingredienti");
 		lblInserimentoIngredienti.setBounds(10, 77, 144, 14);
 		frmRicetta.getContentPane().add(lblInserimentoIngredienti);
 		
-		JPanel panelIngr = new JPanel();
-		panelIngr.setBorder(new LineBorder(new Color(192, 192, 192)));
-		panelIngr.setBounds(10, 96, 932, 281);
-		frmRicetta.getContentPane().add(panelIngr);
-		panelIngr.setLayout(null);
+		panelInserimentoIngr = new JPanel();
+		panelInserimentoIngr.setBorder(new LineBorder(new Color(192, 192, 192)));
+		panelInserimentoIngr.setBounds(10, 96, 932, 281);
+		frmRicetta.getContentPane().add(panelInserimentoIngr);
+		panelInserimentoIngr.setLayout(null);
 		
-	//Tabella ingredienti
+		inserisciTabellaIngredienti();
+		
+		inserisciGestioneIngrediente();
+		
+		
+	}
+	
+	private void inserisciTabellaIngredienti() {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(0, 0, 561, 281);
-		
-		JTable table = new JTable();
+		table = new JTable();
 		String[] header = new String[] {"id", "Categoria", "Nome", "Quantità disponibile"};
-		DefaultTableModel dtm = new MyTableModel(new Object[][] {}, header)  {
+		dtm = new MyTableModel(new Object[][] {}, header)  {
 				boolean[] columnEditables = new boolean[] {
 					false, false, false, false
 				};
@@ -129,43 +136,60 @@ public class JRicetta extends FrameVisibile{
 		table.getColumnModel().getColumn(0).setMinWidth(0);
 		table.getColumnModel().getColumn(0).setMaxWidth(0);
 		scrollPane.setViewportView(table);
-		panelIngr.add(scrollPane);
+		panelInserimentoIngr.add(scrollPane);
+	}
+	
+	
+	protected void initialize() {
+		if (idRicetta == null) {
+			frmRicetta.setTitle("Creazione nuova ricetta - Brew Day!");
+		} else {
+			frmRicetta.setTitle("Ricetta: " + nomeRicetta + " - Brew Day!");
+		}
+		frmRicetta.setBounds(100, 100, 968, 656);
+		frmRicetta.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmRicetta.getContentPane().setLayout(null);
+	
+		inserisciNomeRicetta();
 		
-	//Inserimento Ingredienti
-		JPanel panel = new JPanel();
-		panel.setBounds(579, 11, 343, 265);
-		panelIngr.add(panel);
-		panel.setLayout(null);
+		inserisciPannelloIngredienti();
 		
-		JPanel panel1 = new JPanel();
-		panel1.setBounds(0, 0, 223, 265);
-		panel.add(panel1);
-		panel1.setLayout(new GridLayout(6, 1, 10, 0));
+		
+		//Gestione ingrediente
+		JPanel panelIngr = new JPanel();
+		panelIngr.setBounds(579, 11, 343, 265);
+		panelInserimentoIngr.add(panelIngr);
+		panelIngr.setLayout(null);
+		
+		JPanel panelGestioneIngr = new JPanel();
+		panelGestioneIngr.setBounds(0, 0, 223, 265);
+		panelIngr.add(panelGestioneIngr);
+		panelGestioneIngr.setLayout(new GridLayout(6, 1, 10, 0));
 		
 		
 		JLabel lblCategoria = new JLabel("Categoria:");
-		panel1.add(lblCategoria);
+		panelGestioneIngr.add(lblCategoria);
 		
 		JComboBox comboBoxCategoria = new JComboBox();
 		comboBoxCategoria.setModel(new DefaultComboBoxModel(new String[] {
 					"Malto", "Luppolo", "Lievito", "Zucchero", "Additivo"
 					}));
-		panel1.add(comboBoxCategoria);
+		panelGestioneIngr.add(comboBoxCategoria);
 		
 		
 		JLabel lblNome = new JLabel("Nome:");
-		panel1.add(lblNome);
+		panelGestioneIngr.add(lblNome);
 		
 		JTextField textFieldNome = new JTextField();
-		panel1.add(textFieldNome);
+		panelGestioneIngr.add(textFieldNome);
 		textFieldNome.setDocument(new JTextFieldLimit(30));
 		textFieldNome.setColumns(10);
 		
 		JLabel lblQuantita = new JLabel("Quantita:");
-		panel1.add(lblQuantita);
+		panelGestioneIngr.add(lblQuantita);
 		
 		JTextField textFieldQuantita = new JTextField();
-		panel1.add(textFieldQuantita);
+		panelGestioneIngr.add(textFieldQuantita);
 		textFieldQuantita.setColumns(10);
 		
 		
@@ -185,10 +209,10 @@ public class JRicetta extends FrameVisibile{
 	
 		
 		//Bottoni ingredienti
-		JPanel panel2 = new JPanel();
-		panel2.setBounds(244, 26, 99, 166);
-		panel.add(panel2);
-		panel2.setLayout(new GridLayout(3, 0, 5, 15));
+		JPanel panelBottoniIngr = new JPanel();
+		panelBottoniIngr.setBounds(244, 26, 99, 166);
+		panelIngr.add(panelBottoniIngr);
+		panelBottoniIngr.setLayout(new GridLayout(3, 0, 5, 15));
 		
 		//Aggiungi ingrediente
 		JButton btnInserisciIngr = new JButton("Inserisci");
@@ -208,7 +232,7 @@ public class JRicetta extends FrameVisibile{
 				}
 			}
 		});
-		panel2.add(btnInserisciIngr);
+		panelBottoniIngr.add(btnInserisciIngr);
 			
 		//Modifica ingrediente
 		JButton btnModificaIngr = new JButton("Modifica");
@@ -230,7 +254,7 @@ public class JRicetta extends FrameVisibile{
 				}
 			}
 		});
-		panel2.add(btnModificaIngr);
+		panelBottoniIngr.add(btnModificaIngr);
 		
 		//Rimuovi ingrediente
 		JButton btnRimuoviIngr = new JButton("Rimuovi");
@@ -246,49 +270,49 @@ public class JRicetta extends FrameVisibile{
 				}
 			}
 		});
-		panel2.add(btnRimuoviIngr);
+		panelBottoniIngr.add(btnRimuoviIngr);
 		
 	//QUANTITA 		
-		JPanel panel5 = new JPanel();
-		panel5.setBounds(23, 413, 241, 148);
-		frmRicetta.getContentPane().add(panel5);
-		panel5.setLayout(new GridLayout(2, 2, 10, 20));
+		JPanel panelQuantita = new JPanel();
+		panelQuantita.setBounds(23, 413, 241, 148);
+		frmRicetta.getContentPane().add(panelQuantita);
+		panelQuantita.setLayout(new GridLayout(2, 2, 10, 20));
 		
 		JLabel lblQuantitaDiAcqua = new JLabel("Quantità di acqua");
-		panel5.add(lblQuantitaDiAcqua);
+		panelQuantita.add(lblQuantitaDiAcqua);
 		
 		textQuantitaAcqua = new JTextField();
-		panel5.add(textQuantitaAcqua);
+		panelQuantita.add(textQuantitaAcqua);
 		textQuantitaAcqua.setColumns(10);
 		
 		JLabel lblQuantitaDiBirra = new JLabel("Quantità di birra");
-		panel5.add(lblQuantitaDiBirra);
+		panelQuantita.add(lblQuantitaDiBirra);
 		
 		textQuantitaBirra = new JTextField();
-		panel5.add(textQuantitaBirra);
+		panelQuantita.add(textQuantitaBirra);
 		textQuantitaBirra.setColumns(10);
 		
 	//DESCRIZIONE
-		JPanel panel3 = new JPanel();
-		panel3.setBounds(325, 399, 382, 207);
-		frmRicetta.getContentPane().add(panel3);
-		panel3.setLayout(null);
+		JPanel panelDescrizione = new JPanel();
+		panelDescrizione.setBounds(325, 399, 382, 207);
+		frmRicetta.getContentPane().add(panelDescrizione);
+		panelDescrizione.setLayout(null);
 		
 		JLabel lblDescrizione = new JLabel("Descrizione");
 		lblDescrizione.setBounds(0, 0, 88, 14);
-		panel3.add(lblDescrizione);
+		panelDescrizione.add(lblDescrizione);
 		
 		JScrollPane scrollPane1 = new JScrollPane();
 		scrollPane1.setBounds(0, 21, 382, 186);
-		panel3.add(scrollPane1);
+		panelDescrizione.add(scrollPane1);
 		
 		JTextArea textAreaDescrizione = new JTextArea();
 		scrollPane1.setViewportView(textAreaDescrizione);
 		
-		JPanel panel4 = new JPanel();
-		panel4.setBounds(758, 510, 184, 51);
-		frmRicetta.getContentPane().add(panel4);
-		panel4.setLayout(new GridLayout(0, 1, 0, 0));
+		JPanel panelBottoneRicetta = new JPanel();
+		panelBottoneRicetta.setBounds(758, 510, 184, 51);
+		frmRicetta.getContentPane().add(panelBottoneRicetta);
+		panelBottoneRicetta.setLayout(new GridLayout(0, 1, 0, 0));
 		
 	//MODIFICA E CREA
 		JButton btn = new JButton();
@@ -323,7 +347,7 @@ public class JRicetta extends FrameVisibile{
 				}
 			}
 		});
-		panel4.add(btn);
+		panelBottoneRicetta.add(btn);
 		
 	
 	//Visualizza ricetta
@@ -346,4 +370,7 @@ public class JRicetta extends FrameVisibile{
 		
 		
 	}
+
+	
+	
 }

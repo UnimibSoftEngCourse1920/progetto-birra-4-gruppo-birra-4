@@ -18,7 +18,6 @@ import gruppobirra4.brewday.domain.ricette.Ricettario;
 import kotlin.collections.EmptySet;
 
 public class RicettarioTest {
-/*
 	@Test
 	public void testCreaRicetta() {
 		Ricettario r = Ricettario.getIstanza();
@@ -34,21 +33,25 @@ public class RicettarioTest {
 		assertNotNull(ric);
 		assertEquals(1, r.getRicette().size());
 		
+		ric = r.creaRicetta("Aldo's Beer", "Mariiiiiia", ingredienti, null, "23");
+		assertNotNull(ric);
+		assertEquals(2, r.getRicette().size());
+		
 		//Ricetta già inserita
 		ric = r.creaRicetta("Giacomino's Beer", "Si', ma nulla di serio", ingredienti,"7", "11");
 		assertNull(ric);
-		assertEquals(1, r.getRicette().size());
+		assertEquals(2, r.getRicette().size());
 		
 		//Input sbagliato
 		ric = r.creaRicetta("", "E Giacomino si sposa", ingredienti,"13", "11");
 		assertNull(ric);
-		assertEquals(1, r.getRicette().size());
+		assertEquals(2, r.getRicette().size());
 		
-		ric = r.creaRicetta("Duff Beer", "", ingredienti, "13", "23");
-		assertNotNull(ric);
+		ric = r.creaRicetta("Duff Beer", "", ingredienti, "-13", "-23");
+		assertNull(ric);
 		assertEquals(2, r.getRicette().size());
 	}
-	*/
+	
 	@Test
 	public void testModificaRicetta() {
 		Ricettario r = Ricettario.getIstanza();
@@ -68,14 +71,14 @@ public class RicettarioTest {
 		assertNotNull(ricettaModificata);
 		Ricetta ricettaNellaLista = r.getRicette().get(ric.getId());
 		assertNotNull(ricettaNellaLista);
-		assertEquals(ricettaModificata, ricettaNellaLista); //da risolvere
+		assertEquals(ricettaModificata, ricettaNellaLista);
 		
 		//Modifica scorretta
 		ric = ricettaModificata;
-		ricettaModificata = r.modificaRicetta(ric.getId(), ric.getNome(), ric.getDescrizione(), ric.getIngredienti(), "33", "20");
+		ricettaModificata = r.modificaRicetta(ric.getId(), ric.getNome(), ric.getDescrizione(), ric.getIngredienti(), "33", null);
 		assertNull(ricettaModificata);
 	}
-	/*
+	
 	@Test
 	public void testRimuoviRicetta() {
 		Ricettario r = Ricettario.getIstanza();
@@ -93,5 +96,5 @@ public class RicettarioTest {
 		r.rimuoviRicetta(ric.getId());
 		assertEquals(0, r.getRicette().size());
 	}
-*/
+
 }

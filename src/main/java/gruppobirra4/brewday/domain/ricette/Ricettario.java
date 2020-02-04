@@ -1,6 +1,7 @@
 	package gruppobirra4.brewday.domain.ricette; //NOSONAR
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
@@ -102,7 +103,7 @@ public class Ricettario {
 		ricette = openMapDB();
 		if (ricette.isEmpty()) {
 			Database.getIstanza().closeDB();
-			return null;
+			return Collections.emptyList();
 		}
 		Collection<Ricetta> returnMap = getRicetteHelper().values();
 		Database.getIstanza().closeDB();
