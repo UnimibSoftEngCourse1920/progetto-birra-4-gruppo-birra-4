@@ -29,7 +29,6 @@ public class Ingrediente implements Serializable {
 		setCategoria(categoria);
 		setQuantita(quantita);
 	}
-	
 
 	public static Ingrediente creaIngrediente(String id, String nome, String categoria, String quantita) {
 		boolean valid = validation(nome, quantita);
@@ -106,27 +105,20 @@ public class Ingrediente implements Serializable {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
 		Ingrediente other = (Ingrediente) obj;
-		if (categoria == null) {
-			if (other.categoria != null)
+		if ((categoria == null) && (other.categoria != null)) {
 				return false;
 		} else if (!categoria.equals(other.categoria))
 			return false;
-		if (id == null) {
-			if (other.id != null)
+		if ((id == null) && (other.id != null)) {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (nome == null) {
-			if (other.nome != null)
+		if ((nome == null) && (other.nome != null)) {
 				return false;
 		} else if (!nome.equals(other.nome))
 			return false;
-		if (Double.doubleToLongBits(quantita) != Double.doubleToLongBits(other.quantita))
-			return false;
-		return true;
+		return (Double.doubleToLongBits(quantita) == Double.doubleToLongBits(other.quantita));
 	}
 	
 }

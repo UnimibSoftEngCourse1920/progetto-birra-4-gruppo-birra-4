@@ -162,34 +162,25 @@ public class Ricetta implements Serializable {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
 		Ricetta other = (Ricetta) obj;
-		if (descrizione == null) {
-			if (other.descrizione != null)
+		if ((descrizione == null) && (other.descrizione != null)) {
 				return false;
 		} else if (!descrizione.equals(other.descrizione))
 			return false;
-		if (id == null) {
-			if (other.id != null)
+		if ((id == null) && (other.id != null)){
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (ingredienti == null) {
-			if (other.ingredienti != null)
+		if ((ingredienti == null) && (other.ingredienti != null)) {
 				return false;
 		} else if (!ingredienti.equals(other.ingredienti))
 			return false;
-		if (nome == null) {
-			if (other.nome != null)
+		if ((nome == null) && (other.nome != null)) {
 				return false;
 		} else if (!nome.equals(other.nome))
 			return false;
-		if (Double.doubleToLongBits(quantitaAcqua) != Double.doubleToLongBits(other.quantitaAcqua))
-			return false;
-		if (Double.doubleToLongBits(quantitaBirra) != Double.doubleToLongBits(other.quantitaBirra))
-			return false;
-		return true;
+		return (Double.doubleToLongBits(quantitaAcqua) == Double.doubleToLongBits(other.quantitaAcqua))
+		&& (Double.doubleToLongBits(quantitaBirra) == Double.doubleToLongBits(other.quantitaBirra));
 	}
 	
 }
