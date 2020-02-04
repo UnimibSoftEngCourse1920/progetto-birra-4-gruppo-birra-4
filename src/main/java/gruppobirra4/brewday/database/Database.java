@@ -25,16 +25,17 @@ public class Database {
 		return istanza;
 	}
 	
-	//Per test
+	/*//Per test
 	public static synchronized void setIstanzaTest() {
 		istanza = new Database("src\\test\\java\\gruppobirra4\\brewday\\DatabaseTest.db");	
-	}
+	}*/
 	
 	public HTreeMap<?, ?> openMapDB(String nomeMappa) {
 		return getDb().hashMap(nomeMappa).open();
 	}
 	
 	public void closeDB(){
+		db.commit();
 		db.close();
 		setDB();
 	}

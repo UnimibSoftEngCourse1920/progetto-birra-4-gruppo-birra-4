@@ -54,7 +54,6 @@ public class Ricettario {
 			return false;
 		}
 		ricette.put(nuovaRicetta.getId(), nuovaRicetta);
-		Database.getIstanza().getDb().commit();
 		Database.getIstanza().closeDB();
 		return true;
 	}
@@ -75,7 +74,6 @@ public class Ricettario {
 	public void rimuoviRicetta(String id) {
 		ricette = openMapDB();
 		ricette.remove(id); 
-		Database.getIstanza().getDb().commit();
 		Database.getIstanza().closeDB();
 	}
 	
@@ -103,6 +101,7 @@ public class Ricettario {
 	public Collection<Ricetta> visualizzaRicettario() {
 		ricette = openMapDB();
 		if (ricette.isEmpty()) {
+			Database.getIstanza().closeDB();
 			return null;
 		}
 		Collection<Ricetta> returnMap = getRicetteHelper().values();
@@ -113,6 +112,7 @@ public class Ricettario {
 	public Ricetta visualizzaRicetta(String id) {
 		ricette = openMapDB();
 		if (ricette.isEmpty()) {
+			Database.getIstanza().closeDB();
 			return null;
 		}
 		Ricetta r = ricette.get(id);
@@ -144,7 +144,6 @@ public class Ricettario {
 		}
 		if(!(checkRicettario(ricModificata.getNome(), ricModificata.getId()))) {
 			ricette.replace(id, ricModificata);
-			Database.getIstanza().getDb().commit();
 			Database.getIstanza().closeDB();
 			return ricModificata;
 		}

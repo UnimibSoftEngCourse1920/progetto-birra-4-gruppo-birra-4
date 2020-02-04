@@ -52,7 +52,6 @@ public class CatalogoIngredienti {
 			
 		}
 		ingredienti.put(nuovoIngrediente.getId(), nuovoIngrediente);
-		Database.getIstanza().getDb().commit();
 		Database.getIstanza().closeDB();
 		return true;
 	}
@@ -72,7 +71,6 @@ public class CatalogoIngredienti {
 	public void rimuoviIngrediente(String id) {
 		ingredienti = openMapDB();
 		ingredienti.remove(id); 
-		Database.getIstanza().getDb().commit();
 		Database.getIstanza().closeDB();
 	}
 	
@@ -98,6 +96,7 @@ public class CatalogoIngredienti {
 	public Collection<Ingrediente> visualizzaCatalogo() {
 		ingredienti = openMapDB();
 		if (ingredienti.isEmpty()) {
+			Database.getIstanza().closeDB();
 			return null;
 		}
 		Collection<Ingrediente> returnMap = getIngredientiHelper().values();
@@ -114,7 +113,6 @@ public class CatalogoIngredienti {
 		}
 		if(!checkCatalogo(ingrModificato.getNome(), ingrModificato.getCategoria(), ingrModificato.getId())) {		
 			ingredienti.replace(id, ingrModificato);
-			Database.getIstanza().getDb().commit();
 			Database.getIstanza().closeDB();
 			return ingrModificato;
 		}	
