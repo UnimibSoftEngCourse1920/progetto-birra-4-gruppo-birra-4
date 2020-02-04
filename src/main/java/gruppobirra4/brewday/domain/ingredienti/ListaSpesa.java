@@ -64,6 +64,7 @@ public class ListaSpesa {
 		Ingrediente ingrediente = Ingrediente.creaIngrediente(null, nome, categoria, "0");
 		String id = CatalogoIngredienti.getIstanza().checkCatalogo(nome, categoria, ingrediente.getId());
 		if(id != null) {
+			lista = openMapDB();
 			lista.put(id, Double.parseDouble(quantita));
 			Database.getIstanza().closeDB();
 			return new QuantitaListaSpesa(CatalogoIngredienti.getIstanza().getIngredienteById(id),
@@ -71,7 +72,9 @@ public class ListaSpesa {
 		}
 		else {
 			CatalogoIngredienti.getIstanza().aggiungiIngrediente(ingrediente);
+			lista = openMapDB();
 			lista.put(ingrediente.getId(), Double.parseDouble(quantita));
+			Database.getIstanza().closeDB();
 			return new QuantitaListaSpesa(ingrediente, Double.parseDouble(quantita));
 		}
 	}

@@ -59,12 +59,13 @@ public class CatalogoIngredienti {
 	
 	//Controlla se e' presente nel catalogo un ingrediente con lo stesso nome e con la stessa categoria (che non sia se stesso)
 	public String checkCatalogo(String nome, String categoria, String id) {
+		ingredienti = openMapDB();
 		if (ingredienti.isEmpty()) {
 			return null;
 		}
 		for (Ingrediente i : ingredienti.values()) {
 			if((i.getNome().equals(nome)) && (i.getCategoria().equals(categoria)) && (!(i.getId().equals(id))))
-				return i.getId();
+				return id;
 		}
 		return null;
 	}
