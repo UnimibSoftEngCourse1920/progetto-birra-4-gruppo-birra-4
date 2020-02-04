@@ -1,6 +1,7 @@
 package gruppobirra4.brewday.application.gestori; //NOSONAR
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Set;
 
 import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
@@ -29,13 +30,13 @@ public class GestoreRicette {
 			if (Notifica.getIstanza().hasErrors()) {
 				Notifica.getIstanza().notificaErrori();
 				Notifica.getIstanza().svuotaNotificheErrori();
-				return null;
+				return Collections.emptyList();
 			}
 			return ricettario;
 		} catch (Exception e) {
 			Notifica.getIstanza().svuotaNotificheErrori();
 			Notifica.getIstanza().notificaEccezione(e);
-			return null;
+			return Collections.emptyList();
 		}
 	}
 	
@@ -83,7 +84,6 @@ public class GestoreRicette {
 			}
 			return nuovaRicetta;
 		} catch (Exception e) {
-			e.printStackTrace();
 			Notifica.getIstanza().svuotaNotificheErrori();
 			Notifica.getIstanza().notificaEccezione(e);
 			return null;

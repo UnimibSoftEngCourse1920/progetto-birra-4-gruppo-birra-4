@@ -1,14 +1,10 @@
 package gruppobirra4.brewday.application.gestori; //NOSONAR
 
 import java.util.Collection;
-import java.util.Set;
+import java.util.Collections;
 
-import gruppobirra4.brewday.domain.ingredienti.CatalogoIngredienti;
-import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
 import gruppobirra4.brewday.domain.ingredienti.ListaSpesa;
 import gruppobirra4.brewday.domain.ingredienti.QuantitaListaSpesa;
-import gruppobirra4.brewday.domain.ricette.Ricetta;
-import gruppobirra4.brewday.domain.ricette.Ricettario;
 import gruppobirra4.brewday.errori.Notifica;
 
 public class GestoreListaSpesa {
@@ -32,13 +28,13 @@ public class GestoreListaSpesa {
 			if (Notifica.getIstanza().hasErrors()) {
 				Notifica.getIstanza().notificaErrori();
 				Notifica.getIstanza().svuotaNotificheErrori();
-				return null;
+				return Collections.emptyList();
 			}
 			return listaSpesa;
 		} catch (Exception e) {
 			Notifica.getIstanza().svuotaNotificheErrori();
 			Notifica.getIstanza().notificaEccezione(e);
-			return null;
+			return Collections.emptyList();
 		}
 	}
 	
@@ -52,7 +48,6 @@ public class GestoreListaSpesa {
 			}
 			return nuovoIngrediente;
 		} catch (Exception e) {
-			e.printStackTrace();
 			Notifica.getIstanza().svuotaNotificheErrori();
 			Notifica.getIstanza().notificaEccezione(e);
 			return null;
@@ -69,7 +64,6 @@ public class GestoreListaSpesa {
 			}
 			return ingredienteModificato;
 		} catch (Exception e) {
-			e.printStackTrace();
 			Notifica.getIstanza().svuotaNotificheErrori();
 			Notifica.getIstanza().notificaEccezione(e);
 			return null;

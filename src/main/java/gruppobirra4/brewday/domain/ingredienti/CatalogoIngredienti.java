@@ -1,6 +1,7 @@
 package gruppobirra4.brewday.domain.ingredienti; //NOSONAR
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -97,7 +98,7 @@ public class CatalogoIngredienti {
 		ingredienti = openMapDB();
 		if (ingredienti.isEmpty()) {
 			Database.getIstanza().closeDB();
-			return null;
+			return Collections.emptyList();
 		}
 		Collection<Ingrediente> returnMap = getIngredientiHelper().values();
 		Database.getIstanza().closeDB();

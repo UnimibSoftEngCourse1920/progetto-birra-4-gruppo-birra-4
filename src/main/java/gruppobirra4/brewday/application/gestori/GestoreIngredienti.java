@@ -1,6 +1,7 @@
 	package gruppobirra4.brewday.application.gestori; //NOSONAR
 
 import java.util.Collection;
+import java.util.Collections;
 
 import gruppobirra4.brewday.domain.ingredienti.CatalogoIngredienti;
 import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
@@ -27,13 +28,13 @@ public class GestoreIngredienti {
 			if (Notifica.getIstanza().hasErrors()) {
 				Notifica.getIstanza().notificaErrori();
 				Notifica.getIstanza().svuotaNotificheErrori();
-				return null;
+				return Collections.emptyList();
 			}
 			return catalogo;
 		} catch (Exception e) {
 			Notifica.getIstanza().svuotaNotificheErrori();
 			Notifica.getIstanza().notificaEccezione(e);
-			return null;
+			return Collections.emptyList();
 		}
 	}
 	
