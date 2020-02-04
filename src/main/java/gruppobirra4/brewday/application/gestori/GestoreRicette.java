@@ -34,7 +34,7 @@ public class GestoreRicette {
 			return ricettario;
 		} catch (Exception e) {
 			Notifica.getIstanza().svuotaNotificheErrori();
-			//Notifica.getIstanza().notificaEccezione(e);
+			Notifica.getIstanza().notificaEccezione(e);
 			return null;
 		}
 	}
@@ -83,8 +83,9 @@ public class GestoreRicette {
 			}
 			return nuovaRicetta;
 		} catch (Exception e) {
-			Notifica.getIstanza().svuotaNotificheErrori();
-			Notifica.getIstanza().notificaEccezione(e);
+			e.printStackTrace();
+			//Notifica.getIstanza().svuotaNotificheErrori();
+			//Notifica.getIstanza().notificaEccezione(e);
 			return null;
 		}
 	}

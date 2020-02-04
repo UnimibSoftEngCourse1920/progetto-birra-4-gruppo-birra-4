@@ -41,7 +41,7 @@ public class Ricetta implements Serializable {
 	
 	protected static Ricetta creaRicetta(String id, String nome, String descrizione, Set<Ingrediente> ingredienti, 
 					String quantitaAcqua, String quantitaBirra) {
-		boolean valid = validation(nome, quantitaAcqua, quantitaBirra);
+		boolean valid = validation(nome, ingredienti, quantitaAcqua, quantitaBirra);
 		if (!valid) {
 			return null;
 		}
@@ -51,20 +51,31 @@ public class Ricetta implements Serializable {
 			return new Ricetta(id, nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
 	}
 	
-	protected static boolean validation(String nome, String quantitaAcqua, String quantitaBirra) {
+	protected static boolean validation(String nome, Set<Ingrediente> ingredienti, String quantitaAcqua, String quantitaBirra) {
 		return validateNome(nome) & //NOSONAR
+				validateIngredienti(ingredienti) & //NOSONAR
 				validateQuantitaAcqua(quantitaAcqua) & //NOSONAR
-				validateQuantitaBirra(quantitaBirra) &&
-				validateQuantita(quantitaBirra, quantitaAcqua);
+				validateQuantitaBirra(quantitaBirra); //&&
+				//validateQuantita(quantitaBirra, quantitaAcqua);
 	}
 
 	private static boolean validateNome(String nome) {
 		return !isStringaVuota(nome, "Nome");
 	}
+	
+	private static boolean validateIngredienti(Set<Ingrediente> ingredienti) {
+		if (ingredienti.isEmpty()) {
+			Notifica.getIstanza().addError("Inserire degli ingredienti");
+			return false;
+		}
+		return true;
+	}
 
 	private static boolean validateQuantitaAcqua(String quantitaAcqua) {
-		return !isStringaVuota(quantitaAcqua, "Quantita acqua")
-				&& isNumber(quantitaAcqua, "Quantita' acqua") 
+		if (quantitaAcqua == null || quantitaAcqua.isEmpty()) {
+			return true;
+		}		
+		return isNumber(quantitaAcqua, "Quantita' acqua") 
 				&& isNotPositive(quantitaAcqua, "Quantita' acqua");
 	}
 	
@@ -74,13 +85,13 @@ public class Ricetta implements Serializable {
 				&& isNotPositive(quantitaBirra, "Quantita' birra");
 	}
 	
-	private static boolean validateQuantita(String quantitaBirra, String quantitaAcqua) {
+	/*private static boolean validateQuantita(String quantitaBirra, String quantitaAcqua) {
 		if (convertToNumber(quantitaAcqua) >= convertToNumber(quantitaBirra)) {
 			Notifica.getIstanza().addError("La quantità di acqua inserita deve essere maggiore della quantita di birra");
 			return false;
 		}
 		return true;
-	}
+	}*/
 	
 	public String getId() {
 		return id;
@@ -116,6 +127,10 @@ public class Ricetta implements Serializable {
 	}
 
 	private void setQuantitaAcqua(String quantitaAcqua) {
+		if (quantitaAcqua == null || quantitaAcqua.isEmpty()) {
+			this.quantitaAcqua = 0;
+			return;
+		}
 		double quantitaA = convertToNumber(quantitaAcqua);
 		this.quantitaAcqua = quantitaA;
 	}
@@ -129,16 +144,18 @@ public class Ricetta implements Serializable {
 		this.quantitaBirra = quantitaB;
 	}
 	
-	private boolean checkIngredienti(String nome, String categoria) {
+	/*private boolean checkIngredienti(String nome, String categoria) {
 		if (ingredienti.isEmpty()) {
+			Notifica.getIstanza().addError("Inserire degli ingredienti");
 			return false;
 		}
 		for (Ingrediente i : ingredienti) {
 			if((i.getNome().equals(nome)) && (i.getCategoria().equals(categoria)))
 				return true;
 		}
+		Notifica.getIstanza().addError("Sono presenti degli ingredienti con lo stesso nome e categoria");
 		return false;
-	}
+	}*/
 
 	@Override
 	public int hashCode() {

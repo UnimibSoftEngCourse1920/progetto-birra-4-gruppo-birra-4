@@ -306,9 +306,9 @@ public class JRicetta extends FrameVisibile{
 				
 				Set<Ingrediente> ingredienti = new HashSet<>();
 				for(int i=0; i < table.getRowCount(); i++) {
-					ingredienti.add(new Ingrediente((String) table.getValueAt(i, 0),
+					ingredienti.add(new Ingrediente(null,
 													(String) table.getValueAt(i, 2),
-													(String) table.getValueAt(i, 3),
+													(String) table.getValueAt(i, 1),
 													(String) table.getValueAt(i, 3)));
 				}				
 				Ricetta r = null;

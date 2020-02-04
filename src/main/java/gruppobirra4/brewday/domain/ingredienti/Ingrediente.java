@@ -91,11 +91,11 @@ public class Ingrediente implements Serializable {
 		final int PRIME = 31;
 		int result = 1;
 		result = PRIME * result + ((categoria == null) ? 0 : categoria.hashCode());
-		result = PRIME * result + ((id == null) ? 0 : id.hashCode());
+		//result = PRIME * result + ((id == null) ? 0 : id.hashCode());
 		result = PRIME * result + ((nome == null) ? 0 : nome.hashCode());
-		long temp;
+		/*long temp;
 		temp = Double.doubleToLongBits(quantita);
-		result = PRIME * result + (int) (temp ^ (temp >>> 32));
+		result = PRIME * result + (int) (temp ^ (temp >>> 32));*/
 		return result;
 	}
 
@@ -110,15 +110,16 @@ public class Ingrediente implements Serializable {
 				return false;
 		} else if (!categoria.equals(other.categoria))
 			return false;
-		if ((id == null) && (other.id != null)) {
+		/*if ((id == null) && (other.id != null)) {
 				return false;
 		} else if (!id.equals(other.id))
-			return false;
+			return false;*/
 		if ((nome == null) && (other.nome != null)) {
 				return false;
 		} else if (!nome.equals(other.nome))
 			return false;
-		return (Double.doubleToLongBits(quantita) == Double.doubleToLongBits(other.quantita));
+		//return (Double.doubleToLongBits(quantita) == Double.doubleToLongBits(other.quantita));
+		return true;
 	}
 	
 }
