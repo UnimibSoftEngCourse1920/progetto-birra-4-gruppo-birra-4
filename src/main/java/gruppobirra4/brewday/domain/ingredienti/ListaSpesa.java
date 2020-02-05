@@ -56,20 +56,16 @@ public class ListaSpesa {
 	}
 
 	public QuantitaListaSpesa aggiungiIngrediente(String nome, String categoria, String quantita) {
-		if(!(Ingrediente.validation(nome, quantita))) {
-			return null;
-		}
-		Ingrediente ing = CatalogoIngredienti.getIstanza().checkCatalogoPerSpesa(nome, categoria);
-		//lista = openMapDB();
+		Ingrediente tempIng = Ingrediente.creaIngrediente("", nome, categoria, quantita);
+		Ingrediente ing = CatalogoIngredienti.getIstanza().checkCatalogoPerSpesa(tempIng.getNome(), tempIng.getCategoria());
+
 		if(ing != null) {	
 			lista = openMapDB();
 			lista.put(ing.getId(), Double.parseDouble(quantita));
 			Database.getIstanza().closeDB();
-			return new QuantitaListaSpesa(ing,
-					Double.parseDouble(quantita));
-		}
-		else {
-			// Database.getIstanza().closeDB();
+			return new QuantitaListaSpesa(ing, Double.parseDouble(quantita));
+		} else {
+			Database.getIstanza().closeDB();
 			return null;
 		}
 	}
@@ -95,21 +91,20 @@ public class ListaSpesa {
 	
 	public void svuotaLista(){
 		lista = openMapDB();
-		if(!lista.isEmpty())
+		if(!lista.isEmpty()) {
 			lista.clear();
+		}
 		Database.getIstanza().closeDB();
 	}
 	
 	public void acquistaIngrediente(String id) {
 		lista = openMapDB();
 		double qt = lista.get(id);
-		//Database.getIstanza().closeDB();
+		Database.getIstanza().closeDB();
 		Ingrediente ing = CatalogoIngredienti.getIstanza().getIngredienteById(id);
 		ing = CatalogoIngredienti.getIstanza().modificaIngrediente(id, ing.getNome(), ing.getCategoria(), Double.toString(ing.getQuantita()+qt));
 		if (ing != null) {
-			lista = openMapDB();
-			lista.remove(id);
+			rimuoviIngrediente(id);
 		}
-		Database.getIstanza().closeDB();
 	}
 }
