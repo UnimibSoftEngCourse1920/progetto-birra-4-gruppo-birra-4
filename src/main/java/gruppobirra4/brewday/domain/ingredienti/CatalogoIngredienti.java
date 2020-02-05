@@ -79,7 +79,7 @@ public class CatalogoIngredienti {
 		}
 		for (Ingrediente ing : ingredienti.values()) {
 			if((ing.getNome().equals(nome)) && (ing.getCategoria().equals(categoria)))
-				Database.getIstanza().closeDB();
+				//Database.getIstanza().closeDB();
 				return ing;
 		}
 		Ingrediente ing = getIstanza().creaIngrediente(nome, categoria, "0");

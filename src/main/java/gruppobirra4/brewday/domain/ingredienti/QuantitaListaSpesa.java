@@ -6,7 +6,6 @@ public class QuantitaListaSpesa {
 	private double quantitaDaAcquistare;
 	
 	public QuantitaListaSpesa(Ingrediente ingrediente, double quantitaDaAcquistare) {
-		super();
 		setIngrediente(ingrediente);
 		setQuantitaDaAcquistare(quantitaDaAcquistare);
 	}
@@ -26,8 +25,5 @@ public class QuantitaListaSpesa {
 	private void setQuantitaDaAcquistare(double quantitaDaAcquistare) {
 		this.quantitaDaAcquistare = quantitaDaAcquistare;
 	}
-	
-	public String getIdIngrediente() {
-		return ingrediente.getId();
-	}
+
 }

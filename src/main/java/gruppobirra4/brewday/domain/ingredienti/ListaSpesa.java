@@ -14,6 +14,7 @@ public class ListaSpesa {
 	
 	private HTreeMap<String, Double> lista;
 	private static ListaSpesa istanza;
+	
 	private static final String TABLE_LISTASPESA = "ListaSpesa";
 	
 	private ListaSpesa() {
