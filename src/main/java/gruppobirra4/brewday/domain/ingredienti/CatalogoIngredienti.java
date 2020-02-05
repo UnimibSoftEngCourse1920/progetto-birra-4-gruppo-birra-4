@@ -74,8 +74,7 @@ public class CatalogoIngredienti {
 		ingredienti = openMapDB();
 		if (ingredienti.isEmpty()) {
 			Database.getIstanza().closeDB();
-			Ingrediente ing = creaIngrediente(nome, categoria, "0");
-			return ing;
+			return creaIngrediente(nome, categoria, "0");
 		}
 		for (Ingrediente ing : ingredienti.values()) {
 			if((ing.getNome().equals(nome)) && (ing.getCategoria().equals(categoria))) {
@@ -91,6 +90,7 @@ public class CatalogoIngredienti {
 	public void rimuoviIngrediente(String id) {
 		ingredienti = openMapDB();
 		ingredienti.remove(id); 
+		ListaSpesa.getIstanza().rimuoviIngrediente(id);
 		Database.getIstanza().closeDB();
 	}
 	
@@ -143,8 +143,7 @@ public class CatalogoIngredienti {
 	
 	public Ingrediente getIngredienteById(String id) {
 		ingredienti = openMapDB();
-		Ingrediente ing = ingredienti.get(id);
+		return ingredienti.get(id);
 		//Database.getIstanza().closeDB();
-		return ing;
 	}
 }

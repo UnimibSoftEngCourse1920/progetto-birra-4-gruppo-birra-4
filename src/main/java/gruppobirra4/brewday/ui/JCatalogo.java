@@ -255,6 +255,5 @@ public class JCatalogo extends FrameVisibile{
 		});
 		panelBottoni.add(btnRimuoviIngr);
 	}
-
 	
 }

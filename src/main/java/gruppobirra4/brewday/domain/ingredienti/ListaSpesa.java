@@ -14,6 +14,7 @@ public class ListaSpesa {
 	
 	private HTreeMap<String, Double> lista;
 	private static ListaSpesa istanza;
+	
 	private static final String TABLE_LISTASPESA = "ListaSpesa";
 	
 	private ListaSpesa() {
@@ -72,7 +73,9 @@ public class ListaSpesa {
 	
 	public void rimuoviIngrediente(String id) {
 		lista = openMapDB();
-		lista.remove(id);
+		if(lista.containsKey(id)) {
+			lista.remove(id);
+		}
 		Database.getIstanza().closeDB();
 	}
 	
@@ -105,6 +108,13 @@ public class ListaSpesa {
 		ing = CatalogoIngredienti.getIstanza().modificaIngrediente(id, ing.getNome(), ing.getCategoria(), Double.toString(ing.getQuantita()+qt));
 		if (ing != null) {
 			rimuoviIngrediente(id);
+		}
+	}
+	
+	public void acquistaTutto() {
+		Collection<QuantitaListaSpesa> copiaLista = visualizzaListaSpesa();
+		for (QuantitaListaSpesa entry : copiaLista) {
+			acquistaIngrediente(entry.getIngrediente().getId());
 		}
 	}
 }

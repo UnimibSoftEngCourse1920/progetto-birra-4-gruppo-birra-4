@@ -91,7 +91,27 @@ public class GestoreListaSpesa {
 			return false;
 		}
 	}
-		
 	
-
+	public boolean acquistaIngrediente(String id) {
+		try {
+			ListaSpesa.getIstanza().acquistaIngrediente(id);
+			return true;
+		} catch (Exception e) {
+			Notifica.getIstanza().svuotaNotificheErrori();
+			Notifica.getIstanza().notificaEccezione(e);
+			return false;
+		}
+	}
+	
+	public boolean acquistaTutto() {
+		try {
+			ListaSpesa.getIstanza().acquistaTutto();
+			return true;
+		} catch (Exception e) {
+			Notifica.getIstanza().svuotaNotificheErrori();
+			Notifica.getIstanza().notificaEccezione(e);
+			return false;
+		}
+	}
+	
 }
