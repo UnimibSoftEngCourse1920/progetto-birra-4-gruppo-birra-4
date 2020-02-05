@@ -1,9 +1,6 @@
 package gruppobirra4.brewday.ui; //NOSONAR
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
@@ -14,9 +11,16 @@ public class JMenu {
 	private JMenuBar menuBar;
 	private JFrame frameVisibile; 
 	
+	private JButton btnHome;
+	private JButton btnCatalogo;
+	private JButton btnSpesa;
+	private JButton btnRicettario;
+	private JButton btnLotti;
+	
 	private JMenu() {
 		this.menuBar = new JMenuBar();
 		this.frameVisibile = null;
+		inserisciMenu();
 	}
 	
 	public static synchronized JMenu getIstanza() {
@@ -30,38 +34,34 @@ public class JMenu {
 		frameVisibile = frm;
 	}
 	
-	public void inserisciMenu() {
-		menuBar.setBounds(0, 0, 595, 25);
+	private void inserisciMenu() {
+		menuBar.setBounds(0, 0, 590, 25);
 		
-		JButton btnHome = new JButton("Home");
+		btnHome = new JButton("Home");
 		btnHome.setBackground(Color.LIGHT_GRAY);
 		menuBar.add(btnHome);
 		
-		JButton btnCatalogo = new JButton("Catalogo ingredienti");
-		btnCatalogo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				frameVisibile.dispose();
-				JCatalogo.esegui();
-			}
+		btnCatalogo = new JButton("Catalogo ingredienti");
+		btnCatalogo.addActionListener(event -> {
+			frameVisibile.dispose();
+			JCatalogo.esegui();
 		});
 		btnCatalogo.setBackground(Color.LIGHT_GRAY);
 		menuBar.add(btnCatalogo);
 		
-		JButton btnSpesa = new JButton("Lista della spesa");
+		btnSpesa = new JButton("Lista della spesa");
 		btnSpesa.setBackground(Color.LIGHT_GRAY);
 		menuBar.add(btnSpesa);
 		
-		JButton btnRicettario = new JButton("Ricettario");
-		btnRicettario.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				frameVisibile.dispose();
-				JRicettario.esegui();
-			}
+		btnRicettario = new JButton("Ricettario");
+		btnRicettario.addActionListener(event -> {
+			frameVisibile.dispose();
+			JRicettario.esegui();
 		});
 		btnRicettario.setBackground(Color.LIGHT_GRAY);
 		menuBar.add(btnRicettario);
 		
-		JButton btnLotti = new JButton("Produzioni precedenti");
+		btnLotti = new JButton("Produzioni precedenti");
 		btnLotti.setBackground(Color.LIGHT_GRAY);
 		menuBar.add(btnLotti);
 	}
@@ -69,5 +69,27 @@ public class JMenu {
 	public JMenuBar getMenuBar() {
 		return menuBar;
 	}
+
+	/*public JButton getBtnHome() {
+		return btnHome;
+	}
+
+	public JButton getBtnCatalogo() {
+		return btnCatalogo;
+	}
+
+	public JButton getBtnSpesa() {
+		return btnSpesa;
+	}
+
+	public JButton getBtnRicettario() {
+		return btnRicettario;
+	}
+
+	public JButton getBtnLotti() {
+		return btnLotti;
+	}*/
+	
+	
 	
 }

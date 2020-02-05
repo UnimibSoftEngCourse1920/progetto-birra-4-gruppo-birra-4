@@ -56,7 +56,6 @@ public class JRicettario extends FrameVisibile {
 	}
 	
 	private void inserisciMenu() {
-		menu.inserisciMenu();
 		frmRicettario.getContentPane().add(menu.getMenuBar());
 	}
 	

@@ -16,21 +16,20 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 
 import java.util.Collection;
-import javax.swing.JLabel;
 import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
 
 public class JCatalogo extends FrameVisibile{
 
 	private JFrame frmCatalogoIngredienti;
+	private PannelloIngredienti pannelloIngr;
 	private String id = null;
 	private JTable table;
 	private DefaultTableModel dtm;
 	private JPanel panelIngr;
-	private JPanel panelGestisciIngr;
-	private JComboBox comboBoxCategoria;
-	private JTextField textFieldNome;
-	private JTextField textFieldQuantita;
+	private JPanel panelGestioneIngr;
+	private JComboBox comboBoxCategoriaIngr;
+	private JTextField textFieldNomeIngr;
+	private JTextField textFieldQuantitaIngr;
 	private JPanel panelBottoni;
 	
 	
@@ -41,6 +40,7 @@ public class JCatalogo extends FrameVisibile{
 	public JCatalogo() {
 		frmCatalogoIngredienti = new JFrame();
 		menu = JMenu.getIstanza();
+		pannelloIngr = new PannelloIngredienti();
 		initialize();
 		menu.setFrameVisible(frmCatalogoIngredienti);
 	}
@@ -90,12 +90,11 @@ public class JCatalogo extends FrameVisibile{
 
 	
 	private void inserisciMenu() {
-		menu.inserisciMenu();
-		frmCatalogoIngredienti.getContentPane().add(menu.getMenuBar());
+		frmCatalogoIngredienti.getContentPane().add(menu.getMenuBar());	
 	}
 	
 	private void inserisciTabellaIngredienti() {
-		JScrollPane scrollPane = new JScrollPane();
+		/*JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 36, 932, 274);
 		table = new JTable();
 		String[] header = new String[] {"id", "Categoria", "Nome", "Quantità disponibile"};
@@ -114,7 +113,12 @@ public class JCatalogo extends FrameVisibile{
 		table.getColumnModel().getColumn(0).setMinWidth(0);
 		table.getColumnModel().getColumn(0).setMaxWidth(0);
 		scrollPane.setViewportView(table);
-		frmCatalogoIngredienti.getContentPane().add(scrollPane);
+		frmCatalogoIngredienti.getContentPane().add(scrollPane);*/
+		JScrollPane scrollPane = pannelloIngr.inserisciTabellaIngredienti("Quantità disponibile");
+		table = pannelloIngr.getTable();
+		dtm = pannelloIngr.getDtm();		
+		scrollPane.setBounds(10, 36, 932, 274);
+		frmCatalogoIngredienti.getContentPane().add(scrollPane);		
 	}
 	
 	private void visualizzaCatalogo() {
@@ -134,10 +138,10 @@ public class JCatalogo extends FrameVisibile{
 		frmCatalogoIngredienti.getContentPane().add(panelIngr);
 		panelIngr.setLayout(null);
 		
-		panelGestisciIngr = new JPanel();
-		panelGestisciIngr.setBounds(0, 0, 390, 222);
-		panelIngr.add(panelGestisciIngr);
-		panelGestisciIngr.setLayout(new GridLayout(3, 2, 10, 20));
+		panelGestioneIngr = new JPanel();
+		panelGestioneIngr.setBounds(0, 0, 390, 222);
+		panelIngr.add(panelGestioneIngr);
+		panelGestioneIngr.setLayout(new GridLayout(3, 2, 10, 20));
 		
 		inserisciCategoriaIngr();
 		inserisciNomeIngr();
@@ -146,33 +150,39 @@ public class JCatalogo extends FrameVisibile{
 	
 
 	private void inserisciCategoriaIngr() {
-		JLabel lblCategoria = new JLabel("Categoria:");
-		panelGestisciIngr.add(lblCategoria);
+		/*JLabel lblCategoriaIngr = new JLabel("Categoria:");
+		panelGestioneIngr.add(lblCategoriaIngr);
 		
-		comboBoxCategoria = new JComboBox();
-		comboBoxCategoria.setModel(new DefaultComboBoxModel(new String[] {
+		comboBoxCategoriaIngr = new JComboBox();
+		comboBoxCategoriaIngr.setModel(new DefaultComboBoxModel(new String[] {
 					"Malto", "Luppolo", "Lievito", "Zucchero", "Additivo"
 					}));
-		panelGestisciIngr.add(comboBoxCategoria);
+		panelGestioneIngr.add(comboBoxCategoriaIngr);*/
+		pannelloIngr.inserisciCategoriaIngr(panelGestioneIngr);
+		comboBoxCategoriaIngr = pannelloIngr.getComboBoxCategoriaIngr();
 	}
 	
 	private void inserisciNomeIngr() {
-		JLabel lblNome = new JLabel("Nome:");
-		panelGestisciIngr.add(lblNome);
+		/*JLabel lblNomeIngr = new JLabel("Nome:");
+		panelGestioneIngr.add(lblNomeIngr);
 		
-		textFieldNome = new JTextField();
-		panelGestisciIngr.add(textFieldNome);
-		textFieldNome.setDocument(new JTextFieldLimit(30));
-		textFieldNome.setColumns(10);
+		textFieldNomeIngr = new JTextField();
+		panelGestioneIngr.add(textFieldNomeIngr);
+		textFieldNomeIngr.setDocument(new JTextFieldLimit(30));
+		textFieldNomeIngr.setColumns(10);*/
+		pannelloIngr.inserisciNomeIngr(panelGestioneIngr);
+		textFieldNomeIngr = pannelloIngr.getTextFieldNomeIngr();
 	}
 	
 	private void inserisciQuantitaIngr() {
-		JLabel lblQuantitaDisponibile = new JLabel("Quantita disponibile:");
-		panelGestisciIngr.add(lblQuantitaDisponibile);
+		/*JLabel lblQuantitaDisponibileIngr = new JLabel("Quantità disponibile:");
+		panelGestioneIngr.add(lblQuantitaDisponibileIngr);
 		
-		textFieldQuantita = new JTextField();
-		panelGestisciIngr.add(textFieldQuantita);
-		textFieldQuantita.setColumns(10);
+		textFieldQuantitaIngr = new JTextField();
+		panelGestioneIngr.add(textFieldQuantitaIngr);
+		textFieldQuantitaIngr.setColumns(10);*/
+		pannelloIngr.inserisciQuantitaIngr(panelGestioneIngr, "Quantità disponibile");
+		textFieldQuantitaIngr = pannelloIngr.getTextFieldQuantitaIngr();
 	}
 	
 	private void addListenerSelezioneRiga() {
@@ -180,9 +190,9 @@ public class JCatalogo extends FrameVisibile{
 			int riga = table.getSelectedRow();
             if (riga != -1) {
             	id = (String) table.getValueAt(riga, 0);
-            	comboBoxCategoria.setSelectedItem((String) table.getValueAt(riga, 1));
-            	textFieldNome.setText((String) table.getValueAt(riga, 2));
-            	textFieldQuantita.setText((String) table.getValueAt(riga, 3));
+            	comboBoxCategoriaIngr.setSelectedItem((String) table.getValueAt(riga, 1));
+            	textFieldNomeIngr.setText((String) table.getValueAt(riga, 2));
+            	textFieldQuantitaIngr.setText((String) table.getValueAt(riga, 3));
             }
 		});
 	}
@@ -199,59 +209,51 @@ public class JCatalogo extends FrameVisibile{
 	}
 	
 	private void inserisciBottoneAggiungi() {
-		JButton btnAggiungi = new JButton("Aggiungi");
-		btnAggiungi.addActionListener(event -> {
-			String nome = textFieldNome.getText();
-			String categoria = (String) comboBoxCategoria.getSelectedItem();
-			String quantita = textFieldQuantita.getText();
+		JButton btnAggiungiIngr = new JButton("Aggiungi");
+		btnAggiungiIngr.addActionListener(event -> {
+			String nome = textFieldNomeIngr.getText();
+			String categoria = (String) comboBoxCategoriaIngr.getSelectedItem();
+			String quantita = textFieldQuantitaIngr.getText();
 			
 			Ingrediente ingr = GestoreIngredienti.getIstanza().creaIngrediente(nome, categoria, quantita);
 			if (ingr != null) { //Se non ci sono stati errori
-				dtm.addRow(new Object[] {ingr.getId(), ingr.getCategoria(), ingr.getNome(), 
-											Double.toString(ingr.getQuantita())
-										});	
-				ingr = null;
-				table.setRowSelectionInterval(table.getRowCount()-1, table.getRowCount()-1);
+				pannelloIngr.aggiungiRigaIngr(ingr);
 			}
 		});
-		panelBottoni.add(btnAggiungi);		
+		panelBottoni.add(btnAggiungiIngr);		
 	}
 
 	private void inserisciBottoneModifica() {
-		JButton btnModifica = new JButton("Modifica");
-		btnModifica.addActionListener(event -> {
-			String nome = textFieldNome.getText();
-			String categoria = (String) comboBoxCategoria.getSelectedItem();
-			String quantita = textFieldQuantita.getText();
+		JButton btnModificaIngr = new JButton("Modifica");
+		btnModificaIngr.addActionListener(event -> {
+			String nome = textFieldNomeIngr.getText();
+			String categoria = (String) comboBoxCategoriaIngr.getSelectedItem();
+			String quantita = textFieldQuantitaIngr.getText();
 			int riga = table.getSelectedRow();
 			String tempId = id;
 			if (tempId != null && riga != -1) {
 				Ingrediente ingr = GestoreIngredienti.getIstanza().modificaIngrediente(tempId, nome, categoria, quantita);
 				if (ingr != null) { //Se non ci sono stati errori
-					table.setValueAt(ingr.getCategoria(), riga, 1);
-					table.setValueAt(ingr.getNome(), riga, 2);
-					table.setValueAt(Double.toString(ingr.getQuantita()), riga, 3);
+					pannelloIngr.modificaRigaIngr(ingr, riga);
 				}
 			}
 		});
-		panelBottoni.add(btnModifica);
+		panelBottoni.add(btnModificaIngr);
 		
 	}
 
 	private void inserisciBottoneRimuovi() {
-		JButton btnRimuovi = new JButton("Rimuovi");
-		btnRimuovi.addActionListener(event -> {
+		JButton btnRimuoviIngr = new JButton("Rimuovi");
+		btnRimuoviIngr.addActionListener(event -> {
 			int riga = table.getSelectedRow();
 			String tempId = id;
 			if (tempId != null && riga != -1 && GestoreIngredienti.getIstanza().rimuoviIngrediente(tempId)) {
-				((DefaultTableModel) table.getModel()).removeRow(riga);
+				pannelloIngr.rimuoviRigaIngr(riga);
 				id = null;
-				if (table.getRowCount() != 0)
-					table.setRowSelectionInterval(table.getRowCount()-1, table.getRowCount()-1);
 			}
 			
 		});
-		panelBottoni.add(btnRimuovi);
+		panelBottoni.add(btnRimuoviIngr);
 	}
 
 	
