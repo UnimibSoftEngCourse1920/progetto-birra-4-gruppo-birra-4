@@ -16,14 +16,14 @@ public class Ingrediente implements Serializable {
 	private static final String CAMPO_QUANTITA = "Quantita";
 	
 
-	private Ingrediente(String nome, String categoria, String quantita) {
+	public Ingrediente(String nome, String categoria, String quantita) {
 		id = UUID.randomUUID().toString(); 
 		setNome(nome);
 		setCategoria(categoria);
 		setQuantita(quantita);
 	}
 	
-	public Ingrediente(String id, String nome, String categoria, String quantita) {
+	protected Ingrediente(String id, String nome, String categoria, String quantita) {
 		this.id = id;
 		setNome(nome);
 		setCategoria(categoria);
