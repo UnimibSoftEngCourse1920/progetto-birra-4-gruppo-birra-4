@@ -11,7 +11,7 @@ import gruppobirra4.brewday.domain.ingredienti.ListaSpesa;
 import gruppobirra4.brewday.domain.ingredienti.QuantitaListaSpesa;
 
 public class ListaSpesaTest {
-	
+	/*
 	@Test
 	public void testAggiungiIngrediente() {
 		ListaSpesa l = ListaSpesa.getIstanza();
@@ -22,6 +22,7 @@ public class ListaSpesaTest {
 		c.creaIngrediente("San Michele", "Luppolo", "500");
 		qt = l.aggiungiIngrediente("San Michele", "Luppolo", "500");
 		assertNotNull(qt);
+		assertNotNull(qt.getIngrediente());
 		assertEquals(1, l.visualizzaListaSpesa().size());
 		assertEquals(1, c.getIngredienti().size());
 
@@ -29,8 +30,10 @@ public class ListaSpesaTest {
 		//Input corretto, non in catalogo
 		qt = l.aggiungiIngrediente("San Giorgio", "Luppolo", "500");
 		assertNotNull(qt);
+		assertNotNull(qt.getIngrediente());
 		assertEquals(2, l.visualizzaListaSpesa().size());
 		assertEquals(2, c.getIngredienti().size());
+		
 	}
 	
 	@Test
@@ -39,7 +42,7 @@ public class ListaSpesaTest {
 		CatalogoIngredienti c = CatalogoIngredienti.getIstanza();
 		QuantitaListaSpesa qt = null;
 		
-		c.creaIngrediente("San Michele", "Luppolo", "500");
+		//c.creaIngrediente("San Michele", "Luppolo", "500");
 		qt = l.aggiungiIngrediente("San Michele", "Luppolo", "500");
 		assertNotNull(qt);
 		assertEquals(1, l.visualizzaListaSpesa().size());
@@ -64,5 +67,23 @@ public class ListaSpesaTest {
 		assertEquals(0, l.visualizzaListaSpesa().size());
 		assertEquals(2, c.getIngredienti().size());
 	}
-	
+	 */
+	@Test
+	public void testAcquistaIngrediente() {
+		ListaSpesa l = ListaSpesa.getIstanza();
+		CatalogoIngredienti c = CatalogoIngredienti.getIstanza();
+		
+		//Ingrediente ing = c.creaIngrediente("San Michele", "Luppolo", "500");
+		QuantitaListaSpesa qt =l.aggiungiIngrediente("San Michele", "Luppolo", "500");
+		assertEquals(1, l.visualizzaListaSpesa().size());
+		assertEquals(1, c.getIngredienti().size());
+		
+		Ingrediente ing = qt.getIngrediente();
+		assertNotNull(ing);
+		
+		l.acquistaIngrediente(qt.getIngrediente().getId());
+		assertEquals(0, l.visualizzaListaSpesa().size());
+		assertEquals(1, c.getIngredienti().size());
+	}
+
 }

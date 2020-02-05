@@ -124,7 +124,9 @@ public class CatalogoIngredienti {
 	}
 	
 	protected Ingrediente getIngredienteById(String id) {
-		ingredienti = openMapDB();	
-		return ingredienti.get(id);
+		ingredienti = openMapDB();
+		Ingrediente ing = ingredienti.get(id);
+		//Database.getIstanza().closeDB();
+		return ing;
 	}
 }

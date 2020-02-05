@@ -105,4 +105,17 @@ public class ListaSpesa {
 			lista.clear();
 		Database.getIstanza().closeDB();
 	}
+	
+	public void acquistaIngrediente(String id) {
+		lista = openMapDB();
+		double qt = lista.get(id);
+		//Database.getIstanza().closeDB();
+		Ingrediente ing = CatalogoIngredienti.getIstanza().getIngredienteById(id);
+		ing = CatalogoIngredienti.getIstanza().modificaIngrediente(id, ing.getNome(), ing.getCategoria(), Double.toString(ing.getQuantita()+qt));
+		if (ing != null) {
+			lista = openMapDB();
+			lista.remove(id);
+		}
+		Database.getIstanza().closeDB();
+	}
 }
