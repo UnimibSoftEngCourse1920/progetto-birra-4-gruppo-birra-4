@@ -14,8 +14,6 @@ import gruppobirra4.brewday.errori.Notifica;
 
 import javax.swing.JPanel;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
@@ -95,7 +93,6 @@ public class JRicettario extends FrameVisibile {
 			for (Ricetta r: ricettario) {
 				dtm.addRow(new Object[] {r.getId(), r.getNome()});
 			}
-			ricettario = null;
 		}
 		/*SortedMap<String, String> ricettario = GestoreRicette.getIstanza().visualizzaRicettario();
 		if (ricettario != null) { //Se il ricettario non è vuoto
@@ -140,30 +137,24 @@ public class JRicettario extends FrameVisibile {
 	}
 	
 	private void inserisciBottoneAggiungi() {
-		//Aggiungi
 		JButton btnAggiungi = new JButton("Aggiungi");
-		btnAggiungi.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frmRicettario.dispose();
-				JRicetta.esegui(null, null);
-			}
+		btnAggiungi.addActionListener(event -> {
+			frmRicettario.dispose();
+			JRicetta.esegui(null, null);
 		});
 		panelBottoni.add(btnAggiungi);
 	}
 	
 	private void inserisciBottoneRimuovi() {
-		//Rimuovi
 		JButton btnRimuovi = new JButton("Rimuovi");
-		btnRimuovi.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int riga = table.getSelectedRow();
-				String id = null;
-				if (riga != -1) {
-					id = (String) table.getValueAt(riga, 0);
-				}
-				if (id != null && riga != -1 && GestoreRicette.getIstanza().rimuoviRicetta(id)) {
-					((DefaultTableModel) table.getModel()).removeRow(riga);
-				}
+		btnRimuovi.addActionListener(event -> {
+			int riga = table.getSelectedRow();
+			String id = null;
+			if (riga != -1) {
+				id = (String) table.getValueAt(riga, 0);
+			}
+			if (id != null && riga != -1 && GestoreRicette.getIstanza().rimuoviRicetta(id)) {
+				((DefaultTableModel) table.getModel()).removeRow(riga);
 			}
 		});
 		panelBottoni.add(btnRimuovi);

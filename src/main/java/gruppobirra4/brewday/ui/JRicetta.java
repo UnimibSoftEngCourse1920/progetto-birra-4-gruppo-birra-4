@@ -2,8 +2,6 @@ package gruppobirra4.brewday.ui; //NOSONAR
 
 import java.awt.EventQueue;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,8 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import gruppobirra4.brewday.application.gestori.GestoreRicette;
@@ -38,10 +34,20 @@ public class JRicetta extends FrameVisibile{
 	private JPanel panelInserimentoIngr;
 	private JTable table;
 	private DefaultTableModel dtm;
+	private JPanel panelIngr; 
+	private JPanel panelGestioneIngr;
+	
+	private JComboBox comboBoxCategoriaIngr;
+	private JTextField textFieldNomeIngr;
+	private JTextField textFieldQuantitaIngr;
+	
+	private JPanel panelBottoniIngr;
+	private JPanel panelQuantita;
 	
 	private JTextField textFieldNomeRicetta;
 	private JTextField textQuantitaAcqua;
 	private JTextField textQuantitaBirra;
+	private JTextArea textAreaDescrizione;
 	
 
 	public JRicetta(String idRicetta, String nomeRicetta) {
@@ -77,6 +83,31 @@ public class JRicetta extends FrameVisibile{
 		});
 	}
 	
+	protected void initialize() {
+		if (idRicetta == null) {
+			frmRicetta.setTitle("Creazione nuova ricetta - Brew Day!");
+		} else {
+			frmRicetta.setTitle("Ricetta: " + nomeRicetta + " - Brew Day!");
+		}
+		frmRicetta.setBounds(100, 100, 968, 656);
+		frmRicetta.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmRicetta.getContentPane().setLayout(null);
+	
+		inserisciMenu();
+		
+		inserisciNomeRicetta();
+		
+		inserisciPannelloIngredienti();
+		
+		inserisciQuantita();
+	
+		inserisciDescrizione();
+		
+		inserisciBottoneRicetta();
+		
+		visualizzaRicetta();
+	}
+	
 	private void inserisciMenu() {
 		menu.inserisciMenu();
 		frmRicetta.getContentPane().add(menu.getMenuBar());
@@ -109,9 +140,9 @@ public class JRicetta extends FrameVisibile{
 		panelInserimentoIngr.setLayout(null);
 		
 		inserisciTabellaIngredienti();
-		
 		inserisciGestioneIngrediente();
-		
+		addListenerSelezioneRiga();
+		inserisciBottoniIngr();
 		
 	}
 	
@@ -139,160 +170,160 @@ public class JRicetta extends FrameVisibile{
 		panelInserimentoIngr.add(scrollPane);
 	}
 	
-	
-	protected void initialize() {
-		if (idRicetta == null) {
-			frmRicetta.setTitle("Creazione nuova ricetta - Brew Day!");
-		} else {
-			frmRicetta.setTitle("Ricetta: " + nomeRicetta + " - Brew Day!");
-		}
-		frmRicetta.setBounds(100, 100, 968, 656);
-		frmRicetta.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmRicetta.getContentPane().setLayout(null);
-	
-		inserisciNomeRicetta();
-		
-		inserisciPannelloIngredienti();
-		
-		
-		//Gestione ingrediente
-		JPanel panelIngr = new JPanel();
+	private void inserisciGestioneIngrediente() {
+		panelIngr = new JPanel();
 		panelIngr.setBounds(579, 11, 343, 265);
 		panelInserimentoIngr.add(panelIngr);
 		panelIngr.setLayout(null);
-		
-		JPanel panelGestioneIngr = new JPanel();
+
+		panelGestioneIngr = new JPanel();
 		panelGestioneIngr.setBounds(0, 0, 223, 265);
 		panelIngr.add(panelGestioneIngr);
 		panelGestioneIngr.setLayout(new GridLayout(6, 1, 10, 0));
-		
-		
-		JLabel lblCategoria = new JLabel("Categoria:");
-		panelGestioneIngr.add(lblCategoria);
-		
-		JComboBox comboBoxCategoria = new JComboBox();
-		comboBoxCategoria.setModel(new DefaultComboBoxModel(new String[] {
-					"Malto", "Luppolo", "Lievito", "Zucchero", "Additivo"
-					}));
-		panelGestioneIngr.add(comboBoxCategoria);
-		
-		
-		JLabel lblNome = new JLabel("Nome:");
-		panelGestioneIngr.add(lblNome);
-		
-		JTextField textFieldNome = new JTextField();
-		panelGestioneIngr.add(textFieldNome);
-		textFieldNome.setDocument(new JTextFieldLimit(30));
-		textFieldNome.setColumns(10);
-		
-		JLabel lblQuantita = new JLabel("Quantita:");
-		panelGestioneIngr.add(lblQuantita);
-		
-		JTextField textFieldQuantita = new JTextField();
-		panelGestioneIngr.add(textFieldQuantita);
-		textFieldQuantita.setColumns(10);
-		
-		
-		//Evento per mettere nei jtextfield i valori della riga selezionata
-		ListSelectionListener l = new ListSelectionListener(){
-	        public void valueChanged(ListSelectionEvent event) {
-	            int riga = table.getSelectedRow();
-	            if (riga != -1) {
-	            	idIngrediente = (String) table.getValueAt(riga, 0);
-	            	comboBoxCategoria.setSelectedItem((String) table.getValueAt(riga, 1));
-	            	textFieldNome.setText((String) table.getValueAt(riga, 2));
-	            	textFieldQuantita.setText((String) table.getValueAt(riga, 3));
-	            }
-	        }
-		};
-		table.getSelectionModel().addListSelectionListener(l);
+
+		inserisciCategoriaIngr();
+		inserisciNomeIngr();
+		inserisciQuantitaIngr();
+					
+	}
+
+	private void inserisciCategoriaIngr() {
+		JLabel lblCategoriaIngr = new JLabel("Categoria:");
+		panelGestioneIngr.add(lblCategoriaIngr);
+
+		comboBoxCategoriaIngr = new JComboBox();
+		comboBoxCategoriaIngr.setModel(new DefaultComboBoxModel(new String[] {
+				"Malto", "Luppolo", "Lievito", "Zucchero", "Additivo"
+		}));
+		panelGestioneIngr.add(comboBoxCategoriaIngr);		
+	}
 	
-		
-		//Bottoni ingredienti
-		JPanel panelBottoniIngr = new JPanel();
+	private void inserisciNomeIngr() {
+		JLabel lblNomeIngr = new JLabel("Nome:");
+		panelGestioneIngr.add(lblNomeIngr);
+
+		textFieldNomeIngr = new JTextField();
+		panelGestioneIngr.add(textFieldNomeIngr);
+		textFieldNomeIngr.setDocument(new JTextFieldLimit(30));
+		textFieldNomeIngr.setColumns(10);
+	}
+	
+	private void inserisciQuantitaIngr() {
+		JLabel lblQuantitaIngr = new JLabel("Quantita:");
+		panelGestioneIngr.add(lblQuantitaIngr);
+
+		textFieldQuantitaIngr = new JTextField();
+		panelGestioneIngr.add(textFieldQuantitaIngr);
+		textFieldQuantitaIngr.setColumns(10);
+	}
+	
+	private void addListenerSelezioneRiga() {
+		table.getSelectionModel().addListSelectionListener(event -> {
+			int riga = table.getSelectedRow();
+            if (riga != -1) {
+            	idIngrediente = (String) table.getValueAt(riga, 0);
+            	comboBoxCategoriaIngr.setSelectedItem((String) table.getValueAt(riga, 1));
+            	textFieldNomeIngr.setText((String) table.getValueAt(riga, 2));
+            	textFieldQuantitaIngr.setText((String) table.getValueAt(riga, 3));
+            }
+		});
+	}
+	
+	private void inserisciBottoniIngr() {
+		panelBottoniIngr = new JPanel();
 		panelBottoniIngr.setBounds(244, 26, 99, 166);
 		panelIngr.add(panelBottoniIngr);
 		panelBottoniIngr.setLayout(new GridLayout(3, 0, 5, 15));
 		
-		//Aggiungi ingrediente
+		inserisciBottoneAggiungi();
+		inserisciBottoneModifica();
+		inserisciBottoneRimuovi();
+	}
+	
+	private void inserisciBottoneAggiungi() {
 		JButton btnInserisciIngr = new JButton("Inserisci");
-		btnInserisciIngr.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				String nome = textFieldNome.getText();
-				String categoria = (String) comboBoxCategoria.getSelectedItem();
-				String quantita = textFieldQuantita.getText();
-				
-				Ingrediente ingr = GestoreRicette.getIstanza().inserisciIngrediente("", nome, categoria, quantita);
-				if (ingr != null) { //Se non ci sono stati errori
-					dtm.addRow(new Object[] {ingr.getId(), ingr.getCategoria(), ingr.getNome(), 
-												Double.toString(ingr.getQuantita())
-											});	
-					ingr = null;
-					table.setRowSelectionInterval(table.getRowCount()-1, table.getRowCount()-1);
-				}
+		btnInserisciIngr.addActionListener(event -> {
+			String nome = textFieldNomeIngr.getText();
+			String categoria = (String) comboBoxCategoriaIngr.getSelectedItem();
+			String quantita = textFieldQuantitaIngr.getText();
+
+			Ingrediente ingr = GestoreRicette.getIstanza().inserisciIngrediente("", nome, categoria, quantita);
+			if (ingr != null) { //Se non ci sono stati errori
+				dtm.addRow(new Object[] {ingr.getId(), ingr.getCategoria(), ingr.getNome(), 
+						Double.toString(ingr.getQuantita())
+				});	
+				ingr = null;
+				table.setRowSelectionInterval(table.getRowCount()-1, table.getRowCount()-1);
 			}
 		});
 		panelBottoniIngr.add(btnInserisciIngr);
-			
-		//Modifica ingrediente
+	}
+
+	private void inserisciBottoneModifica() {
 		JButton btnModificaIngr = new JButton("Modifica");
-		btnModificaIngr.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				String nome = textFieldNome.getText();
-				String categoria = (String) comboBoxCategoria.getSelectedItem();
-				String quantita = textFieldQuantita.getText();
-				int riga = table.getSelectedRow();
-				String tempId = idIngrediente;
-				
-				if (tempId != null && riga != -1) {
-					Ingrediente ingr = GestoreRicette.getIstanza().inserisciIngrediente(tempId, nome, categoria, quantita);
-					if (ingr != null) { //Se non ci sono stati errori
-						table.setValueAt(ingr.getCategoria(), riga, 1);
-						table.setValueAt(ingr.getNome(), riga, 2);
-						table.setValueAt(Double.toString(ingr.getQuantita()), riga, 3);
-					}
+		btnModificaIngr.addActionListener(event -> {
+			String nome = textFieldNomeIngr.getText();
+			String categoria = (String) comboBoxCategoriaIngr.getSelectedItem();
+			String quantita = textFieldQuantitaIngr.getText();
+			int riga = table.getSelectedRow();
+			String tempId = idIngrediente;
+
+			if (tempId != null && riga != -1) {
+				Ingrediente ingr = GestoreRicette.getIstanza().inserisciIngrediente(tempId, nome, categoria, quantita);
+				if (ingr != null) { //Se non ci sono stati errori
+					table.setValueAt(ingr.getCategoria(), riga, 1);
+					table.setValueAt(ingr.getNome(), riga, 2);
+					table.setValueAt(Double.toString(ingr.getQuantita()), riga, 3);
 				}
-			}
+			}	
 		});
 		panelBottoniIngr.add(btnModificaIngr);
-		
-		//Rimuovi ingrediente
+	}
+
+	private void inserisciBottoneRimuovi() {
 		JButton btnRimuoviIngr = new JButton("Rimuovi");
-		btnRimuoviIngr.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int riga = table.getSelectedRow();
-				String tempId = idIngrediente;
-				if (tempId != null && riga != -1) {
-					((DefaultTableModel) table.getModel()).removeRow(riga);
-					idIngrediente = null;
-					if (table.getRowCount() != 0)
-						table.setRowSelectionInterval(table.getRowCount()-1, table.getRowCount()-1);
-				}
+		btnRimuoviIngr.addActionListener(event -> {
+			int riga = table.getSelectedRow();
+			String tempId = idIngrediente;
+			if (tempId != null && riga != -1) {
+				((DefaultTableModel) table.getModel()).removeRow(riga);
+				idIngrediente = null;
+				if (table.getRowCount() != 0)
+					table.setRowSelectionInterval(table.getRowCount()-1, table.getRowCount()-1);
 			}
 		});
 		panelBottoniIngr.add(btnRimuoviIngr);
-		
-	//QUANTITA 		
-		JPanel panelQuantita = new JPanel();
+	}
+	
+	private void inserisciQuantita() {
+		panelQuantita = new JPanel();
 		panelQuantita.setBounds(23, 413, 241, 148);
 		frmRicetta.getContentPane().add(panelQuantita);
 		panelQuantita.setLayout(new GridLayout(2, 2, 10, 20));
 		
+		inserisciQuantitaAcqua();
+		inserisciQuantitaBirra();
+	}
+
+	private void inserisciQuantitaAcqua() {
 		JLabel lblQuantitaDiAcqua = new JLabel("Quantità di acqua");
 		panelQuantita.add(lblQuantitaDiAcqua);
 		
 		textQuantitaAcqua = new JTextField();
 		panelQuantita.add(textQuantitaAcqua);
 		textQuantitaAcqua.setColumns(10);
-		
+	}
+	
+	private void inserisciQuantitaBirra() {
 		JLabel lblQuantitaDiBirra = new JLabel("Quantità di birra");
 		panelQuantita.add(lblQuantitaDiBirra);
 		
 		textQuantitaBirra = new JTextField();
 		panelQuantita.add(textQuantitaBirra);
 		textQuantitaBirra.setColumns(10);
-		
-	//DESCRIZIONE
+	}
+
+	private void inserisciDescrizione() {
 		JPanel panelDescrizione = new JPanel();
 		panelDescrizione.setBounds(325, 399, 382, 207);
 		frmRicetta.getContentPane().add(panelDescrizione);
@@ -306,51 +337,51 @@ public class JRicetta extends FrameVisibile{
 		scrollPane1.setBounds(0, 21, 382, 186);
 		panelDescrizione.add(scrollPane1);
 		
-		JTextArea textAreaDescrizione = new JTextArea();
+		textAreaDescrizione = new JTextArea();
 		scrollPane1.setViewportView(textAreaDescrizione);
-		
+	}
+	
+	private void inserisciBottoneRicetta() {
 		JPanel panelBottoneRicetta = new JPanel();
 		panelBottoneRicetta.setBounds(758, 510, 184, 51);
 		frmRicetta.getContentPane().add(panelBottoneRicetta);
 		panelBottoneRicetta.setLayout(new GridLayout(0, 1, 0, 0));
 		
-	//MODIFICA E CREA
 		JButton btn = new JButton();
 		if (idRicetta == null) {
 			btn.setText("Crea");
 		} else {
 			btn.setText("Salva modifiche");
 		}
-		btn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				String nome = textFieldNomeRicetta.getText();
-				String quantitaAcqua = textQuantitaAcqua.getText();
-				String quantitaBirra = textQuantitaBirra.getText();
-				String descrizione = textAreaDescrizione.getText();
-				
-				Set<Ingrediente> ingredienti = new HashSet<>();
-				for(int i=0; i < table.getRowCount(); i++) {
-					ingredienti.add(new Ingrediente(null,
-													(String) table.getValueAt(i, 2),
-													(String) table.getValueAt(i, 1),
-													(String) table.getValueAt(i, 3)));
-				}				
-				Ricetta r = null;
-				if (idRicetta == null) {
-					r = GestoreRicette.getIstanza().creaRicetta(nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
-				} else {
-					r = GestoreRicette.getIstanza().modificaRicetta(idRicetta, nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
-				}
-				if (r != null) {
-					frmRicetta.dispose();
-					JRicettario.esegui();
-				}
+		
+		btn.addActionListener(event -> {
+			String nome = textFieldNomeRicetta.getText();
+			String quantitaAcqua = textQuantitaAcqua.getText();
+			String quantitaBirra = textQuantitaBirra.getText();
+			String descrizione = textAreaDescrizione.getText();
+
+			Set<Ingrediente> ingredienti = new HashSet<>();
+			for(int i=0; i < table.getRowCount(); i++) {
+				ingredienti.add(new Ingrediente(
+						(String) table.getValueAt(i, 2),
+						(String) table.getValueAt(i, 1),
+						(String) table.getValueAt(i, 3)));
+			}				
+			Ricetta r = null;
+			if (idRicetta == null) {
+				r = GestoreRicette.getIstanza().creaRicetta(nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
+			} else {
+				r = GestoreRicette.getIstanza().modificaRicetta(idRicetta, nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
+			}
+			if (r != null) {
+				frmRicetta.dispose();
+				JRicettario.esegui();
 			}
 		});
 		panelBottoneRicetta.add(btn);
-		
+	}
 	
-	//Visualizza ricetta
+	private void visualizzaRicetta() {
 		if (idRicetta != null) {
 			Ricetta ricetta= GestoreRicette.getIstanza().visualizzaRicetta(idRicetta);
 			if (ricetta != null) { //Se il catalogo non è vuoto
@@ -366,11 +397,8 @@ public class JRicetta extends FrameVisibile{
 											});
 				}
 			}
-		}
-		
-		
+		}			
 	}
-
 	
 	
 }
