@@ -17,14 +17,16 @@ public class ListaSpesaTest {
 		ListaSpesa l = ListaSpesa.getIstanza();
 		CatalogoIngredienti c = CatalogoIngredienti.getIstanza();
 		QuantitaListaSpesa qt = null;
+		Ingrediente ing = null;
 		
-		//Input corretto, non in catalogo
-		c.creaIngrediente("San Michele", "Luppolo", "500");
+		//Input corretto, in catalogo
+		ing = c.creaIngrediente("San Michele", "Luppolo", "500");
 		qt = l.aggiungiIngrediente("San Michele", "Luppolo", "500");
 		assertNotNull(qt);
 		assertNotNull(qt.getIngrediente());
 		assertEquals(1, l.visualizzaListaSpesa().size());
 		assertEquals(1, c.getIngredienti().size());
+		//assertEquals(ing.getId(), qt.getIngrediente().getId());
 
 		
 		//Input corretto, non in catalogo
@@ -67,14 +69,14 @@ public class ListaSpesaTest {
 		assertEquals(0, l.visualizzaListaSpesa().size());
 		assertEquals(2, c.getIngredienti().size());
 	}
-	 */
+	 
 	@Test
 	public void testAcquistaIngrediente() {
 		ListaSpesa l = ListaSpesa.getIstanza();
 		CatalogoIngredienti c = CatalogoIngredienti.getIstanza();
 		
-		//Ingrediente ing = c.creaIngrediente("San Michele", "Luppolo", "500");
-		QuantitaListaSpesa qt =l.aggiungiIngrediente("San Michele", "Luppolo", "500");
+		c.creaIngrediente("San Michele", "Luppolo", "0"); //problema
+		QuantitaListaSpesa qt = l.aggiungiIngrediente("San Michele", "Luppolo", "500");
 		assertEquals(1, l.visualizzaListaSpesa().size());
 		assertEquals(1, c.getIngredienti().size());
 		
@@ -85,5 +87,25 @@ public class ListaSpesaTest {
 		assertEquals(0, l.visualizzaListaSpesa().size());
 		assertEquals(1, c.getIngredienti().size());
 	}
-
+*/
+	
+	@Test
+	public void testUnivocita() {
+		ListaSpesa l = ListaSpesa.getIstanza();
+		CatalogoIngredienti c = CatalogoIngredienti.getIstanza();
+		
+		QuantitaListaSpesa qt = l.aggiungiIngrediente("San Michele", "Luppolo", "500");
+		String idLista = qt.getIngrediente().getId();
+		Ingrediente ing =c.getIngredienteById(idLista);
+		assertEquals(idLista, ing.getId());
+		l.svuotaLista();
+		
+		Ingrediente i = c.creaIngrediente("San Giorgio", "Luppolo", "0");
+		qt = l.aggiungiIngrediente("San Giorgio", "Luppolo", "500");
+		String idL = qt.getIngrediente().getId();
+		String idC = i.getId();
+		assertEquals(idL, idC); //problema 
+		
+		
+	}
 }

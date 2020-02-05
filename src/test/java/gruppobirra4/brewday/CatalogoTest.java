@@ -72,7 +72,7 @@ public class CatalogoTest {
 		c.rimuoviIngrediente(ingr.getId());
 		assertEquals(0, c.getIngredienti().size());
 	}
-	
+
 	@Test
 	public void testModificaIngrediente() {
 		CatalogoIngredienti c = CatalogoIngredienti.getIstanza();
