@@ -81,7 +81,7 @@ public class Ingrediente implements Serializable {
 		return quantita;
 	}
 
-	private void setQuantita(String quantita) {
+	public void setQuantita(String quantita) {
 		double quantitaD = convertToNumber(quantita);
 		this.quantita = quantitaD;
 	}

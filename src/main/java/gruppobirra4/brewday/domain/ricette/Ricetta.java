@@ -1,6 +1,7 @@
 	package gruppobirra4.brewday.domain.ricette; //NOSONAR
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -17,7 +18,7 @@ public class Ricetta implements Serializable {
 	private Set<Ingrediente> ingredienti;
 	private double quantitaAcqua;
 	private double quantitaBirra;
-	
+	private double quantitaIngredienti;
 	
 	private Ricetta(String nome, String descrizione, Set<Ingrediente> ingredienti, 
 					String quantitaAcqua, String quantitaBirra) {
@@ -93,6 +94,27 @@ public class Ricetta implements Serializable {
 		return true;
 	}*/
 	
+	public void convertiInValoreAssoluto() {
+		Set<Ingrediente> ingredientiTemp = new HashSet<>();
+		quantitaIngredienti = sommaQuantitaIngredienti();
+		for(Ingrediente ingr: ingredienti) {
+			convertiQuantitaInValoreAssoluto(ingr);
+		}
+	}
+	
+	private double sommaQuantitaIngredienti() {
+		double somma = 0;
+		for(Ingrediente ingr: ingredienti) {
+			somma = somma + ingr.getQuantita();
+		}
+		return somma;
+	}
+	
+	private void convertiQuantitaInValoreAssoluto(Ingrediente ingr) {
+		ingr.setQuantita(Double.toString(ingr.getQuantita()/quantitaIngredienti));
+	}
+	
+
 	public String getId() {
 		return id;
 	}
