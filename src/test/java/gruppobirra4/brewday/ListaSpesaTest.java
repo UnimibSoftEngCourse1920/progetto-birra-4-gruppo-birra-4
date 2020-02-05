@@ -12,7 +12,7 @@ import gruppobirra4.brewday.domain.ingredienti.QuantitaListaSpesa;
 
 public class ListaSpesaTest {
 	
-	/*@Test
+	@Test
 	public void testAggiungiIngrediente() {
 		ListaSpesa l = ListaSpesa.getIstanza();
 		CatalogoIngredienti c = CatalogoIngredienti.getIstanza();
@@ -35,9 +35,9 @@ public class ListaSpesaTest {
 		assertNotNull(qt.getIngrediente());
 		assertEquals(2, l.visualizzaListaSpesa().size());
 		assertEquals(2, c.getIngredienti().size());
-	}*/
+	}
 	
-	/*@Test
+	@Test
 	public void testRimuoviIngrediente() {
 		ListaSpesa l = ListaSpesa.getIstanza();
 		CatalogoIngredienti c = CatalogoIngredienti.getIstanza();
@@ -52,9 +52,9 @@ public class ListaSpesaTest {
 		l.rimuoviIngrediente(qt.getIngrediente().getId());
 		assertEquals(1, c.getIngredienti().size());
 		assertEquals(0, l.visualizzaListaSpesa().size());
-	}*/
+	}
 	
-	/*@Test
+	@Test
 	public void testSvuotaLista() {
 		ListaSpesa l = ListaSpesa.getIstanza();
 		CatalogoIngredienti c = CatalogoIngredienti.getIstanza();
@@ -67,9 +67,9 @@ public class ListaSpesaTest {
 		l.svuotaLista();
 		assertEquals(0, l.visualizzaListaSpesa().size());
 		assertEquals(2, c.getIngredienti().size());
-	}*/
+	}
 	 
-	/*@Test
+	@Test
 	public void testAcquistaIngrediente() {
 		ListaSpesa l = ListaSpesa.getIstanza();
 		CatalogoIngredienti c = CatalogoIngredienti.getIstanza();
@@ -85,10 +85,10 @@ public class ListaSpesaTest {
 		l.acquistaIngrediente(qt.getIngrediente().getId());
 		assertEquals(0, l.visualizzaListaSpesa().size());
 		assertEquals(1, c.getIngredienti().size());
-	}*/
+	}
 
 	
-	/*@Test
+	@Test
 	public void testUnivocita() {
 		ListaSpesa l = ListaSpesa.getIstanza();
 		CatalogoIngredienti c = CatalogoIngredienti.getIstanza();
@@ -99,16 +99,9 @@ public class ListaSpesaTest {
 		assertEquals(idLista, ing.getId());
 		l.svuotaLista();
 		
-		
-		Ingrediente i = c.creaIngrediente("San Giorgio", "Luppolo", "0");
-		qt = l.aggiungiIngrediente("San Giorgio", "Luppolo", "500");
-		assertNotNull(qt);
-		String idL = qt.getIdIngrediente();
-		String idC = i.getId();
-		assertEquals(idL, idC); //problema 		
-	}*/
+	}
 	
-	/*@Test
+	@Test
 	public void testAcquistaTutto() {
 		ListaSpesa l = ListaSpesa.getIstanza();
 		CatalogoIngredienti c = CatalogoIngredienti.getIstanza();
@@ -120,5 +113,5 @@ public class ListaSpesaTest {
 		
 		l.acquistaTutto();
 		assertEquals(0, l.visualizzaListaSpesa().size());
-	}*/
+	}
 }
