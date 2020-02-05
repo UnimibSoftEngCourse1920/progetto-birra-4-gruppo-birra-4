@@ -108,4 +108,11 @@ public class ListaSpesa {
 			rimuoviIngrediente(id);
 		}
 	}
+	
+	public void acquistaTutto() {
+		Collection<QuantitaListaSpesa> copiaLista = visualizzaListaSpesa();
+		for (QuantitaListaSpesa entry : copiaLista) {
+			acquistaIngrediente(entry.getIngrediente().getId());
+		}
+	}
 }
