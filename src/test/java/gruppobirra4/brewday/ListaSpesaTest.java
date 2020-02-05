@@ -31,6 +31,38 @@ public class ListaSpesaTest {
 		assertNotNull(qt);
 		assertEquals(2, l.visualizzaListaSpesa().size());
 		assertEquals(2, c.getIngredienti().size());
-		
 	}
+	
+	@Test
+	public void testRimuoviIngrediente() {
+		ListaSpesa l = ListaSpesa.getIstanza();
+		CatalogoIngredienti c = CatalogoIngredienti.getIstanza();
+		QuantitaListaSpesa qt = null;
+		
+		c.creaIngrediente("San Michele", "Luppolo", "500");
+		qt = l.aggiungiIngrediente("San Michele", "Luppolo", "500");
+		assertNotNull(qt);
+		assertEquals(1, l.visualizzaListaSpesa().size());
+		assertEquals(1, c.getIngredienti().size());
+		
+		l.rimuoviIngrediente(qt.getIngrediente().getId());
+		assertEquals(1, c.getIngredienti().size());
+		assertEquals(0, l.visualizzaListaSpesa().size());
+	}
+	
+	@Test
+	public void testSvuotaLista() {
+		ListaSpesa l = ListaSpesa.getIstanza();
+		CatalogoIngredienti c = CatalogoIngredienti.getIstanza();
+		
+		l.aggiungiIngrediente("San Giorgio", "Luppolo", "500");
+		l.aggiungiIngrediente("Zucchero di Canna", "Zucchero", "500");
+		assertEquals(2, l.visualizzaListaSpesa().size());
+		assertEquals(2, c.getIngredienti().size());
+		
+		l.svuotaLista();
+		assertEquals(0, l.visualizzaListaSpesa().size());
+		assertEquals(2, c.getIngredienti().size());
+	}
+	
 }
