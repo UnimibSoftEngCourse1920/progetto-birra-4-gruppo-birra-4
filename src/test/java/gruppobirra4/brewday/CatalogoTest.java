@@ -12,7 +12,7 @@ import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
 
 public class CatalogoTest { 
 
-	@Test
+	/*@Test
 	public void testCreaIngrediente() {
 		CatalogoIngredienti c = CatalogoIngredienti.getIstanza();
 		Ingrediente ingr = null;
@@ -63,17 +63,17 @@ public class CatalogoTest {
 		ingr = c.creaIngrediente("   San       Michele     ", "Luppolo", "   500  ");
 		assertNull(ingr);
 		assertEquals(3, c.getIngredienti().size());
-	}
+	}*/
 	
-	@Test
+	/*@Test
 	public void testRimuoviIngrediente() {
 		CatalogoIngredienti c = CatalogoIngredienti.getIstanza();
 		Ingrediente ingr = c.creaIngrediente("San Michele", "Luppolo", "500");
 		c.rimuoviIngrediente(ingr.getId());
 		assertEquals(0, c.getIngredienti().size());
-	}
+	}*/
 
-	@Test
+	/*@Test
 	public void testModificaIngrediente() {
 		CatalogoIngredienti c = CatalogoIngredienti.getIstanza();
 		Ingrediente ingr = c.creaIngrediente("San Michele", "Luppolo", "500");
@@ -88,6 +88,6 @@ public class CatalogoTest {
 		ingr = ingrModificato;
 		ingrModificato = c.modificaIngrediente(ingr.getId(), "San Pippo", "Malto", "ciao");
 		assertNull(ingrModificato);
-	}
+	}*/
 	
 }

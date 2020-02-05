@@ -91,6 +91,7 @@ public class CatalogoIngredienti {
 	public void rimuoviIngrediente(String id) {
 		ingredienti = openMapDB();
 		ingredienti.remove(id); 
+		ListaSpesa.getIstanza().rimuoviIngrediente(id);
 		Database.getIstanza().closeDB();
 	}
 	

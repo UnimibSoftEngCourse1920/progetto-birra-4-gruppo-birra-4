@@ -73,7 +73,9 @@ public class ListaSpesa {
 	
 	public void rimuoviIngrediente(String id) {
 		lista = openMapDB();
-		lista.remove(id);
+		if(lista.containsKey(id)) {
+			lista.remove(id);
+		}
 		Database.getIstanza().closeDB();
 	}
 	
