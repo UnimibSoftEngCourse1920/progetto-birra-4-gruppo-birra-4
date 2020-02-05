@@ -56,27 +56,21 @@ public class ListaSpesa {
 	}
 
 	public QuantitaListaSpesa aggiungiIngrediente(String nome, String categoria, String quantita) {
-		lista = openMapDB();
 		if(!(Ingrediente.validation(nome, quantita))) {
-			Database.getIstanza().closeDB();
 			return null;
 		}
-		Database.getIstanza().closeDB();
-		String id = CatalogoIngredienti.getIstanza().checkCatalogoSpesa(nome, categoria);
-		if(id != null) {
+		Ingrediente ing = CatalogoIngredienti.getIstanza().checkCatalogoPerSpesa(nome, categoria);
+		//lista = openMapDB();
+		if(ing != null) {	
 			lista = openMapDB();
-			lista.put(id, Double.parseDouble(quantita));
+			lista.put(ing.getId(), Double.parseDouble(quantita));
 			Database.getIstanza().closeDB();
-			return new QuantitaListaSpesa(CatalogoIngredienti.getIstanza().getIngredienteById(id),
+			return new QuantitaListaSpesa(ing,
 					Double.parseDouble(quantita));
 		}
 		else {
-			Ingrediente ingrediente = Ingrediente.creaIngrediente(id, nome, categoria, "0");
-			CatalogoIngredienti.getIstanza().aggiungiIngrediente(ingrediente);
-			lista = openMapDB();
-			lista.put(ingrediente.getId(), Double.parseDouble(quantita));
-			Database.getIstanza().closeDB();
-			return new QuantitaListaSpesa(ingrediente, Double.parseDouble(quantita));
+			// Database.getIstanza().closeDB();
+			return null;
 		}
 	}
 	

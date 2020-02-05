@@ -27,4 +27,7 @@ public class QuantitaListaSpesa {
 		this.quantitaDaAcquistare = quantitaDaAcquistare;
 	}
 	
+	public String getIdIngrediente() {
+		return ingrediente.getId();
+	}
 }

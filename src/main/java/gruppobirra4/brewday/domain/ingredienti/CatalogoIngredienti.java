@@ -70,16 +70,21 @@ public class CatalogoIngredienti {
 		return false;
 	}
 	
-	public String checkCatalogoSpesa(String nome, String categoria) {
+	public Ingrediente checkCatalogoPerSpesa(String nome, String categoria) {
 		ingredienti = openMapDB();
 		if (ingredienti.isEmpty()) {
-			return null;
+			//Database.getIstanza().closeDB();
+			Ingrediente ing = getIstanza().creaIngrediente(nome, categoria, "0");
+			return ing;
 		}
-		for (Ingrediente i : ingredienti.values()) {
-			if((i.getNome().equals(nome)) && (i.getCategoria().equals(categoria)))
-				return i.getId();
+		for (Ingrediente ing : ingredienti.values()) {
+			if((ing.getNome().equals(nome)) && (ing.getCategoria().equals(categoria)))
+				Database.getIstanza().closeDB();
+				return ing;
 		}
-		return null;
+		Ingrediente ing = getIstanza().creaIngrediente(nome, categoria, "0");
+		//Database.getIstanza().closeDB();
+		return ing;
 	}
 	
 	public void rimuoviIngrediente(String id) {

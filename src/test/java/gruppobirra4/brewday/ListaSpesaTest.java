@@ -100,9 +100,11 @@ public class ListaSpesaTest {
 		assertEquals(idLista, ing.getId());
 		l.svuotaLista();
 		
+		
 		Ingrediente i = c.creaIngrediente("San Giorgio", "Luppolo", "0");
 		qt = l.aggiungiIngrediente("San Giorgio", "Luppolo", "500");
-		String idL = qt.getIngrediente().getId();
+		assertNotNull(qt);
+		String idL = qt.getIdIngrediente();
 		String idC = i.getId();
 		assertEquals(idL, idC); //problema 
 		
