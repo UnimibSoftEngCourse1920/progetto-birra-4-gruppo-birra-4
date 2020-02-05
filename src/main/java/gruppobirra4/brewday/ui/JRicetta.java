@@ -7,7 +7,6 @@ import java.util.Set;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
@@ -28,6 +27,7 @@ import java.awt.Color;
 public class JRicetta extends FrameVisibile{
 
 	private JFrame frmRicetta;
+	private PannelloIngredienti pannelloIngr;
 	private String idIngrediente = null;
 	private String idRicetta;
 	private String nomeRicetta;
@@ -55,6 +55,7 @@ public class JRicetta extends FrameVisibile{
 		menu = JMenu.getIstanza();
 		this.idRicetta = idRicetta;
 		this.nomeRicetta = nomeRicetta;
+		pannelloIngr = new PannelloIngredienti();
 		initialize();
 		menu.setFrameVisible(frmRicetta);
 	}
@@ -109,7 +110,6 @@ public class JRicetta extends FrameVisibile{
 	}
 	
 	private void inserisciMenu() {
-		menu.inserisciMenu();
 		frmRicetta.getContentPane().add(menu.getMenuBar());
 	}
 	
@@ -147,10 +147,10 @@ public class JRicetta extends FrameVisibile{
 	}
 	
 	private void inserisciTabellaIngredienti() {
-		JScrollPane scrollPane = new JScrollPane();
+		/*JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(0, 0, 561, 281);
 		table = new JTable();
-		String[] header = new String[] {"id", "Categoria", "Nome", "Quantità disponibile"};
+		String[] header = new String[] {"id", "Categoria", "Nome", "Quantità"};
 		dtm = new MyTableModel(new Object[][] {}, header)  {
 				boolean[] columnEditables = new boolean[] {
 					false, false, false, false
@@ -167,7 +167,13 @@ public class JRicetta extends FrameVisibile{
 		table.getColumnModel().getColumn(0).setMinWidth(0);
 		table.getColumnModel().getColumn(0).setMaxWidth(0);
 		scrollPane.setViewportView(table);
-		panelInserimentoIngr.add(scrollPane);
+		panelInserimentoIngr.add(scrollPane);*/
+		
+		JScrollPane scrollPane = pannelloIngr.inserisciTabellaIngredienti("Quantità");
+		table = pannelloIngr.getTable();
+		dtm = pannelloIngr.getDtm();		
+		scrollPane.setBounds(0, 0, 561, 281);
+		panelInserimentoIngr.add(scrollPane);		
 	}
 	
 	private void inserisciGestioneIngrediente() {
@@ -188,33 +194,39 @@ public class JRicetta extends FrameVisibile{
 	}
 
 	private void inserisciCategoriaIngr() {
-		JLabel lblCategoriaIngr = new JLabel("Categoria:");
+		/*JLabel lblCategoriaIngr = new JLabel("Categoria:");
 		panelGestioneIngr.add(lblCategoriaIngr);
 
 		comboBoxCategoriaIngr = new JComboBox();
 		comboBoxCategoriaIngr.setModel(new DefaultComboBoxModel(new String[] {
 				"Malto", "Luppolo", "Lievito", "Zucchero", "Additivo"
 		}));
-		panelGestioneIngr.add(comboBoxCategoriaIngr);		
+		panelGestioneIngr.add(comboBoxCategoriaIngr);*/	
+		pannelloIngr.inserisciCategoriaIngr(panelGestioneIngr);
+		comboBoxCategoriaIngr = pannelloIngr.getComboBoxCategoriaIngr();
 	}
 	
 	private void inserisciNomeIngr() {
-		JLabel lblNomeIngr = new JLabel("Nome:");
+		/*JLabel lblNomeIngr = new JLabel("Nome:");
 		panelGestioneIngr.add(lblNomeIngr);
 
 		textFieldNomeIngr = new JTextField();
 		panelGestioneIngr.add(textFieldNomeIngr);
 		textFieldNomeIngr.setDocument(new JTextFieldLimit(30));
-		textFieldNomeIngr.setColumns(10);
+		textFieldNomeIngr.setColumns(10);*/
+		pannelloIngr.inserisciNomeIngr(panelGestioneIngr);
+		textFieldNomeIngr = pannelloIngr.getTextFieldNomeIngr();
 	}
 	
 	private void inserisciQuantitaIngr() {
-		JLabel lblQuantitaIngr = new JLabel("Quantita:");
+		/*JLabel lblQuantitaIngr = new JLabel("Quantità:");
 		panelGestioneIngr.add(lblQuantitaIngr);
 
 		textFieldQuantitaIngr = new JTextField();
 		panelGestioneIngr.add(textFieldQuantitaIngr);
-		textFieldQuantitaIngr.setColumns(10);
+		textFieldQuantitaIngr.setColumns(10);*/
+		pannelloIngr.inserisciQuantitaIngr(panelGestioneIngr, "Quantità");
+		textFieldQuantitaIngr = pannelloIngr.getTextFieldQuantitaIngr();
 	}
 	
 	private void addListenerSelezioneRiga() {
@@ -249,11 +261,12 @@ public class JRicetta extends FrameVisibile{
 
 			Ingrediente ingr = GestoreRicette.getIstanza().inserisciIngrediente("", nome, categoria, quantita);
 			if (ingr != null) { //Se non ci sono stati errori
-				dtm.addRow(new Object[] {ingr.getId(), ingr.getCategoria(), ingr.getNome(), 
+				/*dtm.addRow(new Object[] {ingr.getId(), ingr.getCategoria(), ingr.getNome(), 
 						Double.toString(ingr.getQuantita())
 				});	
 				ingr = null;
-				table.setRowSelectionInterval(table.getRowCount()-1, table.getRowCount()-1);
+				table.setRowSelectionInterval(table.getRowCount()-1, table.getRowCount()-1);*/
+				pannelloIngr.aggiungiRigaIngr(ingr);
 			}
 		});
 		panelBottoniIngr.add(btnInserisciIngr);
@@ -271,9 +284,10 @@ public class JRicetta extends FrameVisibile{
 			if (tempId != null && riga != -1) {
 				Ingrediente ingr = GestoreRicette.getIstanza().inserisciIngrediente(tempId, nome, categoria, quantita);
 				if (ingr != null) { //Se non ci sono stati errori
-					table.setValueAt(ingr.getCategoria(), riga, 1);
+					/*table.setValueAt(ingr.getCategoria(), riga, 1);
 					table.setValueAt(ingr.getNome(), riga, 2);
-					table.setValueAt(Double.toString(ingr.getQuantita()), riga, 3);
+					table.setValueAt(Double.toString(ingr.getQuantita()), riga, 3);*/
+					pannelloIngr.modificaRigaIngr(ingr, riga);
 				}
 			}	
 		});
@@ -286,10 +300,12 @@ public class JRicetta extends FrameVisibile{
 			int riga = table.getSelectedRow();
 			String tempId = idIngrediente;
 			if (tempId != null && riga != -1) {
-				((DefaultTableModel) table.getModel()).removeRow(riga);
-				idIngrediente = null;
-				if (table.getRowCount() != 0)
+				/*((DefaultTableModel) table.getModel()).removeRow(riga);
+				if (table.getRowCount() != 0) {
 					table.setRowSelectionInterval(table.getRowCount()-1, table.getRowCount()-1);
+				}*/
+				pannelloIngr.rimuoviRigaIngr(riga);
+				idIngrediente = null;
 			}
 		});
 		panelBottoniIngr.add(btnRimuoviIngr);

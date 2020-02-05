@@ -73,17 +73,18 @@ public class CatalogoIngredienti {
 	public Ingrediente checkCatalogoPerSpesa(String nome, String categoria) {
 		ingredienti = openMapDB();
 		if (ingredienti.isEmpty()) {
-			//Database.getIstanza().closeDB();
-			Ingrediente ing = getIstanza().creaIngrediente(nome, categoria, "0");
+			Database.getIstanza().closeDB();
+			Ingrediente ing = creaIngrediente(nome, categoria, "0");
 			return ing;
 		}
 		for (Ingrediente ing : ingredienti.values()) {
-			if((ing.getNome().equals(nome)) && (ing.getCategoria().equals(categoria)))
-				//Database.getIstanza().closeDB();
+			if((ing.getNome().equals(nome)) && (ing.getCategoria().equals(categoria))) {
+				Database.getIstanza().closeDB();
 				return ing;
+			}
 		}
 		Ingrediente ing = getIstanza().creaIngrediente(nome, categoria, "0");
-		//Database.getIstanza().closeDB();
+		Database.getIstanza().closeDB();
 		return ing;
 	}
 	
