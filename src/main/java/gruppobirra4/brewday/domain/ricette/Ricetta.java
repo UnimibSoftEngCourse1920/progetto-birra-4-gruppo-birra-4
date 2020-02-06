@@ -1,4 +1,4 @@
-	package gruppobirra4.brewday.domain.ricette; //NOSONAR
+package gruppobirra4.brewday.domain.ricette; //NOSONAR
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -18,28 +18,28 @@ public class Ricetta implements Serializable {
 	private Set<Ingrediente> ingredienti;
 	private double quantitaAcqua;
 	private double quantitaBirra;
-	private double quantitaIngredienti;
 	
 	private Ricetta(String nome, String descrizione, Set<Ingrediente> ingredienti, 
 					String quantitaAcqua, String quantitaBirra) {
 		this.id = UUID.randomUUID().toString();
 		setNome(nome);
 		setDescrizione(descrizione); 
-		setIngredienti(ingredienti);
 		setQuantitaAcqua(quantitaAcqua);
 		setQuantitaBirra(quantitaBirra); 
+		setIngredienti(ingredienti);
 	}
 	
 	protected Ricetta(String id, String nome, String descrizione, Set<Ingrediente> ingredienti, 
-			String quantitaAcqua, String quantitaBirra) {
+					String quantitaAcqua, String quantitaBirra) {
 		this.id = id;
 		setNome(nome);
 		setDescrizione(descrizione); 
-		setIngredienti(ingredienti);
 		setQuantitaAcqua(quantitaAcqua);
 		setQuantitaBirra(quantitaBirra); 
+		setIngredienti(ingredienti);
 	}	
 	
+	//Crea la ricetta e converte le quantita degli ingredienti in valore assoluto
 	protected static Ricetta creaRicetta(String id, String nome, String descrizione, Set<Ingrediente> ingredienti, 
 					String quantitaAcqua, String quantitaBirra) {
 		boolean valid = validation(nome, ingredienti, quantitaAcqua, quantitaBirra);
@@ -47,9 +47,11 @@ public class Ricetta implements Serializable {
 			return null;
 		}
 		if(id == null)
-			return new Ricetta(nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
+			return new Ricetta(nome, descrizione, convertiQuantitaIngrInValoreAssoluto(ingredienti, quantitaBirra), 
+								quantitaAcqua, quantitaBirra);
 		else
-			return new Ricetta(id, nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
+			return new Ricetta(id, nome, descrizione, convertiQuantitaIngrInValoreAssoluto(ingredienti, quantitaBirra),
+								quantitaAcqua, quantitaBirra);
 	}
 	
 	protected static boolean validation(String nome, Set<Ingrediente> ingredienti, String quantitaAcqua, String quantitaBirra) {
@@ -86,35 +88,43 @@ public class Ricetta implements Serializable {
 				&& isNotPositive(quantitaBirra, "Quantita' birra");
 	}
 	
-	/*private static boolean validateQuantita(String quantitaBirra, String quantitaAcqua) {
-		if (convertToNumber(quantitaAcqua) >= convertToNumber(quantitaBirra)) {
-			Notifica.getIstanza().addError("La quantità di acqua inserita deve essere maggiore della quantita di birra");
-			return false;
+	//Converte le quantita degli ingredienti in valore assoluto (grammi/litri)
+	public static Set<Ingrediente> convertiQuantitaIngrInValoreAssoluto(Set<Ingrediente> ingredienti, String quantitaBirra) {
+		for(Ingrediente ingr: ingredienti) {
+			convertiQuantitaInValoreAssoluto(ingr, convertToNumber(quantitaBirra));
 		}
-		return true;
+		return ingredienti;
+	}
+	
+	
+	private static void convertiQuantitaInValoreAssoluto(Ingrediente ingr, double quantitaBirra) {
+		ingr.setQuantita(Double.toString(ingr.getQuantita()/quantitaBirra));
+	}
+	
+	/*public Ricetta convertiRicettaInValoreAssoluto() {
+		for(Ingrediente ingr: ingredienti) {
+			convertiQuantitaIngrInValoreAssoluto(ingr);
+		}
+		return this;
+	}
+	
+	
+	private void convertiQuantitaIngrInValoreAssoluto(Ingrediente ingr) {
+		ingr.setQuantita(Double.toString(ingr.getQuantita()/quantitaBirra));
 	}*/
 	
-	public void convertiInValoreAssoluto() {
-		Set<Ingrediente> ingredientiTemp = new HashSet<>();
-		quantitaIngredienti = sommaQuantitaIngredienti();
-		for(Ingrediente ingr: ingredienti) {
-			convertiQuantitaInValoreAssoluto(ingr);
+	//Converte le quantita degli ingredienti in valore "normale"
+	public Ricetta convertiRicettaInValoreNormale() {
+		for (Ingrediente ingr: ingredienti) {
+			convertiQuantitaInValoreNormale(ingr);
 		}
+		return this;
 	}
 	
-	private double sommaQuantitaIngredienti() {
-		double somma = 0;
-		for(Ingrediente ingr: ingredienti) {
-			somma = somma + ingr.getQuantita();
-		}
-		return somma;
+	private void convertiQuantitaInValoreNormale(Ingrediente ingr) {
+		ingr.setQuantita(Double.toString(ingr.getQuantita() * quantitaBirra));		
 	}
 	
-	private void convertiQuantitaInValoreAssoluto(Ingrediente ingr) {
-		ingr.setQuantita(Double.toString(ingr.getQuantita()/quantitaIngredienti));
-	}
-	
-
 	public String getId() {
 		return id;
 	}
@@ -142,6 +152,7 @@ public class Ricetta implements Serializable {
 
 	private void setIngredienti(Set<Ingrediente> ingredienti) {
 		this.ingredienti = ingredienti;
+		//convertiRicettaInValoreAssoluto();
 	}
 
 	public double getQuantitaAcqua() {
@@ -166,6 +177,8 @@ public class Ricetta implements Serializable {
 		this.quantitaBirra = quantitaB;
 	}
 	
+	
+	
 	/*private boolean checkIngredienti(String nome, String categoria) {
 		if (ingredienti.isEmpty()) {
 			Notifica.getIstanza().addError("Inserire degli ingredienti");
@@ -178,6 +191,15 @@ public class Ricetta implements Serializable {
 		Notifica.getIstanza().addError("Sono presenti degli ingredienti con lo stesso nome e categoria");
 		return false;
 	}*/
+	
+	public Ingrediente getIngredienteFromRicetta(String idIngrediente) {
+		for (Ingrediente ingr: ingredienti) {
+			if (ingr.getId().equals(idIngrediente)) {
+				return ingr;
+			}
+		}
+		return null;
+	}
 
 	@Override
 	public int hashCode() {

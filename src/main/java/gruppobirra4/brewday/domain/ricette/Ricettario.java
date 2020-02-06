@@ -42,7 +42,7 @@ public class Ricettario {
 			String quantitaAcqua, String quantitaBirra) {
 		Ricetta ricetta = Ricetta.creaRicetta(null, nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
 		if(ricetta != null && aggiungiRicetta(ricetta)) {
-			return ricetta;
+			return ricetta.convertiRicettaInValoreNormale();
 		}
 		return null;		
 	}
@@ -105,11 +105,11 @@ public class Ricettario {
 			Database.getIstanza().closeDB();
 			return Collections.emptyList();
 		}
-		Collection<Ricetta> returnMap = getRicetteHelper().values();
+		Collection<Ricetta> ricette = getRicetteHelper().values();
 		Database.getIstanza().closeDB();
-		return returnMap;
+		return ricette;
 	}
-	
+
 	public Ricetta visualizzaRicetta(String id) {
 		ricette = openMapDB();
 		if (ricette.isEmpty()) {
@@ -118,6 +118,7 @@ public class Ricettario {
 		}
 		Ricetta r = ricette.get(id);
 		Database.getIstanza().closeDB();
+		r.convertiRicettaInValoreNormale();
 		return r;
 	}
 	
@@ -136,7 +137,7 @@ public class Ricettario {
 	*/
 	
 	public Ricetta modificaRicetta(String id, String nome, String descrizione, Set<Ingrediente> ingredienti,
-			String quantitaAcqua, String quantitaBirra) {
+									String quantitaAcqua, String quantitaBirra) {
 		ricette=openMapDB();
 		Ricetta ricModificata = Ricetta.creaRicetta(id, nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
 		if (ricModificata == null) {
@@ -152,5 +153,5 @@ public class Ricettario {
 		Database.getIstanza().closeDB();
 		return null;
 	}
-
+	
 }
