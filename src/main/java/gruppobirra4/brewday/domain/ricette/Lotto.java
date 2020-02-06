@@ -9,37 +9,39 @@ import static gruppobirra4.brewday.domain.InputUtente.*;
 public class Lotto implements Serializable {
 	
 	private String id;
-	private String idRicetta;
+	//private String idRicetta;
 	private Date data;
 	private String noteGusto;
 	private String noteProblemi;
 	private String quantitaBirra;
+	private Ricetta ricetta;
 	
 	public static final String CAMPO_QUANTITA_BIRRA = "Quantita di birra da produrre";
 	
-	protected Lotto(String id, String idRicetta, Date data, String noteGusto, String noteProblemi, String quantitaBirra) {
+	protected Lotto(String id, Date data, String noteGusto, String noteProblemi, String quantitaBirra, Ricetta ricetta) {
 		this.id = id;
-		this.idRicetta = idRicetta;
+		//this.idRicetta = idRicetta;
 		this.data = data;
 		this.noteGusto = noteGusto;
 		this.noteProblemi = noteProblemi;
 		this.quantitaBirra = quantitaBirra;
 	}
 	
-	protected Lotto(String idRicetta, String quantitaBirra) {
+	protected Lotto(String quantitaBirra, Ricetta ricetta) {
 		this.id = UUID.randomUUID().toString();
-		this.idRicetta = idRicetta;
+		//this.idRicetta = idRicetta;
 		this.data = new Date();
 		this.noteGusto = "";
 		this.noteProblemi = "";
 		this.quantitaBirra = quantitaBirra;
+		this.ricetta = ricetta;
 	}
 	
-	public static Lotto creaLotto(String idRicetta, String quantitaBirra) {
+	public static Lotto creaLotto(String quantitaBirra, Ricetta ricetta) {
 		if (!validation(quantitaBirra)) {
 			return null;
 		}
-		return new Lotto(idRicetta, quantitaBirra);		
+		return new Lotto(quantitaBirra, ricetta);		
 	}
 
 
@@ -58,9 +60,9 @@ public class Lotto implements Serializable {
 		return id;
 	}
 	
-	public String getIdRicetta() {
+	/*public String getIdRicetta() {
 		return idRicetta;
-	}
+	}*/
 
 	public Date getData() {
 		return data;
@@ -72,6 +74,14 @@ public class Lotto implements Serializable {
 	
 	public String getNoteProblemi() {
 		return noteProblemi;
+	}
+	
+	public String getQuantitaBirra() {
+		return quantitaBirra;
+	}
+	
+	public Ricetta getRicetta() {
+		return ricetta;
 	}
 	
 	

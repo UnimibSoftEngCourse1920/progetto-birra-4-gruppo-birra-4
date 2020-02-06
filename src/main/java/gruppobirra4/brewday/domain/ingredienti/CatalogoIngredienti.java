@@ -76,22 +76,81 @@ public class CatalogoIngredienti {
 			Database.getIstanza().closeDB();
 			return creaIngrediente(nome, categoria, "0");
 		}
-		for (Ingrediente ing : ingredienti.values()) {
+		/*for (Ingrediente ing : ingredienti.values()) {
 			if((ing.getNome().equals(nome)) && (ing.getCategoria().equals(categoria))) {
 				Database.getIstanza().closeDB();
 				return ing;
 			}
 		}
-		Ingrediente ing = getIstanza().creaIngrediente(nome, categoria, "0");
-		Database.getIstanza().closeDB();
+		Database.getIstanza().closeDB();*/
+		Ingrediente ing = getIngredienteByNomeCategoria(nome, categoria);
+		if (ing != null) {
+			return ing;
+		}
+		ing = getIstanza().creaIngrediente(nome, categoria, "0");
 		return ing;
 	}
+	
+	public boolean checkDisponibilitaInCatalogo(Ingrediente ingrRicetta) {
+		ingredienti = openMapDB();
+		if (ingredienti.isEmpty()) {
+			Notifica.getIstanza().addError("Non sono presenti ingredienti disponibili nel catalogo");
+			Database.getIstanza().closeDB();
+			return false;
+		}
+		/*for (Ingrediente ing : ingredienti.values()) {
+			if(ing.equals(ingrRicetta) && (int)Math.round(ing.getQuantita()) < (int)Math.round(ingrRicetta.getQuantita())) {
+				Database.getIstanza().closeDB();
+				return false;
+			}
+		}*/
+		Ingrediente ing = getIngredienteByNomeCategoria(ingrRicetta.getNome(), ingrRicetta.getCategoria());
+		if (ing != null && (int)Math.round(ing.getQuantita()) >= (int)Math.round(ingrRicetta.getQuantita()) ){
+			return true;
+		}
+		Notifica.getIstanza().addError("L'ingrediente "+ "\"" + ingrRicetta.getCategoria() + " " + 
+										ingrRicetta.getNome() +	"\" non è disponibile nel catalogo");
+		return false;		
+	}
+	
 	
 	public void rimuoviIngrediente(String id) {
 		ingredienti = openMapDB();
 		ingredienti.remove(id); 
 		ListaSpesa.getIstanza().rimuoviIngrediente(id);
 		Database.getIstanza().closeDB();
+	}
+	
+	public Collection<Ingrediente> visualizzaCatalogo() {
+		ingredienti = openMapDB();
+		if (ingredienti.isEmpty()) {
+			Database.getIstanza().closeDB();
+			return Collections.emptyList();
+		}
+		Collection<Ingrediente> returnMap = getIngredientiDisponibiliHelper().values();
+		Database.getIstanza().closeDB();
+		return returnMap;
+	}
+	
+	//Ritorna una mappa di java che contiene tutti gli ingredienti disponibili nel catalogo
+	private SortedMap<String, Ingrediente> getIngredientiDisponibiliHelper() {
+		SortedMap<String, Ingrediente> returnMap = new TreeMap<>();
+		for (Ingrediente i : ingredienti.values()) {
+			if ((Double.doubleToLongBits(i.getQuantita()) != Double.doubleToLongBits(0.0))) {
+				returnMap.put(i.getId(), new Ingrediente(i.getId(),
+						i.getNome(),
+						i.getCategoria(),
+						Double.toString(i.getQuantita())));
+			}
+		}
+		return returnMap;
+	}
+	
+	public SortedMap<String, Ingrediente> getIngredienti() {
+		ingredienti = openMapDB();
+		SortedMap<String, Ingrediente> returnMap = getIngredientiHelper();
+		Database.getIstanza().closeDB();
+		return returnMap;
 	}
 	
 	//Ritorna una mappa di java che contiene tutti gli ingredienti nel catalogo
@@ -105,25 +164,7 @@ public class CatalogoIngredienti {
 		}
 		return returnMap;
 	}
-	
-	public SortedMap<String, Ingrediente> getIngredienti() {
-		ingredienti = openMapDB();
-		SortedMap<String, Ingrediente> returnMap = getIngredientiHelper();
-		Database.getIstanza().closeDB();
-		return returnMap;
-	}
-	
-	public Collection<Ingrediente> visualizzaCatalogo() {
-		ingredienti = openMapDB();
-		if (ingredienti.isEmpty()) {
-			Database.getIstanza().closeDB();
-			return Collections.emptyList();
-		}
-		Collection<Ingrediente> returnMap = getIngredientiHelper().values();
-		Database.getIstanza().closeDB();
-		return returnMap;
-	}
-	
+
 	public Ingrediente modificaIngrediente(String id, String nome, String categoria, String quantita) {
 		ingredienti = openMapDB();	
 		Ingrediente ingrModificato =  Ingrediente.creaIngrediente(id, nome, categoria, quantita);
@@ -141,9 +182,29 @@ public class CatalogoIngredienti {
 		return null;
 	}
 	
+	public void aggiornaIngrCatalogo(Ingrediente ingrRicetta) {
+		ingredienti = openMapDB();
+		Ingrediente ingr = getIngredienteByNomeCategoria(ingrRicetta.getNome(), ingrRicetta.getCategoria());
+		modificaIngrediente(ingr.getId(), ingr.getNome(), ingr.getCategoria(), 
+							Double.toString((int)Math.round(ingr.getQuantita() - ingrRicetta.getQuantita())));		
+	}
+	
+	
 	public Ingrediente getIngredienteById(String id) {
 		ingredienti = openMapDB();
 		return ingredienti.get(id);
 		//Database.getIstanza().closeDB();
 	}
+	
+	public Ingrediente getIngredienteByNomeCategoria(String nome, String categoria) {
+		for (Ingrediente ing : ingredienti.values()) {
+			if((ing.getNome().equals(nome)) && (ing.getCategoria().equals(categoria))) {
+				Database.getIstanza().closeDB();
+				return ing;
+			}
+		}
+		Database.getIstanza().closeDB();
+		return null;
+	}
+
 }
