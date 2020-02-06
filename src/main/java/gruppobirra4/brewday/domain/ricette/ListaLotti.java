@@ -1,15 +1,14 @@
 package gruppobirra4.brewday.domain.ricette;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Map;
-import java.util.SortedMap;
-import java.util.TreeMap;
+import java.util.Set;
 
 import org.mapdb.HTreeMap;
 import org.mapdb.Serializer;
 
 import gruppobirra4.brewday.database.Database;
+import gruppobirra4.brewday.domain.ingredienti.CatalogoIngredienti;
+import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
 
 public class ListaLotti {
 	
@@ -37,15 +36,47 @@ public class ListaLotti {
 	}
 	
 	public Lotto creaLotto(String idRicetta, String quantitaBirra) {
-		Lotto lotto = Lotto.creaLotto(idRicetta, quantitaBirra);
-		aggiungiLotto(idRicetta, lotto);
-		return lotto;
+		Ricetta ricetta = getRicettaFromRicettario(idRicetta);
+		ricetta.convertiRicettaInValoreNormale();
+		Lotto lotto = Lotto.creaLotto(quantitaBirra, ricetta);
+	
+		if(lotto != null && aggiungiLotto(lotto)) {
+			aggiornaCatalogo(lotto.getRicetta().getIngredienti());
+			return lotto;
+		}
+		return null;
 	}
 	
-	private void aggiungiLotto(String idRicetta, Lotto lotto) {
+	private boolean aggiungiLotto(Lotto lotto) {
 		lotti = openMapDB();
-		lotti.put(idRicetta, lotto);
+		if(checkDisponibilitaIngredienti(lotto.getRicetta().getIngredienti())) {
+			lotti.put(lotto.getId(), lotto);
+			Database.getIstanza().closeDB();
+			return true;
+		}
 		Database.getIstanza().closeDB();
+		return false;
+	}
+	
+	private boolean checkDisponibilitaIngredienti(Set<Ingrediente> ingredientiRicetta) {
+		for (Ingrediente ingr: ingredientiRicetta) {
+			if(!CatalogoIngredienti.getIstanza().checkDisponibilitaInCatalogo(ingr)) {
+				return false;
+			}
+		}
+		return true; 
+	}
+	
+	private void aggiornaCatalogo(Set<Ingrediente> ingredientiRicetta) {
+		for (Ingrediente ingr: ingredientiRicetta) {
+			CatalogoIngredienti.getIstanza().aggiornaIngrCatalogo(ingr);			
+		}
+	}
+	
+	private Ricetta getRicettaFromRicettario(String idRicetta) {
+		Ricetta r = Ricettario.getIstanza().getRicetta(idRicetta);
+		r.setDescrizione(""); //La descrizione non è necessaria
+		return r;
 	}
 
 	/*public Collection<Lotto> visualizzaListaLotti() {
@@ -72,9 +103,6 @@ public class ListaLotti {
 		return returnMap;
 	}*/
 	
-	
-	
-	
-	
+
 
 }

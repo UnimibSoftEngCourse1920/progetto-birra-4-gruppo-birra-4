@@ -142,7 +142,7 @@ public class Ricetta implements Serializable {
 		return descrizione;
 	}
 
-	private void setDescrizione(String descrizione) {
+	protected void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
 	}
 
