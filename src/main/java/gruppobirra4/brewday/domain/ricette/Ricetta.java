@@ -39,6 +39,7 @@ public class Ricetta implements Serializable {
 		setIngredienti(ingredienti);
 	}	
 	
+	//Crea la ricetta e converte le quantita degli ingredienti in valore assoluto
 	protected static Ricetta creaRicetta(String id, String nome, String descrizione, Set<Ingrediente> ingredienti, 
 					String quantitaAcqua, String quantitaBirra) {
 		boolean valid = validation(nome, ingredienti, quantitaAcqua, quantitaBirra);
