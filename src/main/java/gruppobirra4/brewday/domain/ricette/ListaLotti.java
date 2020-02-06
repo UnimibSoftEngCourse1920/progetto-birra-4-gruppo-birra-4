@@ -36,8 +36,8 @@ public class ListaLotti {
 		return (HTreeMap<String, Lotto>) Database.getIstanza().openMapDB(TABLE_LOTTI);
 	}
 	
-	public Lotto creaLotto(String idRicetta) {
-		Lotto lotto = new Lotto(idRicetta);
+	public Lotto creaLotto(String idRicetta, String quantitaBirra) {
+		Lotto lotto = Lotto.creaLotto(idRicetta, quantitaBirra);
 		aggiungiLotto(idRicetta, lotto);
 		return lotto;
 	}
@@ -48,7 +48,7 @@ public class ListaLotti {
 		Database.getIstanza().closeDB();
 	}
 
-	public Collection<Lotto> visualizzaListaLotti() {
+	/*public Collection<Lotto> visualizzaListaLotti() {
 		lotti = openMapDB();
 		if (lotti.isEmpty()) {
 			Database.getIstanza().closeDB();
@@ -57,10 +57,10 @@ public class ListaLotti {
 		Collection<Lotto> returnMap = getLottiHelper().values();
 		Database.getIstanza().closeDB();
 		return returnMap;
-	}
+	}*/
 	
 	//Ritorna una mappa di java che contiene tutti i lotti nella lista dei lotti
-	private SortedMap<String, Lotto> getLottiHelper() {
+	/*private SortedMap<String, Lotto> getLottiHelper() {
 		SortedMap<String, Lotto> returnMap = new TreeMap<>();
 		for (Lotto l : lotti.values()) {
 			returnMap.put(l.getId(), new Lotto(l.getId(),
@@ -70,7 +70,7 @@ public class ListaLotti {
 												l.getIdRicetta()));
 		}
 		return returnMap;
-	}
+	}*/
 	
 	
 	

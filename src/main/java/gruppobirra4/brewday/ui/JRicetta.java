@@ -409,7 +409,7 @@ public class JRicetta extends FrameVisibile{
 				Set<Ingrediente> ingredienti = ricetta.getIngredienti();
 				for(Ingrediente ingr: ingredienti) {
 					dtm.addRow(new Object[] {ingr.getId(), ingr.getCategoria(), ingr.getNome(), 
-											Double.toString(ingr.getQuantita())
+											Integer.toString((int) Math.round(ingr.getQuantita()))
 											});
 				}
 			}

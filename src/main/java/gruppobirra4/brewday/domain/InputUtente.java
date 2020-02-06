@@ -17,7 +17,7 @@ public class InputUtente {
 		}
 		String strLW = rimuoviWhiteSpaces(s);
 		if (strLW.isEmpty()) {				
-			Notifica.getIstanza().addError(CAMPO + field + "\" deve contenere dei caratteri");
+			Notifica.getIstanza().addError(CAMPO + field + "\" non può essere vuoto");
 			return true;
 		}
 		return false;

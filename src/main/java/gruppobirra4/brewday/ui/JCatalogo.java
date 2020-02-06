@@ -126,7 +126,7 @@ public class JCatalogo extends FrameVisibile{
 		if (!catalogo.isEmpty()) { //Se il catalogo non è vuoto
 			for (Ingrediente ingr: catalogo) {
 				dtm.addRow(new Object[] {ingr.getId(), ingr.getCategoria(), ingr.getNome(), 
-							Double.toString(ingr.getQuantita())
+							Integer.toString((int) Math.round(ingr.getQuantita()))
 							});
 			}
 		}

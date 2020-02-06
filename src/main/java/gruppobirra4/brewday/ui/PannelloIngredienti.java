@@ -78,7 +78,7 @@ public class PannelloIngredienti {
 	
 	public void aggiungiRigaIngr(Ingrediente ingr) {
 		dtm.addRow(new Object[] {ingr.getId(), ingr.getCategoria(), ingr.getNome(), 
-				Double.toString(ingr.getQuantita())
+				Integer.toString((int) Math.round(ingr.getQuantita()))
 		});	
 		table.setRowSelectionInterval(table.getRowCount()-1, table.getRowCount()-1);
 	}
@@ -86,7 +86,7 @@ public class PannelloIngredienti {
 	public void modificaRigaIngr(Ingrediente ingr, int riga) {
 		table.setValueAt(ingr.getCategoria(), riga, 1);
 		table.setValueAt(ingr.getNome(), riga, 2);
-		table.setValueAt(Double.toString(ingr.getQuantita()), riga, 3);
+		table.setValueAt(Integer.toString((int) Math.round(ingr.getQuantita())), riga, 3);
 	}
 	
 	public void rimuoviRigaIngr(int riga) {
