@@ -123,7 +123,7 @@ public class JListaSpesa extends FrameVisibile{
 		if (!listaSpesa.isEmpty()) { //Se il catalogo non è vuoto
 			for (QuantitaListaSpesa ingr: listaSpesa) {
 				dtm.addRow(new Object[] {ingr.getIngrediente().getId(), ingr.getIngrediente().getCategoria(), ingr.getIngrediente().getNome(), 
-							Integer.toString((int) Math.round(ingr.getIngrediente().getQuantita())), ingr.getQuantitaDaAcquistare()});
+							Integer.toString((int) Math.round(ingr.getIngrediente().getQuantita())), Math.round(ingr.getQuantitaDaAcquistare())});
 			}
 		}
 	}
@@ -200,11 +200,11 @@ public class JListaSpesa extends FrameVisibile{
 		panelBottoni.setLayout(new GridLayout(3, 2, 5, 15));
 		
 		inserisciBottoneAggiungi();
+		inserisciBottoneAcquista();
 		inserisciBottoneModifica();
+		inserisciBottoneAcquistaTutto();
 		inserisciBottoneRimuovi();
-		//inserisciBottoneAcquista();
-		//inserisciBottoneAcquistaTutto();
-		//inserisciBottoneSvuotaLista();
+		inserisciBottoneSvuotaLista();
 	}
 	
 	private void inserisciBottoneAggiungi() {
@@ -218,14 +218,30 @@ public class JListaSpesa extends FrameVisibile{
 			if (qtls != null) { //Se non ci sono stati errori
 				dtm.addRow(new Object[] {qtls.getIngrediente().getId(), qtls.getIngrediente().getCategoria(), qtls.getIngrediente().getNome(), 
 						Integer.toString((int) Math.round(qtls.getIngrediente().getQuantita())),
-						(int)qtls.getQuantitaDaAcquistare()
+						Math.round(qtls.getQuantitaDaAcquistare())
 				});	
 				table.setRowSelectionInterval(table.getRowCount()-1, table.getRowCount()-1);
 			}
 		});
 		panelBottoni.add(btnAggiungiIngr);			
 	}
-
+	
+	private void inserisciBottoneAcquista() {
+		JButton btnAcquistaIngr = new JButton("Acquista");
+		btnAcquistaIngr.addActionListener(event -> {
+			int riga = table.getSelectedRow();
+			String tempId = id;
+			if (tempId != null && riga != -1 && GestoreListaSpesa.getIstanza().acquistaIngrediente(tempId)) {
+				((DefaultTableModel) table.getModel()).removeRow(riga);
+				if (table.getRowCount() != 0) {
+					table.setRowSelectionInterval(table.getRowCount()-1, table.getRowCount()-1);
+				}
+				id = null;
+			}
+		});
+		panelBottoni.add(btnAcquistaIngr);
+	}
+	
 	private void inserisciBottoneModifica() {
 		JButton btnModificaIngr = new JButton("Modifica");
 		btnModificaIngr.addActionListener(event -> {
@@ -238,7 +254,7 @@ public class JListaSpesa extends FrameVisibile{
 					table.setValueAt(qtls.getIngrediente().getCategoria(), riga, 1);
 					table.setValueAt(qtls.getIngrediente().getNome(), riga, 2);
 					table.setValueAt(Integer.toString((int) Math.round(qtls.getIngrediente().getQuantita())), riga, 3);
-					table.setValueAt(qtls.getQuantitaDaAcquistare(), riga, 4);
+					table.setValueAt(Math.round(qtls.getQuantitaDaAcquistare()), riga, 4);
 				}
 			}
 		});
@@ -253,14 +269,47 @@ public class JListaSpesa extends FrameVisibile{
 			String tempId = id;
 			if (tempId != null && riga != -1 && GestoreListaSpesa.getIstanza().rimuoviIngrediente(tempId)) {
 				((DefaultTableModel) table.getModel()).removeRow(riga);
-				if (table.getRowCount() != 0) {
-					table.setRowSelectionInterval(table.getRowCount()-1, table.getRowCount()-1);
-				}
+				//if (table.getRowCount() != 0) {
+					//table.setRowSelectionInterval(table.getRowCount()-1, table.getRowCount()-1);
+				//}
 				id = null;
 			}
-			
 		});
 		panelBottoni.add(btnRimuoviIngr);
+	}
+	
+	private void inserisciBottoneAcquistaTutto() {
+		JButton btnAcquistaTutto = new JButton("Acquista tutto");
+		btnAcquistaTutto.addActionListener(event -> {
+			if (table.getRowCount() != 0) {
+				GestoreListaSpesa.getIstanza().acquistaTutto();
+				DefaultTableModel model = (DefaultTableModel) table.getModel();
+			    int rowCount = model.getRowCount();
+			    for (int i = rowCount; i > 0 ; i--){
+			        model.removeRow(i-1);
+			    } 
+			}
+		});
+		panelBottoni.add(btnAcquistaTutto);
+	}
+	
+	private void inserisciBottoneSvuotaLista() {
+		JButton btnSvuotaLista = new JButton("Svuota lista");
+		btnSvuotaLista.addActionListener(event -> {
+			if (table.getRowCount() != 0) {
+				GestoreListaSpesa.getIstanza().svuotaLista();
+				svuotaTabella();
+			}
+		});
+		panelBottoni.add(btnSvuotaLista);
+	}
+	
+	private void svuotaTabella() {
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+	    int rowCount = model.getRowCount();
+	    for (int i = rowCount; i > 0 ; i--){
+	        model.removeRow(i-1);
+	    }
 	}
 	
 }

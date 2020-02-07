@@ -50,6 +50,10 @@ public class JMenu {
 		menuBar.add(btnCatalogo);
 		
 		btnSpesa = new JButton("Lista della spesa");
+		btnSpesa.addActionListener(event -> {
+			frameVisibile.dispose();
+			JListaSpesa.esegui();
+		});
 		btnSpesa.setBackground(Color.LIGHT_GRAY);
 		menuBar.add(btnSpesa);
 		

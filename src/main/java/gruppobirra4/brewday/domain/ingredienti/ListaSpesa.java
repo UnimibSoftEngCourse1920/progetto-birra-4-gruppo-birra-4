@@ -59,17 +59,21 @@ public class ListaSpesa {
 
 	public QuantitaListaSpesa aggiungiIngrediente(String nome, String categoria, String quantita) {
 		Ingrediente tempIng = Ingrediente.creaIngrediente("", nome, categoria, quantita);
-		if(tempIng == null || Double.parseDouble(quantita) == 0) {
-			if(Double.parseDouble(quantita) == 0) {
-				Notifica.getIstanza().addError("Il campo \" Quantita \" deve essere un numero positivo");
-			}			
-			Database.getIstanza().closeDB();
+		if(tempIng == null) {
+			return null;
+		}
+		if(Double.doubleToLongBits(Math.round(tempIng.getQuantita())) == Double.doubleToLongBits(0.0)) {
+			Notifica.getIstanza().addError("Il campo \" Quantita \" deve essere un numero positivo");		
 			return null;
 		}
 		Ingrediente ing = CatalogoIngredienti.getIstanza().checkCatalogoPerSpesa(tempIng.getNome(), tempIng.getCategoria());
-
 		if(ing != null) {	
 			lista = openMapDB();
+			if(checkLista(ing.getId())) {
+				Database.getIstanza().closeDB();
+				Notifica.getIstanza().addError("L'ingrediente è giè nella lista");
+				return null;
+			}
 			lista.put(ing.getId(), Double.parseDouble(quantita));
 			Database.getIstanza().closeDB();
 			return new QuantitaListaSpesa(ing, Double.parseDouble(quantita));
@@ -77,6 +81,18 @@ public class ListaSpesa {
 			Database.getIstanza().closeDB();
 			return null;
 		}
+	}
+	
+	private boolean checkLista(String id) {
+		if (lista.isEmpty()) {
+			return false;
+		}
+		for (Map.Entry<String, Double> entry : lista.entrySet()) {
+			if(entry.getKey().equals(id))
+				return true;
+		}
+		return false;
+		
 	}
 	
 	public void rimuoviIngrediente(String id) {
