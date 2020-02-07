@@ -123,7 +123,7 @@ public class JListaSpesa extends FrameVisibile{
 		if (!listaSpesa.isEmpty()) { //Se il catalogo non è vuoto
 			for (QuantitaListaSpesa ingr: listaSpesa) {
 				dtm.addRow(new Object[] {ingr.getIngrediente().getId(), ingr.getIngrediente().getCategoria(), ingr.getIngrediente().getNome(), 
-							Integer.toString((int) Math.round(ingr.getIngrediente().getQuantita())), ingr.getQuantitaDaAcquistare()});
+							Integer.toString((int) Math.round(ingr.getIngrediente().getQuantita())), Math.round(ingr.getQuantitaDaAcquistare())});
 			}
 		}
 	}
@@ -218,7 +218,7 @@ public class JListaSpesa extends FrameVisibile{
 			if (qtls != null) { //Se non ci sono stati errori
 				dtm.addRow(new Object[] {qtls.getIngrediente().getId(), qtls.getIngrediente().getCategoria(), qtls.getIngrediente().getNome(), 
 						Integer.toString((int) Math.round(qtls.getIngrediente().getQuantita())),
-						(int)qtls.getQuantitaDaAcquistare()
+						Math.round(qtls.getQuantitaDaAcquistare())
 				});	
 				table.setRowSelectionInterval(table.getRowCount()-1, table.getRowCount()-1);
 			}
@@ -254,7 +254,7 @@ public class JListaSpesa extends FrameVisibile{
 					table.setValueAt(qtls.getIngrediente().getCategoria(), riga, 1);
 					table.setValueAt(qtls.getIngrediente().getNome(), riga, 2);
 					table.setValueAt(Integer.toString((int) Math.round(qtls.getIngrediente().getQuantita())), riga, 3);
-					table.setValueAt(qtls.getQuantitaDaAcquistare(), riga, 4);
+					table.setValueAt(Math.round(qtls.getQuantitaDaAcquistare()), riga, 4);
 				}
 			}
 		});

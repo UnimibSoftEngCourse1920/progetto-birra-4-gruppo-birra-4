@@ -129,11 +129,11 @@ public class CatalogoIngredienti {
 			Database.getIstanza().closeDB();
 			return Collections.emptyList();
 		}
-		Collection<Ingrediente> returnMap = getIngredientiDisponibiliHelper().values();
+		Collection<Ingrediente> returnMap = getIngredientiHelper().values();
 		Database.getIstanza().closeDB();
 		return returnMap;
 	}
-	
+	/*
 	//Ritorna una mappa di java che contiene tutti gli ingredienti disponibili nel catalogo
 	private SortedMap<String, Ingrediente> getIngredientiDisponibiliHelper() {
 		SortedMap<String, Ingrediente> returnMap = new TreeMap<>();
@@ -147,7 +147,7 @@ public class CatalogoIngredienti {
 		}
 		return returnMap;
 	}
-	
+	*/
 	public SortedMap<String, Ingrediente> getIngredienti() {
 		ingredienti = openMapDB();
 		SortedMap<String, Ingrediente> returnMap = getIngredientiHelper();
