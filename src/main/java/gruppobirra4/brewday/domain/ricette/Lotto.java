@@ -41,19 +41,23 @@ public class Lotto implements Serializable {
 		if (!validation(quantitaBirra)) {
 			return null;
 		}
+		ricetta = aggiornaQuantitaRicetta(quantitaBirra, ricetta);
 		return new Lotto(quantitaBirra, ricetta);		
 	}
 
-
 	private static boolean validation(String quantitaBirra) {
-		validateQuantitaBirra(quantitaBirra);
-		return false;
+		return validateQuantitaBirra(quantitaBirra);
 	}
 
 	private static boolean validateQuantitaBirra(String quantitaBirra) {
 		return !isStringaVuota(quantitaBirra, CAMPO_QUANTITA_BIRRA) &&
 				isNumber(quantitaBirra, CAMPO_QUANTITA_BIRRA) && 
-				isNotPositive(quantitaBirra, CAMPO_QUANTITA_BIRRA);
+				isPositive(quantitaBirra, CAMPO_QUANTITA_BIRRA);
+	}
+	
+	private static Ricetta aggiornaQuantitaRicetta(String quantitaBirra, Ricetta ricetta) {
+		ricetta.aggiornaQuantita(quantitaBirra);
+		return ricetta;
 	}
 
 	public String getId() {

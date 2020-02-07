@@ -38,11 +38,13 @@ public class RicettarioTest {
 		assertNotNull(ric);
 		assertEquals(2, r.getRicette().size());
 		
-		//Verifica conversione in valore assoluto
-		Ingrediente ingRic1 = ric.getIngredienteFromRicetta(ing1.getId());
+		//Verifica conversione in valore assoluto (quantita ingr e quantita acqua)
+		Ingrediente ingRic1 = ric.getIngredienteFromRicetta(ing1.getId()); //ingrediente in valore normale
 		SortedMap<String, Ricetta> ricettario = r.getRicette();
-		Ingrediente ingRic2 = ricettario.get(ric.getId()).getIngredienteFromRicetta(ing1.getId());
-		assertEquals(ingRic1.getQuantita()/ric.getQuantitaBirra(), ingRic2.getQuantita(), 0.001);
+		Ricetta ricDaRicettario = ricettario.get(ric.getId()); //Preleva la ricetta ric dal ricettario
+		Ingrediente ingRicdaRicettario = ricDaRicettario.getIngredienteFromRicetta(ing1.getId());  //ingr in val assoluto
+		assertEquals(ingRic1.getQuantita()/ric.getQuantitaBirra(), ingRicdaRicettario.getQuantita(), 0.001);
+		assertEquals(ric.getQuantitaAcqua()/ric.getQuantitaBirra(), ricDaRicettario.getQuantitaAcqua(), 0.01);
 		
 		//Ricetta già inserita
 		ric = r.creaRicetta("Giacomino's Beer", "Si', ma nulla di serio", ingredienti,"7", "11");

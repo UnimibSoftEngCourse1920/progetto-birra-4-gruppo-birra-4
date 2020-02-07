@@ -48,10 +48,10 @@ public class Ricetta implements Serializable {
 		}
 		if(id == null)
 			return new Ricetta(nome, descrizione, convertiQuantitaIngrInValoreAssoluto(ingredienti, quantitaBirra), 
-								quantitaAcqua, quantitaBirra);
+								convertiQuantitaAcquaInValoreAssoluto(quantitaAcqua, quantitaBirra), quantitaBirra);
 		else
 			return new Ricetta(id, nome, descrizione, convertiQuantitaIngrInValoreAssoluto(ingredienti, quantitaBirra),
-								quantitaAcqua, quantitaBirra);
+								convertiQuantitaAcquaInValoreAssoluto(quantitaAcqua, quantitaBirra), quantitaBirra);
 	}
 	
 	protected static boolean validation(String nome, Set<Ingrediente> ingredienti, String quantitaAcqua, String quantitaBirra) {
@@ -79,17 +79,22 @@ public class Ricetta implements Serializable {
 			return true;
 		}		
 		return isNumber(quantitaAcqua, "Quantita' acqua") 
-				&& isNotPositive(quantitaAcqua, "Quantita' acqua");
+				&& isPositive(quantitaAcqua, "Quantita' acqua");
 	}
 	
 	private static boolean validateQuantitaBirra(String quantitaBirra) {
 		return !isStringaVuota(quantitaBirra, "Quantita birra")
 				&& isNumber(quantitaBirra, "Quantita' birra") 
-				&& isNotPositive(quantitaBirra, "Quantita' birra");
+				&& isPositive(quantitaBirra, "Quantita' birra");
+	}
+	
+	public void aggiornaQuantita(String quantitaBirra) {
+		setQuantitaBirra(quantitaBirra);
+		convertiRicettaInValoreNormale();
 	}
 	
 	//Converte le quantita degli ingredienti in valore assoluto (grammi/litri)
-	public static Set<Ingrediente> convertiQuantitaIngrInValoreAssoluto(Set<Ingrediente> ingredienti, String quantitaBirra) {
+	private static Set<Ingrediente> convertiQuantitaIngrInValoreAssoluto(Set<Ingrediente> ingredienti, String quantitaBirra) {
 		for(Ingrediente ingr: ingredienti) {
 			convertiQuantitaInValoreAssoluto(ingr, convertToNumber(quantitaBirra));
 		}
@@ -99,6 +104,15 @@ public class Ricetta implements Serializable {
 	
 	private static void convertiQuantitaInValoreAssoluto(Ingrediente ingr, double quantitaBirra) {
 		ingr.setQuantita(Double.toString(ingr.getQuantita()/quantitaBirra));
+	}
+	
+	public static String convertiQuantitaAcquaInValoreAssoluto(String quantitaAcqua, String quantitaBirra) {
+		if (quantitaAcqua == null || quantitaAcqua.isEmpty()) {
+			return null;
+		}
+		double qAcqua = convertToNumber(quantitaAcqua);
+		double qBirra = convertToNumber(quantitaBirra);
+		return (Double.toString(qAcqua / qBirra));
 	}
 	
 	/*public Ricetta convertiRicettaInValoreAssoluto() {
@@ -114,15 +128,18 @@ public class Ricetta implements Serializable {
 	}*/
 	
 	//Converte le quantita degli ingredienti in valore "normale"
-	public Ricetta convertiRicettaInValoreNormale() {
+	public void convertiRicettaInValoreNormale() {
 		for (Ingrediente ingr: ingredienti) {
 			convertiQuantitaInValoreNormale(ingr);
 		}
-		return this;
+		if (Double.doubleToLongBits(quantitaAcqua) != Double.doubleToLongBits(0.0)) {
+			quantitaAcqua = Math.round(quantitaAcqua * quantitaBirra);
+		}
 	}
 	
 	private void convertiQuantitaInValoreNormale(Ingrediente ingr) {
-		ingr.setQuantita(Double.toString(ingr.getQuantita() * quantitaBirra));		
+		double quantitaIngr = Math.round(ingr.getQuantita() * quantitaBirra);
+		ingr.setQuantita(Double.toString(quantitaIngr));		
 	}
 	
 	public String getId() {
@@ -152,7 +169,6 @@ public class Ricetta implements Serializable {
 
 	private void setIngredienti(Set<Ingrediente> ingredienti) {
 		this.ingredienti = ingredienti;
-		//convertiRicettaInValoreAssoluto();
 	}
 
 	public double getQuantitaAcqua() {
@@ -176,7 +192,6 @@ public class Ricetta implements Serializable {
 		double quantitaB = convertToNumber(quantitaBirra);
 		this.quantitaBirra = quantitaB;
 	}
-	
 	
 	
 	/*private boolean checkIngredienti(String nome, String categoria) {

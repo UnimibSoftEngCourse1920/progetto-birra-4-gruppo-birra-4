@@ -106,10 +106,12 @@ public class CatalogoIngredienti {
 		}*/
 		Ingrediente ing = getIngredienteByNomeCategoria(ingrRicetta.getNome(), ingrRicetta.getCategoria());
 		if (ing != null && (int)Math.round(ing.getQuantita()) >= (int)Math.round(ingrRicetta.getQuantita()) ){
+			Database.getIstanza().closeDB();
 			return true;
 		}
 		Notifica.getIstanza().addError("L'ingrediente "+ "\"" + ingrRicetta.getCategoria() + " " + 
 										ingrRicetta.getNome() +	"\" non è disponibile nel catalogo");
+		Database.getIstanza().closeDB();
 		return false;		
 	}
 	
@@ -186,7 +188,8 @@ public class CatalogoIngredienti {
 		ingredienti = openMapDB();
 		Ingrediente ingr = getIngredienteByNomeCategoria(ingrRicetta.getNome(), ingrRicetta.getCategoria());
 		modificaIngrediente(ingr.getId(), ingr.getNome(), ingr.getCategoria(), 
-							Double.toString((int)Math.round(ingr.getQuantita() - ingrRicetta.getQuantita())));		
+							Double.toString(Math.round(ingr.getQuantita() - ingrRicetta.getQuantita())));
+		Database.getIstanza().closeDB();
 	}
 	
 	
