@@ -77,16 +77,23 @@ public class CatalogoTest {
 	public void testModificaIngrediente() {
 		CatalogoIngredienti c = CatalogoIngredienti.getIstanza();
 		Ingrediente ingr = c.creaIngrediente("San Michele", "Luppolo", "500");
+		String idIngr = ingr.getId();
 		
 		//Modifica corretta
-		Ingrediente ingrModificato = c.modificaIngrediente(ingr.getId(), "San Pippo", "Malto", "100");
+		Ingrediente ingrModificato = c.modificaIngrediente(idIngr, "San Pippo", "Malto", "100");
 		assertNotNull(ingrModificato);
-		Ingrediente ingredienteNellaLista = c.getIngredienti().get(ingr.getId());
+		Ingrediente ingredienteNellaLista = c.getIngredienteById(idIngr);
 		assertEquals(ingrModificato, ingredienteNellaLista);
+		assertEquals(ingrModificato.getQuantita(), ingredienteNellaLista.getQuantita(), 0.01);
+		
+		ingrModificato = c.modificaIngrediente(idIngr, "San Pippo", "Malto", "96");
+		assertNotNull(ingrModificato);
+		ingredienteNellaLista = c.getIngredienteById(idIngr);
+		assertEquals(ingrModificato, ingredienteNellaLista);
+		assertEquals(ingrModificato.getQuantita(), ingredienteNellaLista.getQuantita(), 0.01);
 		
 		//Modifica scorretta
-		ingr = ingrModificato;
-		ingrModificato = c.modificaIngrediente(ingr.getId(), "San Pippo", "Malto", "ciao");
+		ingrModificato = c.modificaIngrediente(idIngr, "San Pippo", "Malto", "ciao");
 		assertNull(ingrModificato);
 	}
 	

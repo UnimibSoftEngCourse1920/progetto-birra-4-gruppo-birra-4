@@ -23,7 +23,7 @@ public class InputUtente {
 		return false;
 	}
 	
-	public static boolean isNotPositive(String str, String field) {
+	public static boolean isPositive(String str, String field) {
 		double strNum = convertToNumber(str);
 		if(strNum < 0) {
 			Notifica.getIstanza().addError(CAMPO + field + "\" non può essere negativo");

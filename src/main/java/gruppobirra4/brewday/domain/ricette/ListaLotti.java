@@ -1,7 +1,11 @@
 package gruppobirra4.brewday.domain.ricette;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import org.mapdb.HTreeMap;
 import org.mapdb.Serializer;
@@ -37,7 +41,6 @@ public class ListaLotti {
 	
 	public Lotto creaLotto(String idRicetta, String quantitaBirra) {
 		Ricetta ricetta = getRicettaFromRicettario(idRicetta);
-		ricetta.convertiRicettaInValoreNormale();
 		Lotto lotto = Lotto.creaLotto(quantitaBirra, ricetta);
 	
 		if(lotto != null && aggiungiLotto(lotto)) {
@@ -48,13 +51,12 @@ public class ListaLotti {
 	}
 	
 	private boolean aggiungiLotto(Lotto lotto) {
-		lotti = openMapDB();
 		if(checkDisponibilitaIngredienti(lotto.getRicetta().getIngredienti())) {
+			lotti = openMapDB();
 			lotti.put(lotto.getId(), lotto);
 			Database.getIstanza().closeDB();
 			return true;
 		}
-		Database.getIstanza().closeDB();
 		return false;
 	}
 	
@@ -79,7 +81,7 @@ public class ListaLotti {
 		return r;
 	}
 
-	/*public Collection<Lotto> visualizzaListaLotti() {
+	public Collection<Lotto> visualizzaListaLotti() {
 		lotti = openMapDB();
 		if (lotti.isEmpty()) {
 			Database.getIstanza().closeDB();
@@ -88,20 +90,28 @@ public class ListaLotti {
 		Collection<Lotto> returnMap = getLottiHelper().values();
 		Database.getIstanza().closeDB();
 		return returnMap;
-	}*/
+	}
+	
+	public SortedMap<String, Lotto> getListaLotti() {
+		lotti = openMapDB();
+		SortedMap<String, Lotto> returnMap = getLottiHelper();
+		Database.getIstanza().closeDB();
+		return returnMap;
+	}
 	
 	//Ritorna una mappa di java che contiene tutti i lotti nella lista dei lotti
-	/*private SortedMap<String, Lotto> getLottiHelper() {
+	private SortedMap<String, Lotto> getLottiHelper() {
 		SortedMap<String, Lotto> returnMap = new TreeMap<>();
 		for (Lotto l : lotti.values()) {
 			returnMap.put(l.getId(), new Lotto(l.getId(),
 												l.getData(),
-												l.getNoteProblemi(),
 												l.getNoteGusto(),
-												l.getIdRicetta()));
+												l.getNoteProblemi(),
+												l.getQuantitaBirra(),
+												l.getRicetta()));
 		}
 		return returnMap;
-	}*/
+	}
 	
 
 

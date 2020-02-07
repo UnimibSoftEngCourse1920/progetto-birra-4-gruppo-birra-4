@@ -53,7 +53,7 @@ public class Ingrediente implements Serializable {
 	static boolean validateQuantita(String quantita) {
 		return !isStringaVuota(quantita, CAMPO_QUANTITA) && 
 				isNumber(quantita, CAMPO_QUANTITA) &&
-				isNotPositive(quantita, CAMPO_QUANTITA);	
+				isPositive(quantita, CAMPO_QUANTITA);	
 	}
 
 	public String getId() {
