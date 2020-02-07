@@ -81,7 +81,7 @@ public class Ricetta implements Serializable {
 				&& isPositive(quantitaAcqua, "Quantita' acqua");
 	}
 	
-	private static boolean validateQuantitaBirra(String quantitaBirra) {
+	public static boolean validateQuantitaBirra(String quantitaBirra) {
 		return !isStringaVuota(quantitaBirra, "Quantita birra")
 				&& isNumber(quantitaBirra, "Quantita' birra") 
 				&& isPositive(quantitaBirra, "Quantita' birra");
