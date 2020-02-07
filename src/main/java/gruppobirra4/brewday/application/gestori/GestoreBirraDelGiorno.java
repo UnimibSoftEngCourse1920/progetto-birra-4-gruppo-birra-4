@@ -1,4 +1,4 @@
-package gruppobirra4.brewday.application.gestori;
+package gruppobirra4.brewday.application.gestori; //NOSONAR
 
 import gruppobirra4.brewday.domain.ricette.Ricetta;
 import gruppobirra4.brewday.errori.Notifica;

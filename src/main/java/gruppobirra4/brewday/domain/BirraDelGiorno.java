@@ -1,6 +1,5 @@
-package gruppobirra4.brewday.domain;
+package gruppobirra4.brewday.domain; //NOSONAR
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Map.Entry;
 import java.util.TreeMap;
