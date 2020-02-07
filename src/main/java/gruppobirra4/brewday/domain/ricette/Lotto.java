@@ -1,4 +1,4 @@
-package gruppobirra4.brewday.domain.ricette;
+package gruppobirra4.brewday.domain.ricette; //NOSONAR
 
 import java.io.Serializable;
 import java.util.Date;

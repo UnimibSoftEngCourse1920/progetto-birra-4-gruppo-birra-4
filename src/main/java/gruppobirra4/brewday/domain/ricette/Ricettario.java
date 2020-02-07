@@ -79,9 +79,9 @@ public class Ricettario {
 			Database.getIstanza().closeDB();
 			return Collections.emptyList();
 		}
-		Collection<Ricetta> ricette = getRicetteHelper().values();
+		Collection<Ricetta> listaRicette = getRicetteHelper().values();
 		Database.getIstanza().closeDB();
-		return ricette;
+		return listaRicette;
 	}
 
 	public Ricetta visualizzaRicetta(String id) {
