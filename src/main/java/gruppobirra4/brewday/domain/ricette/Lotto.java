@@ -25,9 +25,10 @@ public class Lotto implements Serializable {
 		this.noteGusto = noteGusto;
 		this.noteProblemi = noteProblemi;
 		this.quantitaBirra = quantitaBirra;
+		this.ricetta = ricetta;
 	}
 	
-	protected Lotto(String quantitaBirra, Ricetta ricetta) {
+	private Lotto(String quantitaBirra, Ricetta ricetta) {
 		this.id = UUID.randomUUID().toString();
 		//this.idRicetta = idRicetta;
 		this.data = new Date();

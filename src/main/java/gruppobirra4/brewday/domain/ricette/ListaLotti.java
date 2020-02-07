@@ -7,6 +7,8 @@ import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+import javax.xml.crypto.Data;
+
 import org.mapdb.HTreeMap;
 import org.mapdb.Serializer;
 
@@ -39,15 +41,10 @@ public class ListaLotti {
 		return (HTreeMap<String, Lotto>) Database.getIstanza().openMapDB(TABLE_LOTTI);
 	}
 	
-	public Lotto creaLotto(String idRicetta, String quantitaBirra) {
-		Ricetta ricetta = getRicettaFromRicettario(idRicetta);
-		Lotto lotto = Lotto.creaLotto(quantitaBirra, ricetta);
-	
-		if(lotto != null && aggiungiLotto(lotto)) {
-			aggiornaCatalogo(lotto.getRicetta().getIngredienti());
-			return lotto;
+	private void aggiornaCatalogo(Set<Ingrediente> ingredientiRicetta) {
+		for (Ingrediente ingr: ingredientiRicetta) {
+			CatalogoIngredienti.getIstanza().aggiornaIngrCatalogo(ingr);			
 		}
-		return null;
 	}
 	
 	private boolean aggiungiLotto(Lotto lotto) {
@@ -69,27 +66,15 @@ public class ListaLotti {
 		return true; 
 	}
 	
-	private void aggiornaCatalogo(Set<Ingrediente> ingredientiRicetta) {
-		for (Ingrediente ingr: ingredientiRicetta) {
-			CatalogoIngredienti.getIstanza().aggiornaIngrCatalogo(ingr);			
-		}
-	}
+	public Lotto creaLotto(String idRicetta, String quantitaBirra) {
+		Ricetta ricetta = getRicettaFromRicettario(idRicetta);
+		Lotto lotto = Lotto.creaLotto(quantitaBirra, ricetta);
 	
-	private Ricetta getRicettaFromRicettario(String idRicetta) {
-		Ricetta r = Ricettario.getIstanza().getRicetta(idRicetta);
-		r.setDescrizione(""); //La descrizione non è necessaria
-		return r;
-	}
-
-	public Collection<Lotto> visualizzaListaLotti() {
-		lotti = openMapDB();
-		if (lotti.isEmpty()) {
-			Database.getIstanza().closeDB();
-			return Collections.emptyList();
+		if(lotto != null && aggiungiLotto(lotto)) {
+			aggiornaCatalogo(lotto.getRicetta().getIngredienti());
+			return lotto;
 		}
-		Collection<Lotto> returnMap = getLottiHelper().values();
-		Database.getIstanza().closeDB();
-		return returnMap;
+		return null;
 	}
 	
 	public SortedMap<String, Lotto> getListaLotti() {
@@ -112,6 +97,33 @@ public class ListaLotti {
 		}
 		return returnMap;
 	}
+	
+	private Ricetta getRicettaFromRicettario(String idRicetta) {
+		Ricetta r = Ricettario.getIstanza().getRicetta(idRicetta);
+		r.setDescrizione(""); //La descrizione non è necessaria
+		return r;
+	}
+	
+	public void rimuoviLotto(String idLotto) {
+		if (idLotto != null && !idLotto.isEmpty()) {
+			lotti = openMapDB();
+			lotti.remove(idLotto);
+			Database.getIstanza().closeDB();
+		}	
+	}
+	
+	public Collection<Lotto> visualizzaListaLotti() {
+		lotti = openMapDB();
+		if (lotti.isEmpty()) {
+			Database.getIstanza().closeDB();
+			return Collections.emptyList();
+		}
+		Collection<Lotto> returnMap = getLottiHelper().values();
+		Database.getIstanza().closeDB();
+		return returnMap;
+	}
+	
+	
 	
 
 
