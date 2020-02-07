@@ -22,7 +22,6 @@ public class JRicettario extends FrameVisibile {
 	private JFrame frmRicettario;
 	private JTable table; 
 	private DefaultTableModel dtm;
-	private JPanel panelBottoni;
 	
 	public JRicettario() {
 		frmRicettario = new JFrame();
@@ -53,6 +52,22 @@ public class JRicettario extends FrameVisibile {
 				}
 			}
 		});
+	}
+	
+	protected void initialize() {
+		frmRicettario.setTitle("Ricettario - Brew Day!");
+		frmRicettario.setBounds(100, 100, 968, 611);
+		frmRicettario.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmRicettario.getContentPane().setLayout(null);
+		
+		inserisciMenu();
+		
+		inserisciTabellaRicette();
+		
+		visualizzaRicettario();
+		
+		inserisciBottoni();
+		
 	}
 	
 	private void inserisciMenu() {
@@ -107,19 +122,19 @@ public class JRicettario extends FrameVisibile {
 	}
 
 	private void inserisciBottoni() {
-		panelBottoni = new JPanel();
+		JPanel panelBottoni = new JPanel();
 		panelBottoni.setBounds(660, 98, 191, 224);
 		frmRicettario.getContentPane().add(panelBottoni);
 		panelBottoni.setLayout(new GridLayout(3, 0, 15, 40));
 
-		inserisciBottoneApri();
+		inserisciBottoneApri(panelBottoni);
 		
-		inserisciBottoneAggiungi();
+		inserisciBottoneAggiungi(panelBottoni);
 
-		inserisciBottoneRimuovi();
+		inserisciBottoneRimuovi(panelBottoni);
 	}
 
-	private void inserisciBottoneApri() {
+	private void inserisciBottoneApri(JPanel panelBottoni) {
 		JButton btnApri = new JButton("Apri ricetta");
 		btnApri.addActionListener(event -> {
 			int riga = table.getSelectedRow();
@@ -135,7 +150,7 @@ public class JRicettario extends FrameVisibile {
 		panelBottoni.add(btnApri);
 	}
 	
-	private void inserisciBottoneAggiungi() {
+	private void inserisciBottoneAggiungi(JPanel panelBottoni) {
 		JButton btnAggiungi = new JButton("Aggiungi");
 		btnAggiungi.addActionListener(event -> {
 			frmRicettario.dispose();
@@ -144,7 +159,7 @@ public class JRicettario extends FrameVisibile {
 		panelBottoni.add(btnAggiungi);
 	}
 	
-	private void inserisciBottoneRimuovi() {
+	private void inserisciBottoneRimuovi(JPanel panelBottoni) {
 		JButton btnRimuovi = new JButton("Rimuovi");
 		btnRimuovi.addActionListener(event -> {
 			int riga = table.getSelectedRow();
@@ -157,22 +172,6 @@ public class JRicettario extends FrameVisibile {
 			}
 		});
 		panelBottoni.add(btnRimuovi);
-	}
-	
-	protected void initialize() {
-		frmRicettario.setTitle("Ricettario - Brew Day!");
-		frmRicettario.setBounds(100, 100, 968, 611);
-		frmRicettario.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmRicettario.getContentPane().setLayout(null);
-		
-		inserisciMenu();
-		
-		inserisciTabellaRicette();
-		
-		visualizzaRicettario();
-		
-		inserisciBottoni();
-		
 	}
 
 
