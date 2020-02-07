@@ -78,7 +78,19 @@ public class ListaSpesa {
 			return null;
 		}
 	}
-	
+	/*
+	private void checkLista(String id) {
+		if (lista.isEmpty()) {
+			return false;
+		}
+		for (Ingrediente i : lista.values()) {
+			if((i.getNome().equals(nome)) && (i.getCategoria().equals(categoria)) && (!(i.getId().equals(id))))
+				return true;
+		}
+		return false;
+		
+	}
+	*/
 	public void rimuoviIngrediente(String id) {
 		lista = openMapDB();
 		if(lista.containsKey(id)) {

@@ -269,9 +269,9 @@ public class JListaSpesa extends FrameVisibile{
 			String tempId = id;
 			if (tempId != null && riga != -1 && GestoreListaSpesa.getIstanza().rimuoviIngrediente(tempId)) {
 				((DefaultTableModel) table.getModel()).removeRow(riga);
-				if (table.getRowCount() != 0) {
-					table.setRowSelectionInterval(table.getRowCount()-1, table.getRowCount()-1);
-				}
+				//if (table.getRowCount() != 0) {
+					//table.setRowSelectionInterval(table.getRowCount()-1, table.getRowCount()-1);
+				//}
 				id = null;
 			}
 		});
