@@ -9,6 +9,7 @@ import org.mapdb.HTreeMap;
 import org.mapdb.Serializer;
 
 import gruppobirra4.brewday.database.Database;
+import gruppobirra4.brewday.errori.Notifica;
 
 public class ListaSpesa {
 	
@@ -58,6 +59,13 @@ public class ListaSpesa {
 
 	public QuantitaListaSpesa aggiungiIngrediente(String nome, String categoria, String quantita) {
 		Ingrediente tempIng = Ingrediente.creaIngrediente("", nome, categoria, quantita);
+		if(tempIng == null || Double.parseDouble(quantita) == 0) {
+			if(Double.parseDouble(quantita) == 0) {
+				Notifica.getIstanza().addError("Il campo \" Quantita \" deve essere un numero positivo");
+			}			
+			Database.getIstanza().closeDB();
+			return null;
+		}
 		Ingrediente ing = CatalogoIngredienti.getIstanza().checkCatalogoPerSpesa(tempIng.getNome(), tempIng.getCategoria());
 
 		if(ing != null) {	
@@ -85,6 +93,11 @@ public class ListaSpesa {
 			Database.getIstanza().closeDB();
 			return null;
 		}
+		if(Double.parseDouble(quantita) == 0) {
+			Notifica.getIstanza().addError("Il campo \" Quantita \" deve essere un numero positivo");
+			Database.getIstanza().closeDB();
+			return null;
+		}		
 		lista.replace(id, Double.parseDouble(quantita));
 		Database.getIstanza().closeDB();
 		return new QuantitaListaSpesa(CatalogoIngredienti.getIstanza().getIngredienteById(id),
