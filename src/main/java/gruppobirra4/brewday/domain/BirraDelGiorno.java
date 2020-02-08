@@ -35,7 +35,11 @@ public class BirraDelGiorno {
 		for (Ricetta r: ricette.values()) {
 			valori.put(r.getId(), calcolaDifferenza(catalogo, r, Double.parseDouble(quantitaBirra)));
 		}
-		return ricette.get(trovaValoreMax(valori));
+		Ricetta risultato = ricette.get(trovaValoreMax(valori));
+		if(risultato == null) {
+			Notifica.getIstanza().addError("Nessuna ricetta producibile");
+		}
+		return risultato;
 		
 		
 	}
