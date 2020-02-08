@@ -147,24 +147,6 @@ public class Ricettario {
 		Ricetta r = ricette.get(idRicetta);
 		Database.getIstanza().closeDB();
 		return r;
-	}
-	
-	
-	/*
-	private Ricetta getRicettaFromRicettario(String id) {
-		ricette = openMapDB();
-		for (Ricetta r: ricette.values()) {
-			if((r.getId().equals(id))) {
-			Database.getIstanza().closeDB();
-				return r;
-			}
-		}
-		Database.getIstanza().closeDB();
-		return null;
-	}
-	*/
-	
-	
-	
+	}	
 	
 }
