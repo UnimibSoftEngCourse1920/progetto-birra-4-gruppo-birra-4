@@ -32,6 +32,11 @@ public class BirraDelGiorno {
 			return null;
 		}
 		SortedMap<String, Ingrediente> catalogo = CatalogoIngredienti.getIstanza().getIngredienti();
+		if(catalogo.isEmpty()) {
+			Database.getIstanza().closeDB();
+			Notifica.getIstanza().addError("Non ci sono ingredienti nel catalogo");
+			return null;
+		}
 		for (Ricetta r: ricette.values()) {
 			valori.put(r.getId(), calcolaDifferenza(catalogo, r, Double.parseDouble(quantitaBirra)));
 		}
@@ -69,10 +74,13 @@ public class BirraDelGiorno {
 				max = entry.getValue();
 			}
 		}
+		if(max == Double.MAX_VALUE) {
+			return null;
+		}
 		return key;
 	}
 	
-	public static Ingrediente getIngredienteByNomeCategoria(SortedMap<String, Ingrediente> catalogo, String nome, String categoria) {
+	private static Ingrediente getIngredienteByNomeCategoria(SortedMap<String, Ingrediente> catalogo, String nome, String categoria) {
 		for (Ingrediente ing : catalogo.values()) {
 			if((ing.getNome().equals(nome)) && (ing.getCategoria().equals(categoria))) {
 				return ing;

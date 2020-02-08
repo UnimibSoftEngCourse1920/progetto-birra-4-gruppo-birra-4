@@ -2,6 +2,7 @@ package gruppobirra4.brewday;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -30,6 +31,9 @@ public class BirraDelGiornoTest {
 		ingredientiRicetta1.add(ing3);
 		Ricetta ricetta1 = r.creaRicetta("American Pale Ale", "bla bla bla", ingredientiRicetta1, "17", "18");
 		assertNotNull(ricetta1);
+		Ricetta risultato = BirraDelGiorno.calcolaBirraDelGiorno("18");
+		assertNull(risultato);
+		
 		
 		Set<Ingrediente> ingredientiRicetta2 = new HashSet<>();
 		Ingrediente ing4 = Ingrediente.creaIngrediente(null, "Pils", "MALTO", "2100");
@@ -69,7 +73,7 @@ public class BirraDelGiornoTest {
 		c.creaIngrediente("Wheat", "MALTO", "4500");
 		c.creaIngrediente("Hattertauer", "LUPPOLO", "50");
 		
-		Ricetta risultato = BirraDelGiorno.calcolaBirraDelGiorno("18");
+		risultato = BirraDelGiorno.calcolaBirraDelGiorno("18");
 		assertNotNull(risultato);
 		assertEquals(ricetta1.getId(), risultato.getId());
 		
