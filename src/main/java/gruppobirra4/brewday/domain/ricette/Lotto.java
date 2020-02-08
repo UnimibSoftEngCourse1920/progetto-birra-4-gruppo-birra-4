@@ -17,28 +17,25 @@ public class Lotto implements Serializable {
 	private String data;
 	private String noteGusto;
 	private String noteProblemi;
-	private String quantitaBirra;
 	private Ricetta ricetta;
 	
 	public static final String CAMPO_QUANTITA_BIRRA = "Quantita di birra da produrre";
 	
-	protected Lotto(String id, String data, String noteGusto, String noteProblemi, String quantitaBirra, Ricetta ricetta) {
+	protected Lotto(String id, String data, String noteGusto, String noteProblemi, Ricetta ricetta) {
 		this.id = id;
 		//this.idRicetta = idRicetta;
 		this.data = data;
 		this.noteGusto = noteGusto;
 		this.noteProblemi = noteProblemi;
-		this.quantitaBirra = quantitaBirra;
 		this.ricetta = ricetta;
 	}
 	
-	private Lotto(String quantitaBirra, Ricetta ricetta) {
+	private Lotto(Ricetta ricetta) {
 		this.id = UUID.randomUUID().toString();
 		//this.idRicetta = idRicetta;
 		setDate();
 		this.noteGusto = "";
 		this.noteProblemi = "";
-		this.quantitaBirra = quantitaBirra;
 		this.ricetta = ricetta;
 	}
 	
@@ -47,7 +44,7 @@ public class Lotto implements Serializable {
 			return null;
 		}
 		ricetta = aggiornaQuantitaRicetta(quantitaBirra, ricetta);
-		return new Lotto(quantitaBirra, ricetta);		
+		return new Lotto(ricetta);		
 	}
 
 	private static boolean validation(String quantitaBirra) {
@@ -87,10 +84,6 @@ public class Lotto implements Serializable {
 	
 	public String getNoteProblemi() {
 		return noteProblemi;
-	}
-	
-	public String getQuantitaBirra() {
-		return quantitaBirra;
 	}
 	
 	public Ricetta getRicetta() {

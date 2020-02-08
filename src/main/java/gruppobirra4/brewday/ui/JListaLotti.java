@@ -8,8 +8,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import gruppobirra4.brewday.application.gestori.GestoreListaSpesa;
 import gruppobirra4.brewday.application.gestori.GestoreLotti;
 import gruppobirra4.brewday.application.gestori.GestoreRicette;
+import gruppobirra4.brewday.database.Database;
 import gruppobirra4.brewday.domain.ricette.Lotto;
 import gruppobirra4.brewday.domain.ricette.Ricetta;
 import gruppobirra4.brewday.errori.Notifica;
@@ -166,12 +168,14 @@ public class JListaLotti extends FrameVisibile {
 		btnCreaLotto.setBounds(370, 11, 137, 54);
 		panelCreazioneLotto.add(btnCreaLotto);
 		btnCreaLotto.addActionListener(event -> {
-			String nomeRicetta = (String) comboBoxRicette.getSelectedItem();
-			String quantitaBirra = textFieldQuantitaBirra.getText();
-			Lotto l = GestoreLotti.getIstanza().creaLotto(nomeRicetta, quantitaBirra);
-			if (l != null ) {
-				frmListaLotti.dispose();
-				JLotto.esegui(l.getId(), l.getNomeRicetta());
+			if (comboBoxRicette.getItemCount() != 0) {
+				String nomeRicetta = (String) comboBoxRicette.getSelectedItem();
+				String quantitaBirra = textFieldQuantitaBirra.getText();
+				Lotto lotto = GestoreLotti.getIstanza().creaLotto(nomeRicetta, quantitaBirra);
+				if (lotto != null ) {
+					frmListaLotti.dispose();
+					JLotto.esegui(lotto);
+				}
 			}
 		});		
 	}
@@ -183,13 +187,12 @@ public class JListaLotti extends FrameVisibile {
 		
 		btnApri.addActionListener(event -> {
 			int riga = table.getSelectedRow();
-			String id = null;
-			String nomeRicetta = null;
+			String idLotto = null;
 			if (riga != -1) {
-				id = (String) table.getValueAt(riga, 0);
-				nomeRicetta = (String) table.getValueAt(riga, 2);
+				idLotto = (String) table.getValueAt(riga, 0);
+				Lotto lotto = GestoreLotti.getIstanza().visualizzaLotto(idLotto);
 				frmListaLotti.dispose();
-				//JLotto.esegui(id, nomeRicetta);
+				JLotto.esegui(lotto);
 			}
 		});
 	}

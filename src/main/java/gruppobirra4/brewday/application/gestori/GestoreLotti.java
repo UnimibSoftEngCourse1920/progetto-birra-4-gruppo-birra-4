@@ -50,10 +50,25 @@ public class GestoreLotti {
 			}
 			return lotti;
 		} catch (Exception e) {
-			e.printStackTrace();
-			//Notifica.getIstanza().svuotaNotificheErrori();
-			//Notifica.getIstanza().notificaEccezione(e);
+			Notifica.getIstanza().svuotaNotificheErrori();
+			Notifica.getIstanza().notificaEccezione(e);
 			return Collections.emptyList();
+		}
+	}
+	
+	public Lotto visualizzaLotto(String idLotto) {
+		try {
+			Lotto lotto = ListaLotti.getIstanza().visualizzaLotto(idLotto);
+			if (Notifica.getIstanza().hasErrors()) {
+				Notifica.getIstanza().notificaErrori();
+				Notifica.getIstanza().svuotaNotificheErrori();
+				return null;
+			}
+			return lotto;
+		} catch (Exception e) {
+			Notifica.getIstanza().svuotaNotificheErrori();
+			Notifica.getIstanza().notificaEccezione(e);
+			return null;
 		}
 	}
 	

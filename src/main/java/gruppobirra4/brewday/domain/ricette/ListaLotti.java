@@ -90,7 +90,6 @@ public class ListaLotti {
 												l.getData(),
 												l.getNoteGusto(),
 												l.getNoteProblemi(),
-												l.getQuantitaBirra(),
 												l.getRicetta()));
 		}
 		return returnMap;
@@ -119,6 +118,13 @@ public class ListaLotti {
 		Collection<Lotto> returnMap = getLottiHelper().values();
 		Database.getIstanza().closeDB();
 		return returnMap;
+	}
+	
+	public Lotto visualizzaLotto(String idLotto) {
+		lotti = openMapDB();
+		Lotto lotto = lotti.get(idLotto);
+		Database.getIstanza().closeDB();
+		return lotto;
 	}
 	
 	

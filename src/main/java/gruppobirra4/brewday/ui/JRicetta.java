@@ -397,7 +397,7 @@ public class JRicetta extends FrameVisibile{
 	private void visualizzaRicetta() {
 		if (idRicetta != null) {
 			Ricetta ricetta= GestoreRicette.getIstanza().visualizzaRicetta(idRicetta);
-			if (ricetta != null) { //Se il catalogo non è vuoto
+			if (ricetta != null) { //Se il ricettario non è vuoto
 				textFieldNomeRicetta.setText(ricetta.getNome());
 				textQuantitaAcqua.setText(Double.toString(DecimalUtils.round(ricetta.getQuantitaAcqua(), 1)));
 				textQuantitaBirra.setText(Double.toString(DecimalUtils.round(ricetta.getQuantitaBirra(), 1)));
