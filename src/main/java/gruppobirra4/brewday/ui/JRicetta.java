@@ -12,6 +12,7 @@ import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
 
 import gruppobirra4.brewday.application.gestori.GestoreRicette;
+import gruppobirra4.brewday.domain.DecimalUtils;
 import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
 import gruppobirra4.brewday.domain.ricette.Ricetta;
 import gruppobirra4.brewday.errori.Notifica;
@@ -78,6 +79,7 @@ public class JRicetta extends FrameVisibile{
 		});
 	}
 	
+	@Override
 	protected void initialize() {
 		if (idRicetta == null) {
 			frmRicetta.setTitle("Creazione nuova ricetta - Brew Day!");
@@ -397,8 +399,8 @@ public class JRicetta extends FrameVisibile{
 			Ricetta ricetta= GestoreRicette.getIstanza().visualizzaRicetta(idRicetta);
 			if (ricetta != null) { //Se il catalogo non è vuoto
 				textFieldNomeRicetta.setText(ricetta.getNome());
-				textQuantitaAcqua.setText(Double.toString(ricetta.getQuantitaAcqua()));
-				textQuantitaBirra.setText(Double.toString(ricetta.getQuantitaBirra()));
+				textQuantitaAcqua.setText(Double.toString(DecimalUtils.round(ricetta.getQuantitaAcqua(), 1)));
+				textQuantitaBirra.setText(Double.toString(DecimalUtils.round(ricetta.getQuantitaBirra(), 1)));
 				textAreaDescrizione.setText(ricetta.getDescrizione());
 				
 				Set<Ingrediente> ingredienti = ricetta.getIngredienti();

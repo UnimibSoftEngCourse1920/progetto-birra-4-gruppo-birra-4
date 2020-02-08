@@ -1,4 +1,4 @@
-package gruppobirra4.brewday.domain.ricette;
+package gruppobirra4.brewday.domain.ricette; //NOSONAR
 
 import java.util.Collection;
 import java.util.Collections;
@@ -66,8 +66,8 @@ public class ListaLotti {
 		return true; 
 	}
 	
-	public Lotto creaLotto(String idRicetta, String quantitaBirra) {
-		Ricetta ricetta = getRicettaFromRicettario(idRicetta);
+	public Lotto creaLotto(String nomeRicetta, String quantitaBirra) {
+		Ricetta ricetta = getRicettaFromRicettario(nomeRicetta);
 		Lotto lotto = Lotto.creaLotto(quantitaBirra, ricetta);
 	
 		if(lotto != null && aggiungiLotto(lotto)) {
@@ -98,8 +98,8 @@ public class ListaLotti {
 		return returnMap;
 	}
 	
-	private Ricetta getRicettaFromRicettario(String idRicetta) {
-		Ricetta r = Ricettario.getIstanza().getRicetta(idRicetta);
+	private Ricetta getRicettaFromRicettario(String nomeRicetta) {
+		Ricetta r = Ricettario.getIstanza().getRicettaByNome(nomeRicetta);
 		r.setDescrizione(""); //La descrizione non è necessaria
 		return r;
 	}

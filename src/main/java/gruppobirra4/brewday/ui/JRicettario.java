@@ -54,6 +54,7 @@ public class JRicettario extends FrameVisibile {
 		});
 	}
 	
+	@Override
 	protected void initialize() {
 		frmRicettario.setTitle("Ricettario - Brew Day!");
 		frmRicettario.setBounds(100, 100, 968, 611);

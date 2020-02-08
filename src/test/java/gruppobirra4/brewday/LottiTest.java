@@ -37,8 +37,7 @@ public class LottiTest {
 		Ricetta ric1 = r.creaRicetta("Giovanni's beer", "cioè, si sta ribaltando la situazione", ingredienti, "30", "23");
 		
 		//Creazione lotto1 
-		String idRicetta1 = ric1.getId();
-		Lotto lotto1 = l.creaLotto(idRicetta1, "40"); //Quantita ingr e acqua necessari: i1: 348, i2: 87, acqua: 52
+		Lotto lotto1 = l.creaLotto(ric1.getNome(), "40"); //Quantita ingr e acqua necessari: i1: 348, i2: 87, acqua: 52
 		assertNotNull(lotto1);
 		Collection<Lotto> listaLotti = l.visualizzaListaLotti();
 		assertEquals(1, listaLotti.size());
@@ -58,8 +57,7 @@ public class LottiTest {
 		Ricetta ric2 = r.creaRicetta("Amadeus's beer", "dirige l'orchestra il Maestro Beppe Vessichio!!", ingredienti, null, "23");
 		
 		//Creazione lotto2 - Ingredienti in catalogo non sufficienti
-		String idRicetta2 = ric2.getId();
-		Lotto lotto2 = l.creaLotto(idRicetta2, "40"); //Quantita ingr e acqua necessari: i3: 35
+		Lotto lotto2 = l.creaLotto(ric2.getNome(), "40"); //Quantita ingr e acqua necessari: i3: 35
 		assertNull(lotto2);
 		assertEquals(1, listaLotti.size());
 		
@@ -70,8 +68,7 @@ public class LottiTest {
 		Ricetta ric3 = r.creaRicetta("Giangilberto's beer", "ciao", ingredienti, null, "23");
 		
 		//Creazione lotto3 - Ingredienti in catalogo non presenti
-		String idRicetta3 = ric3.getId();
-		Lotto lotto3 = l.creaLotto(idRicetta3, "40"); //Quantita ingr e acqua necessari: i4: 14
+		Lotto lotto3 = l.creaLotto(ric3.getNome(), "40"); //Quantita ingr e acqua necessari: i4: 14
 		assertNull(lotto3);
 		assertEquals(1, listaLotti.size());
 				

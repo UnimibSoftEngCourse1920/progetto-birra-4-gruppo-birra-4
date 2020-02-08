@@ -63,6 +63,7 @@ public class JListaSpesa extends FrameVisibile{
 		});
 	}
 	
+	@Override
 	protected void initialize() {
 		frmListaSpesa.setTitle("Lista della spesa - Brew Day!");
 		frmListaSpesa.setBounds(100, 100, 968, 611);
@@ -111,7 +112,7 @@ public class JListaSpesa extends FrameVisibile{
 		if (!listaSpesa.isEmpty()) { //Se il catalogo non è vuoto
 			for (QuantitaListaSpesa ingr: listaSpesa) {
 				dtm.addRow(new Object[] {ingr.getIngrediente().getId(), ingr.getIngrediente().getCategoria(), ingr.getIngrediente().getNome(), 
-							Integer.toString((int) Math.round(ingr.getIngrediente().getQuantita())), Math.round(ingr.getQuantitaDaAcquistare())});
+							Integer.toString((int) Math.round(ingr.getIngrediente().getQuantita())), Integer.toString((int) Math.round(ingr.getQuantitaDaAcquistare()))});
 			}
 		}
 	}
@@ -183,7 +184,7 @@ public class JListaSpesa extends FrameVisibile{
             	id = (String) table.getValueAt(riga, 0);
             	comboBoxCategoriaIngr.setSelectedItem((String) table.getValueAt(riga, 1));
             	textFieldNomeIngr.setText((String) table.getValueAt(riga, 2));
-            	textFieldQuantitaIngr.setText((String) table.getValueAt(riga, 3));
+            	textFieldQuantitaIngr.setText((String) table.getValueAt(riga, 4));
             }
 		});
 	}

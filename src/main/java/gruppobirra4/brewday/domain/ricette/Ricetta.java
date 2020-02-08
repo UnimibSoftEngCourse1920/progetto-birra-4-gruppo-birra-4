@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-
+import gruppobirra4.brewday.domain.DecimalUtils;
 import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
 import gruppobirra4.brewday.errori.Notifica;
 import static gruppobirra4.brewday.domain.InputUtente.*;
@@ -133,7 +133,7 @@ public class Ricetta implements Serializable {
 			convertiQuantitaInValoreNormale(ingr);
 		}
 		if (Double.doubleToLongBits(quantitaAcqua) != Double.doubleToLongBits(0.0)) {
-			quantitaAcqua = Math.round(quantitaAcqua * quantitaBirra);
+			quantitaAcqua = DecimalUtils.round(quantitaAcqua * quantitaBirra, 1);
 		}
 	}
 	

@@ -142,13 +142,25 @@ public class Ricettario {
 		return returnMap;
 	}
 
-	public Ricetta getRicetta(String idRicetta) {
+	//Serve?????????????????
+	public Ricetta getRicettaById(String idRicetta) {
 		ricette = openMapDB();
 		Ricetta r = ricette.get(idRicetta);
 		Database.getIstanza().closeDB();
 		return r;
 	}
 	
+	public Ricetta getRicettaByNome(String nomeRicetta) {
+		ricette = openMapDB();
+		for (Ricetta r: ricette.values()) {
+			if (r.getNome().equals(nomeRicetta)) {
+				Database.getIstanza().closeDB();
+				return r;
+			}
+		}
+		Database.getIstanza().closeDB();
+		return null;
+	}
 	
 	/*
 	private Ricetta getRicettaFromRicettario(String id) {

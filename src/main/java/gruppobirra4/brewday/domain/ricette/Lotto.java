@@ -1,7 +1,11 @@
-package gruppobirra4.brewday.domain.ricette;
+package gruppobirra4.brewday.domain.ricette; //NOSONAR
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 import java.util.UUID;
 import static gruppobirra4.brewday.domain.InputUtente.*;
 
@@ -10,7 +14,7 @@ public class Lotto implements Serializable {
 	
 	private String id;
 	//private String idRicetta;
-	private Date data;
+	private String data;
 	private String noteGusto;
 	private String noteProblemi;
 	private String quantitaBirra;
@@ -18,7 +22,7 @@ public class Lotto implements Serializable {
 	
 	public static final String CAMPO_QUANTITA_BIRRA = "Quantita di birra da produrre";
 	
-	protected Lotto(String id, Date data, String noteGusto, String noteProblemi, String quantitaBirra, Ricetta ricetta) {
+	protected Lotto(String id, String data, String noteGusto, String noteProblemi, String quantitaBirra, Ricetta ricetta) {
 		this.id = id;
 		//this.idRicetta = idRicetta;
 		this.data = data;
@@ -31,7 +35,7 @@ public class Lotto implements Serializable {
 	private Lotto(String quantitaBirra, Ricetta ricetta) {
 		this.id = UUID.randomUUID().toString();
 		//this.idRicetta = idRicetta;
-		this.data = new Date();
+		setDate();
 		this.noteGusto = "";
 		this.noteProblemi = "";
 		this.quantitaBirra = quantitaBirra;
@@ -69,10 +73,14 @@ public class Lotto implements Serializable {
 		return idRicetta;
 	}*/
 
-	public Date getData() {
+	public String getData() {
 		return data;
 	}
 
+	public String getNomeRicetta() {
+		return ricetta.getNome();
+	}
+	
 	public String getNoteGusto() {
 		return noteGusto;
 	}
@@ -87,6 +95,13 @@ public class Lotto implements Serializable {
 	
 	public Ricetta getRicetta() {
 		return ricetta;
+	}
+	
+	private void setDate() {
+		Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"),Locale.ITALY);
+		Date today = calendar.getTime();
+		DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
+		this.data = dateFormat.format(today);
 	}
 	
 	

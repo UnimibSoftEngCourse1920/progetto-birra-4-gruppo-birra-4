@@ -65,6 +65,7 @@ public class JCatalogo extends FrameVisibile{
 		});
 	}
 	
+	@Override
 	protected void initialize() {
 		frmCatalogoIngredienti.setTitle("Catalogo ingredienti - Brew Day!");
 		frmCatalogoIngredienti.setBounds(100, 100, 968, 611);
