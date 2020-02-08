@@ -1,7 +1,6 @@
 package gruppobirra4.brewday.domain.ricette; //NOSONAR
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -82,7 +81,7 @@ public class Ricetta implements Serializable {
 				&& isPositive(quantitaAcqua, "Quantita' acqua");
 	}
 	
-	private static boolean validateQuantitaBirra(String quantitaBirra) {
+	public static boolean validateQuantitaBirra(String quantitaBirra) {
 		return !isStringaVuota(quantitaBirra, "Quantita birra")
 				&& isNumber(quantitaBirra, "Quantita' birra") 
 				&& isPositive(quantitaBirra, "Quantita' birra");

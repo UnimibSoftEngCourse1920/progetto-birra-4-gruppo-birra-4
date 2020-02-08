@@ -79,9 +79,9 @@ public class Ricettario {
 			Database.getIstanza().closeDB();
 			return Collections.emptyList();
 		}
-		Collection<Ricetta> ricette = getRicetteHelper().values();
+		Collection<Ricetta> listaRicette = getRicetteHelper().values();
 		Database.getIstanza().closeDB();
-		return ricette;
+		return listaRicette;
 	}
 
 	public Ricetta visualizzaRicetta(String id) {
@@ -162,21 +162,10 @@ public class Ricettario {
 		return null;
 	}
 	
-	/*
-	private Ricetta getRicettaFromRicettario(String id) {
-		ricette = openMapDB();
-		for (Ricetta r: ricette.values()) {
-			if((r.getId().equals(id))) {
-			Database.getIstanza().closeDB();
-				return r;
-			}
-		}
-		Database.getIstanza().closeDB();
-		return null;
-	}
-	*/
-	
-	
-	
-	
 }
+	
+	
+	
+	
+	
+

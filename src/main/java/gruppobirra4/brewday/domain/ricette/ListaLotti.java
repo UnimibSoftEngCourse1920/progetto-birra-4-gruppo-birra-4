@@ -7,8 +7,6 @@ import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-import javax.xml.crypto.Data;
-
 import org.mapdb.HTreeMap;
 import org.mapdb.Serializer;
 
