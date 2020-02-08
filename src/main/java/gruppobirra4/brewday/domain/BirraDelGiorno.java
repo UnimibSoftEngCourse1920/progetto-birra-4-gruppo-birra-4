@@ -23,10 +23,6 @@ public class BirraDelGiorno {
 		super();
 	}
 	
-	private static HTreeMap<String, Ricetta> openMapDB() {
-		return (HTreeMap<String, Ricetta>) Database.getIstanza().openMapDB("CatalogoIngredienti");
-	}
-	
 	public static Ricetta calcolaBirraDelGiorno(String quantitaBirra) {
 		if(!(Ricetta.validateQuantitaBirra(quantitaBirra))) {
 			return null;
