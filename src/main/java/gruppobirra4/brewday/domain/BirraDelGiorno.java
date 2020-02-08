@@ -5,8 +5,6 @@ import java.util.Map.Entry;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-import org.mapdb.HTreeMap;
-
 import gruppobirra4.brewday.database.Database;
 import gruppobirra4.brewday.domain.ingredienti.CatalogoIngredienti;
 import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
