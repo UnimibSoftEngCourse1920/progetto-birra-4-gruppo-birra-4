@@ -31,18 +31,12 @@ public class JRicetta extends FrameVisibile{
 	private String idIngrediente = null;
 	private String idRicetta;
 	private String nomeRicetta;
-	private JPanel panelInserimentoIngr;
 	private JTable table;
 	private DefaultTableModel dtm;
-	private JPanel panelIngr; 
-	private JPanel panelGestioneIngr;
 	
 	private JComboBox comboBoxCategoriaIngr;
 	private JTextField textFieldNomeIngr;
 	private JTextField textFieldQuantitaIngr;
-	
-	private JPanel panelBottoniIngr;
-	private JPanel panelQuantita;
 	
 	private JTextField textFieldNomeRicetta;
 	private JTextField textQuantitaAcqua;
@@ -133,20 +127,26 @@ public class JRicetta extends FrameVisibile{
 		lblInserimentoIngredienti.setBounds(10, 77, 144, 14);
 		frmRicetta.getContentPane().add(lblInserimentoIngredienti);
 		
-		panelInserimentoIngr = new JPanel();
+		JPanel panelInserimentoIngr = new JPanel();
 		panelInserimentoIngr.setBorder(new LineBorder(new Color(192, 192, 192)));
 		panelInserimentoIngr.setBounds(10, 96, 932, 281);
 		frmRicetta.getContentPane().add(panelInserimentoIngr);
 		panelInserimentoIngr.setLayout(null);
 		
-		inserisciTabellaIngredienti();
-		inserisciGestioneIngrediente();
+		inserisciTabellaIngredienti(panelInserimentoIngr);
+		
+		JPanel panelIngr = new JPanel();
+		panelIngr.setBounds(579, 11, 343, 265);
+		panelInserimentoIngr.add(panelIngr);
+		panelIngr.setLayout(null);
+		
+		inserisciGestioneIngrediente(panelIngr);
 		addListenerSelezioneRiga();
-		inserisciBottoniIngr();
+		inserisciBottoniIngr(panelIngr);
 		
 	}
 	
-	private void inserisciTabellaIngredienti() {
+	private void inserisciTabellaIngredienti(JPanel panelInserimentoIngr) {
 		/*JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(0, 0, 561, 281);
 		table = new JTable();
@@ -176,24 +176,19 @@ public class JRicetta extends FrameVisibile{
 		panelInserimentoIngr.add(scrollPane);		
 	}
 	
-	private void inserisciGestioneIngrediente() {
-		panelIngr = new JPanel();
-		panelIngr.setBounds(579, 11, 343, 265);
-		panelInserimentoIngr.add(panelIngr);
-		panelIngr.setLayout(null);
-
-		panelGestioneIngr = new JPanel();
+	private void inserisciGestioneIngrediente(JPanel panelIngr) {
+		JPanel panelGestioneIngr = new JPanel();
 		panelGestioneIngr.setBounds(0, 0, 223, 265);
 		panelIngr.add(panelGestioneIngr);
 		panelGestioneIngr.setLayout(new GridLayout(6, 1, 10, 0));
 
-		inserisciCategoriaIngr();
-		inserisciNomeIngr();
-		inserisciQuantitaIngr();
+		inserisciCategoriaIngr(panelGestioneIngr);
+		inserisciNomeIngr(panelGestioneIngr);
+		inserisciQuantitaIngr(panelGestioneIngr);
 					
 	}
 
-	private void inserisciCategoriaIngr() {
+	private void inserisciCategoriaIngr(JPanel panelGestioneIngr) {
 		/*JLabel lblCategoriaIngr = new JLabel("Categoria:");
 		panelGestioneIngr.add(lblCategoriaIngr);
 
@@ -206,7 +201,7 @@ public class JRicetta extends FrameVisibile{
 		comboBoxCategoriaIngr = pannelloIngr.getComboBoxCategoriaIngr();
 	}
 	
-	private void inserisciNomeIngr() {
+	private void inserisciNomeIngr(JPanel panelGestioneIngr) {
 		/*JLabel lblNomeIngr = new JLabel("Nome:");
 		panelGestioneIngr.add(lblNomeIngr);
 
@@ -218,7 +213,7 @@ public class JRicetta extends FrameVisibile{
 		textFieldNomeIngr = pannelloIngr.getTextFieldNomeIngr();
 	}
 	
-	private void inserisciQuantitaIngr() {
+	private void inserisciQuantitaIngr(JPanel panelGestioneIngr) {
 		/*JLabel lblQuantitaIngr = new JLabel("Quantità:");
 		panelGestioneIngr.add(lblQuantitaIngr);
 
@@ -241,18 +236,18 @@ public class JRicetta extends FrameVisibile{
 		});
 	}
 	
-	private void inserisciBottoniIngr() {
-		panelBottoniIngr = new JPanel();
+	private void inserisciBottoniIngr(JPanel panelIngr) {
+		JPanel panelBottoniIngr = new JPanel();
 		panelBottoniIngr.setBounds(244, 26, 99, 166);
 		panelIngr.add(panelBottoniIngr);
 		panelBottoniIngr.setLayout(new GridLayout(3, 0, 5, 15));
 		
-		inserisciBottoneAggiungi();
-		inserisciBottoneModifica();
-		inserisciBottoneRimuovi();
+		inserisciBottoneAggiungi(panelBottoniIngr);
+		inserisciBottoneModifica(panelBottoniIngr);
+		inserisciBottoneRimuovi(panelBottoniIngr);
 	}
 	
-	private void inserisciBottoneAggiungi() {
+	private void inserisciBottoneAggiungi(JPanel panelBottoniIngr) {
 		JButton btnInserisciIngr = new JButton("Inserisci");
 		btnInserisciIngr.addActionListener(event -> {
 			String nome = textFieldNomeIngr.getText();
@@ -272,7 +267,7 @@ public class JRicetta extends FrameVisibile{
 		panelBottoniIngr.add(btnInserisciIngr);
 	}
 
-	private void inserisciBottoneModifica() {
+	private void inserisciBottoneModifica(JPanel panelBottoniIngr) {
 		JButton btnModificaIngr = new JButton("Modifica");
 		btnModificaIngr.addActionListener(event -> {
 			String nome = textFieldNomeIngr.getText();
@@ -294,7 +289,7 @@ public class JRicetta extends FrameVisibile{
 		panelBottoniIngr.add(btnModificaIngr);
 	}
 
-	private void inserisciBottoneRimuovi() {
+	private void inserisciBottoneRimuovi(JPanel panelBottoniIngr) {
 		JButton btnRimuoviIngr = new JButton("Rimuovi");
 		btnRimuoviIngr.addActionListener(event -> {
 			int riga = table.getSelectedRow();
@@ -312,16 +307,16 @@ public class JRicetta extends FrameVisibile{
 	}
 	
 	private void inserisciQuantita() {
-		panelQuantita = new JPanel();
+		JPanel panelQuantita = new JPanel();
 		panelQuantita.setBounds(23, 413, 241, 148);
 		frmRicetta.getContentPane().add(panelQuantita);
 		panelQuantita.setLayout(new GridLayout(2, 2, 10, 20));
 		
-		inserisciQuantitaAcqua();
-		inserisciQuantitaBirra();
+		inserisciQuantitaAcqua(panelQuantita);
+		inserisciQuantitaBirra(panelQuantita);
 	}
 
-	private void inserisciQuantitaAcqua() {
+	private void inserisciQuantitaAcqua(JPanel panelQuantita) {
 		JLabel lblQuantitaDiAcqua = new JLabel("Quantità di acqua");
 		panelQuantita.add(lblQuantitaDiAcqua);
 		
@@ -330,7 +325,7 @@ public class JRicetta extends FrameVisibile{
 		textQuantitaAcqua.setColumns(10);
 	}
 	
-	private void inserisciQuantitaBirra() {
+	private void inserisciQuantitaBirra(JPanel panelQuantita) {
 		JLabel lblQuantitaDiBirra = new JLabel("Quantità di birra");
 		panelQuantita.add(lblQuantitaDiBirra);
 		

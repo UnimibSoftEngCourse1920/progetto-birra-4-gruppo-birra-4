@@ -25,12 +25,9 @@ public class JCatalogo extends FrameVisibile{
 	private String id = null;
 	private JTable table;
 	private DefaultTableModel dtm;
-	private JPanel panelIngr;
-	private JPanel panelGestioneIngr;
 	private JComboBox comboBoxCategoriaIngr;
 	private JTextField textFieldNomeIngr;
 	private JTextField textFieldQuantitaIngr;
-	private JPanel panelBottoni;
 	
 	
 	public static void main(String[] args) {
@@ -80,15 +77,11 @@ public class JCatalogo extends FrameVisibile{
 		
 		visualizzaCatalogo();
 		
-		inserisciGestioneIngrediente();
-		
-		addListenerSelezioneRiga();
-			
-		inserisciBottoni();
+		inserisciPannelloIngredienti();
 		
 	}
 
-	
+
 	private void inserisciMenu() {
 		frmCatalogoIngredienti.getContentPane().add(menu.getMenuBar());	
 	}
@@ -119,7 +112,7 @@ public class JCatalogo extends FrameVisibile{
 		dtm = pannelloIngr.getDtm();		
 		scrollPane.setBounds(10, 36, 932, 274);
 		frmCatalogoIngredienti.getContentPane().add(scrollPane);		
-	}
+	}	
 	
 	private void visualizzaCatalogo() {
 		Collection<Ingrediente> catalogo = GestoreIngredienti.getIstanza().visualizzaCatalogo();
@@ -132,24 +125,30 @@ public class JCatalogo extends FrameVisibile{
 		}
 	}
 	
-	private void inserisciGestioneIngrediente() {
-		panelIngr = new JPanel();
+	private void inserisciPannelloIngredienti() {
+		JPanel panelIngr = new JPanel();
 		panelIngr.setBounds(10, 326, 858, 222);
 		frmCatalogoIngredienti.getContentPane().add(panelIngr);
 		panelIngr.setLayout(null);
 		
-		panelGestioneIngr = new JPanel();
+		inserisciGestioneIngrediente(panelIngr);
+		addListenerSelezioneRiga();
+		inserisciBottoni(panelIngr);
+	}
+	
+	private void inserisciGestioneIngrediente(JPanel panelIngr) {
+		JPanel panelGestioneIngr = new JPanel();
 		panelGestioneIngr.setBounds(0, 0, 390, 222);
 		panelIngr.add(panelGestioneIngr);
 		panelGestioneIngr.setLayout(new GridLayout(3, 2, 10, 20));
 		
-		inserisciCategoriaIngr();
-		inserisciNomeIngr();
-		inserisciQuantitaIngr();
+		inserisciCategoriaIngr(panelGestioneIngr);
+		inserisciNomeIngr(panelGestioneIngr);
+		inserisciQuantitaIngr(panelGestioneIngr);
 	}
 	
 
-	private void inserisciCategoriaIngr() {
+	private void inserisciCategoriaIngr(JPanel panelGestioneIngr) {
 		/*JLabel lblCategoriaIngr = new JLabel("Categoria:");
 		panelGestioneIngr.add(lblCategoriaIngr);
 		
@@ -162,7 +161,7 @@ public class JCatalogo extends FrameVisibile{
 		comboBoxCategoriaIngr = pannelloIngr.getComboBoxCategoriaIngr();
 	}
 	
-	private void inserisciNomeIngr() {
+	private void inserisciNomeIngr(JPanel panelGestioneIngr) {
 		/*JLabel lblNomeIngr = new JLabel("Nome:");
 		panelGestioneIngr.add(lblNomeIngr);
 		
@@ -174,7 +173,7 @@ public class JCatalogo extends FrameVisibile{
 		textFieldNomeIngr = pannelloIngr.getTextFieldNomeIngr();
 	}
 	
-	private void inserisciQuantitaIngr() {
+	private void inserisciQuantitaIngr(JPanel panelGestioneIngr) {
 		/*JLabel lblQuantitaDisponibileIngr = new JLabel("Quantità disponibile:");
 		panelGestioneIngr.add(lblQuantitaDisponibileIngr);
 		
@@ -197,18 +196,18 @@ public class JCatalogo extends FrameVisibile{
 		});
 	}
 	
-	private void inserisciBottoni() {
-		panelBottoni = new JPanel();
+	private void inserisciBottoni(JPanel panelIngr) {
+		JPanel panelBottoni = new JPanel();
 		panelBottoni.setBounds(543, 13, 171, 166);
 		panelIngr.add(panelBottoni);
 		panelBottoni.setLayout(new GridLayout(3, 0, 5, 15));
 		
-		inserisciBottoneAggiungi();
-		inserisciBottoneModifica();
-		inserisciBottoneRimuovi();
+		inserisciBottoneAggiungi(panelBottoni);
+		inserisciBottoneModifica(panelBottoni);
+		inserisciBottoneRimuovi(panelBottoni);
 	}
 	
-	private void inserisciBottoneAggiungi() {
+	private void inserisciBottoneAggiungi(JPanel panelBottoni) {
 		JButton btnAggiungiIngr = new JButton("Aggiungi");
 		btnAggiungiIngr.addActionListener(event -> {
 			String nome = textFieldNomeIngr.getText();
@@ -223,7 +222,7 @@ public class JCatalogo extends FrameVisibile{
 		panelBottoni.add(btnAggiungiIngr);		
 	}
 
-	private void inserisciBottoneModifica() {
+	private void inserisciBottoneModifica(JPanel panelBottoni) {
 		JButton btnModificaIngr = new JButton("Modifica");
 		btnModificaIngr.addActionListener(event -> {
 			String nome = textFieldNomeIngr.getText();
@@ -242,7 +241,7 @@ public class JCatalogo extends FrameVisibile{
 		
 	}
 
-	private void inserisciBottoneRimuovi() {
+	private void inserisciBottoneRimuovi(JPanel panelBottoni) {
 		JButton btnRimuoviIngr = new JButton("Rimuovi");
 		btnRimuoviIngr.addActionListener(event -> {
 			int riga = table.getSelectedRow();
