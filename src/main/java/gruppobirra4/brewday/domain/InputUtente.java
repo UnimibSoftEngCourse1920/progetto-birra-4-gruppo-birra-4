@@ -35,7 +35,7 @@ public class InputUtente {
 	public static boolean isNumber(String str, String field) {
 		String strNum = rimuoviWhiteSpaces(str);
 	    try {
-	        double d = Double.parseDouble(strNum);
+	        double d = Double.parseDouble(strNum);	//NOSONAR
 	    } catch (NumberFormatException nfe) {
 	    	Notifica.getIstanza().addError(CAMPO + field + "\" deve essere un numero");
 	    	return false;

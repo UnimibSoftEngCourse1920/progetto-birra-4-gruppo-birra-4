@@ -27,7 +27,7 @@ public class PannelloIngredienti {
 	public JScrollPane inserisciTabellaIngredienti(String quantita) {
 		JScrollPane scrollPane = new JScrollPane();
 		table = new JTable();
-		String[] header = new String[] {"id", "Categoria", "Nome", quantita};
+		String[] header = new String[] {"id", "Categoria", "Nome", quantita + " (g)"};
 		dtm = new MyTableModel(new Object[][] {}, header)  {
 				boolean[] columnEditables = new boolean[] {
 					false, false, false, false
@@ -68,7 +68,7 @@ public class PannelloIngredienti {
 	}
 	
 	public void inserisciQuantitaIngr(JPanel panelGestioneIngr, String quantita) {
-		JLabel lblQuantitaDisponibileIngr = new JLabel(quantita);
+		JLabel lblQuantitaDisponibileIngr = new JLabel(quantita + " (g):");
 		panelGestioneIngr.add(lblQuantitaDisponibileIngr);
 		
 		textFieldQuantitaIngr = new JTextField();

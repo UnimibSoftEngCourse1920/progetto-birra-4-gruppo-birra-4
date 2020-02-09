@@ -43,8 +43,8 @@ public class Lotto implements Serializable {
 		if (!validation(quantitaBirra)) {
 			return null;
 		}
-		ricetta = aggiornaQuantitaRicetta(quantitaBirra, ricetta);
-		return new Lotto(ricetta);		
+		Ricetta ricettaAggiornata = aggiornaQuantitaRicetta(quantitaBirra, ricetta);
+		return new Lotto(ricettaAggiornata);		
 	}
 
 	private static boolean validation(String quantitaBirra) {

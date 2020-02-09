@@ -86,7 +86,7 @@ public class JListaSpesa extends FrameVisibile{
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 36, 932, 274);
 		table = new JTable();
-		String[] header = new String[] {"id", "Categoria", "Nome", "Quantità disponibile", "Quantita da acquistare"};
+		String[] header = new String[] {"id", "Categoria", "Nome", "Quantità disponibile (g)", "Quantità da acquistare (g)"};
 		dtm = new MyTableModel(new Object[][] {}, header)  {
 				boolean[] columnEditables = new boolean[] {
 					false, false, false, false, false

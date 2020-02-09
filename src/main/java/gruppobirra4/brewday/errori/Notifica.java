@@ -25,10 +25,6 @@ public class Notifica {
 		errori.add(new Error(message));
 	}
 	
-	public void addError(String message, String tipoMessaggio) {
-		errori.add(new Error(message));
-	}
-	
 	public boolean hasErrors() {
 		return ! errori.isEmpty();
 	}

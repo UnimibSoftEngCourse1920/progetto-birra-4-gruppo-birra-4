@@ -5,8 +5,6 @@ import java.util.Collections;
 
 import gruppobirra4.brewday.domain.ricette.ListaLotti;
 import gruppobirra4.brewday.domain.ricette.Lotto;
-import gruppobirra4.brewday.domain.ricette.Ricetta;
-import gruppobirra4.brewday.domain.ricette.Ricettario;
 import gruppobirra4.brewday.errori.Notifica;
 
 public class GestoreLotti {

@@ -1,4 +1,4 @@
-package gruppobirra4.brewday.ui;
+package gruppobirra4.brewday.ui; //NOSONAR
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -24,8 +24,6 @@ public class JLotto extends FrameVisibile{
 	private JFrame frmLotto;
 	private PannelloIngredienti pannelloIngr;
 	private Lotto lotto;
-	private JTable table;
-	private DefaultTableModel dtm;
 	
 	public JLotto(Lotto lotto) {
 		frmLotto = new JFrame();
@@ -111,16 +109,16 @@ public class JLotto extends FrameVisibile{
 		scrollPane.setViewportView(table); */
 		
 		JScrollPane scrollPane = pannelloIngr.inserisciTabellaIngredienti("Quantità");
-		table = pannelloIngr.getTable();
-		dtm = pannelloIngr.getDtm();		
+		JTable table = pannelloIngr.getTable();
+		DefaultTableModel dtm = pannelloIngr.getDtm();		
 		scrollPane.setBounds(20, 56, 667, 282);
 		
 		frmLotto.getContentPane().add(scrollPane);	
 		
-		visualizzaIngredienti();
+		visualizzaIngredienti(dtm);
 	}
 	
-	private void visualizzaIngredienti() {
+	private void visualizzaIngredienti(DefaultTableModel dtm) {
 		Set<Ingrediente> ingredienti = lotto.getRicetta().getIngredienti();
 		for (Ingrediente ingr: ingredienti) {
 			dtm.addRow(new Object[] {ingr.getId(), ingr.getCategoria(), ingr.getNome(), 
@@ -131,7 +129,7 @@ public class JLotto extends FrameVisibile{
 
 	private void inserisciQuantita() {
 		JPanel panelQuantita = new JPanel();
-		panelQuantita.setBounds(20, 375, 241, 92);
+		panelQuantita.setBounds(20, 375, 292, 92);
 		frmLotto.getContentPane().add(panelQuantita);
 		panelQuantita.setLayout(new GridLayout(2, 2, 10, 0));
 		
@@ -140,7 +138,7 @@ public class JLotto extends FrameVisibile{
 	}
 	
 	private void inserisciQuantitaAcqua(JPanel panelQuantita) {
-		JLabel lblQuantitaDiAcqua = new JLabel("Quantità di acqua");
+		JLabel lblQuantitaDiAcqua = new JLabel("Quantità di acqua (litri):");
 		panelQuantita.add(lblQuantitaDiAcqua);
 		
 		JLabel lblQuantitaAcqua = new JLabel(Double.toString(DecimalUtils.round(lotto.getRicetta().getQuantitaAcqua(), 1)));
@@ -148,7 +146,7 @@ public class JLotto extends FrameVisibile{
 	}
 	
 	private void inserisciQuantitaBirra(JPanel panelQuantita) {
-		JLabel lblQuantitaDiBirra = new JLabel("Quantità di birra");
+		JLabel lblQuantitaDiBirra = new JLabel("Quantità di birra (litri):");
 		panelQuantita.add(lblQuantitaDiBirra);
 		
 		JLabel lblQuantitaBirra = new JLabel(Double.toString(DecimalUtils.round(lotto.getRicetta().getQuantitaBirra(), 1)));

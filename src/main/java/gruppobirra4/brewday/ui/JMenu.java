@@ -35,7 +35,7 @@ public class JMenu {
 	}
 	
 	private void inserisciMenu() {
-		menuBar.setBounds(0, 0, 590, 25);
+		menuBar.setBounds(0, 0, 495, 25);
 		
 		btnHome = new JButton("Home");
 		btnHome.setBackground(Color.LIGHT_GRAY);

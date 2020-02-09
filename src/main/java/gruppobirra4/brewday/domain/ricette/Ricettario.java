@@ -39,7 +39,7 @@ public class Ricettario {
 	}
 	
 	public Ricetta creaRicetta(String nome, String descrizione, Set<Ingrediente> ingredienti,
-			String quantitaAcqua, String quantitaBirra) {
+							String quantitaAcqua, String quantitaBirra) {
 		Ricetta ricetta = Ricetta.creaRicetta(null, nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
 		if(ricetta != null && aggiungiRicetta(ricetta)) {
 			ricetta.convertiRicettaInValoreNormale();
