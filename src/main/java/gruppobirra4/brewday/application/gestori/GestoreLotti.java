@@ -42,6 +42,19 @@ public class GestoreLotti {
 		}
 	}
 	
+	public void modificaNote(String idLotto, String noteGusto, String noteProblemi) {
+		try {
+			ListaLotti.getIstanza().modificaNote(idLotto, noteGusto, noteProblemi);
+			if (Notifica.getIstanza().hasErrors()) {
+				Notifica.getIstanza().notificaErrori();
+				Notifica.getIstanza().svuotaNotificheErrori();
+			}			
+		} catch (Exception e){
+			Notifica.getIstanza().svuotaNotificheErrori();
+			Notifica.getIstanza().notificaEccezione(e);
+		}
+	}
+	
 	public Collection<Lotto> visualizzaListaLotti() {
 		try {
 			Collection<Lotto> lotti = ListaLotti.getIstanza().visualizzaListaLotti();
@@ -73,11 +86,6 @@ public class GestoreLotti {
 			return null;
 		}
 	}
-	
-	
-	
-	
-	
 	
 
 }

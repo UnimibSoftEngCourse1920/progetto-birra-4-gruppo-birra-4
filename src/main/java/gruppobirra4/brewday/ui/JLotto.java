@@ -3,8 +3,10 @@ package gruppobirra4.brewday.ui; //NOSONAR
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
+import java.util.HashSet;
 import java.util.Set;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -14,16 +16,25 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
+import gruppobirra4.brewday.application.gestori.GestoreLotti;
+import gruppobirra4.brewday.application.gestori.GestoreRicette;
 import gruppobirra4.brewday.domain.DecimalUtils;
 import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
 import gruppobirra4.brewday.domain.ricette.Lotto;
+import gruppobirra4.brewday.domain.ricette.Ricetta;
 import gruppobirra4.brewday.errori.Notifica;
+import javax.swing.JScrollBar;
+import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
 
 public class JLotto extends FrameVisibile{
 	
 	private JFrame frmLotto;
 	private PannelloIngredienti pannelloIngr;
 	private Lotto lotto;
+	private DefaultTableModel dtm;
+	private JTextArea textAreaNoteGusto;
+	private JTextArea textAreaNoteProblemi;
 	
 	public JLotto(Lotto lotto) {
 		frmLotto = new JFrame();
@@ -61,7 +72,7 @@ public class JLotto extends FrameVisibile{
 	@Override
 	protected void initialize() {
 		frmLotto.setTitle("Lotto ricetta: " + lotto.getNomeRicetta() + " - Brew Day!");
-		frmLotto.setBounds(100, 100, 968, 656);
+		frmLotto.setBounds(100, 100, 968, 682);
 		frmLotto.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmLotto.getContentPane().setLayout(null);
 	
@@ -69,8 +80,15 @@ public class JLotto extends FrameVisibile{
 		
 		inserisciPannelloIngredienti();
 		
+		inserisciQuantita();
+		
+		inserisciNote();
+		
+		inserisciBottoneSalva();
+		
+		visualizzaLotto();
 	}
-	
+
 	private void inserisciMenu() {
 		frmLotto.getContentPane().add(menu.getMenuBar());
 	}
@@ -82,14 +100,12 @@ public class JLotto extends FrameVisibile{
 		
 		inserisciTabellaIngredienti();
 		
-		inserisciQuantita();
-		
 	}
 
 	private void inserisciTabellaIngredienti() {
 		/*JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(20, 56, 667, 282);
-		table = new JTable();
+		scrollPane.setBounds(20, 56, 652, 282);
+		JTable table = new JTable();
 		String[] header = new String[] {"id", "Categoria", "Nome", "Quantità"};
 		dtm = new MyTableModel(new Object[][] {}, header)  {
 				boolean[] columnEditables = new boolean[] {
@@ -106,35 +122,25 @@ public class JLotto extends FrameVisibile{
 		table.getColumnModel().getColumn(0).setPreferredWidth(0);
 		table.getColumnModel().getColumn(0).setMinWidth(0);
 		table.getColumnModel().getColumn(0).setMaxWidth(0);
-		scrollPane.setViewportView(table); */
+		scrollPane.setViewportView(table);*/ 
 		
 		JScrollPane scrollPane = pannelloIngr.inserisciTabellaIngredienti("Quantità");
 		JTable table = pannelloIngr.getTable();
-		DefaultTableModel dtm = pannelloIngr.getDtm();		
-		scrollPane.setBounds(20, 56, 667, 282);
+		dtm = pannelloIngr.getDtm();		
+		scrollPane.setBounds(20, 56, 652, 282);
 		
 		frmLotto.getContentPane().add(scrollPane);	
-		
-		visualizzaIngredienti(dtm);
-	}
-	
-	private void visualizzaIngredienti(DefaultTableModel dtm) {
-		Set<Ingrediente> ingredienti = lotto.getRicetta().getIngredienti();
-		for (Ingrediente ingr: ingredienti) {
-			dtm.addRow(new Object[] {ingr.getId(), ingr.getCategoria(), ingr.getNome(), 
-					Integer.toString((int) Math.round(ingr.getQuantita()))
-					});
-		}
 	}
 
 	private void inserisciQuantita() {
 		JPanel panelQuantita = new JPanel();
-		panelQuantita.setBounds(20, 375, 292, 92);
+		panelQuantita.setBounds(678, 89, 274, 92);
 		frmLotto.getContentPane().add(panelQuantita);
-		panelQuantita.setLayout(new GridLayout(2, 2, 10, 0));
+		panelQuantita.setLayout(new GridLayout(2, 2, 2, 0));
 		
 		inserisciQuantitaAcqua(panelQuantita);
 		inserisciQuantitaBirra(panelQuantita);
+		
 	}
 	
 	private void inserisciQuantitaAcqua(JPanel panelQuantita) {
@@ -153,15 +159,62 @@ public class JLotto extends FrameVisibile{
 		panelQuantita.add(lblQuantitaBirra);
 	}
 	
+	private void inserisciNote() {
+		JPanel panelNote = new JPanel();
+		panelNote.setBounds(20, 375, 711, 257);
+		frmLotto.getContentPane().add(panelNote);
+		panelNote.setLayout(new GridLayout(0, 2, 15, 0));
+		
+		JLabel lblNoteGusto = new JLabel("Note gusto");
+		lblNoteGusto.setBounds(147, 350, 89, 14);
+		frmLotto.getContentPane().add(lblNoteGusto);
+		
+		textAreaNoteGusto = new JTextArea();
+		inserisciTestoNote(panelNote, textAreaNoteGusto);
+		
+		JLabel lblNoteSuiProblemi = new JLabel("Note problemi riscontrati");
+		lblNoteSuiProblemi.setBounds(502, 350, 151, 14);
+		frmLotto.getContentPane().add(lblNoteSuiProblemi);
+		
+		textAreaNoteProblemi = new JTextArea();
+		inserisciTestoNote(panelNote, textAreaNoteProblemi);
+	}
+
+	private void inserisciTestoNote(JPanel panelNote, JTextArea textAreaNote) {
+		JScrollPane scrollPaneNote = new JScrollPane();
+		panelNote.add(scrollPaneNote);
+		scrollPaneNote.setViewportView(textAreaNote);
+	}
 	
+	private void inserisciBottoneSalva() {
+		JPanel panelBottoneSalva = new JPanel();
+		panelBottoneSalva.setBounds(798, 581, 144, 51);
+		frmLotto.getContentPane().add(panelBottoneSalva);
+		panelBottoneSalva.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		JButton btnSalva = new JButton();
+		btnSalva.setText("Salva");
+		
+		btnSalva.addActionListener(event -> {
+			String noteGusto = textAreaNoteGusto.getText();
+			String noteProblemi = textAreaNoteProblemi.getText();
+			GestoreLotti.getIstanza().modificaNote(lotto.getId(), noteGusto, noteProblemi);		
+			frmLotto.dispose();
+			JListaLotti.esegui();
+		});
+		panelBottoneSalva.add(btnSalva);
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	private void visualizzaLotto() {
+		Set<Ingrediente> ingredienti = lotto.getRicetta().getIngredienti();
+		for (Ingrediente ingr: ingredienti) {
+			dtm.addRow(new Object[] {ingr.getId(), ingr.getCategoria(), ingr.getNome(), 
+					Integer.toString((int) Math.round(ingr.getQuantita()))
+					});
+		}
+		
+		textAreaNoteGusto.setText(lotto.getNoteGusto());
+		textAreaNoteProblemi.setText(lotto.getNoteProblemi());
+	}
+
 }

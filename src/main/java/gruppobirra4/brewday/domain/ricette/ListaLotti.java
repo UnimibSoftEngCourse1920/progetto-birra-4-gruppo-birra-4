@@ -111,6 +111,14 @@ public class ListaLotti {
 		return r;
 	}
 	
+	public void modificaNote(String idLotto, String noteGusto, String noteProblemi) {
+		lotti = openMapDB();
+		Lotto l = lotti.get(idLotto);
+		Lotto lottoModificato = new Lotto(l.getId(), l.getData(), noteGusto, noteProblemi, l.getRicetta());
+		lotti.replace(idLotto, lottoModificato);
+		Database.getIstanza().closeDB();		
+	}
+	
 	public void rimuoviLotto(String idLotto) {
 		if (idLotto != null && !idLotto.isEmpty()) {
 			lotti = openMapDB();
@@ -150,6 +158,8 @@ public class ListaLotti {
 		Database.getIstanza().closeDB();
 		return lotto;
 	}
+
+	
 	
 	
 	

@@ -90,17 +90,17 @@ public class Lotto implements Serializable {
 		return ricetta;
 	}
 	
+	public void modificaNote(String noteGusto, String noteProblemi) {
+		this.noteGusto = noteGusto;
+		this.noteProblemi = noteProblemi;		
+	}
+	
 	private void setDate() {
 		Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"),Locale.ITALY);
 		Date today = calendar.getTime();
 		DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
 		this.data = dateFormat.format(today);
-	}
-	
-	
-	
-	
-	
+	}	
 	
 
 
