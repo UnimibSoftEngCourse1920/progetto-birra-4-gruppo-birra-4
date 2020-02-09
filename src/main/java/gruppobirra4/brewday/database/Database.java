@@ -37,14 +37,14 @@ public class Database {
 	public void closeDB(){
 		db.commit();
 		db.close();
-		setDB();
+		setDBNull();
 	}
 	
 	public DB getDb() {
 		return db;
 	}
 	
-	private static void setDB() {
+	private static void setDBNull() {
 		istanza = null;
 	}
 	

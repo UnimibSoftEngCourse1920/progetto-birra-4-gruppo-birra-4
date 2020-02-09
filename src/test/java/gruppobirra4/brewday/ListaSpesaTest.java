@@ -97,14 +97,12 @@ public class ListaSpesaTest {
 		String idLista = qt.getIngrediente().getId();
 		Ingrediente ing =c.getIngredienteById(idLista);
 		assertEquals(idLista, ing.getId());
-		l.svuotaLista();
-		
+		l.svuotaLista();	
 	}
 	
 	@Test
 	public void testAcquistaTutto() {
 		ListaSpesa l = ListaSpesa.getIstanza();
-		CatalogoIngredienti c = CatalogoIngredienti.getIstanza();
 		
 		l.aggiungiIngrediente("San Michele", "Luppolo", "500");
 		l.aggiungiIngrediente("San Giorgio", "Luppolo", "500");

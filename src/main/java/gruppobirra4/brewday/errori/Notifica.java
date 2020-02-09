@@ -7,9 +7,11 @@ public class Notifica {
 
 	private static Notifica istanza;
 	private List<Error> errori;
+	private String tipoErrori;
 	
 	private Notifica() {
 		this.errori = new LinkedList<>();
+		this.tipoErrori = null;
 	}
 		
 	public static synchronized Notifica getIstanza() {
@@ -23,17 +25,33 @@ public class Notifica {
 		errori.add(new Error(message));
 	}
 	
-	/*public void addException(String message, Exception e) {
-		exception = new Error(message, e);
-	}*/
+	public void addError(String message, String tipoMessaggio) {
+		errori.add(new Error(message));
+	}
 	
 	public boolean hasErrors() {
 		return ! errori.isEmpty();
 	}
 	
-	/*public boolean hasException() {
-		return exception != null;
-	}*/
+	public String getTipoErrori() {
+		return tipoErrori;
+	}
+	
+	public void notificaEccezione(Exception e) {
+		ErrorDialog.getIstanza().notificaEccezione(new Error(e));
+	}
+	
+	public void notificaErrori() {
+		ErrorDialog.getIstanza().notificaErrori(errori, tipoErrori);
+	}
+	
+	public void setNullTipoErrori() {
+		this.tipoErrori = null;		
+	}	
+	
+	public void setTipoErrori(String tipoErrori) {
+		this.tipoErrori = tipoErrori;
+	}
 	
 	public void svuotaNotificheErrori() {
 		if (!errori.isEmpty()) {
@@ -41,13 +59,5 @@ public class Notifica {
 		}
 	}
 
-	public void notificaErrori() {
-		ErrorDialog.getIstanza().notificaErrori(errori);
-	}
-	
-	public void notificaEccezione(Exception e) {
-		ErrorDialog.getIstanza().notificaEccezione(new Error(e));
-	}
-	
 
 }

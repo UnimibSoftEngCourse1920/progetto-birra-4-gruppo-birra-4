@@ -26,10 +26,14 @@ public class GestoreLotti {
 	
 	public Lotto creaLotto(String idRicetta, String quantitaBirra) {
 		try {
-			Lotto lotto = ListaLotti.getIstanza().creaLotto(idRicetta, quantitaBirra);
+			Lotto lotto = ListaLotti.getIstanza().creaLotto(idRicetta, quantitaBirra);			
 			if (Notifica.getIstanza().hasErrors()) {
 				Notifica.getIstanza().notificaErrori();
 				Notifica.getIstanza().svuotaNotificheErrori();
+				if (Notifica.getIstanza().getTipoErrori() != null) {
+					Notifica.getIstanza().setNullTipoErrori();
+					return lotto;
+				}
 				return null;
 			}
 			return lotto;

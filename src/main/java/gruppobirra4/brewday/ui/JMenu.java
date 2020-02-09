@@ -65,7 +65,7 @@ public class JMenu {
 		btnRicettario.setBackground(Color.LIGHT_GRAY);
 		menuBar.add(btnRicettario);
 		
-		btnLotti = new JButton("Produzioni precedenti");
+		btnLotti = new JButton("Lotti");
 		btnLotti.addActionListener(event -> {
 			frameVisibile.dispose();
 			JListaLotti.esegui();

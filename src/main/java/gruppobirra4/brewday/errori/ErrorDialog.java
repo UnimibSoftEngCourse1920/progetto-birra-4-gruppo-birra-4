@@ -20,8 +20,8 @@ public class ErrorDialog {
 		return istanza;
 	}
 
-	public void notificaErrori(List<Error> errori) {
-		String message = toStringError(errori);
+	public void notificaErrori(List<Error> errori, String tipoErrori) {
+		String message = toStringError(errori, tipoErrori);
 		JOptionPane.showMessageDialog(new JFrame(), message, "Errore", JOptionPane.WARNING_MESSAGE);
 	}
 	
@@ -30,8 +30,11 @@ public class ErrorDialog {
 		JOptionPane.showMessageDialog(new JFrame(), message, "Exception", JOptionPane.ERROR_MESSAGE);
 	}
 	
-	private String toStringError(List<Error> errori) {
+	private String toStringError(List<Error> errori, String tipoErrori) {
 		StringBuilder e = new StringBuilder();
+		if (tipoErrori != null) {
+			e.append(tipoErrori + ":\n");
+		}
 		for (Error err: errori) {
 			e.append("- " + err.getMessage() + "\n");
 		}

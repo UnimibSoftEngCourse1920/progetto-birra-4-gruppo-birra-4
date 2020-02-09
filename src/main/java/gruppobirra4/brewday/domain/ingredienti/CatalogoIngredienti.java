@@ -45,13 +45,12 @@ public class CatalogoIngredienti {
 	}
 	
 	public boolean aggiungiIngrediente(Ingrediente nuovoIngrediente) {
-		ingredienti = openMapDB();
 		if(checkCatalogo(nuovoIngrediente.getNome(), nuovoIngrediente.getCategoria(), nuovoIngrediente.getId())) {	
 			Notifica.getIstanza().addError("L'ingrediente è già presente nel catalogo");
-			Database.getIstanza().closeDB();
 			return false;
 			
 		}
+		ingredienti = openMapDB();
 		ingredienti.put(nuovoIngrediente.getId(), nuovoIngrediente);
 		Database.getIstanza().closeDB();
 		return true;
@@ -59,14 +58,21 @@ public class CatalogoIngredienti {
 	
 	//Controlla se e' presente nel catalogo un ingrediente con lo stesso nome e con la stessa categoria (che non sia se stesso)
 	public boolean checkCatalogo(String nome, String categoria, String id) {
-		ingredienti = openMapDB();
+		/*ingredienti = openMapDB();
 		if (ingredienti.isEmpty()) {
 			return false;
+		}*/
+		if (isCatalogoVuoto()) {
+			return false;
 		}
+		ingredienti = openMapDB();
 		for (Ingrediente i : ingredienti.values()) {
-			if((i.getNome().equals(nome)) && (i.getCategoria().equals(categoria)) && (!(i.getId().equals(id))))
+			if((i.getNome().equals(nome)) && (i.getCategoria().equals(categoria)) && (!(i.getId().equals(id)))) {
+				Database.getIstanza().closeDB();
 				return true;
+			}
 		}
+		Database.getIstanza().closeDB();
 		return false;
 	}
 	
@@ -91,28 +97,26 @@ public class CatalogoIngredienti {
 		return ing;
 	}
 	
+	//Controlla se ingrRicetta e' disponibile in catalogo e se e' in quantita sufficiente
 	public boolean checkDisponibilitaInCatalogo(Ingrediente ingrRicetta) {
 		ingredienti = openMapDB();
-		if (ingredienti.isEmpty()) {
-			Notifica.getIstanza().addError("Non sono presenti ingredienti disponibili nel catalogo");
-			Database.getIstanza().closeDB();
-			return false;
-		}
-		/*for (Ingrediente ing : ingredienti.values()) {
-			if(ing.equals(ingrRicetta) && (int)Math.round(ing.getQuantita()) < (int)Math.round(ingrRicetta.getQuantita())) {
-				Database.getIstanza().closeDB();
-				return false;
-			}
-		}*/
 		Ingrediente ing = getIngredienteByNomeCategoria(ingrRicetta.getNome(), ingrRicetta.getCategoria());
 		if (ing != null && (int)Math.round(ing.getQuantita()) >= (int)Math.round(ingrRicetta.getQuantita()) ){
 			Database.getIstanza().closeDB();
 			return true;
 		}
-		Notifica.getIstanza().addError("L'ingrediente "+ "\"" + ingrRicetta.getCategoria() + " " + 
-										ingrRicetta.getNome() +	"\" non è disponibile nel catalogo");
 		Database.getIstanza().closeDB();
 		return false;		
+	}
+	
+	public boolean isCatalogoVuoto() {
+		ingredienti = openMapDB();
+		if (ingredienti.isEmpty()) {
+			Database.getIstanza().closeDB();
+			return true;
+		}
+		Database.getIstanza().closeDB();
+		return false;
 	}
 	
 	
@@ -168,19 +172,19 @@ public class CatalogoIngredienti {
 	}
 
 	public Ingrediente modificaIngrediente(String id, String nome, String categoria, String quantita) {
-		ingredienti = openMapDB();	
+		//ingredienti = openMapDB();	
 		Ingrediente ingrModificato =  Ingrediente.creaIngrediente(id, nome, categoria, quantita);
 		if (ingrModificato == null) {
-			Database.getIstanza().closeDB();
+			//Database.getIstanza().closeDB();
 			return null;
 		}
 		if(!(checkCatalogo(ingrModificato.getNome(), ingrModificato.getCategoria(), ingrModificato.getId()))) {		
+			ingredienti = openMapDB();
 			ingredienti.replace(id, ingrModificato);
 			Database.getIstanza().closeDB();
 			return ingrModificato;
 		}	
 		Notifica.getIstanza().addError("E' già presente un ingrediente con lo stesso nome e categoria");
-		Database.getIstanza().closeDB();
 		return null;
 	}
 	

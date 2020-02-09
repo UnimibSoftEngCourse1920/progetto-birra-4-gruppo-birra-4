@@ -13,6 +13,7 @@ import org.mapdb.Serializer;
 import gruppobirra4.brewday.database.Database;
 import gruppobirra4.brewday.domain.ingredienti.CatalogoIngredienti;
 import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
+import gruppobirra4.brewday.errori.Notifica;
 
 public class ListaLotti {
 	
@@ -55,9 +56,17 @@ public class ListaLotti {
 		return false;
 	}
 	
+	//Controlla se gli ingredienti della ricetta sono disponibili nel catalogo e se sono in quantita' sufficiente
 	private boolean checkDisponibilitaIngredienti(Set<Ingrediente> ingredientiRicetta) {
+		if (CatalogoIngredienti.getIstanza().isCatalogoVuoto() ) {
+			Notifica.getIstanza().addError("Non sono presenti ingredienti disponibili nel catalogo");
+			return false;
+		}
 		for (Ingrediente ingr: ingredientiRicetta) {
 			if(!CatalogoIngredienti.getIstanza().checkDisponibilitaInCatalogo(ingr)) {
+				Notifica.getIstanza().addError("L'ingrediente "+ "\"" + ingr.getCategoria() + " "  
+								+ ingr.getNome() +	"\" non è presente o non è disponibile in "
+								+ "quantità sufficiente nel catalogo degli ingredienti");
 				return false;
 			}
 		}
@@ -70,6 +79,7 @@ public class ListaLotti {
 	
 		if(lotto != null && aggiungiLotto(lotto)) {
 			aggiornaCatalogo(lotto.getRicetta().getIngredienti());
+			verificaIngredientiPerProssimaProduzione(lotto.getRicetta().getIngredienti());
 			return lotto;
 		}
 		return null;
@@ -107,6 +117,20 @@ public class ListaLotti {
 			lotti.remove(idLotto);
 			Database.getIstanza().closeDB();
 		}	
+	}
+	
+	//Controlla che ci siano abbastanza ingredienti nel catalogo per una successiva produzione
+	private boolean verificaIngredientiPerProssimaProduzione(Set<Ingrediente> ingredientiRicetta) {
+		for (Ingrediente ingr: ingredientiRicetta) {
+			if(!CatalogoIngredienti.getIstanza().checkDisponibilitaInCatalogo(ingr)) {
+				Notifica.getIstanza().addError("L'ingrediente "+ "\"" + ingr.getCategoria() + " "  
+								+ ingr.getNome() +	"\" non sarà disponibile in quantità sufficiente "
+								+ "per la prossima produzione");
+				Notifica.getIstanza().setTipoErrori("Avvertenza per la prossima produzione");
+				return false;
+			}
+		}
+		return true; 
 	}
 	
 	public Collection<Lotto> visualizzaListaLotti() {

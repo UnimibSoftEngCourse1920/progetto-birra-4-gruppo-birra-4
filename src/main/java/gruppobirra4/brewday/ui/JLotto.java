@@ -62,6 +62,7 @@ public class JLotto extends FrameVisibile{
 
 	@Override
 	protected void initialize() {
+		frmLotto.setTitle("Lotto ricetta: " + lotto.getNomeRicetta() + " - Brew Day!");
 		frmLotto.setBounds(100, 100, 968, 656);
 		frmLotto.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmLotto.getContentPane().setLayout(null);

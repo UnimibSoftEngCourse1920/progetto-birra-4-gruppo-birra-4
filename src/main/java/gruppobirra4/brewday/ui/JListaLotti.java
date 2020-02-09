@@ -67,7 +67,7 @@ public class JListaLotti extends FrameVisibile {
 	
 	@Override
 	protected void initialize() {
-		frmListaLotti.setTitle("Lotti precedenti- Brew Day!");
+		frmListaLotti.setTitle("Lotti precedenti - Brew Day!");
 		frmListaLotti.setBounds(100, 100, 968, 611);
 		frmListaLotti.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmListaLotti.getContentPane().setLayout(null);
