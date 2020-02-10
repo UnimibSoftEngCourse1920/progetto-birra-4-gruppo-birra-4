@@ -20,12 +20,14 @@ import javax.swing.JButton;
 public class JRicettario extends FrameVisibile {
 
 	private JFrame frmRicettario;
+	private PannelloIngredienti pannelloIngr;
 	private JTable table; 
 	private DefaultTableModel dtm;
 	
 	public JRicettario() {
 		frmRicettario = new JFrame();
 		menu = JMenu.getIstanza();
+		pannelloIngr = new PannelloIngredienti();
 		initialize();
 		menu.setFrameVisible(frmRicettario);
 	}
@@ -90,15 +92,8 @@ public class JRicettario extends FrameVisibile {
 				return columnEditables[column];
 			}
 		};
-		dtm.setColumnIdentifiers(header);
-		table.setModel(dtm);
-		
-		table.getColumnModel().getColumn(0).setPreferredWidth(0);
-		table.getColumnModel().getColumn(0).setMinWidth(0);
-		table.getColumnModel().getColumn(0).setMaxWidth(0);
+		pannelloIngr.setTabella(table, dtm, header, scrollPane);	
 		table.setRowHeight(30);
-		scrollPane.setViewportView(table);
-
 		frmRicettario.getContentPane().add(scrollPane);
 	}
 	

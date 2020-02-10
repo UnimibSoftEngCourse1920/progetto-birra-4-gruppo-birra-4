@@ -71,7 +71,7 @@ public class ListaSpesa {
 			lista = openMapDB();
 			if(checkLista(ing.getId())) {
 				Database.getIstanza().closeDB();
-				Notifica.getIstanza().addError("L'ingrediente è giè nella lista");
+				Notifica.getIstanza().addError("L'ingrediente è già nella lista");
 				return null;
 			}
 			lista.put(ing.getId(), Double.parseDouble(quantita));

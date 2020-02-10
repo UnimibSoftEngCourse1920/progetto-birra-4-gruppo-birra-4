@@ -46,7 +46,14 @@ public class PannelloIngredienti {
 		return scrollPane;
 	}
 	
-	public void inserisciCategoriaIngr(JPanel panelGestioneIngr) {
+	public void inserisciGestioneIngr(JPanel panelGestioneIngr, String quantita) {
+		inserisciCategoriaIngr(panelGestioneIngr);
+		inserisciNomeIngr(panelGestioneIngr);
+		inserisciQuantitaIngr(panelGestioneIngr, quantita);
+		
+	}
+	
+	private void inserisciCategoriaIngr(JPanel panelGestioneIngr) {
 		JLabel lblCategoriaIngr = new JLabel("Categoria:");
 		panelGestioneIngr.add(lblCategoriaIngr);
 		
@@ -57,7 +64,7 @@ public class PannelloIngredienti {
 		panelGestioneIngr.add(comboBoxCategoriaIngr);
 	}
 	
-	public void inserisciNomeIngr(JPanel panelGestioneIngr) {
+	private void inserisciNomeIngr(JPanel panelGestioneIngr) {
 		JLabel lblNomeIngr = new JLabel("Nome:");
 		panelGestioneIngr.add(lblNomeIngr);
 		
@@ -67,13 +74,31 @@ public class PannelloIngredienti {
 		textFieldNomeIngr.setColumns(10);
 	}
 	
-	public void inserisciQuantitaIngr(JPanel panelGestioneIngr, String quantita) {
+	private void inserisciQuantitaIngr(JPanel panelGestioneIngr, String quantita) {
 		JLabel lblQuantitaDisponibileIngr = new JLabel(quantita + " (g):");
 		panelGestioneIngr.add(lblQuantitaDisponibileIngr);
 		
 		textFieldQuantitaIngr = new JTextField();
 		panelGestioneIngr.add(textFieldQuantitaIngr);
 		textFieldQuantitaIngr.setColumns(10);
+	}
+	
+	/*public void addListenerSelezioneRiga() {
+		table.getSelectionModel().addListSelectionListener(event -> {
+			int riga = table.getSelectedRow();
+            if (riga != -1) {
+            	id = (String) table.getValueAt(riga, 0);
+            	comboBoxCategoriaIngr.setSelectedItem((String) table.getValueAt(riga, 1));
+            	textFieldNomeIngr.setText((String) table.getValueAt(riga, 2));
+            	textFieldQuantitaIngr.setText((String) table.getValueAt(riga, 3));
+            }
+		});
+	}*/
+	
+	public void getValoriTabella(int riga, int colCategoriaIngr, int colNomeIngr, int colQuantita) {
+		comboBoxCategoriaIngr.setSelectedItem((String) table.getValueAt(riga, colCategoriaIngr));
+    	textFieldNomeIngr.setText((String) table.getValueAt(riga, colNomeIngr));
+    	textFieldQuantitaIngr.setText((String) table.getValueAt(riga, colQuantita));		
 	}
 	
 	public void aggiungiRigaIngr(Ingrediente ingr) {
@@ -115,5 +140,17 @@ public class PannelloIngredienti {
 	public JTextField getTextFieldQuantitaIngr() {
 		return textFieldQuantitaIngr;
 	}
+	
+	public void setTabella(JTable table, DefaultTableModel dtm, String[] header, JScrollPane scrollPane) {
+		this.table = table;
+		this.dtm = dtm;
+		dtm.setColumnIdentifiers(header);
+		table.setModel(dtm);
+		table.getColumnModel().getColumn(0).setPreferredWidth(0);
+		table.getColumnModel().getColumn(0).setMinWidth(0);
+		table.getColumnModel().getColumn(0).setMaxWidth(0);
+		scrollPane.setViewportView(table);
+	}
+
 
 }

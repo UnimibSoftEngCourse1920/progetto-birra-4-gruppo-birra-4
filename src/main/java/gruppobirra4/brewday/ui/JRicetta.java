@@ -184,25 +184,11 @@ public class JRicetta extends FrameVisibile{
 		panelIngr.add(panelGestioneIngr);
 		panelGestioneIngr.setLayout(new GridLayout(6, 1, 10, 0));
 
-		inserisciCategoriaIngr(panelGestioneIngr);
-		inserisciNomeIngr(panelGestioneIngr);
-		inserisciQuantitaIngr(panelGestioneIngr);
-					
-	}
-
-	private void inserisciCategoriaIngr(JPanel panelGestioneIngr) {
-		pannelloIngr.inserisciCategoriaIngr(panelGestioneIngr);
+		pannelloIngr.inserisciGestioneIngr(panelGestioneIngr, "Quantità");
+		
 		comboBoxCategoriaIngr = pannelloIngr.getComboBoxCategoriaIngr();
-	}
-	
-	private void inserisciNomeIngr(JPanel panelGestioneIngr) {
-		pannelloIngr.inserisciNomeIngr(panelGestioneIngr);
 		textFieldNomeIngr = pannelloIngr.getTextFieldNomeIngr();
-	}
-	
-	private void inserisciQuantitaIngr(JPanel panelGestioneIngr) {
-		pannelloIngr.inserisciQuantitaIngr(panelGestioneIngr, "Quantità");
-		textFieldQuantitaIngr = pannelloIngr.getTextFieldQuantitaIngr();
+		textFieldQuantitaIngr = pannelloIngr.getTextFieldQuantitaIngr();					
 	}
 	
 	private void addListenerSelezioneRiga() {
@@ -210,9 +196,7 @@ public class JRicetta extends FrameVisibile{
 			int riga = table.getSelectedRow();
             if (riga != -1) {
             	idIngrediente = (String) table.getValueAt(riga, 0);
-            	comboBoxCategoriaIngr.setSelectedItem((String) table.getValueAt(riga, 1));
-            	textFieldNomeIngr.setText((String) table.getValueAt(riga, 2));
-            	textFieldQuantitaIngr.setText((String) table.getValueAt(riga, 3));
+            	pannelloIngr.getValoriTabella(riga, 1, 2, 3);
             }
 		});
 	}

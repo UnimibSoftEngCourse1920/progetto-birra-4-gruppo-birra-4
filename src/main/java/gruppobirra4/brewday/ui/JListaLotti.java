@@ -29,6 +29,7 @@ import javax.swing.JTextField;
 public class JListaLotti extends FrameVisibile {
 	
 	private JFrame frmListaLotti;
+	private PannelloIngredienti pannelloIngr;
 	private JTable table; 
 	private DefaultTableModel dtm;
 	private JComboBox comboBoxRicette;
@@ -37,6 +38,7 @@ public class JListaLotti extends FrameVisibile {
 	public JListaLotti() {
 		frmListaLotti = new JFrame();
 		menu = JMenu.getIstanza();
+		pannelloIngr = new PannelloIngredienti();
 		initialize();
 		menu.setFrameVisible(frmListaLotti);
 	}
@@ -103,18 +105,9 @@ public class JListaLotti extends FrameVisibile {
 				return columnEditables[column];
 			}
 		};
-		dtm.setColumnIdentifiers(header);
-		table.setModel(dtm);
-		
-		table.getColumnModel().getColumn(0).setPreferredWidth(0);
-		table.getColumnModel().getColumn(0).setMinWidth(0);
-		table.getColumnModel().getColumn(0).setMaxWidth(0);
-		
+		pannelloIngr.setTabella(table, dtm, header, scrollPane);			
 		table.setRowHeight(30);
-		scrollPane.setViewportView(table);
 		frmListaLotti.getContentPane().add(scrollPane);
-		
-		
 	}
 	
 	private void visualizzaListaLotti() {
