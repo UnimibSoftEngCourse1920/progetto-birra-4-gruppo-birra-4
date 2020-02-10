@@ -143,45 +143,10 @@ public class JCatalogo extends FrameVisibile{
 		panelIngr.add(panelGestioneIngr);
 		panelGestioneIngr.setLayout(new GridLayout(3, 2, 10, 20));
 		
-		inserisciCategoriaIngr(panelGestioneIngr);
-		inserisciNomeIngr(panelGestioneIngr);
-		inserisciQuantitaIngr(panelGestioneIngr);
-	}
-	
-
-	private void inserisciCategoriaIngr(JPanel panelGestioneIngr) {
-		/*JLabel lblCategoriaIngr = new JLabel("Categoria:");
-		panelGestioneIngr.add(lblCategoriaIngr);
+		pannelloIngr.inserisciGestioneIngr(panelGestioneIngr, "Quantità disponibile");
 		
-		comboBoxCategoriaIngr = new JComboBox();
-		comboBoxCategoriaIngr.setModel(new DefaultComboBoxModel(new String[] {
-					"Malto", "Luppolo", "Lievito", "Zucchero", "Additivo"
-					}));
-		panelGestioneIngr.add(comboBoxCategoriaIngr);*/
-		pannelloIngr.inserisciCategoriaIngr(panelGestioneIngr);
 		comboBoxCategoriaIngr = pannelloIngr.getComboBoxCategoriaIngr();
-	}
-	
-	private void inserisciNomeIngr(JPanel panelGestioneIngr) {
-		/*JLabel lblNomeIngr = new JLabel("Nome:");
-		panelGestioneIngr.add(lblNomeIngr);
-		
-		textFieldNomeIngr = new JTextField();
-		panelGestioneIngr.add(textFieldNomeIngr);
-		textFieldNomeIngr.setDocument(new JTextFieldLimit(30));
-		textFieldNomeIngr.setColumns(10);*/
-		pannelloIngr.inserisciNomeIngr(panelGestioneIngr);
 		textFieldNomeIngr = pannelloIngr.getTextFieldNomeIngr();
-	}
-	
-	private void inserisciQuantitaIngr(JPanel panelGestioneIngr) {
-		/*JLabel lblQuantitaDisponibileIngr = new JLabel("Quantità disponibile:");
-		panelGestioneIngr.add(lblQuantitaDisponibileIngr);
-		
-		textFieldQuantitaIngr = new JTextField();
-		panelGestioneIngr.add(textFieldQuantitaIngr);
-		textFieldQuantitaIngr.setColumns(10);*/
-		pannelloIngr.inserisciQuantitaIngr(panelGestioneIngr, "Quantità disponibile");
 		textFieldQuantitaIngr = pannelloIngr.getTextFieldQuantitaIngr();
 	}
 	
@@ -190,9 +155,7 @@ public class JCatalogo extends FrameVisibile{
 			int riga = table.getSelectedRow();
             if (riga != -1) {
             	id = (String) table.getValueAt(riga, 0);
-            	comboBoxCategoriaIngr.setSelectedItem((String) table.getValueAt(riga, 1));
-            	textFieldNomeIngr.setText((String) table.getValueAt(riga, 2));
-            	textFieldQuantitaIngr.setText((String) table.getValueAt(riga, 3));
+            	pannelloIngr.getValoriTabella(riga, 1, 2, 3);
             }
 		});
 	}

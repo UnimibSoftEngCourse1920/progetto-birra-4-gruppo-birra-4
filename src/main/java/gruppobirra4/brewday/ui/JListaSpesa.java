@@ -96,12 +96,9 @@ public class JListaSpesa extends FrameVisibile{
 					return columnEditables[column];
 				}
 			};
-		dtm.setColumnIdentifiers(header);
-		table.setModel(dtm);
-		table.getColumnModel().getColumn(0).setPreferredWidth(0);
-		table.getColumnModel().getColumn(0).setMinWidth(0);
-		table.getColumnModel().getColumn(0).setMaxWidth(0);
-		scrollPane.setViewportView(table);
+			
+		pannelloIngr.setTabella(table, dtm, header, scrollPane);	
+
 		frmListaSpesa.getContentPane().add(scrollPane);	
 	}
 	
@@ -133,56 +130,20 @@ public class JListaSpesa extends FrameVisibile{
 		panelIngr.add(panelGestioneIngr);
 		panelGestioneIngr.setLayout(new GridLayout(3, 2, 10, 20));
 		
-		inserisciCategoriaIngr(panelGestioneIngr);
-		inserisciNomeIngr(panelGestioneIngr);
-		inserisciQuantitaIngr(panelGestioneIngr);
-	}
-	
-
-	private void inserisciCategoriaIngr(JPanel panelGestioneIngr) {
-		/*JLabel lblCategoriaIngr = new JLabel("Categoria:");
-		panelGestioneIngr.add(lblCategoriaIngr);
+		pannelloIngr.inserisciGestioneIngr(panelGestioneIngr, "Quantità da acquistare");
 		
-		comboBoxCategoriaIngr = new JComboBox();
-		comboBoxCategoriaIngr.setModel(new DefaultComboBoxModel(new String[] {
-					"Malto", "Luppolo", "Lievito", "Zucchero", "Additivo"
-					}));
-		panelGestioneIngr.add(comboBoxCategoriaIngr);*/
-		pannelloIngr.inserisciCategoriaIngr(panelGestioneIngr);
 		comboBoxCategoriaIngr = pannelloIngr.getComboBoxCategoriaIngr();
-	}
-	
-	private void inserisciNomeIngr(JPanel panelGestioneIngr) {
-		/*JLabel lblNomeIngr = new JLabel("Nome:");
-		panelGestioneIngr.add(lblNomeIngr);
-		
-		textFieldNomeIngr = new JTextField();
-		panelGestioneIngr.add(textFieldNomeIngr);
-		textFieldNomeIngr.setDocument(new JTextFieldLimit(30));
-		textFieldNomeIngr.setColumns(10);*/
-		pannelloIngr.inserisciNomeIngr(panelGestioneIngr);
 		textFieldNomeIngr = pannelloIngr.getTextFieldNomeIngr();
-	}
-	
-	private void inserisciQuantitaIngr(JPanel panelGestioneIngr) {
-		/*JLabel lblQuantitaDisponibileIngr = new JLabel("Quantità disponibile:");
-		panelGestioneIngr.add(lblQuantitaDisponibileIngr);
-		
-		textFieldQuantitaIngr = new JTextField();
-		panelGestioneIngr.add(textFieldQuantitaIngr);
-		textFieldQuantitaIngr.setColumns(10);*/
-		pannelloIngr.inserisciQuantitaIngr(panelGestioneIngr, "Quantità da acquistare");
 		textFieldQuantitaIngr = pannelloIngr.getTextFieldQuantitaIngr();
 	}
+	
 	
 	private void addListenerSelezioneRiga() {
 		table.getSelectionModel().addListSelectionListener(event -> {
 			int riga = table.getSelectedRow();
             if (riga != -1) {
             	id = (String) table.getValueAt(riga, 0);
-            	comboBoxCategoriaIngr.setSelectedItem((String) table.getValueAt(riga, 1));
-            	textFieldNomeIngr.setText((String) table.getValueAt(riga, 2));
-            	textFieldQuantitaIngr.setText((String) table.getValueAt(riga, 4));
+            	pannelloIngr.getValoriTabella(riga, 1, 2, 4);
             }
 		});
 	}
@@ -212,7 +173,7 @@ public class JListaSpesa extends FrameVisibile{
 			if (qtls != null) { //Se non ci sono stati errori
 				dtm.addRow(new Object[] {qtls.getIngrediente().getId(), qtls.getIngrediente().getCategoria(), qtls.getIngrediente().getNome(), 
 						Integer.toString((int) Math.round(qtls.getIngrediente().getQuantita())),
-						Math.round(qtls.getQuantitaDaAcquistare())
+						Integer.toString((int) Math.round(qtls.getQuantitaDaAcquistare()))
 				});	
 				table.setRowSelectionInterval(table.getRowCount()-1, table.getRowCount()-1);
 			}
@@ -237,7 +198,7 @@ public class JListaSpesa extends FrameVisibile{
 	}
 	
 	private void inserisciBottoneModifica(JPanel panelBottoni) {
-		JButton btnModificaIngr = new JButton("Modifica");
+		JButton btnModificaIngr = new JButton("Modifica quantità");
 		btnModificaIngr.addActionListener(event -> {
 			String quantitaDaAcquistare = textFieldQuantitaIngr.getText();
 			int riga = table.getSelectedRow();
@@ -248,7 +209,7 @@ public class JListaSpesa extends FrameVisibile{
 					table.setValueAt(qtls.getIngrediente().getCategoria(), riga, 1);
 					table.setValueAt(qtls.getIngrediente().getNome(), riga, 2);
 					table.setValueAt(Integer.toString((int) Math.round(qtls.getIngrediente().getQuantita())), riga, 3);
-					table.setValueAt(Math.round(qtls.getQuantitaDaAcquistare()), riga, 4);
+					table.setValueAt(Integer.toString((int) Math.round(qtls.getQuantitaDaAcquistare())), riga, 4);
 				}
 			}
 		});

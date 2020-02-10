@@ -29,6 +29,7 @@ import javax.swing.JTextField;
 public class JListaLotti extends FrameVisibile {
 	
 	private JFrame frmListaLotti;
+	private PannelloIngredienti pannelloIngr;
 	private JTable table; 
 	private DefaultTableModel dtm;
 	private JComboBox comboBoxRicette;
@@ -37,6 +38,7 @@ public class JListaLotti extends FrameVisibile {
 	public JListaLotti() {
 		frmListaLotti = new JFrame();
 		menu = JMenu.getIstanza();
+		pannelloIngr = new PannelloIngredienti();
 		initialize();
 		menu.setFrameVisible(frmListaLotti);
 	}
@@ -80,8 +82,8 @@ public class JListaLotti extends FrameVisibile {
 		
 		inserisciCreaLotto();
 		
-		inserisciApriLotto();
-				
+		inserisciBottoni();
+		
 	}
 
 	private void inserisciMenu() {
@@ -90,7 +92,7 @@ public class JListaLotti extends FrameVisibile {
 	
 	private void inserisciTabellaLotti() {
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 36, 610, 311);
+		scrollPane.setBounds(10, 36, 632, 311);
 
 		table = new JTable();
 		String[] header = new String[] {"id", "Data", "Ricetta"};
@@ -103,18 +105,9 @@ public class JListaLotti extends FrameVisibile {
 				return columnEditables[column];
 			}
 		};
-		dtm.setColumnIdentifiers(header);
-		table.setModel(dtm);
-		
-		table.getColumnModel().getColumn(0).setPreferredWidth(0);
-		table.getColumnModel().getColumn(0).setMinWidth(0);
-		table.getColumnModel().getColumn(0).setMaxWidth(0);
-		
+		pannelloIngr.setTabella(table, dtm, header, scrollPane);			
 		table.setRowHeight(30);
-		scrollPane.setViewportView(table);
 		frmListaLotti.getContentPane().add(scrollPane);
-		
-		
 	}
 	
 	private void visualizzaListaLotti() {
@@ -180,10 +173,20 @@ public class JListaLotti extends FrameVisibile {
 		});		
 	}
 
-	private void inserisciApriLotto() {
+	private void inserisciBottoni() {
+		JPanel panelBottoni = new JPanel();
+		panelBottoni.setBounds(689, 81, 153, 124);
+		frmListaLotti.getContentPane().add(panelBottoni);
+		panelBottoni.setLayout(new GridLayout(0, 1, 0, 15));
+		
+		inserisciApriLotto(panelBottoni);
+		inserisciRimuoviLotto(panelBottoni);
+		
+	}
+
+	private void inserisciApriLotto(JPanel panelBottoni) {
 		JButton btnApri = new JButton("Apri");
-		btnApri.setBounds(660, 80, 191, 48);
-		frmListaLotti.getContentPane().add(btnApri);
+		panelBottoni.add(btnApri);
 		
 		btnApri.addActionListener(event -> {
 			int riga = table.getSelectedRow();
@@ -196,4 +199,22 @@ public class JListaLotti extends FrameVisibile {
 			}
 		});
 	}
+
+	private void inserisciRimuoviLotto(JPanel panelBottoni) {
+		JButton btnRimuovi = new JButton("Rimuovi");
+		panelBottoni.add(btnRimuovi);
+		
+		btnRimuovi.addActionListener(event -> {
+			int riga = table.getSelectedRow();
+			String idLotto = null;
+			if (riga != -1) {
+				idLotto = (String) table.getValueAt(riga, 0);				
+			}
+			if (idLotto != null && riga != -1 && GestoreLotti.getIstanza().rimuoviLotto(idLotto)) {
+				((DefaultTableModel) table.getModel()).removeRow(riga);
+			}
+		});	
+	}
+	
+	
 }

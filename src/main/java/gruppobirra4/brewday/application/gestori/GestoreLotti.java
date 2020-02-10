@@ -55,6 +55,17 @@ public class GestoreLotti {
 		}
 	}
 	
+	public boolean rimuoviLotto(String idLotto) {
+		try {
+			ListaLotti.getIstanza().rimuoviLotto(idLotto);
+			return true;			
+		} catch (Exception e){
+			Notifica.getIstanza().svuotaNotificheErrori();
+			Notifica.getIstanza().notificaEccezione(e);
+			return false;
+		}
+	}
+	
 	public Collection<Lotto> visualizzaListaLotti() {
 		try {
 			Collection<Lotto> lotti = ListaLotti.getIstanza().visualizzaListaLotti();
