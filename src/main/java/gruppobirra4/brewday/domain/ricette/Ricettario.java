@@ -141,14 +141,6 @@ public class Ricettario {
 		}
 		return returnMap;
 	}
-
-	//Serve?????????????????
-	public Ricetta getRicettaById(String idRicetta) {
-		ricette = openMapDB();
-		Ricetta r = ricette.get(idRicetta);
-		Database.getIstanza().closeDB();
-		return r;
-	}
 	
 	public Ricetta getRicettaByNome(String nomeRicetta) {
 		ricette = openMapDB();
@@ -163,9 +155,3 @@ public class Ricettario {
 	}
 	
 }
-	
-	
-	
-	
-	
-
