@@ -1,4 +1,4 @@
-package gruppobirra4.brewday.ui;
+package gruppobirra4.brewday.ui; //NOSONAR
 
 import java.awt.EventQueue;
 
@@ -8,8 +8,6 @@ import gruppobirra4.brewday.errori.Notifica;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.Font;
 
 public class JHome extends FrameVisibile {
@@ -134,7 +132,7 @@ public class JHome extends FrameVisibile {
 			JBirraDelGiorno.esegui();
 		});
 		frmHome.getContentPane().add(btnBirraDelGiorno);
-		
 	}
+	
 }
 	

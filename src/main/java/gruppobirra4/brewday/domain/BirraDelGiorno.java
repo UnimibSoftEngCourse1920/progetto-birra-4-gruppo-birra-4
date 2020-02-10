@@ -47,7 +47,7 @@ public class BirraDelGiorno {
 		}
 		
 		if(idRicetta == null) {
-			Notifica.getIstanza().addError("Nessuna ricetta producibile con quantitativo inserito");
+			Notifica.getIstanza().addError("Nessuna ricetta producibile con il quantitativo inserito");
 			Database.getIstanza().closeDB();
 			return null;
 		}
@@ -103,5 +103,5 @@ public class BirraDelGiorno {
 		}
 		return null;
 	}
-	
+
 }
