@@ -40,10 +40,15 @@ public class BirraDelGiorno {
 		for (Ricetta r: ricette.values()) {
 			valori.put(r.getId(), calcolaDifferenza(catalogo, r, Double.parseDouble(quantitaBirra)));
 		}
-		Ricetta risultato = ricette.get(trovaValoreMax(valori));
-		if(risultato == null) {
-			Notifica.getIstanza().addError("Nessuna ricetta producibile");
+		String id = trovaValoreMax(valori);
+		if(id == null) {
+			Notifica.getIstanza().addError("Nessuna ricetta producibile con quantitativo inserito");
+			return null;
 		}
+		Ricetta risultato = ricette.get(id);
+		//if(risultato == null) {
+			//Notifica.getIstanza().addError("Nessuna ricetta producibile");
+		//}
 		return risultato;
 		
 		
