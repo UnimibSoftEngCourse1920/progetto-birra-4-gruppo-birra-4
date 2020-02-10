@@ -39,6 +39,10 @@ public class JMenu {
 		menuBar.setBounds(0, 0, 640, 25);
 		
 		btnHome = new JButton("Home");
+		btnHome.addActionListener(event -> {
+			frameVisibile.dispose();
+			JHome.esegui();
+		});
 		btnHome.setBackground(Color.LIGHT_GRAY);
 		menuBar.add(btnHome);
 		
