@@ -65,7 +65,6 @@ public class BirraDelGiornoTest {
 		Ricetta ricetta4 = r.creaRicetta("Zaraba", "blo blo blo", ingredientiRicetta1, "17", "18");
 		assertNotNull(ricetta4);
 		
-		
 		c.creaIngrediente("Pale", "MALTO", "5000");
 		c.creaIngrediente("Crystal", "MALTO", "1000");
 		c.creaIngrediente("Columbus", "LUPPOLO", "500");

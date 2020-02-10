@@ -1,5 +1,6 @@
 package gruppobirra4.brewday.application.gestori; //NOSONAR
 
+import gruppobirra4.brewday.domain.BirraDelGiorno;
 import gruppobirra4.brewday.domain.ricette.Ricetta;
 import gruppobirra4.brewday.errori.Notifica;
 
@@ -20,7 +21,7 @@ public class GestoreBirraDelGiorno {
 	
 	public Ricetta calcolaBirraDelGiorno(String quantitaBirra) {
 		try {
-			Ricetta birraDelGiorno = calcolaBirraDelGiorno(quantitaBirra);
+			Ricetta birraDelGiorno = BirraDelGiorno.calcolaBirraDelGiorno(quantitaBirra);
 			if (Notifica.getIstanza().hasErrors()) {
 				Notifica.getIstanza().notificaErrori();
 				Notifica.getIstanza().svuotaNotificheErrori();

@@ -1,9 +1,7 @@
 package gruppobirra4.brewday.ui; //NOSONAR
 
-import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.swing.JButton;
@@ -11,21 +9,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 import gruppobirra4.brewday.application.gestori.GestoreLotti;
-import gruppobirra4.brewday.application.gestori.GestoreRicette;
 import gruppobirra4.brewday.domain.DecimalUtils;
 import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
 import gruppobirra4.brewday.domain.ricette.Lotto;
-import gruppobirra4.brewday.domain.ricette.Ricetta;
 import gruppobirra4.brewday.errori.Notifica;
-import javax.swing.JScrollBar;
 import javax.swing.JTextArea;
-import javax.swing.SwingConstants;
 
 public class JLotto extends FrameVisibile{
 	

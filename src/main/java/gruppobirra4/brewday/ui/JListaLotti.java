@@ -8,10 +8,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import gruppobirra4.brewday.application.gestori.GestoreListaSpesa;
 import gruppobirra4.brewday.application.gestori.GestoreLotti;
 import gruppobirra4.brewday.application.gestori.GestoreRicette;
-import gruppobirra4.brewday.database.Database;
 import gruppobirra4.brewday.domain.ricette.Lotto;
 import gruppobirra4.brewday.domain.ricette.Ricetta;
 import gruppobirra4.brewday.errori.Notifica;
@@ -19,7 +17,6 @@ import gruppobirra4.brewday.errori.Notifica;
 import javax.swing.JPanel;
 import java.awt.GridLayout;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;

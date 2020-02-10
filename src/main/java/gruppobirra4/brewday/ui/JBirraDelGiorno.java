@@ -1,4 +1,4 @@
-package gruppobirra4.brewday.ui;
+package gruppobirra4.brewday.ui; //NOSONAR
 
 import java.awt.EventQueue;
 
@@ -7,7 +7,6 @@ import javax.swing.JFrame;
 import gruppobirra4.brewday.application.gestori.GestoreBirraDelGiorno;
 import gruppobirra4.brewday.domain.ricette.Ricetta;
 import gruppobirra4.brewday.errori.Notifica;
-import javax.swing.JTextArea;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
@@ -100,8 +99,10 @@ public class JBirraDelGiorno extends FrameVisibile {
 		btnCalcola.addActionListener(event -> {
 			String quantitaBirra = textField.getText();
 			Ricetta risultato = GestoreBirraDelGiorno.getIstanza().calcolaBirraDelGiorno(quantitaBirra);
-			frmBirraDelGiorno.dispose();
-			JRicetta.esegui(risultato.getId(), risultato.getNome());
+			if(risultato != null) {
+				frmBirraDelGiorno.dispose();
+				JRicetta.esegui(risultato.getId(), risultato.getNome());
+			}
 		});
 		frmBirraDelGiorno.getContentPane().add(btnCalcola);
 	}
