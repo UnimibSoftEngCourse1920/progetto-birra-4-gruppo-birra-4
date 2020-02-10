@@ -170,5 +170,4 @@ public class JRicettario extends FrameVisibile {
 		panelBottoni.add(btnRimuovi);
 	}
 
-
 }

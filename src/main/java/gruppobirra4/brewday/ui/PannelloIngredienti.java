@@ -152,5 +152,4 @@ public class PannelloIngredienti {
 		scrollPane.setViewportView(table);
 	}
 
-
 }
