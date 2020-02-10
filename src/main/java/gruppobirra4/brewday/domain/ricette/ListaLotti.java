@@ -159,10 +159,4 @@ public class ListaLotti {
 		return lotto;
 	}
 
-	
-	
-	
-	
-
-
 }
