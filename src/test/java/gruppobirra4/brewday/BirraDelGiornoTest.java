@@ -76,7 +76,6 @@ public class BirraDelGiornoTest {
 		risultato = BirraDelGiorno.calcolaBirraDelGiorno("18");
 		assertNotNull(risultato);
 		assertEquals(ricetta1.getId(), risultato.getId());
-		
 	}
 
 }
