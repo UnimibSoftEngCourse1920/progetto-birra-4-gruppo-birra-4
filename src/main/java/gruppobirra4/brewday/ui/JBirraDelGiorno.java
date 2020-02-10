@@ -95,7 +95,7 @@ public class JBirraDelGiorno extends FrameVisibile {
 	
 	private void inserisciBottoneCalcola() {
 		JButton btnCalcola = new JButton("Calcola");
-		btnCalcola.setBounds(386, 316, 179, 78);
+		btnCalcola.setBounds(402, 311, 146, 57);
 		btnCalcola.addActionListener(event -> {
 			String quantitaBirra = textField.getText();
 			Ricetta risultato = GestoreBirraDelGiorno.getIstanza().calcolaBirraDelGiorno(quantitaBirra);
