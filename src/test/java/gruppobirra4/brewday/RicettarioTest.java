@@ -4,23 +4,19 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.SortedMap;
-import java.util.TreeSet;
-
 import org.junit.Test;
-
 import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
 import gruppobirra4.brewday.domain.ricette.Ricetta;
 import gruppobirra4.brewday.domain.ricette.Ricettario;
-import kotlin.collections.EmptySet;
 
 public class RicettarioTest {
 	@Test
 	public void testCreaRicetta() {
+		CancellazioneDB.eliminaDB();
+		
 		Ricettario r = Ricettario.getIstanza();
 		Ricetta ric = null;
 		
@@ -61,8 +57,10 @@ public class RicettarioTest {
 		assertEquals(2, r.getRicette().size());
 	}
 	
-	/*@Test
+	@Test
 	public void testModificaRicetta() {
+		CancellazioneDB.eliminaDB();
+		
 		Ricettario r = Ricettario.getIstanza();
 		Ricetta ric = null;
 		
@@ -86,10 +84,12 @@ public class RicettarioTest {
 		ric = ricettaModificata;
 		ricettaModificata = r.modificaRicetta(ric.getId(), ric.getNome(), ric.getDescrizione(), ric.getIngredienti(), "33", null);
 		assertNull(ricettaModificata);
-	}*/
+	}
 	
-	/*@Test
+	@Test
 	public void testRimuoviRicetta() {
+		CancellazioneDB.eliminaDB();
+		
 		Ricettario r = Ricettario.getIstanza();
 		Ricetta ric = null;
 		
@@ -104,6 +104,6 @@ public class RicettarioTest {
 		assertEquals(1, r.getRicette().size());
 		r.rimuoviRicetta(ric.getId());
 		assertEquals(0, r.getRicette().size());
-	}*/
+	}
 
 }

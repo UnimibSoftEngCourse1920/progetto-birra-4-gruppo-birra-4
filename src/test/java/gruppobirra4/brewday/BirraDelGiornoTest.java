@@ -3,12 +3,9 @@ package gruppobirra4.brewday;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-
 import java.util.HashSet;
 import java.util.Set;
-
 import org.junit.Test;
-
 import gruppobirra4.brewday.domain.BirraDelGiorno;
 import gruppobirra4.brewday.domain.ingredienti.CatalogoIngredienti;
 import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
@@ -17,8 +14,11 @@ import gruppobirra4.brewday.domain.ricette.Ricettario;
 
 public class BirraDelGiornoTest {
 
+	
 	@Test
 	public void testCalcolaBirraDelGiorno() {
+		CancellazioneDB.eliminaDB();
+		
 		CatalogoIngredienti c = CatalogoIngredienti.getIstanza();
 		Ricettario r = Ricettario.getIstanza();
 		

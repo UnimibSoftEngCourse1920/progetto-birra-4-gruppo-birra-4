@@ -32,6 +32,11 @@ public class CatalogoIngredienti {
 		return istanza;
 	}
 	
+	//Per test
+	public static synchronized void setIstanzaNull() {
+		istanza = null;
+	}
+	
 	private HTreeMap<String, Ingrediente> openMapDB() {
 		return (HTreeMap<String, Ingrediente>) Database.getIstanza().openMapDB(TABLE_CATALOGO);
 	}

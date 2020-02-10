@@ -1,13 +1,10 @@
 package gruppobirra4.brewday;
 
 import static org.junit.Assert.*;
-
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-
 import org.junit.Test;
-
 import gruppobirra4.brewday.domain.ingredienti.CatalogoIngredienti;
 import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
 import gruppobirra4.brewday.domain.ricette.ListaLotti;
@@ -19,6 +16,8 @@ public class LottiTest {
 
 	@Test
 	public void testCreaLotto() {
+		CancellazioneDB.eliminaDB();
+		
 		ListaLotti l = ListaLotti.getIstanza();
 		Ricettario r = Ricettario.getIstanza();
 		CatalogoIngredienti c = CatalogoIngredienti.getIstanza();

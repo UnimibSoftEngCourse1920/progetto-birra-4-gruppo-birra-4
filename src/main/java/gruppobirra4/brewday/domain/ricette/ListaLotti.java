@@ -36,6 +36,11 @@ public class ListaLotti {
 		return istanza;
 	}
 	
+	//Per test
+	public static synchronized void setIstanzaNull() {
+		istanza = null;
+	}
+	
 	private HTreeMap<String, Lotto> openMapDB() {
 		return (HTreeMap<String, Lotto>) Database.getIstanza().openMapDB(TABLE_LOTTI);
 	}

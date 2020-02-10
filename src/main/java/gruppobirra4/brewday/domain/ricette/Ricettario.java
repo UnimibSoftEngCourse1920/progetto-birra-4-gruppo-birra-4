@@ -34,6 +34,11 @@ public class Ricettario {
 		return istanza;
 	}
 	
+	//Per test
+	public static synchronized void setIstanzaNull() {
+		istanza = null;
+	}
+	
 	private HTreeMap<String, Ricetta> openMapDB() {
 		return (HTreeMap<String, Ricetta>) Database.getIstanza().openMapDB(TABLE_RICETTARIO);
 	}
