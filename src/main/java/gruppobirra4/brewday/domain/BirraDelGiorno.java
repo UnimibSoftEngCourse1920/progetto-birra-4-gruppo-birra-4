@@ -45,13 +45,7 @@ public class BirraDelGiorno {
 			Notifica.getIstanza().addError("Nessuna ricetta producibile con quantitativo inserito");
 			return null;
 		}
-		Ricetta risultato = ricette.get(id);
-		//if(risultato == null) {
-			//Notifica.getIstanza().addError("Nessuna ricetta producibile");
-		//}
-		return risultato;
-		
-		
+		return ricette.get(id);		
 	}
 
 	private static Double calcolaDifferenza(SortedMap<String, Ingrediente> catalogo, Ricetta ricetta, double quantitaBirra) {

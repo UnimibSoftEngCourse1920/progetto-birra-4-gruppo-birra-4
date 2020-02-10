@@ -1,4 +1,4 @@
-package gruppobirra4.brewday.ui;
+package gruppobirra4.brewday.ui; //NOSONAR
 
 import java.awt.EventQueue;
 
