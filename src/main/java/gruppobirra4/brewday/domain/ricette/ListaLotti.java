@@ -120,11 +120,9 @@ public class ListaLotti {
 	}
 	
 	public void rimuoviLotto(String idLotto) {
-		if (idLotto != null && !idLotto.isEmpty()) {
-			lotti = openMapDB();
-			lotti.remove(idLotto);
-			Database.getIstanza().closeDB();
-		}	
+		lotti = openMapDB();
+		lotti.remove(idLotto);
+		Database.getIstanza().closeDB();
 	}
 	
 	//Controlla che ci siano abbastanza ingredienti nel catalogo per una successiva produzione

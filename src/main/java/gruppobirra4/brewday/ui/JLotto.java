@@ -125,7 +125,7 @@ public class JLotto extends FrameVisibile{
 		scrollPane.setViewportView(table);*/ 
 		
 		JScrollPane scrollPane = pannelloIngr.inserisciTabellaIngredienti("Quantità");
-		JTable table = pannelloIngr.getTable();
+		pannelloIngr.getTable();
 		dtm = pannelloIngr.getDtm();		
 		scrollPane.setBounds(20, 56, 652, 282);
 		

@@ -128,14 +128,14 @@ public class JRicettario extends FrameVisibile {
 		frmRicettario.getContentPane().add(panelBottoni);
 		panelBottoni.setLayout(new GridLayout(3, 0, 15, 40));
 
-		inserisciBottoneApri(panelBottoni);
+		inserisciApriRicetta(panelBottoni);
 		
-		inserisciBottoneAggiungi(panelBottoni);
+		inserisciAggiungiRicetta(panelBottoni);
 
-		inserisciBottoneRimuovi(panelBottoni);
+		inserisciRimuoviRicetta(panelBottoni);
 	}
 
-	private void inserisciBottoneApri(JPanel panelBottoni) {
+	private void inserisciApriRicetta(JPanel panelBottoni) {
 		JButton btnApri = new JButton("Apri ricetta");
 		btnApri.addActionListener(event -> {
 			int riga = table.getSelectedRow();
@@ -151,7 +151,7 @@ public class JRicettario extends FrameVisibile {
 		panelBottoni.add(btnApri);
 	}
 	
-	private void inserisciBottoneAggiungi(JPanel panelBottoni) {
+	private void inserisciAggiungiRicetta(JPanel panelBottoni) {
 		JButton btnAggiungi = new JButton("Aggiungi");
 		btnAggiungi.addActionListener(event -> {
 			frmRicettario.dispose();
@@ -160,7 +160,7 @@ public class JRicettario extends FrameVisibile {
 		panelBottoni.add(btnAggiungi);
 	}
 	
-	private void inserisciBottoneRimuovi(JPanel panelBottoni) {
+	private void inserisciRimuoviRicetta(JPanel panelBottoni) {
 		JButton btnRimuovi = new JButton("Rimuovi");
 		btnRimuovi.addActionListener(event -> {
 			int riga = table.getSelectedRow();

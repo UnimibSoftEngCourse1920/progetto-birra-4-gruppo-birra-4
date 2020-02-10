@@ -140,37 +140,16 @@ public class JListaSpesa extends FrameVisibile{
 	
 
 	private void inserisciCategoriaIngr(JPanel panelGestioneIngr) {
-		/*JLabel lblCategoriaIngr = new JLabel("Categoria:");
-		panelGestioneIngr.add(lblCategoriaIngr);
-		
-		comboBoxCategoriaIngr = new JComboBox();
-		comboBoxCategoriaIngr.setModel(new DefaultComboBoxModel(new String[] {
-					"Malto", "Luppolo", "Lievito", "Zucchero", "Additivo"
-					}));
-		panelGestioneIngr.add(comboBoxCategoriaIngr);*/
 		pannelloIngr.inserisciCategoriaIngr(panelGestioneIngr);
 		comboBoxCategoriaIngr = pannelloIngr.getComboBoxCategoriaIngr();
 	}
 	
 	private void inserisciNomeIngr(JPanel panelGestioneIngr) {
-		/*JLabel lblNomeIngr = new JLabel("Nome:");
-		panelGestioneIngr.add(lblNomeIngr);
-		
-		textFieldNomeIngr = new JTextField();
-		panelGestioneIngr.add(textFieldNomeIngr);
-		textFieldNomeIngr.setDocument(new JTextFieldLimit(30));
-		textFieldNomeIngr.setColumns(10);*/
 		pannelloIngr.inserisciNomeIngr(panelGestioneIngr);
 		textFieldNomeIngr = pannelloIngr.getTextFieldNomeIngr();
 	}
 	
 	private void inserisciQuantitaIngr(JPanel panelGestioneIngr) {
-		/*JLabel lblQuantitaDisponibileIngr = new JLabel("Quantità disponibile:");
-		panelGestioneIngr.add(lblQuantitaDisponibileIngr);
-		
-		textFieldQuantitaIngr = new JTextField();
-		panelGestioneIngr.add(textFieldQuantitaIngr);
-		textFieldQuantitaIngr.setColumns(10);*/
 		pannelloIngr.inserisciQuantitaIngr(panelGestioneIngr, "Quantità da acquistare");
 		textFieldQuantitaIngr = pannelloIngr.getTextFieldQuantitaIngr();
 	}
