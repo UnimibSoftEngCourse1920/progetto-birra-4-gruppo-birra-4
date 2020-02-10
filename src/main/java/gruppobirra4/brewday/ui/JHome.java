@@ -23,6 +23,10 @@ public class JHome extends FrameVisibile {
 		menu.setFrameVisible(frmHome);
 	}
 	
+	public static void main(String[] args) {
+		esegui();
+	}
+	
 	public static void esegui() {
 		/*EventQueue.invokeLater(() -> {
 			try {

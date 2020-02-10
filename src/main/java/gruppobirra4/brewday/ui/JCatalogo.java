@@ -28,11 +28,6 @@ public class JCatalogo extends FrameVisibile{
 	private JComboBox comboBoxCategoriaIngr;
 	private JTextField textFieldNomeIngr;
 	private JTextField textFieldQuantitaIngr;
-	
-	
-	public static void main(String[] args) {
-		esegui();
-	}
 
 	public JCatalogo() {
 		frmCatalogoIngredienti = new JFrame();
