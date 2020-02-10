@@ -116,9 +116,9 @@ public class PannelloIngredienti {
 	
 	public void rimuoviRigaIngr(int riga) {
 		((DefaultTableModel) table.getModel()).removeRow(riga);
-		if (table.getRowCount() != 0) {
+		/*if (table.getRowCount() != 0) {
 			table.setRowSelectionInterval(table.getRowCount()-1, table.getRowCount()-1);
-		}
+		}*/
 	}
 
 	public JTable getTable() {

@@ -31,7 +31,8 @@ public class BirraDelGiornoTest {
 		ingredientiRicetta1.add(ing3);
 		Ricetta ricetta1 = r.creaRicetta("American Pale Ale", "bla bla bla", ingredientiRicetta1, "17", "18");
 		assertNotNull(ricetta1);
-		Ricetta risultato = BirraDelGiorno.calcolaBirraDelGiorno("18");
+		BirraDelGiorno bday1 = new BirraDelGiorno();
+		Ricetta risultato = bday1.calcolaBirraDelGiorno("18");
 		assertNull(risultato);
 		
 		
@@ -72,7 +73,8 @@ public class BirraDelGiornoTest {
 		c.creaIngrediente("Wheat", "MALTO", "4500");
 		c.creaIngrediente("Hattertauer", "LUPPOLO", "50");
 		
-		risultato = BirraDelGiorno.calcolaBirraDelGiorno("18");
+		BirraDelGiorno bday2 = new BirraDelGiorno();
+		risultato = bday2.calcolaBirraDelGiorno("18");
 		assertNotNull(risultato);
 		assertEquals(ricetta1.getId(), risultato.getId());
 	}
