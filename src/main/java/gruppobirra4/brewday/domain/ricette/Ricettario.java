@@ -16,7 +16,7 @@ import gruppobirra4.brewday.errori.Notifica;
 
 public class Ricettario {
 	
-	private Map<String, Ricetta> ricette;
+	private HTreeMap<String, Ricetta> ricette;
 	private static Ricettario istanza;
 	private static final String TABLE_RICETTARIO = "Ricettario";
 	
@@ -43,16 +43,6 @@ public class Ricettario {
 		return (HTreeMap<String, Ricetta>) Database.getIstanza().openMapDB(TABLE_RICETTARIO);
 	}
 	
-	public Ricetta creaRicetta(String nome, String descrizione, Set<Ingrediente> ingredienti,
-							String quantitaAcqua, String quantitaBirra) {
-		Ricetta ricetta = Ricetta.creaRicetta(null, nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
-		if(ricetta != null && aggiungiRicetta(ricetta)) {
-			ricetta.convertiRicettaInValoreNormale();
-			return ricetta;
-		}
-		return null;		
-	}
-	
 	private boolean aggiungiRicetta(Ricetta nuovaRicetta) {
 		ricette = openMapDB();
 		if(checkRicettario(nuovaRicetta.getNome(), nuovaRicetta.getId())) {	
@@ -77,28 +67,15 @@ public class Ricettario {
 		}
 		return false;
 	}
-	
-	public Collection<Ricetta> visualizzaRicettario() {
-		ricette = openMapDB();
-		if (ricette.isEmpty()) {
-			Database.getIstanza().closeDB();
-			return Collections.emptyList();
-		}
-		Collection<Ricetta> listaRicette = getRicetteHelper().values();
-		Database.getIstanza().closeDB();
-		return listaRicette;
-	}
 
-	public Ricetta visualizzaRicetta(String id) {
-		ricette = openMapDB();
-		if (ricette.isEmpty()) {
-			Database.getIstanza().closeDB();
-			return null;
+	public Ricetta creaRicetta(String nome, String descrizione, Set<Ingrediente> ingredienti,
+							String quantitaAcqua, String quantitaBirra) {
+		Ricetta ricetta = Ricetta.creaRicetta(null, nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
+		if(ricetta != null && aggiungiRicetta(ricetta)) {
+			ricetta.convertiRicettaInValoreNormale();
+			return ricetta;
 		}
-		Ricetta r = ricette.get(id);
-		Database.getIstanza().closeDB();
-		r.convertiRicettaInValoreNormale();
-		return r;
+		return null;		
 	}
 	
 	public Ricetta modificaRicetta(String id, String nome, String descrizione, Set<Ingrediente> ingredienti,
@@ -117,15 +94,25 @@ public class Ricettario {
 		Notifica.getIstanza().addError("E' già presente un ingrediente con lo stesso nome e categoria");
 		Database.getIstanza().closeDB();
 		return null;
-	}	
-	
-	public void rimuoviRicetta(String id) {
+	}		
+
+	public Ricetta getRicettaByNome(String nomeRicetta) {
 		ricette = openMapDB();
-		ricette.remove(id); 
+		for (Ricetta r: ricette.values()) {
+			if (r.getNome().equals(nomeRicetta)) {
+				Database.getIstanza().closeDB();
+				return r;
+			}
+		}
 		Database.getIstanza().closeDB();
+		return null;
 	}
 	
-
+	public HTreeMap<String, Ricetta> getRicetteDB() {
+		ricette = openMapDB();
+		return ricette;
+	}
+	
 	public SortedMap<String, Ricetta> getRicette() {
 		ricette = openMapDB();
 		SortedMap<String, Ricetta> returnMap = getRicetteHelper();
@@ -138,25 +125,52 @@ public class Ricettario {
 		SortedMap<String, Ricetta> returnMap = new TreeMap<>();
 		for (Ricetta r : ricette.values()) {
 			returnMap.put(r.getId(), new Ricetta(r.getId(),
-					r.getNome(),
-					r.getDescrizione(),
-					r.getIngredienti(),
-					Double.toString(r.getQuantitaAcqua()),
-					Double.toString(r.getQuantitaBirra())));
+												r.getNome(),
+												r.getDescrizione(),
+												r.getIngredienti(),
+												Double.toString(r.getQuantitaAcqua()),
+												Double.toString(r.getQuantitaBirra())));
 		}
 		return returnMap;
 	}
 	
-	public Ricetta getRicettaByNome(String nomeRicetta) {
+	public boolean isRicettarioVuoto() {
 		ricette = openMapDB();
-		for (Ricetta r: ricette.values()) {
-			if (r.getNome().equals(nomeRicetta)) {
-				Database.getIstanza().closeDB();
-				return r;
-			}
+		if (ricette.isEmpty()) {
+			Database.getIstanza().closeDB();
+			return true;
 		}
 		Database.getIstanza().closeDB();
-		return null;
+		return false;
+	}
+	
+	public void rimuoviRicetta(String id) {
+		ricette = openMapDB();
+		ricette.remove(id); 
+		Database.getIstanza().closeDB();
+	}
+	
+	public Ricetta visualizzaRicetta(String id) {
+		ricette = openMapDB();
+		if (ricette.isEmpty()) {
+			Database.getIstanza().closeDB();
+			return null;
+		}
+		Ricetta r = ricette.get(id);
+		Database.getIstanza().closeDB();
+		r.convertiRicettaInValoreNormale();
+		return r;
+	}
+	
+	public Collection<Ricetta> visualizzaRicettario() {
+		ricette = openMapDB();
+		if (ricette.isEmpty()) {
+			Database.getIstanza().closeDB();
+			return Collections.emptyList();
+		}
+		Collection<Ricetta> listaRicette = getRicetteHelper().values();
+		Database.getIstanza().closeDB();
+		return listaRicette;
 	}
 	
 }

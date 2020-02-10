@@ -1,10 +1,6 @@
 package gruppobirra4.brewday.domain; //NOSONAR
 
-import java.util.Collections;
-import java.util.Map.Entry;
-import java.util.SortedMap;
-import java.util.TreeMap;
-
+import java.util.Map;
 import gruppobirra4.brewday.database.Database;
 import gruppobirra4.brewday.domain.ingredienti.CatalogoIngredienti;
 import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
@@ -14,57 +10,77 @@ import gruppobirra4.brewday.errori.Notifica;
 
 public class BirraDelGiorno {
 	
-	private static TreeMap<String, Double> valori = new TreeMap<>();
-	
+	private String idRicetta;
 
-	private BirraDelGiorno() {
-		super();
+	public BirraDelGiorno() {
+		this.idRicetta = null;
 	}
 	
-	public static Ricetta calcolaBirraDelGiorno(String quantitaBirra) {
-		if(!(Ricetta.validateQuantitaBirra(quantitaBirra))) {
+	public Ricetta calcolaBirraDelGiorno(String quantita) {
+		if(!(Ricetta.validateQuantitaBirra(quantita))) {
 			return null;
 		}
-		SortedMap<String, Ricetta> ricette = Ricettario.getIstanza().getRicette();
-		if(ricette.isEmpty()) {
-			Database.getIstanza().closeDB();
+		double quantitaBirra = Double.parseDouble(quantita);
+		
+		if (Ricettario.getIstanza().isRicettarioVuoto()) {
 			Notifica.getIstanza().addError("Non ci sono ricette nel ricettario");
 			return null;
 		}
-		SortedMap<String, Ingrediente> catalogo = CatalogoIngredienti.getIstanza().getIngredienti();
-		if(catalogo.isEmpty()) {
-			Database.getIstanza().closeDB();
+		if (CatalogoIngredienti.getIstanza().isCatalogoVuoto()) {
 			Notifica.getIstanza().addError("Non ci sono ingredienti nel catalogo");
 			return null;
 		}
+		
+		Map<String, Ricetta> ricette = Ricettario.getIstanza().getRicetteDB();
+		Map<String, Ingrediente> catalogo = CatalogoIngredienti.getIstanza().getIngredientiDB();
+		
+		double min = Double.MAX_VALUE;
+		double differenzaQuantita = 0;
 		for (Ricetta r: ricette.values()) {
-			valori.put(r.getId(), calcolaDifferenza(catalogo, r, Double.parseDouble(quantitaBirra)));
+			differenzaQuantita = calcolaDifferenza(catalogo, r, quantitaBirra);
+			min = calcolaMinimo(min, differenzaQuantita, r.getId());
 		}
-		String id = trovaValoreMax(valori);
-		if(id == null) {
-			Notifica.getIstanza().addError("Nessuna ricetta producibile con quantitativo inserito");
+		
+		if(Double.doubleToLongBits(min) == Double.doubleToLongBits(Double.MAX_VALUE)) {
+			Database.getIstanza().closeDB();
 			return null;
 		}
-		return ricette.get(id);		
+		
+		if(idRicetta == null) {
+			Notifica.getIstanza().addError("Nessuna ricetta producibile con il quantitativo inserito");
+			Database.getIstanza().closeDB();
+			return null;
+		}
+		return ricette.get(idRicetta);
 	}
 
-	private static Double calcolaDifferenza(SortedMap<String, Ingrediente> catalogo, Ricetta ricetta, double quantitaBirra) {
+	private double calcolaMinimo(double min, double differenzaQuantita, String idRicetta) {		
+		if (differenzaQuantita < min) {
+			min = differenzaQuantita;
+			this.idRicetta = idRicetta;
+			return min;
+		}
+		return min;
+	}
+
+	private double calcolaDifferenza(Map<String, Ingrediente> catalogo, Ricetta ricetta, double quantitaBirra) {
 		double differenza = 0;
+	
 		for (Ingrediente ingRicetta : ricetta.getIngredienti()) {
 			Ingrediente ingCatalogo = getIngredienteByNomeCategoria(catalogo, ingRicetta.getNome(), ingRicetta.getCategoria());
 			if(ingCatalogo == null) {
 				return Double.MAX_VALUE;
 			}
 			double quantitaCatalogo = ingCatalogo.getQuantita();
-			double quantitaRicetta = ingRicetta.getQuantita() * quantitaBirra;
-			if(quantitaCatalogo - (quantitaRicetta)<0)
+			double quantitaRicetta = Math.round(ingRicetta.getQuantita() * quantitaBirra);
+			if((int) Math.round(quantitaCatalogo - (quantitaRicetta)) < 0)
 				return Double.MAX_VALUE;
-			differenza = differenza +(quantitaCatalogo - quantitaRicetta);
+			differenza = differenza + (quantitaCatalogo - quantitaRicetta);
 		}
 		return differenza;
 	}
 	
-	private static String trovaValoreMax(TreeMap<String, Double> valori) {
+	/*private static String trovaValoreMax(TreeMap<String, Double> valori) {
 		Double max = Collections.max(valori.values());
 		String key = null;
 		for(Entry<String, Double> entry : valori.entrySet()) {
@@ -77,9 +93,9 @@ public class BirraDelGiorno {
 			return null;
 		}
 		return key;
-	}
+	}*/
 	
-	private static Ingrediente getIngredienteByNomeCategoria(SortedMap<String, Ingrediente> catalogo, String nome, String categoria) {
+	private static Ingrediente getIngredienteByNomeCategoria(Map<String, Ingrediente> catalogo, String nome, String categoria) {
 		for (Ingrediente ing : catalogo.values()) {
 			if((ing.getNome().equals(nome)) && (ing.getCategoria().equals(categoria))) {
 				return ing;

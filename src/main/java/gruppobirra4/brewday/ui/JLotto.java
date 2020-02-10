@@ -189,9 +189,10 @@ public class JLotto extends FrameVisibile{
 		btnSalva.addActionListener(event -> {
 			String noteGusto = textAreaNoteGusto.getText();
 			String noteProblemi = textAreaNoteProblemi.getText();
-			GestoreLotti.getIstanza().modificaNote(lotto.getId(), noteGusto, noteProblemi);		
-			frmLotto.dispose();
-			JListaLotti.esegui();
+			if(GestoreLotti.getIstanza().modificaNote(lotto.getId(), noteGusto, noteProblemi)) {
+				frmLotto.dispose();
+				JListaLotti.esegui();
+			}
 		});
 		panelBottoneSalva.add(btnSalva);
 	}

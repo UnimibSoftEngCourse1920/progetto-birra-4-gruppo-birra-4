@@ -82,11 +82,15 @@ public class CatalogoIngredienti {
 	}
 	
 	public Ingrediente checkCatalogoPerSpesa(String nome, String categoria) {
-		ingredienti = openMapDB();
+		if (isCatalogoVuoto()) {
+			return creaIngrediente(nome, categoria, "0");
+		}
+		
+		/*ingredienti = openMapDB();
 		if (ingredienti.isEmpty()) {
 			Database.getIstanza().closeDB();
 			return creaIngrediente(nome, categoria, "0");
-		}
+		}*/
 		/*for (Ingrediente ing : ingredienti.values()) {
 			if((ing.getNome().equals(nome)) && (ing.getCategoria().equals(categoria))) {
 				Database.getIstanza().closeDB();
@@ -104,13 +108,13 @@ public class CatalogoIngredienti {
 	
 	//Controlla se ingrRicetta e' disponibile in catalogo e se e' in quantita sufficiente
 	public boolean checkDisponibilitaInCatalogo(Ingrediente ingrRicetta) {
-		ingredienti = openMapDB();
+		//ingredienti = openMapDB();
 		Ingrediente ing = getIngredienteByNomeCategoria(ingrRicetta.getNome(), ingrRicetta.getCategoria());
 		if (ing != null && (int)Math.round(ing.getQuantita()) >= (int)Math.round(ingrRicetta.getQuantita()) ){
-			Database.getIstanza().closeDB();
+			//Database.getIstanza().closeDB();
 			return true;
 		}
-		Database.getIstanza().closeDB();
+		//Database.getIstanza().closeDB();
 		return false;		
 	}
 	
@@ -142,6 +146,12 @@ public class CatalogoIngredienti {
 		Database.getIstanza().closeDB();
 		return returnMap;
 	}
+	
+	public HTreeMap<String, Ingrediente> getIngredientiDB() {
+		ingredienti = openMapDB();
+		return ingredienti;
+	}
+	
 	/*
 	//Ritorna una mappa di java che contiene tutti gli ingredienti disponibili nel catalogo
 	private SortedMap<String, Ingrediente> getIngredientiDisponibiliHelper() {
@@ -194,11 +204,11 @@ public class CatalogoIngredienti {
 	}
 	
 	public void aggiornaIngrCatalogo(Ingrediente ingrRicetta) {
-		ingredienti = openMapDB();
+		//ingredienti = openMapDB();
 		Ingrediente ingr = getIngredienteByNomeCategoria(ingrRicetta.getNome(), ingrRicetta.getCategoria());
 		modificaIngrediente(ingr.getId(), ingr.getNome(), ingr.getCategoria(), 
 							Double.toString(Math.round(ingr.getQuantita() - ingrRicetta.getQuantita())));
-		Database.getIstanza().closeDB();
+		//Database.getIstanza().closeDB();
 	}
 	
 	
@@ -209,6 +219,7 @@ public class CatalogoIngredienti {
 	}
 	
 	public Ingrediente getIngredienteByNomeCategoria(String nome, String categoria) {
+		ingredienti = openMapDB();
 		for (Ingrediente ing : ingredienti.values()) {
 			if((ing.getNome().equals(nome)) && (ing.getCategoria().equals(categoria))) {
 				Database.getIstanza().closeDB();

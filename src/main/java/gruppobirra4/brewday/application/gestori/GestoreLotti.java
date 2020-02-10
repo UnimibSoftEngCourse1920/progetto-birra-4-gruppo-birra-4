@@ -42,16 +42,19 @@ public class GestoreLotti {
 		}
 	}
 	
-	public void modificaNote(String idLotto, String noteGusto, String noteProblemi) {
+	public boolean modificaNote(String idLotto, String noteGusto, String noteProblemi) {
 		try {
 			ListaLotti.getIstanza().modificaNote(idLotto, noteGusto, noteProblemi);
 			if (Notifica.getIstanza().hasErrors()) {
 				Notifica.getIstanza().notificaErrori();
 				Notifica.getIstanza().svuotaNotificheErrori();
-			}			
+				return false;
+			}
+			return true;
 		} catch (Exception e){
 			Notifica.getIstanza().svuotaNotificheErrori();
 			Notifica.getIstanza().notificaEccezione(e);
+			return false;
 		}
 	}
 	
