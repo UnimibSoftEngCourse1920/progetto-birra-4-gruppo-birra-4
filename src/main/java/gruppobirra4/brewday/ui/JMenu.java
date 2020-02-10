@@ -16,6 +16,7 @@ public class JMenu {
 	private JButton btnSpesa;
 	private JButton btnRicettario;
 	private JButton btnLotti;
+	private JButton btnBirraDelGiorno;
 	
 	private JMenu() {
 		this.menuBar = new JMenuBar();
@@ -35,7 +36,7 @@ public class JMenu {
 	}
 	
 	private void inserisciMenu() {
-		menuBar.setBounds(0, 0, 495, 25);
+		menuBar.setBounds(0, 0, 640, 25);
 		
 		btnHome = new JButton("Home");
 		btnHome.setBackground(Color.LIGHT_GRAY);
@@ -72,6 +73,14 @@ public class JMenu {
 		});
 		btnLotti.setBackground(Color.LIGHT_GRAY);
 		menuBar.add(btnLotti);
+		
+		btnBirraDelGiorno = new JButton("Cosa birriamo oggi?");
+		btnBirraDelGiorno.addActionListener(event -> {
+			frameVisibile.dispose();
+			JBirraDelGiorno.esegui();
+		});
+		btnBirraDelGiorno.setBackground(Color.LIGHT_GRAY);
+		menuBar.add(btnBirraDelGiorno);
 	}
 
 	public JMenuBar getMenuBar() {
