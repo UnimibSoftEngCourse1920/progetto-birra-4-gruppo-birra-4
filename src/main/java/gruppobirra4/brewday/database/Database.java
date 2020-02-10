@@ -44,7 +44,11 @@ public class Database {
 		return db;
 	}
 	
-	private static void setDBNull() {
+	/*public static boolean isIstanzaNull() {
+		return istanza == null;
+	}*/
+	
+	public static void setDBNull() {
 		istanza = null;
 	}
 	

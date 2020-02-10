@@ -2,9 +2,7 @@ package gruppobirra4.brewday;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-
 import org.junit.Test;
-
 import gruppobirra4.brewday.domain.ingredienti.CatalogoIngredienti;
 import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
 import gruppobirra4.brewday.domain.ingredienti.ListaSpesa;
@@ -14,6 +12,8 @@ public class ListaSpesaTest {
 	
 	@Test
 	public void testAggiungiIngrediente() {
+		CancellazioneDB.eliminaDB();
+		
 		ListaSpesa l = ListaSpesa.getIstanza();
 		CatalogoIngredienti c = CatalogoIngredienti.getIstanza();
 		QuantitaListaSpesa qt = null;
@@ -39,6 +39,8 @@ public class ListaSpesaTest {
 	
 	@Test
 	public void testRimuoviIngrediente() {
+		CancellazioneDB.eliminaDB();
+		
 		ListaSpesa l = ListaSpesa.getIstanza();
 		CatalogoIngredienti c = CatalogoIngredienti.getIstanza();
 		QuantitaListaSpesa qt = null;
@@ -56,6 +58,8 @@ public class ListaSpesaTest {
 	
 	@Test
 	public void testSvuotaLista() {
+		CancellazioneDB.eliminaDB();
+		
 		ListaSpesa l = ListaSpesa.getIstanza();
 		CatalogoIngredienti c = CatalogoIngredienti.getIstanza();
 		
@@ -71,6 +75,8 @@ public class ListaSpesaTest {
 	 
 	@Test
 	public void testAcquistaIngrediente() {
+		CancellazioneDB.eliminaDB();
+		
 		ListaSpesa l = ListaSpesa.getIstanza();
 		CatalogoIngredienti c = CatalogoIngredienti.getIstanza();
 		
@@ -90,6 +96,8 @@ public class ListaSpesaTest {
 	
 	@Test
 	public void testUnivocita() {
+		CancellazioneDB.eliminaDB();
+		
 		ListaSpesa l = ListaSpesa.getIstanza();
 		CatalogoIngredienti c = CatalogoIngredienti.getIstanza();
 		
@@ -102,6 +110,8 @@ public class ListaSpesaTest {
 	
 	@Test
 	public void testAcquistaTutto() {
+		CancellazioneDB.eliminaDB();
+		
 		ListaSpesa l = ListaSpesa.getIstanza();
 		
 		l.aggiungiIngrediente("San Michele", "Luppolo", "500");

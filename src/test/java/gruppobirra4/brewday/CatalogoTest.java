@@ -1,19 +1,16 @@
 package gruppobirra4.brewday; //NOSONAR
 
 import static org.junit.Assert.*;
-
-import java.io.File;
-
 import org.junit.Test;
-
-import gruppobirra4.brewday.database.Database;
 import gruppobirra4.brewday.domain.ingredienti.CatalogoIngredienti;
 import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
 
 public class CatalogoTest { 
-
+	
 	@Test
 	public void testCreaIngrediente() {
+		CancellazioneDB.eliminaDB();
+		
 		CatalogoIngredienti c = CatalogoIngredienti.getIstanza();
 		Ingrediente ingr = null;
 		
@@ -67,6 +64,8 @@ public class CatalogoTest {
 	
 	@Test
 	public void testRimuoviIngrediente() {
+		CancellazioneDB.eliminaDB();
+		
 		CatalogoIngredienti c = CatalogoIngredienti.getIstanza();
 		Ingrediente ingr = c.creaIngrediente("San Michele", "Luppolo", "500");
 		c.rimuoviIngrediente(ingr.getId());
@@ -75,6 +74,8 @@ public class CatalogoTest {
 
 	@Test
 	public void testModificaIngrediente() {
+		CancellazioneDB.eliminaDB();
+		
 		CatalogoIngredienti c = CatalogoIngredienti.getIstanza();
 		Ingrediente ingr = c.creaIngrediente("San Michele", "Luppolo", "500");
 		String idIngr = ingr.getId();

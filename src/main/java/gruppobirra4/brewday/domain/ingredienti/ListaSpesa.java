@@ -33,6 +33,11 @@ public class ListaSpesa {
 		return istanza;
 	}
 	
+	//Per test
+	public static synchronized void setIstanzaNull() {
+		istanza = null;
+	}
+	
 	private HTreeMap<String, Double> openMapDB() {
 		return (HTreeMap<String, Double>) Database.getIstanza().openMapDB(TABLE_LISTASPESA);
 	}
