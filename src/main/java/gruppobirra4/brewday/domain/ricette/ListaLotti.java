@@ -17,7 +17,7 @@ import gruppobirra4.brewday.errori.Notifica;
 
 public class ListaLotti {
 	
-	private Map<String, Lotto> lotti;
+	private HTreeMap<String, Lotto> lotti;
 	private static ListaLotti istanza;
 	private static final String TABLE_LOTTI = "ListaLotti";
 	

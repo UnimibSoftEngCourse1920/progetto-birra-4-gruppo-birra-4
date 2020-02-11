@@ -44,26 +44,24 @@ public class ListaSpesa {
 		return (HTreeMap<String, Double>) Database.getIstanza().openMapDB(TABLE_LISTASPESA);
 	}
 	
-	public Collection<QuantitaListaSpesa> visualizzaListaSpesa() {
+	public void acquistaIngrediente(String id) {
 		lista = openMapDB();
-		if (lista.isEmpty()) {
-			Database.getIstanza().closeDB();
-			return Collections.emptySet();
-		}
-		Collection<QuantitaListaSpesa> returnSet = getIngredientiHelper();
+		double qt = lista.get(id);
 		Database.getIstanza().closeDB();
-		return returnSet;
+		Ingrediente ing = CatalogoIngredienti.getIstanza().getIngredienteById(id);
+		ing = CatalogoIngredienti.getIstanza().modificaIngrediente(id, ing.getNome(), ing.getCategoria(), Double.toString(ing.getQuantita()+qt));
+		if (ing != null) {
+			rimuoviIngrediente(id);
+		}
 	}
 	
-	private Collection<QuantitaListaSpesa> getIngredientiHelper() {
-		Collection<QuantitaListaSpesa> returnSet = new HashSet<>();
-		for (Map.Entry<String, Double> entry : lista.entrySet()) {
-			returnSet.add(new QuantitaListaSpesa(CatalogoIngredienti.getIstanza().getIngredienteByIdDB(entry.getKey()),
-												entry.getValue()));
+	public void acquistaTutto() {
+		Collection<QuantitaListaSpesa> copiaLista = visualizzaListaSpesa();
+		for (QuantitaListaSpesa entry : copiaLista) {
+			acquistaIngrediente(entry.getIngrediente().getId());
 		}
-		return returnSet;
 	}
-
+	
 	public QuantitaListaSpesa aggiungiIngrediente(String nome, String categoria, String quantita) {
 		Ingrediente tempIng = Ingrediente.creaIngrediente("", nome, categoria, quantita);
 		if(tempIng == null) {
@@ -99,16 +97,16 @@ public class ListaSpesa {
 			if(entry.getKey().equals(id))
 				return true;
 		}
-		return false;
-		
+		return false;	
 	}
 	
-	public void rimuoviIngrediente(String id) {
-		lista = openMapDB();
-		if(lista.containsKey(id)) {
-			lista.remove(id);
+	private Collection<QuantitaListaSpesa> getIngredientiHelper() {
+		Collection<QuantitaListaSpesa> returnSet = new HashSet<>();
+		for (Map.Entry<String, Double> entry : lista.entrySet()) {
+			returnSet.add(new QuantitaListaSpesa(CatalogoIngredienti.getIstanza().getIngredienteByIdDB(entry.getKey()),
+												entry.getValue()));
 		}
-		Database.getIstanza().closeDB();
+		return returnSet;
 	}
 	
 	public QuantitaListaSpesa modificaQuantita(String id, String quantita) {
@@ -128,6 +126,14 @@ public class ListaSpesa {
 		return new QuantitaListaSpesa(CatalogoIngredienti.getIstanza().getIngredienteById(id), 
 									quantitaDaAcquistare);
 	}
+	
+	public void rimuoviIngrediente(String id) {
+		lista = openMapDB();
+		if(lista.containsKey(id)) {
+			lista.remove(id);
+		}
+		Database.getIstanza().closeDB();
+	}
 		
 	public void svuotaLista(){
 		lista = openMapDB();
@@ -137,21 +143,16 @@ public class ListaSpesa {
 		Database.getIstanza().closeDB();
 	}
 	
-	public void acquistaIngrediente(String id) {
+	public Collection<QuantitaListaSpesa> visualizzaListaSpesa() {
 		lista = openMapDB();
-		double qt = lista.get(id);
-		Database.getIstanza().closeDB();
-		Ingrediente ing = CatalogoIngredienti.getIstanza().getIngredienteById(id);
-		ing = CatalogoIngredienti.getIstanza().modificaIngrediente(id, ing.getNome(), ing.getCategoria(), Double.toString(ing.getQuantita()+qt));
-		if (ing != null) {
-			rimuoviIngrediente(id);
+		if (lista.isEmpty()) {
+			Database.getIstanza().closeDB();
+			return Collections.emptySet();
 		}
+		Collection<QuantitaListaSpesa> returnSet = getIngredientiHelper();
+		Database.getIstanza().closeDB();
+		return returnSet;
 	}
 	
-	public void acquistaTutto() {
-		Collection<QuantitaListaSpesa> copiaLista = visualizzaListaSpesa();
-		for (QuantitaListaSpesa entry : copiaLista) {
-			acquistaIngrediente(entry.getIngrediente().getId());
-		}
-	}
+	
 }

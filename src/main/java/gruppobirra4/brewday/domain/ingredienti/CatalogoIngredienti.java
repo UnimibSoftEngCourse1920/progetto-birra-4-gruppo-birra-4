@@ -41,13 +41,14 @@ public class CatalogoIngredienti {
 		return (HTreeMap<String, Ingrediente>) Database.getIstanza().openMapDB(TABLE_CATALOGO);
 	}
 	
-	public Ingrediente creaIngrediente(String nome, String categoria, String quantitaDisponibile) {
-		Ingrediente ingrediente = Ingrediente.creaIngrediente(null, nome, categoria, quantitaDisponibile);
-		if(ingrediente != null && aggiungiIngrediente(ingrediente)) {
-			return ingrediente;
-		}
-		return null;
+	public void aggiornaIngrCatalogo(Ingrediente ingrRicetta) {
+		//ingredienti = openMapDB();
+		Ingrediente ingr = getIngredienteByNomeCategoria(ingrRicetta.getNome(), ingrRicetta.getCategoria());
+		modificaIngrediente(ingr.getId(), ingr.getNome(), ingr.getCategoria(), 
+							Double.toString(Math.round(ingr.getQuantita() - ingrRicetta.getQuantita())));
+		//Database.getIstanza().closeDB();
 	}
+	
 	
 	public boolean aggiungiIngrediente(Ingrediente nuovoIngrediente) {
 		if(checkCatalogo(nuovoIngrediente.getNome(), nuovoIngrediente.getCategoria(), nuovoIngrediente.getId())) {	
@@ -59,7 +60,7 @@ public class CatalogoIngredienti {
 		ingredienti.put(nuovoIngrediente.getId(), nuovoIngrediente);
 		Database.getIstanza().closeDB();
 		return true;
-	}
+	}	
 	
 	//Controlla se e' presente nel catalogo un ingrediente con lo stesso nome e con la stessa categoria (che non sia se stesso)
 	public boolean checkCatalogo(String nome, String categoria, String id) {
@@ -95,97 +96,13 @@ public class CatalogoIngredienti {
 		return ing != null && (int)Math.round(ing.getQuantita()) >= (int)Math.round(ingrRicetta.getQuantita());			
 	}
 	
-	public boolean isCatalogoVuoto() {
-		ingredienti = openMapDB();
-		if (ingredienti.isEmpty()) {
-			Database.getIstanza().closeDB();
-			return true;
+	public Ingrediente creaIngrediente(String nome, String categoria, String quantitaDisponibile) {
+		Ingrediente ingrediente = Ingrediente.creaIngrediente(null, nome, categoria, quantitaDisponibile);
+		if(ingrediente != null && aggiungiIngrediente(ingrediente)) {
+			return ingrediente;
 		}
-		Database.getIstanza().closeDB();
-		return false;
-	}
-	
-	
-	public void rimuoviIngrediente(String id) {
-		ingredienti = openMapDB();
-		ingredienti.remove(id); 
-		ListaSpesa.getIstanza().rimuoviIngrediente(id);
-		Database.getIstanza().closeDB();
-	}
-	
-	public Collection<Ingrediente> visualizzaCatalogo() {
-		ingredienti = openMapDB();
-		if (ingredienti.isEmpty()) {
-			Database.getIstanza().closeDB();
-			return Collections.emptyList();
-		}
-		Collection<Ingrediente> returnMap = getIngredientiHelper().values();
-		Database.getIstanza().closeDB();
-		return returnMap;
-	}
-	
-	public HTreeMap<String, Ingrediente> getIngredientiDB() {
-		ingredienti = openMapDB();
-		return ingredienti;
-	}
-	
-	/*
-	//Ritorna una mappa di java che contiene tutti gli ingredienti disponibili nel catalogo
-	private SortedMap<String, Ingrediente> getIngredientiDisponibiliHelper() {
-		SortedMap<String, Ingrediente> returnMap = new TreeMap<>();
-		for (Ingrediente i : ingredienti.values()) {
-			if ((Double.doubleToLongBits(i.getQuantita()) != Double.doubleToLongBits(0.0))) {
-				returnMap.put(i.getId(), new Ingrediente(i.getId(),
-						i.getNome(),
-						i.getCategoria(),
-						Double.toString(i.getQuantita())));
-			}
-		}
-		return returnMap;
-	}
-	*/
-	public SortedMap<String, Ingrediente> getIngredienti() {
-		ingredienti = openMapDB();
-		SortedMap<String, Ingrediente> returnMap = getIngredientiHelper();
-		Database.getIstanza().closeDB();
-		return returnMap;
-	}
-	
-	//Ritorna una mappa di java che contiene tutti gli ingredienti nel catalogo
-	private SortedMap<String, Ingrediente> getIngredientiHelper() {
-		SortedMap<String, Ingrediente> returnMap = new TreeMap<>();
-		for (Ingrediente i : ingredienti.values()) {
-			returnMap.put(i.getId(), new Ingrediente(i.getId(),
-													i.getNome(),
-													i.getCategoria(),
-													Double.toString(i.getQuantita())));
-		}
-		return returnMap;
-	}
-
-	public Ingrediente modificaIngrediente(String id, String nome, String categoria, String quantita) {
-		Ingrediente ingrModificato =  Ingrediente.creaIngrediente(id, nome, categoria, quantita);
-		if (ingrModificato == null) {
-			return null;
-		}
-		if(!(checkCatalogo(ingrModificato.getNome(), ingrModificato.getCategoria(), ingrModificato.getId()))) {		
-			ingredienti = openMapDB();
-			ingredienti.replace(id, ingrModificato);
-			Database.getIstanza().closeDB();
-			return ingrModificato;
-		}	
-		Notifica.getIstanza().addError("E' già presente un ingrediente con lo stesso nome e categoria");
 		return null;
 	}
-	
-	public void aggiornaIngrCatalogo(Ingrediente ingrRicetta) {
-		//ingredienti = openMapDB();
-		Ingrediente ingr = getIngredienteByNomeCategoria(ingrRicetta.getNome(), ingrRicetta.getCategoria());
-		modificaIngrediente(ingr.getId(), ingr.getNome(), ingr.getCategoria(), 
-							Double.toString(Math.round(ingr.getQuantita() - ingrRicetta.getQuantita())));
-		//Database.getIstanza().closeDB();
-	}
-	
 	
 	public Ingrediente getIngredienteById(String id) {
 		ingredienti = openMapDB();
@@ -211,5 +128,73 @@ public class CatalogoIngredienti {
 		Database.getIstanza().closeDB();
 		return null;
 	}
+
+	public SortedMap<String, Ingrediente> getIngredienti() {
+		ingredienti = openMapDB();
+		SortedMap<String, Ingrediente> returnMap = getIngredientiHelper();
+		Database.getIstanza().closeDB();
+		return returnMap;
+	}
+	
+	public HTreeMap<String, Ingrediente> getIngredientiDB() {
+		ingredienti = openMapDB();
+		return ingredienti;
+	}
+	
+	//Ritorna una mappa di java che contiene tutti gli ingredienti nel catalogo
+	private SortedMap<String, Ingrediente> getIngredientiHelper() {
+		SortedMap<String, Ingrediente> returnMap = new TreeMap<>();
+		for (Ingrediente i : ingredienti.values()) {
+			returnMap.put(i.getId(), new Ingrediente(i.getId(),
+													i.getNome(),
+													i.getCategoria(),
+													Double.toString(i.getQuantita())));
+		}
+		return returnMap;
+	}
+	
+	public boolean isCatalogoVuoto() {
+		ingredienti = openMapDB();
+		if (ingredienti.isEmpty()) {
+			Database.getIstanza().closeDB();
+			return true;
+		}
+		Database.getIstanza().closeDB();
+		return false;
+	}
+	
+	public Ingrediente modificaIngrediente(String id, String nome, String categoria, String quantita) {
+		Ingrediente ingrModificato =  Ingrediente.creaIngrediente(id, nome, categoria, quantita);
+		if (ingrModificato == null) {
+			return null;
+		}
+		if(!(checkCatalogo(ingrModificato.getNome(), ingrModificato.getCategoria(), ingrModificato.getId()))) {		
+			ingredienti = openMapDB();
+			ingredienti.replace(id, ingrModificato);
+			Database.getIstanza().closeDB();
+			return ingrModificato;
+		}	
+		Notifica.getIstanza().addError("E' già presente un ingrediente con lo stesso nome e categoria");
+		return null;
+	}
+	
+	public void rimuoviIngrediente(String id) {
+		ingredienti = openMapDB();
+		ingredienti.remove(id); 
+		ListaSpesa.getIstanza().rimuoviIngrediente(id);
+		Database.getIstanza().closeDB();
+	}
+	
+	public Collection<Ingrediente> visualizzaCatalogo() {
+		ingredienti = openMapDB();
+		if (ingredienti.isEmpty()) {
+			Database.getIstanza().closeDB();
+			return Collections.emptyList();
+		}
+		Collection<Ingrediente> returnMap = getIngredientiHelper().values();
+		Database.getIstanza().closeDB();
+		return returnMap;
+	}
+	
 
 }
