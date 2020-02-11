@@ -13,7 +13,6 @@ import static gruppobirra4.brewday.domain.InputUtente.*;
 public class Lotto implements Serializable {
 	
 	private String id;
-	//private String idRicetta;
 	private String data;
 	private String noteGusto;
 	private String noteProblemi;
@@ -23,7 +22,6 @@ public class Lotto implements Serializable {
 	
 	protected Lotto(String id, String data, String noteGusto, String noteProblemi, Ricetta ricetta) {
 		this.id = id;
-		//this.idRicetta = idRicetta;
 		this.data = data;
 		this.noteGusto = noteGusto;
 		this.noteProblemi = noteProblemi;
@@ -32,7 +30,6 @@ public class Lotto implements Serializable {
 	
 	private Lotto(Ricetta ricetta) {
 		this.id = UUID.randomUUID().toString();
-		//this.idRicetta = idRicetta;
 		setDate();
 		this.noteGusto = "";
 		this.noteProblemi = "";
@@ -46,16 +43,6 @@ public class Lotto implements Serializable {
 		Ricetta ricettaAggiornata = aggiornaQuantitaRicetta(quantitaBirra, ricetta);
 		return new Lotto(ricettaAggiornata);		
 	}
-
-	private static boolean validation(String quantitaBirra) {
-		return validateQuantitaBirra(quantitaBirra);
-	}
-
-	private static boolean validateQuantitaBirra(String quantitaBirra) {
-		return !isStringaVuota(quantitaBirra, CAMPO_QUANTITA_BIRRA) &&
-				isNumber(quantitaBirra, CAMPO_QUANTITA_BIRRA) && 
-				isPositive(quantitaBirra, CAMPO_QUANTITA_BIRRA);
-	}
 	
 	private static Ricetta aggiornaQuantitaRicetta(String quantitaBirra, Ricetta ricetta) {
 		ricetta.aggiornaQuantita(quantitaBirra);
@@ -65,10 +52,6 @@ public class Lotto implements Serializable {
 	public String getId() {
 		return id;
 	}
-	
-	/*public String getIdRicetta() {
-		return idRicetta;
-	}*/
 
 	public String getData() {
 		return data;
@@ -102,6 +85,15 @@ public class Lotto implements Serializable {
 		this.data = dateFormat.format(today);
 	}	
 	
+	private static boolean validateQuantitaBirra(String quantitaBirra) {
+		return !isStringaVuota(quantitaBirra, CAMPO_QUANTITA_BIRRA) &&
+				isNumber(quantitaBirra, CAMPO_QUANTITA_BIRRA) && 
+				isPositive(quantitaBirra, CAMPO_QUANTITA_BIRRA);
+	}
+	
+	private static boolean validation(String quantitaBirra) {
+		return validateQuantitaBirra(quantitaBirra);
+	}
 
 
 }
