@@ -10,6 +10,7 @@ public class Database {
 	private DB db;
 	private static Database istanza;
 	
+	//Apre il database presente nel sistema o ne crea uno se non e' gia' presente
 	private Database(String path) {
 		db = DBMaker.fileDB(path)
 				.transactionEnable()
@@ -25,15 +26,11 @@ public class Database {
 		return istanza;
 	}
 	
-	/*//Per test
-	public static synchronized void setIstanzaTest() {
-		istanza = new Database("src\\test\\java\\gruppobirra4\\brewday\\DatabaseTest.db");	
-	}*/
-	
 	public HTreeMap<?, ?> openMapDB(String nomeMappa) {
 		return getDb().hashMap(nomeMappa).open();
 	}
 	
+	//Chiude il database
 	public void closeDB(){
 		db.commit();
 		db.close();
