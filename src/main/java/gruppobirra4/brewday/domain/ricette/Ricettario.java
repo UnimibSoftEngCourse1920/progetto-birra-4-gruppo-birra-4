@@ -76,24 +76,6 @@ public class Ricettario {
 		}
 		return null;		
 	}
-	
-	public Ricetta modificaRicetta(String id, String nome, String descrizione, Set<Ingrediente> ingredienti,
-			String quantitaAcqua, String quantitaBirra) {
-		ricette=openMapDB();
-		Ricetta ricModificata = Ricetta.creaRicetta(id, nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
-		if (ricModificata == null) {
-			Database.getIstanza().closeDB();
-			return null;
-		}
-		if(!(checkRicettario(ricModificata.getNome(), ricModificata.getId()))) {
-			ricette.replace(id, ricModificata);
-			Database.getIstanza().closeDB();
-			return ricModificata;
-		}
-		Notifica.getIstanza().addError("E' già presente un ingrediente con lo stesso nome e categoria");
-		Database.getIstanza().closeDB();
-		return null;
-	}		
 
 	public Ricetta getRicettaByNome(String nomeRicetta) {
 		ricette = openMapDB();
@@ -107,16 +89,16 @@ public class Ricettario {
 		return null;
 	}
 	
-	public HTreeMap<String, Ricetta> getRicetteDB() {
-		ricette = openMapDB();
-		return ricette;
-	}
-	
 	public SortedMap<String, Ricetta> getRicette() {
 		ricette = openMapDB();
 		SortedMap<String, Ricetta> returnMap = getRicetteHelper();
 		Database.getIstanza().closeDB();
 		return returnMap;
+	}
+	
+	public HTreeMap<String, Ricetta> getRicetteDB() {
+		ricette = openMapDB();
+		return ricette;
 	}
 	
 	//Ritorna una mappa di java che contiene tutte le ricette nel ricettario
@@ -142,6 +124,24 @@ public class Ricettario {
 		Database.getIstanza().closeDB();
 		return false;
 	}
+	
+	public Ricetta modificaRicetta(String id, String nome, String descrizione, Set<Ingrediente> ingredienti,
+			String quantitaAcqua, String quantitaBirra) {
+		ricette=openMapDB();
+		Ricetta ricModificata = Ricetta.creaRicetta(id, nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
+		if (ricModificata == null) {
+			Database.getIstanza().closeDB();
+			return null;
+		}
+		if(!(checkRicettario(ricModificata.getNome(), ricModificata.getId()))) {
+			ricette.replace(id, ricModificata);
+			Database.getIstanza().closeDB();
+			return ricModificata;
+		}
+		Notifica.getIstanza().addError("E' già presente un ingrediente con lo stesso nome e categoria");
+		Database.getIstanza().closeDB();
+		return null;
+	}		
 	
 	public void rimuoviRicetta(String id) {
 		ricette = openMapDB();

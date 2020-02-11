@@ -38,6 +38,11 @@ public class Ricetta implements Serializable {
 		setIngredienti(ingredienti);
 	}	
 	
+	public void aggiornaQuantita(String quantitaBirra) {
+		setQuantitaBirra(quantitaBirra);
+		convertiRicettaInValoreNormale();
+	}
+	
 	//Crea la ricetta e converte le quantita degli ingredienti in valore assoluto
 	protected static Ricetta creaRicetta(String id, String nome, String descrizione, Set<Ingrediente> ingredienti, 
 					String quantitaAcqua, String quantitaBirra) {
@@ -85,11 +90,6 @@ public class Ricetta implements Serializable {
 		return !isStringaVuota(quantitaBirra, "Quantita birra")
 				&& isNumber(quantitaBirra, "Quantita' birra") 
 				&& isPositive(quantitaBirra, "Quantita' birra");
-	}
-	
-	public void aggiornaQuantita(String quantitaBirra) {
-		setQuantitaBirra(quantitaBirra);
-		convertiRicettaInValoreNormale();
 	}
 	
 	//Converte le quantita degli ingredienti in valore assoluto (grammi/litri)
