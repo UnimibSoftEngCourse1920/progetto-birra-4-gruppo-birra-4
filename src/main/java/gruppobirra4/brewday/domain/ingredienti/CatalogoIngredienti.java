@@ -63,10 +63,6 @@ public class CatalogoIngredienti {
 	
 	//Controlla se e' presente nel catalogo un ingrediente con lo stesso nome e con la stessa categoria (che non sia se stesso)
 	public boolean checkCatalogo(String nome, String categoria, String id) {
-		/*ingredienti = openMapDB();
-		if (ingredienti.isEmpty()) {
-			return false;
-		}*/
 		if (isCatalogoVuoto()) {
 			return false;
 		}
@@ -85,37 +81,18 @@ public class CatalogoIngredienti {
 		if (isCatalogoVuoto()) {
 			return creaIngrediente(nome, categoria, "0");
 		}
-		
-		/*ingredienti = openMapDB();
-		if (ingredienti.isEmpty()) {
-			Database.getIstanza().closeDB();
-			return creaIngrediente(nome, categoria, "0");
-		}*/
-		/*for (Ingrediente ing : ingredienti.values()) {
-			if((ing.getNome().equals(nome)) && (ing.getCategoria().equals(categoria))) {
-				Database.getIstanza().closeDB();
-				return ing;
-			}
-		}
-		Database.getIstanza().closeDB();*/
 		Ingrediente ing = getIngredienteByNomeCategoria(nome, categoria);
 		if (ing != null) {
 			return ing;
 		}
-		ing = getIstanza().creaIngrediente(nome, categoria, "0");
+		ing = creaIngrediente(nome, categoria, "0");
 		return ing;
 	}
 	
 	//Controlla se ingrRicetta e' disponibile in catalogo e se e' in quantita sufficiente
 	public boolean checkDisponibilitaInCatalogo(Ingrediente ingrRicetta) {
-		//ingredienti = openMapDB();
 		Ingrediente ing = getIngredienteByNomeCategoria(ingrRicetta.getNome(), ingrRicetta.getCategoria());
-		if (ing != null && (int)Math.round(ing.getQuantita()) >= (int)Math.round(ingrRicetta.getQuantita()) ){
-			//Database.getIstanza().closeDB();
-			return true;
-		}
-		//Database.getIstanza().closeDB();
-		return false;		
+		return ing != null && (int)Math.round(ing.getQuantita()) >= (int)Math.round(ingrRicetta.getQuantita());			
 	}
 	
 	public boolean isCatalogoVuoto() {
@@ -187,10 +164,8 @@ public class CatalogoIngredienti {
 	}
 
 	public Ingrediente modificaIngrediente(String id, String nome, String categoria, String quantita) {
-		//ingredienti = openMapDB();	
 		Ingrediente ingrModificato =  Ingrediente.creaIngrediente(id, nome, categoria, quantita);
 		if (ingrModificato == null) {
-			//Database.getIstanza().closeDB();
 			return null;
 		}
 		if(!(checkCatalogo(ingrModificato.getNome(), ingrModificato.getCategoria(), ingrModificato.getId()))) {		
@@ -214,8 +189,15 @@ public class CatalogoIngredienti {
 	
 	public Ingrediente getIngredienteById(String id) {
 		ingredienti = openMapDB();
+		Ingrediente ing = ingredienti.get(id);
+		Database.getIstanza().closeDB();
+		return ing;
+	}
+	
+	//A differenza di getIngredienteById, non chiude il Database
+	public Ingrediente getIngredienteByIdDB(String id) {
+		ingredienti = openMapDB();
 		return ingredienti.get(id);
-		//Database.getIstanza().closeDB();
 	}
 	
 	public Ingrediente getIngredienteByNomeCategoria(String nome, String categoria) {

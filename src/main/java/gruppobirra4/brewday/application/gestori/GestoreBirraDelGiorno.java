@@ -21,7 +21,6 @@ public class GestoreBirraDelGiorno {
 	
 	public Ricetta calcolaBirraDelGiorno(String quantitaBirra) {
 		try {
-			//Ricetta birraDelGiorno = BirraDelGiorno.calcolaBirraDelGiorno(quantitaBirra);
 			BirraDelGiorno bday = new BirraDelGiorno();
 			Ricetta birraDelGiorno = bday.calcolaBirraDelGiorno(quantitaBirra);
 			if (Notifica.getIstanza().hasErrors()) {

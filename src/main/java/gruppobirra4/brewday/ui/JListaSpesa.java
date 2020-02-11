@@ -188,9 +188,6 @@ public class JListaSpesa extends FrameVisibile{
 			String tempId = id;
 			if (tempId != null && riga != -1 && GestoreListaSpesa.getIstanza().acquistaIngrediente(tempId)) {
 				((DefaultTableModel) table.getModel()).removeRow(riga);
-				if (table.getRowCount() != 0) {
-					table.setRowSelectionInterval(table.getRowCount()-1, table.getRowCount()-1);
-				}
 				id = null;
 			}
 		});
@@ -239,7 +236,8 @@ public class JListaSpesa extends FrameVisibile{
 			    int rowCount = model.getRowCount();
 			    for (int i = rowCount; i > 0 ; i--){
 			        model.removeRow(i-1);
-			    } 
+			    }
+			    id = null;
 			}
 		});
 		panelBottoni.add(btnAcquistaTutto);
@@ -251,6 +249,7 @@ public class JListaSpesa extends FrameVisibile{
 			if (table.getRowCount() != 0) {
 				GestoreListaSpesa.getIstanza().svuotaLista();
 				svuotaTabella();
+				id = null;
 			}
 		});
 		panelBottoni.add(btnSvuotaLista);

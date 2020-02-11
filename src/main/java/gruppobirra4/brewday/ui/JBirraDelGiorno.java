@@ -77,7 +77,7 @@ public class JBirraDelGiorno extends FrameVisibile {
 	}
 	
 	private void inserisciDescrizione() {
-		JLabel lblQuestaFunzioneRestituisce = new JLabel("Questa funzione restituisce la ricetta che massimizza l'utilizzo di ingredienti presenti nel Catalogo Ingredienti");
+		JLabel lblQuestaFunzioneRestituisce = new JLabel("Questa funzione ti dice qual è la ricetta che massimizza l'utilizzo di ingredienti presenti nel Catalogo Ingredienti");
 		lblQuestaFunzioneRestituisce.setHorizontalAlignment(SwingConstants.CENTER);
 		lblQuestaFunzioneRestituisce.setBounds(15, 156, 916, 20);
 		frmBirraDelGiorno.getContentPane().add(lblQuestaFunzioneRestituisce);

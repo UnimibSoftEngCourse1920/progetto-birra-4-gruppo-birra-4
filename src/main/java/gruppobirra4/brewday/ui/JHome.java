@@ -13,6 +13,7 @@ import java.awt.Font;
 public class JHome extends FrameVisibile {
 
 	private JFrame frmHome;
+	private static final String NOME_FONT = "Tahoma";
 	
 	public JHome() {
 		frmHome = new JFrame();
@@ -67,13 +68,13 @@ public class JHome extends FrameVisibile {
 	
 	private void inserisciIntestazione() {
 		JLabel lblBrewday = new JLabel("BREW DAY!");
-		lblBrewday.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblBrewday.setFont(new Font(NOME_FONT, Font.PLAIN, 30));
 		lblBrewday.setHorizontalAlignment(SwingConstants.CENTER);
 		lblBrewday.setBounds(15, 51, 916, 32);
 		frmHome.getContentPane().add(lblBrewday);
 		
 		JLabel lblBenvenuto = new JLabel("Benvenuto");
-		lblBenvenuto.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblBenvenuto.setFont(new Font(NOME_FONT, Font.PLAIN, 20));
 		lblBenvenuto.setHorizontalAlignment(SwingConstants.CENTER);
 		lblBenvenuto.setBounds(15, 99, 916, 20);
 		frmHome.getContentPane().add(lblBenvenuto);
@@ -81,7 +82,7 @@ public class JHome extends FrameVisibile {
 	
 	private void inserisciBtnCatalogoIngredienti() {
 		JButton btnCatalogoIngredienti = new JButton("Catalogo ingredienti");
-		btnCatalogoIngredienti.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnCatalogoIngredienti.setFont(new Font(NOME_FONT, Font.PLAIN, 18));
 		btnCatalogoIngredienti.setBounds(217, 150, 239, 89);
 		btnCatalogoIngredienti.addActionListener(event -> {
 			frmHome.dispose();
@@ -92,7 +93,7 @@ public class JHome extends FrameVisibile {
 	
 	private void inserisciBtnRicettario() {
 		JButton btnRicettario = new JButton("Ricettario");
-		btnRicettario.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnRicettario.setFont(new Font(NOME_FONT, Font.PLAIN, 18));
 		btnRicettario.setBounds(492, 150, 239, 89);
 		btnRicettario.addActionListener(event -> {
 			frmHome.dispose();
@@ -103,7 +104,7 @@ public class JHome extends FrameVisibile {
 	
 	private void inserisciBtnListaSpesa() {
 		JButton btnListaSpesa = new JButton("Lista della Spesa");
-		btnListaSpesa.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnListaSpesa.setFont(new Font(NOME_FONT, Font.PLAIN, 18));
 		btnListaSpesa.setBounds(217, 250, 239, 89);
 		btnListaSpesa.addActionListener(event -> {
 			frmHome.dispose();
@@ -114,7 +115,7 @@ public class JHome extends FrameVisibile {
 	
 	private void inserisciBtnListaLotti() {
 		JButton btnListaLotti = new JButton("Lista lotti");
-		btnListaLotti.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnListaLotti.setFont(new Font(NOME_FONT, Font.PLAIN, 18));
 		btnListaLotti.setBounds(492, 250, 239, 89);
 		btnListaLotti.addActionListener(event -> {
 			frmHome.dispose();
@@ -125,7 +126,7 @@ public class JHome extends FrameVisibile {
 	
 	private void inserisciBtnBirraDelGiorno() {
 		JButton btnBirraDelGiorno = new JButton("Cosa birriamo oggi?");
-		btnBirraDelGiorno.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnBirraDelGiorno.setFont(new Font(NOME_FONT, Font.PLAIN, 18));
 		btnBirraDelGiorno.setBounds(217, 355, 514, 89);
 		btnBirraDelGiorno.addActionListener(event -> {
 			frmHome.dispose();

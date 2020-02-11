@@ -1,5 +1,7 @@
 package gruppobirra4.brewday.domain.ingredienti; //NOSONAR
 
+import static gruppobirra4.brewday.domain.InputUtente.convertToNumber;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -56,7 +58,7 @@ public class ListaSpesa {
 	private Collection<QuantitaListaSpesa> getIngredientiHelper() {
 		Collection<QuantitaListaSpesa> returnSet = new HashSet<>();
 		for (Map.Entry<String, Double> entry : lista.entrySet()) {
-			returnSet.add(new QuantitaListaSpesa(CatalogoIngredienti.getIstanza().getIngredienteById(entry.getKey()),
+			returnSet.add(new QuantitaListaSpesa(CatalogoIngredienti.getIstanza().getIngredienteByIdDB(entry.getKey()),
 												entry.getValue()));
 		}
 		return returnSet;
@@ -67,8 +69,9 @@ public class ListaSpesa {
 		if(tempIng == null) {
 			return null;
 		}
-		if(Double.doubleToLongBits(Math.round(tempIng.getQuantita())) == Double.doubleToLongBits(0.0)) {
-			Notifica.getIstanza().addError("Il campo \" Quantita \" deve essere un numero positivo");		
+		double quantitaDaAcquistare = tempIng.getQuantita();
+		if(Double.doubleToLongBits(quantitaDaAcquistare) == Double.doubleToLongBits(0.0)) {
+			Notifica.getIstanza().addError("Il campo \" Quantita \" deve essere un numero maggiore di zero");		
 			return null;
 		}
 		Ingrediente ing = CatalogoIngredienti.getIstanza().checkCatalogoPerSpesa(tempIng.getNome(), tempIng.getCategoria());
@@ -79,9 +82,9 @@ public class ListaSpesa {
 				Notifica.getIstanza().addError("L'ingrediente è già nella lista");
 				return null;
 			}
-			lista.put(ing.getId(), Double.parseDouble(quantita));
+			lista.put(ing.getId(), quantitaDaAcquistare);
 			Database.getIstanza().closeDB();
-			return new QuantitaListaSpesa(ing, Double.parseDouble(quantita));
+			return new QuantitaListaSpesa(ing, quantitaDaAcquistare);
 		} else {
 			Database.getIstanza().closeDB();
 			return null;
@@ -114,18 +117,18 @@ public class ListaSpesa {
 			Database.getIstanza().closeDB();
 			return null;
 		}
-		if(Double.parseDouble(quantita) == 0) {
-			Notifica.getIstanza().addError("Il campo \" Quantita \" deve essere un numero positivo");
+		double quantitaDaAcquistare = convertToNumber(quantita);
+		if(Double.doubleToLongBits(quantitaDaAcquistare) == Double.doubleToLongBits(0.0)) {
+			Notifica.getIstanza().addError("Il campo \" Quantita \" deve essere un numero maggiore di zero");
 			Database.getIstanza().closeDB();
 			return null;
 		}		
-		lista.replace(id, Double.parseDouble(quantita));
+		lista.replace(id, quantitaDaAcquistare);
 		Database.getIstanza().closeDB();
-		return new QuantitaListaSpesa(CatalogoIngredienti.getIstanza().getIngredienteById(id),
-				Double.parseDouble(quantita));
+		return new QuantitaListaSpesa(CatalogoIngredienti.getIstanza().getIngredienteById(id), 
+									quantitaDaAcquistare);
 	}
 		
-	
 	public void svuotaLista(){
 		lista = openMapDB();
 		if(!lista.isEmpty()) {

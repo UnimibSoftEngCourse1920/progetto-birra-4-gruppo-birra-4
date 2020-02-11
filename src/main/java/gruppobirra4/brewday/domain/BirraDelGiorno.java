@@ -34,14 +34,23 @@ public class BirraDelGiorno {
 		Map<String, Ricetta> ricette = Ricettario.getIstanza().getRicetteDB();
 		Map<String, Ingrediente> catalogo = CatalogoIngredienti.getIstanza().getIngredientiDB();
 		
-		double min = Double.MAX_VALUE;
-		double differenzaQuantita = 0;
+		//double min = Double.MAX_VALUE;
+		//double differenzaQuantita = 0;
+		double max = 0;
+		double sommaQuantita = 0;
 		for (Ricetta r: ricette.values()) {
-			differenzaQuantita = calcolaDifferenza(catalogo, r, quantitaBirra);
-			min = calcolaMinimo(min, differenzaQuantita, r.getId());
+			//differenzaQuantita = calcolaDifferenza(catalogo, r, quantitaBirra);
+			//min = calcolaMinimo(min, differenzaQuantita, r.getId());
+			sommaQuantita = calcolaQuantitaMassima(catalogo, r, quantitaBirra);
+			max = calcolaMassimo(max, sommaQuantita, r.getId());
 		}
 		
-		if(Double.doubleToLongBits(min) == Double.doubleToLongBits(Double.MAX_VALUE)) {
+		/*if(Double.doubleToLongBits(min) == Double.doubleToLongBits(Double.MAX_VALUE)) {
+			Database.getIstanza().closeDB();
+			return null;
+		}*/
+		
+		if(Double.doubleToLongBits(max) == Double.doubleToLongBits(0.0)) {
 			Database.getIstanza().closeDB();
 			return null;
 		}
@@ -54,16 +63,43 @@ public class BirraDelGiorno {
 		return ricette.get(idRicetta);
 	}
 
-	private double calcolaMinimo(double min, double differenzaQuantita, String idRicetta) {		
-		if (differenzaQuantita < min) {
-			min = differenzaQuantita;
+	private double calcolaMassimo(double max, double sommaQuantita, String idRicetta) {
+		if ((int) Math.round(sommaQuantita - max) > 0) {
+			double massimo = sommaQuantita;
 			this.idRicetta = idRicetta;
-			return min;
+			return massimo;
 		}
-		return min;
+		return max;
 	}
 
-	private double calcolaDifferenza(Map<String, Ingrediente> catalogo, Ricetta ricetta, double quantitaBirra) {
+	/*private double calcolaMinimo(double min, double differenzaQuantita, String idRicetta) {		
+		if (differenzaQuantita < min) {
+			double minimo = differenzaQuantita;
+			this.idRicetta = idRicetta;
+			return minimo;
+		}
+		return min;
+	}*/
+	
+	private double calcolaQuantitaMassima(Map<String, Ingrediente> catalogo, Ricetta ricetta, double quantitaBirra) {
+		double sommaQuantita = 0;
+	
+		for (Ingrediente ingRicetta : ricetta.getIngredienti()) {
+			Ingrediente ingCatalogo = getIngredienteByNomeCategoria(catalogo, ingRicetta.getNome(), ingRicetta.getCategoria());
+			if(ingCatalogo == null) {
+				return 0;
+			}
+			double quantitaCatalogo = ingCatalogo.getQuantita();
+			double quantitaRicetta = Math.round(ingRicetta.getQuantita() * quantitaBirra);
+			if((int) Math.round(quantitaCatalogo - (quantitaRicetta)) < 0) {
+				return 0;
+			}
+			sommaQuantita = sommaQuantita + quantitaRicetta;
+		}
+		return sommaQuantita;
+	}
+	
+	/*private double calcolaDifferenza(Map<String, Ingrediente> catalogo, Ricetta ricetta, double quantitaBirra) {
 		double differenza = 0;
 	
 		for (Ingrediente ingRicetta : ricetta.getIngredienti()) {
@@ -73,12 +109,13 @@ public class BirraDelGiorno {
 			}
 			double quantitaCatalogo = ingCatalogo.getQuantita();
 			double quantitaRicetta = Math.round(ingRicetta.getQuantita() * quantitaBirra);
-			if((int) Math.round(quantitaCatalogo - (quantitaRicetta)) < 0)
+			if((int) Math.round(quantitaCatalogo - (quantitaRicetta)) < 0) {
 				return Double.MAX_VALUE;
+			}
 			differenza = differenza + (quantitaCatalogo - quantitaRicetta);
 		}
 		return differenza;
-	}
+	}*/
 	
 	/*private static String trovaValoreMax(TreeMap<String, Double> valori) {
 		Double max = Collections.max(valori.values());

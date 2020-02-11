@@ -103,7 +103,7 @@ public class ListaSpesaTest {
 		
 		QuantitaListaSpesa qt = l.aggiungiIngrediente("San Michele", "Luppolo", "500");
 		String idLista = qt.getIngrediente().getId();
-		Ingrediente ing =c.getIngredienteById(idLista);
+		Ingrediente ing = c.getIngredienteById(idLista);
 		assertEquals(idLista, ing.getId());
 		l.svuotaLista();	
 	}
