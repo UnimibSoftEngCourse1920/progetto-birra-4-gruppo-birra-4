@@ -45,12 +45,14 @@ public class ListaLotti {
 		return (HTreeMap<String, Lotto>) Database.getIstanza().openMapDB(TABLE_LOTTI);
 	}
 	
+	//Modifica la quantita' disponibile degli ingredienti nel catalogo a seguito della produzione effettuata
 	private void aggiornaCatalogo(Set<Ingrediente> ingredientiRicetta) {
 		for (Ingrediente ingr: ingredientiRicetta) {
 			CatalogoIngredienti.getIstanza().aggiornaIngrCatalogo(ingr);			
 		}
 	}
 	
+	//Aggiunge il lotto creato alla lista dei lotti nel database
 	private boolean aggiungiLotto(Lotto lotto) {
 		if(checkDisponibilitaIngredienti(lotto.getRicetta().getIngredienti())) {
 			lotti = openMapDB();
@@ -78,6 +80,7 @@ public class ListaLotti {
 		return true; 
 	}
 	
+	//Crea un lotto, lo aggiunge alla lista e verifica se gli ingredienti sono in quantita' sufficiente per la prossima produzione della ricetta
 	public Lotto creaLotto(String nomeRicetta, String quantitaBirra) {
 		Ricetta ricetta = getRicettaFromRicettario(nomeRicetta);
 		Lotto lotto = Lotto.creaLotto(quantitaBirra, ricetta);
@@ -116,6 +119,7 @@ public class ListaLotti {
 		return r;
 	}
 	
+	//Modifica le note della produzione selezionata
 	public void modificaNote(String idLotto, String noteGusto, String noteProblemi) {
 		lotti = openMapDB();
 		Lotto l = lotti.get(idLotto);

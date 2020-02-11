@@ -42,6 +42,7 @@ public class Ricettario {
 		return (HTreeMap<String, Ricetta>) Database.getIstanza().openMapDB(TABLE_RICETTARIO);
 	}
 	
+	//Aggiunge la nuova ricetta nel ricettario se non e' gia' presente
 	private boolean aggiungiRicetta(Ricetta nuovaRicetta) {
 		ricette = openMapDB();
 		if(checkRicettario(nuovaRicetta.getNome(), nuovaRicetta.getId())) {	
@@ -54,7 +55,7 @@ public class Ricettario {
 		return true;
 	}
 	
-	//Controlla se e' gia' presente una ricetta con lo stesso nome (che non sia lo stesso)
+	//Controlla se e' gia' presente una ricetta con lo stesso nome (che non sia la stessa)
 	private boolean checkRicettario(String nomeRicetta, String id) {
 		if (ricette.isEmpty()) {
 			return false;
@@ -66,7 +67,8 @@ public class Ricettario {
 		}
 		return false;
 	}
-
+	
+	//Crea una nuova ricetta, aggiungendola al ricettario e convertendo i suoi valori in valori "normali"
 	public Ricetta creaRicetta(String nome, String descrizione, Set<Ingrediente> ingredienti,
 							String quantitaAcqua, String quantitaBirra) {
 		Ricetta ricetta = Ricetta.creaRicetta(null, nome, descrizione, ingredienti, quantitaAcqua, quantitaBirra);
@@ -96,6 +98,7 @@ public class Ricettario {
 		return returnMap;
 	}
 	
+	//Ritorna la table del ricettario nel database
 	public HTreeMap<String, Ricetta> getRicetteDB() {
 		ricette = openMapDB();
 		return ricette;
@@ -125,6 +128,7 @@ public class Ricettario {
 		return false;
 	}
 	
+	//Modifica un ingrediente, controllando che i valori inseriti siano validi, e aggiungenda al ricettario nel caso non crei conflitto con una ricetta gia' presente
 	public Ricetta modificaRicetta(String id, String nome, String descrizione, Set<Ingrediente> ingredienti,
 			String quantitaAcqua, String quantitaBirra) {
 		ricette=openMapDB();

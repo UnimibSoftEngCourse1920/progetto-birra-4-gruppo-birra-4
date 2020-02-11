@@ -58,6 +58,7 @@ public class Ricetta implements Serializable {
 								convertiQuantitaAcquaInValoreAssoluto(quantitaAcqua, quantitaBirra), quantitaBirra);
 	}
 	
+	//Controlla che i valori inseriti dall'utente siano validi
 	protected static boolean validation(String nome, Set<Ingrediente> ingredienti, String quantitaAcqua, String quantitaBirra) {
 		return validateNome(nome) & //NOSONAR
 				validateIngredienti(ingredienti) & //NOSONAR

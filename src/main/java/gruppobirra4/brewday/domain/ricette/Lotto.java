@@ -44,6 +44,7 @@ public class Lotto implements Serializable {
 		return new Lotto(ricettaAggiornata);		
 	}
 	
+	//Imposta la quantita di birra da produrre nella ricetta, modificando di conseguenza i quantitivi di ingredienti da utilizzare per la produzione
 	private static Ricetta aggiornaQuantitaRicetta(String quantitaBirra, Ricetta ricetta) {
 		ricetta.aggiornaQuantita(quantitaBirra);
 		return ricetta;
@@ -73,6 +74,7 @@ public class Lotto implements Serializable {
 		return ricetta;
 	}
 	
+	//Modifica le note del lotto
 	public void modificaNote(String noteGusto, String noteProblemi) {
 		this.noteGusto = noteGusto;
 		this.noteProblemi = noteProblemi;		
@@ -91,9 +93,9 @@ public class Lotto implements Serializable {
 				isPositive(quantitaBirra, CAMPO_QUANTITA_BIRRA);
 	}
 	
+	//Controlla che la quantita inserita sia valida
 	private static boolean validation(String quantitaBirra) {
 		return validateQuantitaBirra(quantitaBirra);
 	}
-
 
 }
