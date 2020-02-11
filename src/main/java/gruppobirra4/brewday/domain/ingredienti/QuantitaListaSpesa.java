@@ -5,6 +5,7 @@ public class QuantitaListaSpesa {
 	private Ingrediente ingrediente;
 	private double quantitaDaAcquistare;
 	
+	//Crea un oggetto da restituire all'interfaccia contenente l'ingrediente da acquistare e la quantita' da acquistare
 	public QuantitaListaSpesa(Ingrediente ingrediente, double quantitaDaAcquistare) {
 		setIngrediente(ingrediente);
 		setQuantitaDaAcquistare(quantitaDaAcquistare);

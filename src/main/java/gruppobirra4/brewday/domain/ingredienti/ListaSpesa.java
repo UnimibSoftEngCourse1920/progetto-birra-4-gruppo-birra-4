@@ -44,6 +44,7 @@ public class ListaSpesa {
 		return (HTreeMap<String, Double>) Database.getIstanza().openMapDB(TABLE_LISTASPESA);
 	}
 	
+	//Acquista un ingrediente togliendolo dalla lista della spesa e aumentando la quantita' presente nel catalogo
 	public void acquistaIngrediente(String id) {
 		lista = openMapDB();
 		double qt = lista.get(id);
@@ -62,6 +63,7 @@ public class ListaSpesa {
 		}
 	}
 	
+	//Aggiunge un ingrediente alla lista della spesa, se non e' gia' presente, creandolo nel catalogo con quantitaì a 0 se esso non e' gia' presente
 	public QuantitaListaSpesa aggiungiIngrediente(String nome, String categoria, String quantita) {
 		Ingrediente tempIng = Ingrediente.creaIngrediente("", nome, categoria, quantita);
 		if(tempIng == null) {
@@ -89,6 +91,7 @@ public class ListaSpesa {
 		}
 	}
 	
+	//Controlla se un ingrediente e' nella lista della spesa
 	private boolean checkLista(String id) {
 		if (lista.isEmpty()) {
 			return false;
@@ -109,6 +112,7 @@ public class ListaSpesa {
 		return returnSet;
 	}
 	
+	//Modifica la quantita' da acquistare di un ingrediente
 	public QuantitaListaSpesa modificaQuantita(String id, String quantita) {
 		lista = openMapDB();
 		if(!(Ingrediente.validateQuantita(quantita))) {
@@ -134,7 +138,8 @@ public class ListaSpesa {
 		}
 		Database.getIstanza().closeDB();
 	}
-		
+	
+	//Svuota la lista della spesa senza acquistare alcun ingrediente
 	public void svuotaLista(){
 		lista = openMapDB();
 		if(!lista.isEmpty()) {

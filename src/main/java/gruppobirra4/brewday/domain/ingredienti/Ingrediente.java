@@ -15,7 +15,6 @@ public class Ingrediente implements Serializable {
 	
 	private static final String CAMPO_QUANTITA = "Quantita";
 	
-
 	public Ingrediente(String nome, String categoria, String quantita) {
 		id = UUID.randomUUID().toString(); 
 		setNome(nome);
@@ -30,6 +29,7 @@ public class Ingrediente implements Serializable {
 		setQuantita(quantita);
 	}
 
+	//Crea un'ingrediente nel caso i parametri inseriti siano validi, il primo costruttore viene usato per la creazione di un nuovo ingrediente, il secondo per la modifica di uno esistente
 	public static Ingrediente creaIngrediente(String id, String nome, String categoria, String quantita) {
 		boolean valid = validation(nome, quantita);
 		if (!valid)
@@ -113,6 +113,7 @@ public class Ingrediente implements Serializable {
 				isPositive(quantita, CAMPO_QUANTITA);	
 	}
 
+	//Controlla che i valori inseriti dall'utente siano validi
 	protected static boolean validation(String nome, String quantita) {
 		return validateNome(nome) & //NOSONAR
 				validateQuantita(quantita);

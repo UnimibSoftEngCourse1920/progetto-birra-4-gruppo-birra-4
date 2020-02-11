@@ -49,7 +49,7 @@ public class CatalogoIngredienti {
 		//Database.getIstanza().closeDB();
 	}
 	
-	
+	//Aggiunge l'ingrediente al catalogo se non è già presente
 	public boolean aggiungiIngrediente(Ingrediente nuovoIngrediente) {
 		if(checkCatalogo(nuovoIngrediente.getNome(), nuovoIngrediente.getCategoria(), nuovoIngrediente.getId())) {	
 			Notifica.getIstanza().addError("L'ingrediente è già presente nel catalogo");
@@ -78,6 +78,7 @@ public class CatalogoIngredienti {
 		return false;
 	}
 	
+	//Controlla il catalogo per vedere se l'ingrediente è già nel catalogo e nel caso lo crea con quantita'
 	public Ingrediente checkCatalogoPerSpesa(String nome, String categoria) {
 		if (isCatalogoVuoto()) {
 			return creaIngrediente(nome, categoria, "0");
@@ -96,6 +97,7 @@ public class CatalogoIngredienti {
 		return ing != null && (int)Math.round(ing.getQuantita()) >= (int)Math.round(ingrRicetta.getQuantita());			
 	}
 	
+	//Crea un ingrediente e e chiama il metodo per aggiungerlo al catalogo se la creazione ha avuto successo
 	public Ingrediente creaIngrediente(String nome, String categoria, String quantitaDisponibile) {
 		Ingrediente ingrediente = Ingrediente.creaIngrediente(null, nome, categoria, quantitaDisponibile);
 		if(ingrediente != null && aggiungiIngrediente(ingrediente)) {
@@ -136,6 +138,7 @@ public class CatalogoIngredienti {
 		return returnMap;
 	}
 	
+	//Ritorna la table del catalogo nel database
 	public HTreeMap<String, Ingrediente> getIngredientiDB() {
 		ingredienti = openMapDB();
 		return ingredienti;
@@ -163,6 +166,7 @@ public class CatalogoIngredienti {
 		return false;
 	}
 	
+	//Modifica l'ingrediente controllando che le modifiche non portino ad un conflitto con un altro ingrediente gia' presente
 	public Ingrediente modificaIngrediente(String id, String nome, String categoria, String quantita) {
 		Ingrediente ingrModificato =  Ingrediente.creaIngrediente(id, nome, categoria, quantita);
 		if (ingrModificato == null) {
