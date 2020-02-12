@@ -11,12 +11,12 @@ public class JMenu {
 	private JMenuBar menuBar;
 	private JFrame frameVisibile; 
 	
-	private JButton btnHome;
-	private JButton btnCatalogo;
-	private JButton btnSpesa;
-	private JButton btnRicettario;
-	private JButton btnLotti;
-	private JButton btnBirraDelGiorno;
+	//private JButton btnHome;
+	//private JButton btnCatalogo;
+	//private JButton btnSpesa;
+	//private JButton btnRicettario;
+	//private JButton btnLotti;
+	//private JButton btnBirraDelGiorno;
 	
 	private JMenu() {
 		this.menuBar = new JMenuBar();
@@ -38,7 +38,7 @@ public class JMenu {
 	private void inserisciMenu() {
 		menuBar.setBounds(0, 0, 640, 25);
 		
-		btnHome = new JButton("Home");
+		JButton btnHome = new JButton("Home");
 		btnHome.addActionListener(event -> {
 			frameVisibile.dispose();
 			JHome.esegui();
@@ -46,7 +46,7 @@ public class JMenu {
 		btnHome.setBackground(Color.LIGHT_GRAY);
 		menuBar.add(btnHome);
 		
-		btnCatalogo = new JButton("Catalogo ingredienti");
+		JButton btnCatalogo = new JButton("Catalogo ingredienti");
 		btnCatalogo.addActionListener(event -> {
 			frameVisibile.dispose();
 			JCatalogo.esegui();
@@ -54,7 +54,7 @@ public class JMenu {
 		btnCatalogo.setBackground(Color.LIGHT_GRAY);
 		menuBar.add(btnCatalogo);
 		
-		btnSpesa = new JButton("Lista della spesa");
+		JButton btnSpesa = new JButton("Lista della spesa");
 		btnSpesa.addActionListener(event -> {
 			frameVisibile.dispose();
 			JListaSpesa.esegui();
@@ -62,7 +62,7 @@ public class JMenu {
 		btnSpesa.setBackground(Color.LIGHT_GRAY);
 		menuBar.add(btnSpesa);
 		
-		btnRicettario = new JButton("Ricettario");
+		JButton btnRicettario = new JButton("Ricettario");
 		btnRicettario.addActionListener(event -> {
 			frameVisibile.dispose();
 			JRicettario.esegui();
@@ -70,7 +70,7 @@ public class JMenu {
 		btnRicettario.setBackground(Color.LIGHT_GRAY);
 		menuBar.add(btnRicettario);
 		
-		btnLotti = new JButton("Lotti");
+		JButton btnLotti = new JButton("Lotti");
 		btnLotti.addActionListener(event -> {
 			frameVisibile.dispose();
 			JListaLotti.esegui();
@@ -78,7 +78,7 @@ public class JMenu {
 		btnLotti.setBackground(Color.LIGHT_GRAY);
 		menuBar.add(btnLotti);
 		
-		btnBirraDelGiorno = new JButton("Cosa birriamo oggi?");
+		JButton btnBirraDelGiorno = new JButton("Cosa birriamo oggi?");
 		btnBirraDelGiorno.addActionListener(event -> {
 			frameVisibile.dispose();
 			JBirraDelGiorno.esegui();
