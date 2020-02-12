@@ -83,18 +83,6 @@ public class PannelloIngredienti {
 		textFieldQuantitaIngr.setColumns(10);
 	}
 	
-	/*public void addListenerSelezioneRiga() {
-		table.getSelectionModel().addListSelectionListener(event -> {
-			int riga = table.getSelectedRow();
-            if (riga != -1) {
-            	id = (String) table.getValueAt(riga, 0);
-            	comboBoxCategoriaIngr.setSelectedItem((String) table.getValueAt(riga, 1));
-            	textFieldNomeIngr.setText((String) table.getValueAt(riga, 2));
-            	textFieldQuantitaIngr.setText((String) table.getValueAt(riga, 3));
-            }
-		});
-	}*/
-	
 	public void getValoriTabella(int riga, int colCategoriaIngr, int colNomeIngr, int colQuantita) {
 		comboBoxCategoriaIngr.setSelectedItem((String) table.getValueAt(riga, colCategoriaIngr));
     	textFieldNomeIngr.setText((String) table.getValueAt(riga, colNomeIngr));
@@ -116,9 +104,6 @@ public class PannelloIngredienti {
 	
 	public void rimuoviRigaIngr(int riga) {
 		((DefaultTableModel) table.getModel()).removeRow(riga);
-		/*if (table.getRowCount() != 0) {
-			table.setRowSelectionInterval(table.getRowCount()-1, table.getRowCount()-1);
-		}*/
 	}
 
 	public JTable getTable() {

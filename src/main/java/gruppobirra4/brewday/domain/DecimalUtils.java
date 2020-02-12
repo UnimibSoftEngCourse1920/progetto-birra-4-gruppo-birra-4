@@ -9,7 +9,6 @@ public class DecimalUtils {
 	}
 	
 	public static double round(double value, int numberOfDigitsAfterDecimalPoint) {
-        //BigDecimal bigDecimal = new BigDecimal(value);
         BigDecimal bigDecimal = BigDecimal.valueOf(value);
         bigDecimal = bigDecimal.setScale(numberOfDigitsAfterDecimalPoint,
                 BigDecimal.ROUND_HALF_UP);
