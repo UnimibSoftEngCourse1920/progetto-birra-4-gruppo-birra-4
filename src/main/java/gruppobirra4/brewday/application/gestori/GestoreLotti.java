@@ -22,9 +22,9 @@ public class GestoreLotti {
 		return istanza;
 	}
 	
-	public Lotto creaLotto(String idRicetta, String quantitaBirra) {
+	public Lotto creaLotto(String nomeRicetta, String quantitaBirra) {
 		try {
-			Lotto lotto = ListaLotti.getIstanza().creaLotto(idRicetta, quantitaBirra);			
+			Lotto lotto = ListaLotti.getIstanza().creaLotto(nomeRicetta, quantitaBirra);			
 			if (Notifica.getIstanza().hasErrors()) {
 				Notifica.getIstanza().notificaErrori();
 				Notifica.getIstanza().svuotaNotificheErrori();
