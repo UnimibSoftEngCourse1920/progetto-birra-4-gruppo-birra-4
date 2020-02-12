@@ -97,7 +97,7 @@ public class CatalogoIngredienti {
 		return ing != null && (int)Math.round(ing.getQuantita()) >= (int)Math.round(ingrRicetta.getQuantita());			
 	}
 	
-	//Crea un ingrediente e e chiama il metodo per aggiungerlo al catalogo se la creazione ha avuto successo
+	//Crea un ingrediente e chiama il metodo per aggiungerlo al catalogo se la creazione ha avuto successo
 	public Ingrediente creaIngrediente(String nome, String categoria, String quantitaDisponibile) {
 		Ingrediente ingrediente = Ingrediente.creaIngrediente(null, nome, categoria, quantitaDisponibile);
 		if(ingrediente != null && aggiungiIngrediente(ingrediente)) {
