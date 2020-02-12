@@ -48,5 +48,5 @@ public class Database {
 	public static void setDBNull() {
 		istanza = null;
 	}
-	
+
 }

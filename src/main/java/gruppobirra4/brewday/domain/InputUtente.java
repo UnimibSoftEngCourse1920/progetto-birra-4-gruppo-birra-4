@@ -54,4 +54,5 @@ public class InputUtente {
 		String strNum = rimuoviWhiteSpaces(str);
 		return Double.parseDouble(strNum);
 	}
+
 }

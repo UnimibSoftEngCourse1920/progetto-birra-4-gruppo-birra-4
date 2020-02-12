@@ -100,6 +100,5 @@ public class GestoreLotti {
 			return null;
 		}
 	}
-	
 
 }

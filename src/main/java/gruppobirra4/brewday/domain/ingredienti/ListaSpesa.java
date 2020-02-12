@@ -158,5 +158,5 @@ public class ListaSpesa {
 		Database.getIstanza().closeDB();
 		return returnSet;
 	}
-	
+
 }

@@ -113,5 +113,5 @@ public class GestoreListaSpesa {
 			return false;
 		}
 	}
-	
+
 }

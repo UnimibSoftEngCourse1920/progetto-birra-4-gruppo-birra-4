@@ -260,5 +260,5 @@ public class Ricetta implements Serializable {
 		return (Double.doubleToLongBits(quantitaAcqua) == Double.doubleToLongBits(other.quantitaAcqua))
 		&& (Double.doubleToLongBits(quantitaBirra) == Double.doubleToLongBits(other.quantitaBirra));
 	}
-	
+
 }
