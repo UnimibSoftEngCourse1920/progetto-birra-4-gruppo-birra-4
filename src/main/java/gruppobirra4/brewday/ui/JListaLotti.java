@@ -212,5 +212,5 @@ public class JListaLotti extends FrameVisibile {
 			}
 		});	
 	}
-	
+
 }

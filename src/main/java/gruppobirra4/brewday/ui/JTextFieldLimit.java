@@ -21,4 +21,5 @@ public class JTextFieldLimit extends PlainDocument {
 			super.insertString(offset, str, attr);
 		}
 	}
+
 }

@@ -175,5 +175,5 @@ public class Ricettario {
 		Database.getIstanza().closeDB();
 		return listaRicette;
 	}
-	
+
 }

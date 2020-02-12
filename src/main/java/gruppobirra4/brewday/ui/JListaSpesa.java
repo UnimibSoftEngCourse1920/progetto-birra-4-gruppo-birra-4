@@ -262,6 +262,5 @@ public class JListaSpesa extends FrameVisibile{
 	        model.removeRow(i-1);
 	    }
 	}
-	
-}
 
+}

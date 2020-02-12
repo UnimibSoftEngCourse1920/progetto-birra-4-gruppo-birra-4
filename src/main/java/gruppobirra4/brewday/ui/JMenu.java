@@ -110,7 +110,5 @@ public class JMenu {
 	public JButton getBtnLotti() {
 		return btnLotti;
 	}*/
-	
-	
-	
+
 }

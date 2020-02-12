@@ -134,6 +134,5 @@ public class JHome extends FrameVisibile {
 		});
 		frmHome.getContentPane().add(btnBirraDelGiorno);
 	}
-	
+
 }
-	

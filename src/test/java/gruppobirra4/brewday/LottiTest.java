@@ -69,8 +69,7 @@ public class LottiTest {
 		//Creazione lotto3 - Ingredienti in catalogo non presenti
 		Lotto lotto3 = l.creaLotto(ric3.getNome(), "40"); //Quantita ingr e acqua necessari: i4: 14
 		assertNull(lotto3);
-		assertEquals(1, listaLotti.size());
-				
+		assertEquals(1, listaLotti.size());				
 	}
 
 }

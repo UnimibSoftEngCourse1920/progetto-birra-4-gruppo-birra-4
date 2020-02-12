@@ -199,6 +199,5 @@ public class CatalogoIngredienti {
 		Database.getIstanza().closeDB();
 		return returnMap;
 	}
-	
 
 }

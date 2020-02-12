@@ -118,5 +118,5 @@ public class Ingrediente implements Serializable {
 		return validateNome(nome) & //NOSONAR
 				validateQuantita(quantita);
 	}	
-	
+
 }

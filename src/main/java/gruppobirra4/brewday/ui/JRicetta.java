@@ -363,5 +363,5 @@ public class JRicetta extends FrameVisibile{
 			}
 		}			
 	}
-	
+
 }

@@ -97,5 +97,5 @@ public class CatalogoTest {
 		ingrModificato = c.modificaIngrediente(idIngr, "San Pippo", "Malto", "ciao");
 		assertNull(ingrModificato);
 	}
-	
+
 }

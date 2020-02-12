@@ -122,4 +122,5 @@ public class ListaSpesaTest {
 		l.acquistaTutto();
 		assertEquals(0, l.visualizzaListaSpesa().size());
 	}
+
 }

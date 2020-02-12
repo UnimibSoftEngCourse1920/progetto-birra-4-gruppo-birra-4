@@ -30,4 +30,5 @@ public class CancellazioneDB {
 		ListaSpesa.setIstanzaNull();
 		Ricettario.setIstanzaNull();
 	}
+
 }
