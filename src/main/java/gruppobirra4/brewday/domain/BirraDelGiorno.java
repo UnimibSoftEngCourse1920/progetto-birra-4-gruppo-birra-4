@@ -41,11 +41,6 @@ public class BirraDelGiorno {
 			max = calcolaMassimo(max, sommaQuantita, r.getId());
 		}
 		
-		if(Double.doubleToLongBits(max) == Double.doubleToLongBits(0.0)) {
-			Database.getIstanza().closeDB();
-			return null;
-		}
-		
 		if(idRicetta == null) {
 			Notifica.getIstanza().addError("Nessuna ricetta producibile con il quantitativo inserito");
 			Database.getIstanza().closeDB();
@@ -73,7 +68,7 @@ public class BirraDelGiorno {
 			}
 			double quantitaCatalogo = ingCatalogo.getQuantita();
 			double quantitaRicetta = Math.round(ingRicetta.getQuantita() * quantitaBirra);
-			if((int) Math.round(quantitaCatalogo - (quantitaRicetta)) < 0) {
+			if((int) Math.round(quantitaCatalogo - quantitaRicetta) < 0) {
 				return 0;
 			}
 			sommaQuantita = sommaQuantita + quantitaRicetta;
