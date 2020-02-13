@@ -1,4 +1,4 @@
-package gruppobirra4.brewday.ui; //NOSONAR
+package gruppobirra4.brewday.gui; //NOSONAR
 
 import java.awt.Color;
 import javax.swing.JButton;
@@ -10,13 +10,6 @@ public class JMenu {
 	private static JMenu istanza;
 	private JMenuBar menuBar;
 	private JFrame frameVisibile; 
-	
-	//private JButton btnHome;
-	//private JButton btnCatalogo;
-	//private JButton btnSpesa;
-	//private JButton btnRicettario;
-	//private JButton btnLotti;
-	//private JButton btnBirraDelGiorno;
 	
 	private JMenu() {
 		this.menuBar = new JMenuBar();

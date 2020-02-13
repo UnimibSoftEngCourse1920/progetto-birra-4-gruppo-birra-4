@@ -1,4 +1,4 @@
-package gruppobirra4.brewday.ui; //NOSONAR
+package gruppobirra4.brewday.gui; //NOSONAR
 
 public abstract class FrameVisibile {
 

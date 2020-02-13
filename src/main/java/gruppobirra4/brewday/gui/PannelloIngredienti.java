@@ -1,4 +1,4 @@
-package gruppobirra4.brewday.ui; //NOSONAR
+package gruppobirra4.brewday.gui; //NOSONAR
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;

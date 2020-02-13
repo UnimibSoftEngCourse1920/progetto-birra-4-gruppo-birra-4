@@ -93,21 +93,6 @@ public class ListaSpesaTest {
 		assertEquals(1, c.getIngredienti().size());
 	}
 
-	
-	@Test
-	public void testUnivocita() {
-		CancellazioneDB.eliminaDB();
-		
-		ListaSpesa l = ListaSpesa.getIstanza();
-		CatalogoIngredienti c = CatalogoIngredienti.getIstanza();
-		
-		QuantitaListaSpesa qt = l.aggiungiIngrediente("San Michele", "Luppolo", "500");
-		String idLista = qt.getIngrediente().getId();
-		Ingrediente ing = c.getIngredienteById(idLista);
-		assertEquals(idLista, ing.getId());
-		l.svuotaLista();	
-	}
-	
 	@Test
 	public void testAcquistaTutto() {
 		CancellazioneDB.eliminaDB();
