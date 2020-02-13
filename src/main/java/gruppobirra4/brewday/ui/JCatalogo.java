@@ -83,26 +83,6 @@ public class JCatalogo extends FrameVisibile{
 	}
 	
 	private void inserisciTabellaIngredienti() {
-		/*JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 36, 932, 274);
-		table = new JTable();
-		String[] header = new String[] {"id", "Categoria", "Nome", "Quantità disponibile"};
-		dtm = new MyTableModel(new Object[][] {}, header)  {
-				boolean[] columnEditables = new boolean[] {
-					false, false, false, false
-				};
-				@Override
-				public boolean isCellEditable(int row, int column) {
-					return columnEditables[column];
-				}
-			};
-		dtm.setColumnIdentifiers(header);
-		table.setModel(dtm);
-		table.getColumnModel().getColumn(0).setPreferredWidth(0);
-		table.getColumnModel().getColumn(0).setMinWidth(0);
-		table.getColumnModel().getColumn(0).setMaxWidth(0);
-		scrollPane.setViewportView(table);
-		frmCatalogoIngredienti.getContentPane().add(scrollPane);*/
 		JScrollPane scrollPane = pannelloIngr.inserisciTabellaIngredienti("Quantità disponibile");
 		table = pannelloIngr.getTable();
 		dtm = pannelloIngr.getDtm();		

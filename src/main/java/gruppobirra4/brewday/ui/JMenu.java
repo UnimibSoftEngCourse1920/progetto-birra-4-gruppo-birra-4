@@ -91,24 +91,4 @@ public class JMenu {
 		return menuBar;
 	}
 
-	/*public JButton getBtnHome() {
-		return btnHome;
-	}
-
-	public JButton getBtnCatalogo() {
-		return btnCatalogo;
-	}
-
-	public JButton getBtnSpesa() {
-		return btnSpesa;
-	}
-
-	public JButton getBtnRicettario() {
-		return btnRicettario;
-	}
-
-	public JButton getBtnLotti() {
-		return btnLotti;
-	}*/
-
 }

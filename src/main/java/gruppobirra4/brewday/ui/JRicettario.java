@@ -104,17 +104,6 @@ public class JRicettario extends FrameVisibile {
 				dtm.addRow(new Object[] {r.getId(), r.getNome()});
 			}
 		}
-		/*SortedMap<String, String> ricettario = GestoreRicette.getIstanza().visualizzaRicettario();
-		if (ricettario != null) { //Se il ricettario non è vuoto
-			Iterator <Entry<String, String>> it = ricettario.entrySet().iterator();
-			while (it.hasNext()) {
-				Map.Entry entry = it.next();
-				dtm.addRow(new Object[] {entry.getKey().toString(), entry.getValue().toString()});
-				//Aggiungere listener a ogni riga
-			}
-
-			ricettario = null;
-		}*/
 	}
 
 	private void inserisciBottoni() {
