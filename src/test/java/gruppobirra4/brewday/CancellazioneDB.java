@@ -20,7 +20,7 @@ public class CancellazioneDB {
 	
 	protected static void eliminaDB() {
 		try {
-			Files.deleteIfExists(Paths.get("src\\main\\java\\gruppobirra4\\brewday\\database\\Database.db"));
+			Files.deleteIfExists(Paths.get("src\\main\\java\\gruppobirra4\\brewday\\foundation\\Database.db"));
 		} catch (IOException e) {
 			fail();
 		}
