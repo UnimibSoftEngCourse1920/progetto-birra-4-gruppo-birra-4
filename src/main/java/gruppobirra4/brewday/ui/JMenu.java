@@ -78,7 +78,7 @@ public class JMenu {
 		btnLotti.setBackground(Color.LIGHT_GRAY);
 		menuBar.add(btnLotti);
 		
-		JButton btnBirraDelGiorno = new JButton("Cosa birriamo oggi?");
+		JButton btnBirraDelGiorno = new JButton("Birra del giorno");
 		btnBirraDelGiorno.addActionListener(event -> {
 			frameVisibile.dispose();
 			JBirraDelGiorno.esegui();

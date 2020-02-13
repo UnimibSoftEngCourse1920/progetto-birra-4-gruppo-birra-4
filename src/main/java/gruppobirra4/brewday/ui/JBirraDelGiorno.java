@@ -51,7 +51,7 @@ public class JBirraDelGiorno extends FrameVisibile {
 
 	@Override
 	protected void initialize() {
-		frmBirraDelGiorno.setTitle("Cosa birriamo oggi? - Brew Day!");
+		frmBirraDelGiorno.setTitle("Birra del giorno - Brew Day!");
 		frmBirraDelGiorno.setBounds(100, 100, 968, 611);
 		frmBirraDelGiorno.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmBirraDelGiorno.getContentPane().setLayout(null);
@@ -69,7 +69,7 @@ public class JBirraDelGiorno extends FrameVisibile {
 	}
 	
 	private void inserisciNome() {
-		JLabel lblLaBirraDel = new JLabel("Cosa birriamo oggi?");
+		JLabel lblLaBirraDel = new JLabel("Birra del giorno");
 		lblLaBirraDel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLaBirraDel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblLaBirraDel.setBounds(15, 80, 916, 71);

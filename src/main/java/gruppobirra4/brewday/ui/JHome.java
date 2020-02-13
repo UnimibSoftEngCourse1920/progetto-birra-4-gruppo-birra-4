@@ -125,7 +125,7 @@ public class JHome extends FrameVisibile {
 	}
 	
 	private void inserisciBtnBirraDelGiorno() {
-		JButton btnBirraDelGiorno = new JButton("Cosa birriamo oggi?");
+		JButton btnBirraDelGiorno = new JButton("Birra del giorno");
 		btnBirraDelGiorno.setFont(new Font(NOME_FONT, Font.PLAIN, 18));
 		btnBirraDelGiorno.setBounds(217, 355, 514, 89);
 		btnBirraDelGiorno.addActionListener(event -> {
