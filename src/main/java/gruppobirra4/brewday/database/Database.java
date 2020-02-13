@@ -21,7 +21,7 @@ public class Database {
 	
 	public static synchronized Database getIstanza() {
 		if (istanza == null){
-			istanza = new Database("src\\main\\java\\gruppobirra4\\brewday\\database\\Database.db");	
+			istanza = new Database("src\\main\\java\\gruppobirra4\\brewday\\foundation\\Database.db");	
 		}
 		return istanza;
 	}
