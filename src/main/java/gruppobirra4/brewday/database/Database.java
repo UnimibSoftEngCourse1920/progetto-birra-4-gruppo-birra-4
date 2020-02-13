@@ -26,7 +26,7 @@ public class Database {
 		return istanza;
 	}
 	
-	public HTreeMap<?, ?> openMapDB(String nomeMappa) {
+	public HTreeMap<?, ?> openMapDB(String nomeMappa) { //NOSONAR
 		return getDb().hashMap(nomeMappa).open();
 	}
 	

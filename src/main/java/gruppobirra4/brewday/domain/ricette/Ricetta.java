@@ -63,8 +63,7 @@ public class Ricetta implements Serializable {
 		return validateNome(nome) & //NOSONAR
 				validateIngredienti(ingredienti) & //NOSONAR
 				validateQuantitaAcqua(quantitaAcqua) & //NOSONAR
-				validateQuantitaBirra(quantitaBirra); //&&
-				//validateQuantita(quantitaBirra, quantitaAcqua);
+				validateQuantitaBirra(quantitaBirra);
 	}
 
 	private static boolean validateNome(String nome) {
@@ -114,18 +113,6 @@ public class Ricetta implements Serializable {
 		double qBirra = convertToNumber(quantitaBirra);
 		return (Double.toString(qAcqua / qBirra));
 	}
-	
-	/*public Ricetta convertiRicettaInValoreAssoluto() {
-		for(Ingrediente ingr: ingredienti) {
-			convertiQuantitaIngrInValoreAssoluto(ingr);
-		}
-		return this;
-	}
-	
-	
-	private void convertiQuantitaIngrInValoreAssoluto(Ingrediente ingr) {
-		ingr.setQuantita(Double.toString(ingr.getQuantita()/quantitaBirra));
-	}*/
 	
 	//Converte le quantita degli ingredienti in valore "normale"
 	public void convertiRicettaInValoreNormale() {
@@ -192,20 +179,6 @@ public class Ricetta implements Serializable {
 		double quantitaB = convertToNumber(quantitaBirra);
 		this.quantitaBirra = quantitaB;
 	}
-	
-	
-	/*private boolean checkIngredienti(String nome, String categoria) {
-		if (ingredienti.isEmpty()) {
-			Notifica.getIstanza().addError("Inserire degli ingredienti");
-			return false;
-		}
-		for (Ingrediente i : ingredienti) {
-			if((i.getNome().equals(nome)) && (i.getCategoria().equals(categoria)))
-				return true;
-		}
-		Notifica.getIstanza().addError("Sono presenti degli ingredienti con lo stesso nome e categoria");
-		return false;
-	}*/
 	
 	public Ingrediente getIngredienteFromRicetta(String idIngrediente) {
 		for (Ingrediente ingr: ingredienti) {

@@ -42,11 +42,9 @@ public class CatalogoIngredienti {
 	}
 	
 	public void aggiornaIngrCatalogo(Ingrediente ingrRicetta) {
-		//ingredienti = openMapDB();
 		Ingrediente ingr = getIngredienteByNomeCategoria(ingrRicetta.getNome(), ingrRicetta.getCategoria());
 		modificaIngrediente(ingr.getId(), ingr.getNome(), ingr.getCategoria(), 
 							Double.toString(Math.round(ingr.getQuantita() - ingrRicetta.getQuantita())));
-		//Database.getIstanza().closeDB();
 	}
 	
 	//Aggiunge l'ingrediente al catalogo se non è già presente
