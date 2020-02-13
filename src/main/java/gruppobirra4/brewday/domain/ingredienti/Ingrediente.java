@@ -81,11 +81,7 @@ public class Ingrediente implements Serializable {
 		final int PRIME = 31;
 		int result = 1;
 		result = PRIME * result + ((categoria == null) ? 0 : categoria.hashCode());
-		//result = PRIME * result + ((id == null) ? 0 : id.hashCode());
 		result = PRIME * result + ((nome == null) ? 0 : nome.hashCode());
-		/*long temp;
-		temp = Double.doubleToLongBits(quantita);
-		result = PRIME * result + (int) (temp ^ (temp >>> 32));*/
 		return result;
 	}
 	
