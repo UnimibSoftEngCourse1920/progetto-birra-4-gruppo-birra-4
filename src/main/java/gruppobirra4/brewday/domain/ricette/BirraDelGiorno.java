@@ -1,11 +1,9 @@
-package gruppobirra4.brewday.domain; //NOSONAR
+package gruppobirra4.brewday.domain.ricette; //NOSONAR
 
 import java.util.Map;
 import gruppobirra4.brewday.database.Database;
 import gruppobirra4.brewday.domain.ingredienti.CatalogoIngredienti;
 import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
-import gruppobirra4.brewday.domain.ricette.Ricetta;
-import gruppobirra4.brewday.domain.ricette.Ricettario;
 import gruppobirra4.brewday.errori.Notifica;
 
 public class BirraDelGiorno {

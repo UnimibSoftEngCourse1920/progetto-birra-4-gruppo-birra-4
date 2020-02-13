@@ -1,6 +1,6 @@
 package gruppobirra4.brewday.application; //NOSONAR
 
-import gruppobirra4.brewday.domain.BirraDelGiorno;
+import gruppobirra4.brewday.domain.ricette.BirraDelGiorno;
 import gruppobirra4.brewday.domain.ricette.Ricetta;
 import gruppobirra4.brewday.errori.Notifica;
 
