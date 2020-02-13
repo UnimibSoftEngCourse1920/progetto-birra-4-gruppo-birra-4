@@ -1,13 +1,14 @@
 package gruppobirra4.brewday.domain.ricette; //NOSONAR
 
+import static gruppobirra4.brewday.foundation.utility.InputUtente.*;
+
 import java.io.Serializable;
 import java.util.Set;
 import java.util.UUID;
 
-import gruppobirra4.brewday.domain.DecimalUtils;
 import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
 import gruppobirra4.brewday.errori.Notifica;
-import static gruppobirra4.brewday.domain.InputUtente.*;
+import gruppobirra4.brewday.foundation.utility.DecimalUtils;
 
 public class Ricetta implements Serializable {
 	

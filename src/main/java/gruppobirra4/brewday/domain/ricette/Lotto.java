@@ -1,5 +1,7 @@
 package gruppobirra4.brewday.domain.ricette; //NOSONAR
 
+import static gruppobirra4.brewday.foundation.utility.InputUtente.*;
+
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -7,7 +9,6 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.util.UUID;
-import static gruppobirra4.brewday.domain.InputUtente.*;
 
 
 public class Lotto implements Serializable {

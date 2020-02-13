@@ -1,6 +1,6 @@
 package gruppobirra4.brewday.domain.ingredienti; //NOSONAR
 
-import static gruppobirra4.brewday.domain.InputUtente.convertToNumber;
+import static gruppobirra4.brewday.foundation.utility.InputUtente.convertToNumber;
 
 import java.util.Collection;
 import java.util.Collections;

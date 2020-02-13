@@ -1,9 +1,9 @@
 package gruppobirra4.brewday.domain.ingredienti; //NOSONAR
 
+import static gruppobirra4.brewday.foundation.utility.InputUtente.*;
+
 import java.io.Serializable;
 import java.util.UUID;
-
-import static gruppobirra4.brewday.domain.InputUtente.*;
 
 
 public class Ingrediente implements Serializable {

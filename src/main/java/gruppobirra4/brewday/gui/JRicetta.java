@@ -12,10 +12,10 @@ import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
 
 import gruppobirra4.brewday.application.GestoreRicette;
-import gruppobirra4.brewday.domain.DecimalUtils;
 import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
 import gruppobirra4.brewday.domain.ricette.Ricetta;
 import gruppobirra4.brewday.errori.Notifica;
+import gruppobirra4.brewday.foundation.utility.DecimalUtils;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;

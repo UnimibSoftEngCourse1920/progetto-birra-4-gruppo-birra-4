@@ -1,4 +1,4 @@
-package gruppobirra4.brewday.domain; //NOSONAR
+package gruppobirra4.brewday.foundation.utility; //NOSONAR
 
 import java.math.BigDecimal;
 

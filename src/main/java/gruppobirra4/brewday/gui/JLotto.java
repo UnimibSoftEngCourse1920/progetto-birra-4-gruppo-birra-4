@@ -12,10 +12,11 @@ import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
 import gruppobirra4.brewday.application.GestoreLotti;
-import gruppobirra4.brewday.domain.DecimalUtils;
 import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
 import gruppobirra4.brewday.domain.ricette.Lotto;
 import gruppobirra4.brewday.errori.Notifica;
+import gruppobirra4.brewday.foundation.utility.DecimalUtils;
+
 import javax.swing.JTextArea;
 
 public class JLotto extends FrameVisibile{
