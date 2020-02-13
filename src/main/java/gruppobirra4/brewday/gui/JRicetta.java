@@ -11,7 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
 
-import gruppobirra4.brewday.application.gestori.GestoreRicette;
+import gruppobirra4.brewday.application.GestoreRicette;
 import gruppobirra4.brewday.domain.DecimalUtils;
 import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
 import gruppobirra4.brewday.domain.ricette.Ricetta;

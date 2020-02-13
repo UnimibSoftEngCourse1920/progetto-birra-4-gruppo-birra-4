@@ -8,7 +8,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import gruppobirra4.brewday.application.gestori.GestoreRicette;
+import gruppobirra4.brewday.application.GestoreRicette;
 import gruppobirra4.brewday.domain.ricette.Ricetta;
 import gruppobirra4.brewday.errori.Notifica;
 

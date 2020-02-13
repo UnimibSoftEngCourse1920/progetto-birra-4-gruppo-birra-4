@@ -6,7 +6,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import gruppobirra4.brewday.application.gestori.GestoreListaSpesa;
+import gruppobirra4.brewday.application.GestoreListaSpesa;
 import gruppobirra4.brewday.domain.ingredienti.QuantitaListaSpesa;
 import gruppobirra4.brewday.errori.Notifica;
 

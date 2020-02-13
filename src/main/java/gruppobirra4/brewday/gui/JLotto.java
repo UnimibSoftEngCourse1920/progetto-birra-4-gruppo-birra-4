@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
-import gruppobirra4.brewday.application.gestori.GestoreLotti;
+import gruppobirra4.brewday.application.GestoreLotti;
 import gruppobirra4.brewday.domain.DecimalUtils;
 import gruppobirra4.brewday.domain.ingredienti.Ingrediente;
 import gruppobirra4.brewday.domain.ricette.Lotto;

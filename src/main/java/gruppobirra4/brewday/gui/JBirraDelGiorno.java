@@ -4,7 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
-import gruppobirra4.brewday.application.gestori.GestoreBirraDelGiorno;
+import gruppobirra4.brewday.application.GestoreBirraDelGiorno;
 import gruppobirra4.brewday.domain.ricette.Ricetta;
 import gruppobirra4.brewday.errori.Notifica;
 import javax.swing.JLabel;
