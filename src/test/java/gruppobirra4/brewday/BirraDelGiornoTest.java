@@ -53,17 +53,17 @@ public class BirraDelGiornoTest {
 		ingredientiRicetta3.add(ing8);
 		Ingrediente ing9 = Ingrediente.creaIngrediente(null, "Hattertauer", "LUPPOLO", "51"); //più della quantita presente
 		ingredientiRicetta3.add(ing9);
-		Ricetta ricetta3 = r.creaRicetta("Mille bolle", "ble ble ble", ingredientiRicetta3, "13", "18"); //2
+		Ricetta ricetta3 = r.creaRicetta("Mille bolle", "ble ble ble", ingredientiRicetta3, "13", "18"); 
 		assertNotNull(ricetta3);
 		
 		Set<Ingrediente> ingredientiRicetta4 = new HashSet<>();
 		Ingrediente ing10 = Ingrediente.creaIngrediente(null, "Pale", "MALTO", "3800");
-		ingredientiRicetta4.add(ing10); //1
+		ingredientiRicetta4.add(ing10); 
 		Ingrediente ing11 = Ingrediente.creaIngrediente(null, "Crystal", "MALTO", "200");
-		ingredientiRicetta4.add(ing11); //1
+		ingredientiRicetta4.add(ing11); 
 		Ingrediente ing12 = Ingrediente.creaIngrediente(null, "Astrubale", "LUPPOLO", "45"); //non presente in catalogo
-		ingredientiRicetta4.add(ing12); //1
-		Ricetta ricetta4 = r.creaRicetta("Zaraba", "blo blo blo", ingredientiRicetta4, "17", "18"); //1
+		ingredientiRicetta4.add(ing12); 
+		Ricetta ricetta4 = r.creaRicetta("Zaraba", "blo blo blo", ingredientiRicetta4, "17", "18"); 
 		assertNotNull(ricetta4);
 		
 		c.creaIngrediente("Pale", "MALTO", "5000");
@@ -76,9 +76,6 @@ public class BirraDelGiornoTest {
 		BirraDelGiorno bday2 = new BirraDelGiorno();
 		risultato = bday2.calcolaBirraDelGiorno("18");
 		assertNotNull(risultato);
-		//assertEquals(ricetta1.getId(), risultato.getId());
-		/*assertTrue(ricetta2.getId().equals(risultato.getId()) || 
-				ricetta3.getId().equals(risultato.getId()));*/
 		assertEquals(ricetta2.getId(), risultato.getId());
 	}
 
