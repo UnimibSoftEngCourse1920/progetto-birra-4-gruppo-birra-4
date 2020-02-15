@@ -37,7 +37,7 @@ public class InserimentoDBdiProva {
 		ingredientiRicetta1.add(ing2);
 		Ingrediente ing3 = Ingrediente.creaIngrediente(null, "Columbus", "Luppolo", "45");
 		ingredientiRicetta1.add(ing3);
-		Ricetta ricetta1 = r.creaRicetta("Giacomino's beer", "E così domani ti sposi? Si, ma niente di serio.", ingredientiRicetta1, "30", "23");
+		Ricetta ricetta1 = r.creaRicetta("American Pale Ale", "", ingredientiRicetta1, "30", "23");
 		
 		Set<Ingrediente> ingredientiRicetta2 = new HashSet<>();
 		Ingrediente ing4 = Ingrediente.creaIngrediente(null, "Pils", "Malto", "2100");
@@ -53,9 +53,9 @@ public class InserimentoDBdiProva {
 		ingredientiRicetta3.add(ing7);
 		Ingrediente ing8 = Ingrediente.creaIngrediente(null, "Wheat", "Malto", "3700");
 		ingredientiRicetta3.add(ing8);
-		Ingrediente ing9 = Ingrediente.creaIngrediente(null, "Hattertauer", "Luppolo", "51"); //più della quantita presente
+		Ingrediente ing9 = Ingrediente.creaIngrediente(null, "Hattertauer", "Luppolo", "51"); 
 		ingredientiRicetta3.add(ing9);
-		Ricetta ricetta3 = r.creaRicetta("Amadeus'beer", "Dirige l'orchestra il maestro Beppe Vessicchio!", ingredientiRicetta3, "30", "23"); 
+		Ricetta ricetta3 = r.creaRicetta("Mille bolle", "", ingredientiRicetta3, "30", "23"); 
 		
 		//Aggiunta ingredienti alla lista della spesa
 		QuantitaListaSpesa qt1 = s.aggiungiIngrediente("San Michele", "Luppolo", "500");

@@ -44,7 +44,7 @@ public class ListaSpesa {
 		return (HTreeMap<String, Double>) Database.getIstanza().openMapDB(TABLE_LISTASPESA);
 	}
 	
-	//Acquista un ingrediente togliendolo dalla lista della spesa e aumentando la quantita' presente nel catalogo
+	//Acquista un ingrediente togliendolo dalla lista della spesa e aumenta la quantita' disponibile nel catalogo
 	public void acquistaIngrediente(String id) {
 		lista = openMapDB();
 		double qt = lista.get(id);
@@ -63,7 +63,7 @@ public class ListaSpesa {
 		}
 	}
 	
-	//Aggiunge un ingrediente alla lista della spesa, se non e' gia' presente, creandolo nel catalogo con quantitaì a 0 se esso non e' gia' presente
+	//Aggiunge un ingrediente alla lista della spesa, se non e' gia' presente, creandolo nel catalogo con quantita' pari a 0 se non e' gia' presente
 	public QuantitaListaSpesa aggiungiIngrediente(String nome, String categoria, String quantita) {
 		Ingrediente tempIng = Ingrediente.creaIngrediente("", nome, categoria, quantita);
 		if(tempIng == null) {

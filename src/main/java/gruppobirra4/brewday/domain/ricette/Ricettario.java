@@ -128,7 +128,7 @@ public class Ricettario {
 		return false;
 	}
 	
-	//Modifica un ingrediente, controllando che i valori inseriti siano validi, e aggiungenda al ricettario nel caso non crei conflitto con una ricetta gia' presente
+	//Modifica un ingrediente, controllando che i valori inseriti siano validi, e la aggiunge al ricettario nel caso non crei conflitto con una ricetta gia' presente
 	public Ricetta modificaRicetta(String id, String nome, String descrizione, Set<Ingrediente> ingredienti,
 			String quantitaAcqua, String quantitaBirra) {
 		ricette=openMapDB();

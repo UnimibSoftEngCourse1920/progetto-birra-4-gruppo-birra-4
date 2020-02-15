@@ -76,7 +76,7 @@ public class CatalogoIngredienti {
 		return false;
 	}
 	
-	//Controlla il catalogo per vedere se l'ingrediente è già nel catalogo e nel caso lo crea con quantita'
+	//Controlla il catalogo per vedere se l'ingrediente è già presente e nel caso lo crea con quantita' zero
 	public Ingrediente checkCatalogoPerSpesa(String nome, String categoria) {
 		if (isCatalogoVuoto()) {
 			return creaIngrediente(nome, categoria, "0");

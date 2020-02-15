@@ -115,7 +115,7 @@ public class Ricetta implements Serializable {
 		return (Double.toString(qAcqua / qBirra));
 	}
 	
-	//Converte le quantita degli ingredienti in valore "normale"
+	//Converte le quantita degli ingredienti in valore "normale" (grammi)
 	public void convertiRicettaInValoreNormale() {
 		for (Ingrediente ingr: ingredienti) {
 			convertiQuantitaInValoreNormale(ingr);
