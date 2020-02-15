@@ -50,18 +50,6 @@ public class JListaLotti extends FrameVisibile {
 				Notifica.getIstanza().notificaEccezione(e);
 			}
 		});
-		
-		/*EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					JListaLotti window = new JListaLotti();
-					window.frmListaLotti.setVisible(true);
-				} catch (Exception e) {
-					Notifica.getIstanza().svuotaNotificheErrori();
-					Notifica.getIstanza().notificaEccezione(e);
-				}
-			}
-		});*/
 	}
 	
 	@Override

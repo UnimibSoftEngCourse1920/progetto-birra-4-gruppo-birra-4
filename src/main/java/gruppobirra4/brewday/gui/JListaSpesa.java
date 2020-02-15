@@ -48,17 +48,6 @@ public class JListaSpesa extends FrameVisibile{
 				Notifica.getIstanza().notificaEccezione(e);
 			}
 		});
-		/*EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					JListaSpesa window = new JListaSpesa();
-					window.frmListaSpesa.setVisible(true);
-				} catch (Exception e) {
-					Notifica.getIstanza().svuotaNotificheErrori();
-					Notifica.getIstanza().notificaEccezione(e);
-				}
-			}
-		});*/
 	}
 	
 	@Override

@@ -35,18 +35,6 @@ public class JBirraDelGiorno extends FrameVisibile {
 				Notifica.getIstanza().notificaEccezione(e);
 			}
 		});
-		
-		/*EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					JBirraDelGiorno window = new JBirraDelGiorno();
-					window.frmBirraDelGiorno.setVisible(true);
-				} catch (Exception e) {
-					Notifica.getIstanza().svuotaNotificheErrori();
-					Notifica.getIstanza().notificaEccezione(e);
-				}
-			}
-		});*/
 	}
 
 	@Override

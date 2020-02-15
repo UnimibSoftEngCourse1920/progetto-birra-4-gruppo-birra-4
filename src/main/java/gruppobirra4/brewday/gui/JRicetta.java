@@ -65,18 +65,6 @@ public class JRicetta extends FrameVisibile{
 				Notifica.getIstanza().notificaEccezione(e);
 			}
 		});
-		
-		/*EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					JRicetta window = new JRicetta(idRicetta, nomeRicetta);
-					window.frmRicetta.setVisible(true);
-				} catch (Exception e) {
-					Notifica.getIstanza().svuotaNotificheErrori();
-					Notifica.getIstanza().notificaEccezione(e);
-				}
-			}
-		});*/
 	}
 	
 	@Override

@@ -47,18 +47,6 @@ public class JLotto extends FrameVisibile{
 				Notifica.getIstanza().notificaEccezione(e);
 			}
 		});
-		
-		/*EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					JLotto window = new JLotto(lotto);
-					window.frmLotto.setVisible(true);
-				} catch (Exception e) {
-					Notifica.getIstanza().svuotaNotificheErrori();
-					Notifica.getIstanza().notificaEccezione(e);
-				}
-			}
-		});*/
 	}
 
 	@Override

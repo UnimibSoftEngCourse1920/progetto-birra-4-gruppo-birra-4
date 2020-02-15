@@ -36,18 +36,6 @@ public class JHome extends FrameVisibile {
 				Notifica.getIstanza().notificaEccezione(e);
 			}
 		});
-		
-		/*EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					JHome window = new JHome();
-					window.frmHome.setVisible(true);
-				} catch (Exception e) {
-					Notifica.getIstanza().svuotaNotificheErrori();
-					Notifica.getIstanza().notificaEccezione(e);
-				}
-			}
-		});*/
 	}
 	
 	@Override

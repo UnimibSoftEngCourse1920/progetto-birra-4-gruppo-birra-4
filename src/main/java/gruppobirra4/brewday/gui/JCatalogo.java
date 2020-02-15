@@ -47,17 +47,6 @@ public class JCatalogo extends FrameVisibile{
 				Notifica.getIstanza().notificaEccezione(e);
 			}
 		});
-		/*EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					JCatalogo window = new JCatalogo();
-					window.frmCatalogoIngredienti.setVisible(true);
-				} catch (Exception e) {
-					Notifica.getIstanza().svuotaNotificheErrori();
-					Notifica.getIstanza().notificaEccezione(e);
-				}
-			}
-		});*/
 	}
 	
 	@Override
