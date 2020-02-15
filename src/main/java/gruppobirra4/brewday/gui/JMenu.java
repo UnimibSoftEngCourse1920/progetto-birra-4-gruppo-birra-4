@@ -29,7 +29,7 @@ public class JMenu {
 	}
 	
 	private void inserisciMenu() {
-		menuBar.setBounds(0, 0, 640, 25);
+		menuBar.setBounds(0, 0, 615, 25);
 		
 		JButton btnHome = new JButton("Home");
 		btnHome.addActionListener(event -> {
