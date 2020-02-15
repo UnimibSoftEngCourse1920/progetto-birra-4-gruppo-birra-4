@@ -56,7 +56,7 @@ public class JRicetta extends FrameVisibile{
 	}
 	
 	public static void esegui(String idRicetta, String nomeRicetta) {
-		/*EventQueue.invokeLater(() -> {
+		EventQueue.invokeLater(() -> {
 			try {
 				JRicetta window = new JRicetta(idRicetta, nomeRicetta);
 				window.frmRicetta.setVisible(true);
@@ -64,9 +64,9 @@ public class JRicetta extends FrameVisibile{
 				Notifica.getIstanza().svuotaNotificheErrori();
 				Notifica.getIstanza().notificaEccezione(e);
 			}
-		});*/
+		});
 		
-		EventQueue.invokeLater(new Runnable() {
+		/*EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					JRicetta window = new JRicetta(idRicetta, nomeRicetta);
@@ -76,7 +76,7 @@ public class JRicetta extends FrameVisibile{
 					Notifica.getIstanza().notificaEccezione(e);
 				}
 			}
-		});
+		});*/
 	}
 	
 	@Override

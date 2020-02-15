@@ -38,7 +38,7 @@ public class JCatalogo extends FrameVisibile{
 	}
 	
 	public static void esegui() {
-		/*EventQueue.invokeLater(() -> {
+		EventQueue.invokeLater(() -> {
 			try {
 				JCatalogo window = new JCatalogo();
 				window.frmCatalogoIngredienti.setVisible(true);
@@ -46,8 +46,8 @@ public class JCatalogo extends FrameVisibile{
 				Notifica.getIstanza().svuotaNotificheErrori();
 				Notifica.getIstanza().notificaEccezione(e);
 			}
-		});*/
-		EventQueue.invokeLater(new Runnable() {
+		});
+		/*EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					JCatalogo window = new JCatalogo();
@@ -57,7 +57,7 @@ public class JCatalogo extends FrameVisibile{
 					Notifica.getIstanza().notificaEccezione(e);
 				}
 			}
-		});
+		});*/
 	}
 	
 	@Override

@@ -39,16 +39,16 @@ public class JListaSpesa extends FrameVisibile{
 	}
 	
 	public static void esegui() {
-		/*EventQueue.invokeLater(() -> {
+		EventQueue.invokeLater(() -> {
 			try {
-				JCatalogo window = new JCatalogo();
-				window.frmCatalogoIngredienti.setVisible(true);
+				JListaSpesa window = new JListaSpesa();
+				window.frmListaSpesa.setVisible(true);
 			} catch (Exception e) {
 				Notifica.getIstanza().svuotaNotificheErrori();
 				Notifica.getIstanza().notificaEccezione(e);
 			}
-		});*/
-		EventQueue.invokeLater(new Runnable() {
+		});
+		/*EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					JListaSpesa window = new JListaSpesa();
@@ -58,7 +58,7 @@ public class JListaSpesa extends FrameVisibile{
 					Notifica.getIstanza().notificaEccezione(e);
 				}
 			}
-		});
+		});*/
 	}
 	
 	@Override

@@ -33,7 +33,7 @@ public class JRicettario extends FrameVisibile {
 	}
 	
 	public static void esegui() {
-		/*EventQueue.invokeLater(() -> {
+		EventQueue.invokeLater(() -> {
 			try {
 				JRicettario window = new JRicettario();
 				window.frmRicettario.setVisible(true);
@@ -41,9 +41,9 @@ public class JRicettario extends FrameVisibile {
 				Notifica.getIstanza().svuotaNotificheErrori();
 				Notifica.getIstanza().notificaEccezione(e);
 			}
-		});*/
+		});
 		
-		EventQueue.invokeLater(new Runnable() {
+		/*EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					JRicettario window = new JRicettario();
@@ -53,7 +53,7 @@ public class JRicettario extends FrameVisibile {
 					Notifica.getIstanza().notificaEccezione(e);
 				}
 			}
-		});
+		});*/
 	}
 	
 	@Override

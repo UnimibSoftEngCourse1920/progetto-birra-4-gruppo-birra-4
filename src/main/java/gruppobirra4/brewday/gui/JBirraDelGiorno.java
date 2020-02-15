@@ -26,17 +26,17 @@ public class JBirraDelGiorno extends FrameVisibile {
 	}
 	
 	public static void esegui() {
-		/*EventQueue.invokeLater(() -> {
+		EventQueue.invokeLater(() -> {
 			try {
-				JRicettario window = new JRicettario();
-				window.frmRicettario.setVisible(true);
+				JBirraDelGiorno window = new JBirraDelGiorno();
+				window.frmBirraDelGiorno.setVisible(true);
 			} catch (Exception e) {
 				Notifica.getIstanza().svuotaNotificheErrori();
 				Notifica.getIstanza().notificaEccezione(e);
 			}
-		});*/
+		});
 		
-		EventQueue.invokeLater(new Runnable() {
+		/*EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					JBirraDelGiorno window = new JBirraDelGiorno();
@@ -46,7 +46,7 @@ public class JBirraDelGiorno extends FrameVisibile {
 					Notifica.getIstanza().notificaEccezione(e);
 				}
 			}
-		});
+		});*/
 	}
 
 	@Override

@@ -27,17 +27,17 @@ public class JHome extends FrameVisibile {
 	}
 	
 	public static void esegui() {
-		/*EventQueue.invokeLater(() -> {
+		EventQueue.invokeLater(() -> {
 			try {
-				JRicettario window = new JRicettario();
-				window.frmRicettario.setVisible(true);
+				JHome window = new JHome();
+				window.frmHome.setVisible(true);
 			} catch (Exception e) {
 				Notifica.getIstanza().svuotaNotificheErrori();
 				Notifica.getIstanza().notificaEccezione(e);
 			}
-		});*/
+		});
 		
-		EventQueue.invokeLater(new Runnable() {
+		/*EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					JHome window = new JHome();
@@ -47,7 +47,7 @@ public class JHome extends FrameVisibile {
 					Notifica.getIstanza().notificaEccezione(e);
 				}
 			}
-		});
+		});*/
 	}
 	
 	@Override

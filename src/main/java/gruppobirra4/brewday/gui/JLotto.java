@@ -38,17 +38,17 @@ public class JLotto extends FrameVisibile{
 	}
 	
 	public static void esegui(Lotto lotto) {
-		/*EventQueue.invokeLater(() -> {
+		EventQueue.invokeLater(() -> {
 			try {
-				JRicetta window = new JRicetta(idRicetta, nomeRicetta);
-				window.frmRicetta.setVisible(true);
+				JLotto window = new JLotto(lotto);
+				window.frmLotto.setVisible(true);
 			} catch (Exception e) {
 				Notifica.getIstanza().svuotaNotificheErrori();
 				Notifica.getIstanza().notificaEccezione(e);
 			}
-		});*/
+		});
 		
-		EventQueue.invokeLater(new Runnable() {
+		/*EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					JLotto window = new JLotto(lotto);
@@ -58,7 +58,7 @@ public class JLotto extends FrameVisibile{
 					Notifica.getIstanza().notificaEccezione(e);
 				}
 			}
-		});
+		});*/
 	}
 
 	@Override
