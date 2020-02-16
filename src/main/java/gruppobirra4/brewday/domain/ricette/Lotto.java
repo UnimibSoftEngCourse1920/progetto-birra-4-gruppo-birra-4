@@ -10,6 +10,8 @@ import java.util.Locale;
 import java.util.TimeZone;
 import java.util.UUID;
 
+import gruppobirra4.brewday.errori.Notifica;
+
 
 public class Lotto implements Serializable {
 	
@@ -89,9 +91,17 @@ public class Lotto implements Serializable {
 	}	
 	
 	private static boolean validateQuantitaBirra(String quantitaBirra) {
-		return !isStringaVuota(quantitaBirra, CAMPO_QUANTITA_BIRRA) &&
+		boolean valid = !isStringaVuota(quantitaBirra, CAMPO_QUANTITA_BIRRA) &&
 				isNumber(quantitaBirra, CAMPO_QUANTITA_BIRRA) && 
 				isPositive(quantitaBirra, CAMPO_QUANTITA_BIRRA);
+		if(!valid) {
+			return false;
+		}
+		if(Double.doubleToLongBits(convertToNumber(quantitaBirra)) == Double.doubleToLongBits(0.0)) {
+			Notifica.getIstanza().addError("Il campo \"" + CAMPO_QUANTITA_BIRRA + "\" deve essere un numero maggiore di zero");	
+			return false;
+		}
+		return true;
 	}
 	
 	//Controlla che la quantita inserita sia valida

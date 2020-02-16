@@ -83,7 +83,7 @@ public class ListaLotti {
 	public Lotto creaLotto(String nomeRicetta, String quantitaBirra) {
 		Ricetta ricetta = getRicettaFromRicettario(nomeRicetta);
 		Lotto lotto = Lotto.creaLotto(quantitaBirra, ricetta);
-	
+		
 		if(lotto != null && aggiungiLotto(lotto)) {
 			aggiornaCatalogo(lotto.getRicetta().getIngredienti());
 			verificaIngredientiPerProssimaProduzione(lotto.getRicetta().getIngredienti());
